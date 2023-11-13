@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../widgets/button_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -81,24 +82,8 @@ class _MyHomePageState extends State<HomePage> {
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     const SizedBox(height: 30),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(50),
-                        backgroundColor: Colors.lightBlueAccent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: const BorderSide(color: Colors.lightBlueAccent),
-                        ),
-                      ),
-                      child: const Text(
-                        'REGISTRATE AQUÍ',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
+
+                    createButton(buttonText:'REGISTRATE AQUI'),
                     const SizedBox(height: 30),
                     RichText(
                       text: TextSpan(
