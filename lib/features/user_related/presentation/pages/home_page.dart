@@ -56,7 +56,7 @@ class _MyHomePageState extends State<HomePage> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        Colors.deepPurple,
+                        Color.fromARGB(255, 42, 25, 94),
                       ],
                       stops: [
                         0.0,
@@ -69,7 +69,8 @@ class _MyHomePageState extends State<HomePage> {
           ),
           Expanded(
             child: Container(
-              decoration: const BoxDecoration(color: Colors.deepPurple),
+              decoration:
+                  const BoxDecoration(color: Color.fromARGB(255, 42, 25, 94)),
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
               child: IntrinsicWidth(
                 child: Column(
