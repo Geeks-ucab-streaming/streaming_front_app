@@ -71,7 +71,11 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    createButton(buttonText: 'REGISTRATE AQUI'),
+                    createButton(
+                      actionToDo: () =>
+                          Navigator.pushNamed(context, '/inicio-sesion'),
+                      buttonText: 'REGISTRATE AQUI',
+                    ),
                     const SizedBox(height: 30),
                     RichText(
                       text: TextSpan(
@@ -80,9 +84,7 @@ class _LandingPageState extends State<LandingPage> {
                           GenericText(
                               text: ' Inicia sesión',
                               color: Colors.lightBlueAccent,
-                              onTap: () {
-                                Navigator.pushNamed(context, '/inicio-sesion');
-                              })
+                              onTap: () {})
                         ],
                       ),
                     ),

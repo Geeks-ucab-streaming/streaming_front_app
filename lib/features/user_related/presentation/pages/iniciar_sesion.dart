@@ -27,7 +27,8 @@ class _MyNewSesionState extends State<NewSesion> {
       body: Stack(
         children: [
           default_background(context),
-          SingleChildScrollView( // Añadido SingleChildScrollView aquí
+          SingleChildScrollView(
+            // Añadido SingleChildScrollView aquí
             child: Padding(
               padding: EdgeInsets.only(left: 20),
               child: Column(
@@ -35,7 +36,8 @@ class _MyNewSesionState extends State<NewSesion> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 180),
-                  const Text('Iniciar Sesión',
+                  const Text(
+                    'Iniciar Sesión',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -43,7 +45,8 @@ class _MyNewSesionState extends State<NewSesion> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  const Text('Numero de identificación',
+                  const Text(
+                    'Numero de identificación',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white,
@@ -53,12 +56,16 @@ class _MyNewSesionState extends State<NewSesion> {
                   CustomTextFormField(
                     hintText: 'Introduce tu numero de telefono',
                     controller: _controller,
-                    maxWidth: 350, 
+                    maxWidth: 350,
                   ),
                   const SizedBox(height: 30),
-                  createButton(buttonText: 'Iniciar Sesión', maxWidth: 350),       
-                  const SizedBox(height: 50),      
-                  const Text('Subscribete',
+                  createButton(
+                      actionToDo: () {},
+                      buttonText: 'Iniciar Sesión',
+                      maxWidth: 350),
+                  const SizedBox(height: 50),
+                  const Text(
+                    'Subscribete',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -66,13 +73,13 @@ class _MyNewSesionState extends State<NewSesion> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  const Text('Si no tienes cuenta suscribete con tu operadora',
+                  const Text(
+                    'Si no tienes cuenta suscribete con tu operadora',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white,
                     ),
                   ),
-                  
                 ],
               ),
             ),

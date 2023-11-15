@@ -3,13 +3,16 @@ export 'button_widget.dart';
 
 Widget createButton({
   required String buttonText,
+  required Function actionToDo,
   double? maxWidth, // Parámetro opcional para la longitud máxima
 }) {
   // Usar un ConstrainedBox para definir el ancho máximo
   return ConstrainedBox(
     constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
     child: ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        actionToDo();
+      },
       style: ElevatedButton.styleFrom(
         minimumSize: const Size.fromHeight(50),
         backgroundColor: Colors.lightBlueAccent,
