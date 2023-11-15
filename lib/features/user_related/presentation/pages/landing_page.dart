@@ -81,7 +81,7 @@ class _LandingPageState extends State<LandingPage> {
                               text: ' Inicia sesión',
                               color: Colors.lightBlueAccent,
                               onTap: () {
-                                print('Inicia Sesion"');
+                                Navigator.pushNamed(context, '/inicio-sesion');
                               })
                         ],
                       ),
