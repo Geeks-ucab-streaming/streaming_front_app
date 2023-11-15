@@ -14,7 +14,7 @@ class SubscribeCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          
+          //Falta llamar a la vista de suscribirse
         },
         child: Container(
           padding: const EdgeInsets.all(10.0),
