@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/features/user_related/presentation/pages/home_page.dart';
+import 'features/user_related/presentation/pages/landing_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      home: const LandingPage(),
     );
   }
 }
