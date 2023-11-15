@@ -1,6 +1,6 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../widgets/button_widget.dart';
+import '../widgets/generic_Text.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -76,37 +76,28 @@ class _MyHomePageState extends State<HomePage> {
               child: IntrinsicWidth(
                 child: Column(
                   children: [
-                    const Text(
-                      'Te brindamos la experiencia de estar en Aqustico 7 días gratis.',
+                    RichText(
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      text: GenericText(
+                        text:
+                            'Te brindamos la experiencia de estar en Aqustico 7 días gratis.',
+                        fontSize: 18,
+                        isBold: true,
+                      ),
                     ),
                     const SizedBox(height: 30),
-
-                    createButton(buttonText:'REGISTRATE AQUI'),
+                    createButton(buttonText: 'REGISTRATE AQUI'),
                     const SizedBox(height: 30),
                     RichText(
                       text: TextSpan(
-                        //style: defaultStyle,
                         children: <TextSpan>[
-                          const TextSpan(
-                            text: '¿Tienes una cuenta? ',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          TextSpan(
-                              text: 'Inicia sesión',
-                              style: const TextStyle(
-                                color: Colors.lightBlueAccent,
-                                fontSize: 16,
-                              ),
-                              //style: linkStyle,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Inicia Sesion"');
-                                }),
+                          GenericText(text: '¿Tienes una cuenta?'),
+                          GenericText(
+                              text: ' Inicia sesión',
+                              color: Colors.lightBlueAccent,
+                              onTap: () {
+                                print('Inicia Sesion"');
+                              })
                         ],
                       ),
                     ),
@@ -115,22 +106,13 @@ class _MyHomePageState extends State<HomePage> {
                       text: TextSpan(
                         //style: defaultStyle,
                         children: <TextSpan>[
-                          const TextSpan(
-                            text: 'O ingresa como ',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          TextSpan(
+                          GenericText(text: 'O ingresa como '),
+                          GenericText(
                               text: 'Invitado',
-                              style: const TextStyle(
-                                  color: Colors.lightBlueAccent, fontSize: 16),
-                              //style: linkStyle,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Invitado"');
-                                }),
+                              color: Colors.lightBlueAccent,
+                              onTap: () {
+                                print('Invitado"');
+                              }),
                         ],
                       ),
                     ),
