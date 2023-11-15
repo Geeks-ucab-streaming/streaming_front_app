@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streaming_front_app/config/routes/app_routes.dart';
 import 'features/user_related/presentation/pages/landing_page.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const LandingPage(),
+      routes: AppRoutes.getRoutes(context),
     );
   }
 }
