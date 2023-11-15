@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../widgets/button_widget.dart';
+import '../widgets/alert_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -82,8 +83,9 @@ class _MyHomePageState extends State<HomePage> {
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     const SizedBox(height: 30),
-
-                    createButton(buttonText:'REGISTRATE AQUI'),
+                    createButton(buttonText: 'REGISTRATE AQUI'),
+                    const SizedBox(height: 30),
+                    WarningMessage(message: 'datos invalidos'),
                     const SizedBox(height: 30),
                     RichText(
                       text: TextSpan(
