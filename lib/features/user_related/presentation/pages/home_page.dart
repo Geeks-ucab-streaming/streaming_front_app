@@ -76,63 +76,48 @@ class _MyHomePageState extends State<HomePage> {
               child: IntrinsicWidth(
                 child: Column(
                   children: [
-
                     RichText(
                       textAlign: TextAlign.center,
-                      text: GenericText (
-                        text: 'Te brindamos la experiencia de estar en Aqustico 7 días gratis.',
+                      text: GenericText(
+                        text:
+                            'Te brindamos la experiencia de estar en Aqustico 7 días gratis.',
                         fontSize: 18,
+                        isBold: true,
                       ),
                     ),
-
                     const SizedBox(height: 30),
-
-                    createButton(buttonText:'REGISTRATE AQUI'),
-
+                    createButton(buttonText: 'REGISTRATE AQUI'),
                     const SizedBox(height: 30),
-
                     RichText(
                       text: TextSpan(
-                        
                         children: <TextSpan>[
-
                           GenericText(text: '¿Tienes una cuenta?'),
-
                           GenericText(
-                            text: ' Inicia sesión',
-                            color: Colors.lightBlueAccent, 
-                            onTap: (){
-                              print('Inicia Sesion"');
-                            }
-                          )
+                              text: ' Inicia sesión',
+                              color: Colors.lightBlueAccent,
+                              onTap: () {
+                                print('Inicia Sesion"');
+                              })
                         ],
                       ),
                     ),
-
                     const SizedBox(height: 10),
-
                     RichText(
                       text: TextSpan(
                         //style: defaultStyle,
                         children: <TextSpan>[
-
                           GenericText(text: 'O ingresa como '),
-
                           GenericText(
-                            text: 'Invitado',
-                            color: Colors.lightBlueAccent,
-                            onTap: (){
-                              print('Invitado"');
-                            }
-                          ),                         
+                              text: 'Invitado',
+                              color: Colors.lightBlueAccent,
+                              onTap: () {
+                                print('Invitado"');
+                              }),
                         ],
                       ),
                     ),
-
                     const SizedBox(height: 50),
-
                     Image.network('https://picsum.photos/150'),
-
                   ],
                 ),
               ),

@@ -9,7 +9,7 @@ Widget default_background(BuildContext context) {
         // Primer degradado radial desde la esquina superior derecha
         Positioned.fill(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: RadialGradient(
                 center: Alignment.topRight,
                 radius: 1.5,
@@ -24,7 +24,7 @@ Widget default_background(BuildContext context) {
         // Segundo degradado radial desde la esquina inferior izquierda
         Positioned.fill(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: RadialGradient(
                 center: Alignment.bottomLeft,
                 radius: 1.5,

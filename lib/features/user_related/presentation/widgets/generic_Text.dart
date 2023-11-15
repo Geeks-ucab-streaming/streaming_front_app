@@ -7,12 +7,13 @@ class GenericText extends TextSpan {
     VoidCallback? onTap,
     Color? color,
     double? fontSize,
-    
+    bool isBold = false, 
   }) : super(
           text: text,
           style: TextStyle(
             color: color ?? Colors.white, // Valor por defecto si color es nulo
             fontSize: fontSize ?? 16,
+            fontWeight: isBold ? FontWeight.bold : FontWeight.normal, // Negritas si isBold es true
           ),
           recognizer: onTap != null ? (TapGestureRecognizer()..onTap = onTap) : null,
         );
