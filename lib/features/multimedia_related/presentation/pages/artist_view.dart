@@ -12,10 +12,9 @@ class ArtistView extends StatefulWidget {
 }
 
 class _ArtistViewState extends State<ArtistView> {
-
   List<CancionesModel> categories = [];
 
-  void _getInitialInfo(){
+  void _getInitialInfo() {
     categories = CancionesModel.getCanciones();
   }
 
@@ -45,11 +44,14 @@ class _ArtistViewState extends State<ArtistView> {
         ),
         gradient: LinearGradient(
           colors: [
-            Colors.white,
+            /*Colors.white,
             //Color.fromARGB(255, 42, 25, 94),
             Color.fromARGB(255, 13, 7, 27),
             Color.fromARGB(255, 42, 25, 94),
-            Color.fromARGB(255, 57, 25, 130),
+            Color.fromARGB(255, 57, 25, 130),*/
+            Color.fromARGB(255, 42, 25, 94),
+            Color.fromARGB(255, 13, 7, 27),
+            Color.fromARGB(255, 42, 25, 94),
           ],
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
@@ -61,7 +63,9 @@ class _ArtistViewState extends State<ArtistView> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            title: Text(widget.title),
+            leading: const BackButton(
+              color: Colors.white,
+            ),
           ),
           body: ListView(
             children: <Widget>[
@@ -97,35 +101,35 @@ class CancionesModel {
     categories.add(
       CancionesModel(
         name: 'Septic Shock',
-        imagePath: 'assets/portada1.png',
+        imagePath: 'assets/images/portada1.png',
       ),
     );
 
     categories.add(
       CancionesModel(
         name: 'Match Cut',
-        imagePath: 'assets/portada2.png',
+        imagePath: 'assets/images/portada2.png',
       ),
     );
 
     categories.add(
       CancionesModel(
-        name: 'post success depression',
-        imagePath: 'assets/portada3.png',
+        name: 'Post depression',
+        imagePath: 'assets/images/portada3.png',
       ),
     );
 
     categories.add(
       CancionesModel(
         name: 'Leak',
-        imagePath: 'assets/portada4.png',
+        imagePath: 'assets/images/portada4.png',
       ),
     );
 
     categories.add(
       CancionesModel(
         name: 'I lack an emotion',
-        imagePath: 'assets/portada5.png',
+        imagePath: 'assets/images/portada5.png',
       ),
     );
 
@@ -133,17 +137,17 @@ class CancionesModel {
   }
 }
 
-class ArtistCard extends StatelessWidget{
+class ArtistCard extends StatelessWidget {
   const ArtistCard({super.key});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(40.0, 10.0, 20.0, 0.0),
-          width: MediaQuery.of(context).size.width*0.4,
-          height: MediaQuery.of(context).size.width*0.4,
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.width * 0.4,
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               boxShadow: [
@@ -155,15 +159,15 @@ class ArtistCard extends StatelessWidget{
                 ),
               ],
               image: DecorationImage(
-                image: AssetImage('assets/thisisc418.png'),
+                image: AssetImage('assets/images/thisisc418.png'),
                 fit: BoxFit.fill,
-              )
-          ),
+              )),
         ),
         const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('C418',
+            Text(
+              'C418',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -171,7 +175,8 @@ class ArtistCard extends StatelessWidget{
                 color: Colors.white,
               ),
             ),
-            Text('Electrónica',
+            Text(
+              'Electrónica',
               textAlign: TextAlign.right,
               style: TextStyle(
                 fontSize: 18,
@@ -181,14 +186,16 @@ class ArtistCard extends StatelessWidget{
             SizedBox(
               height: 20,
             ),
-            Text('5 álbumes',
+            Text(
+              '5 álbumes',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.white,
               ),
             ),
-            Text('Burda de canciones',
+            Text(
+              'Burda de canciones',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 15,
@@ -200,26 +207,23 @@ class ArtistCard extends StatelessWidget{
       ],
     );
   }
-
 }
 
-CarouselSlider myCarousel (CarouselOptions myOptions){
+CarouselSlider myCarousel(CarouselOptions myOptions) {
   return CarouselSlider(
     options: myOptions,
-    items: [1,2,3,4,5].map((i) {
+    items: [1, 2, 3, 4, 5].map((i) {
       return Builder(
         builder: (BuildContext context) {
           return Container(
             width: 200.0,
             margin: const EdgeInsets.symmetric(horizontal: 5.0),
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius
-                    .all(Radius.circular(10.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 image: DecorationImage(
-                  image: AssetImage('assets/portada${i}.png'),
+                  image: AssetImage('assets/images/portada${i}.png'),
                   fit: BoxFit.fill,
-                )
-            ),
+                )),
           );
         },
       );
@@ -227,15 +231,16 @@ CarouselSlider myCarousel (CarouselOptions myOptions){
   );
 }
 
-Container SongList(List<CancionesModel> categories){
+Container SongList(List<CancionesModel> categories) {
   return Container(
     width: 400.0,
     height: 300.0,
     child: ListView.separated(
-      separatorBuilder: (context, index) => const SizedBox(height: 10.0,),
-
+      separatorBuilder: (context, index) => const SizedBox(
+        height: 10.0,
+      ),
       itemCount: categories.length,
-      itemBuilder: (context, index){
+      itemBuilder: (context, index) {
         return Container(
           height: 75.0,
           margin: EdgeInsets.symmetric(horizontal: 20.0),
@@ -255,52 +260,50 @@ Container SongList(List<CancionesModel> categories){
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Container(
+                  width: 75.0,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(categories[index].imagePath),
+                    ),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
+                SizedBox(
+                  width: 15.0,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 75.0,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(categories[index].imagePath),
-                        ),
-                        borderRadius: BorderRadius.circular(15.0),
+                    Text(
+                      categories[index].name,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(
-                      width: 15.0,
+                    Text(
+                      'C418',
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          categories[index].name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          'C418',
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
-                    ),
-                  ]
-              ),
+                  ],
+                ),
+              ]),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('3:00',
+                  Text(
+                    '3:00',
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 15.0,
@@ -311,7 +314,7 @@ Container SongList(List<CancionesModel> categories){
                   IconButton(
                     icon: const Icon(Icons.play_arrow),
                     color: Colors.cyanAccent,
-                    onPressed: (){},
+                    onPressed: () {},
                   ),
                 ],
               ),
