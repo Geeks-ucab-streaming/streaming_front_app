@@ -98,7 +98,7 @@ class _LandingPageState extends State<LandingPage> {
                               text: 'Invitado',
                               color: Colors.lightBlueAccent,
                               onTap: () {
-                                print('Invitado"');
+                                Navigator.pushNamed(context, '/home');
                               }),
                         ],
                       ),
