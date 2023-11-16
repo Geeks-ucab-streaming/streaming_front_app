@@ -1,30 +1,15 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../widgets/button_widget.dart';
+import '../widgets/generic_Text.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class LandingPage extends StatefulWidget {
+  const LandingPage({super.key});
 
   @override
-  State<HomePage> createState() => _MyHomePageState();
+  State<LandingPage> createState() => _LandingPageState();
 }
 
-class _MyHomePageState extends State<HomePage> {
-  void _incrementCounter() {
-    setState(() {});
-  }
-
+class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -76,37 +61,28 @@ class _MyHomePageState extends State<HomePage> {
               child: IntrinsicWidth(
                 child: Column(
                   children: [
-                    const Text(
-                      'Te brindamos la experiencia de estar en Aqustico 7 días gratis.',
+                    RichText(
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      text: GenericText(
+                        text:
+                            'Te brindamos la experiencia de estar en Aqustico 7 días gratis.',
+                        fontSize: 18,
+                        isBold: true,
+                      ),
                     ),
                     const SizedBox(height: 30),
-
-                    createButton(buttonText:'REGISTRATE AQUI'),
+                    createButton(buttonText: 'REGISTRATE AQUI'),
                     const SizedBox(height: 30),
                     RichText(
                       text: TextSpan(
-                        //style: defaultStyle,
                         children: <TextSpan>[
-                          const TextSpan(
-                            text: '¿Tienes una cuenta? ',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          TextSpan(
-                              text: 'Inicia sesión',
-                              style: const TextStyle(
-                                color: Colors.lightBlueAccent,
-                                fontSize: 16,
-                              ),
-                              //style: linkStyle,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Inicia Sesion"');
-                                }),
+                          GenericText(text: '¿Tienes una cuenta?'),
+                          GenericText(
+                              text: ' Inicia sesión',
+                              color: Colors.lightBlueAccent,
+                              onTap: () {
+                                Navigator.pushNamed(context, '/inicio-sesion');
+                              })
                         ],
                       ),
                     ),
@@ -115,22 +91,13 @@ class _MyHomePageState extends State<HomePage> {
                       text: TextSpan(
                         //style: defaultStyle,
                         children: <TextSpan>[
-                          const TextSpan(
-                            text: 'O ingresa como ',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          TextSpan(
+                          GenericText(text: 'O ingresa como '),
+                          GenericText(
                               text: 'Invitado',
-                              style: const TextStyle(
-                                  color: Colors.lightBlueAccent, fontSize: 16),
-                              //style: linkStyle,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Invitado"');
-                                }),
+                              color: Colors.lightBlueAccent,
+                              onTap: () {
+                                print('Invitado"');
+                              }),
                         ],
                       ),
                     ),
