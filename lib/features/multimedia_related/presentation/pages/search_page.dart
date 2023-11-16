@@ -21,6 +21,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -39,21 +40,16 @@ class _SearchPageState extends State<SearchPage> {
               child: AppBar(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
+                leading: const BackButton(
+                  color: Colors.white,
+                ),
                 title: const Text(
                   'Buscar artista o tema ',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                  ),
-                ),
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    // Add your logic here to handle the back button press
-                  },
                 ),
               ),
             ),

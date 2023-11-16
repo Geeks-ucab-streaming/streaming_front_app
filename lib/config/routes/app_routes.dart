@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../features/multimedia_related/presentation/pages/search_page.dart';
 import '../../features/multimedia_related/presentation/pages/artist_view.dart';
 import '../../features/multimedia_related/presentation/pages/home_page.dart';
 import '../../features/user_related/presentation/pages/iniciar_sesion.dart';
@@ -17,6 +18,7 @@ class AppRoutes {
       '/perfil': (context) => const ProfilePage(),
       '/home': (context) => const HomePage(),
       '/artist': (context) => const ArtistView(title: 'Artist'),
+      '/search': (context) => const SearchPage(),
     };
   }
 }

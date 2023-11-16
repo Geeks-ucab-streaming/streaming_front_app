@@ -116,7 +116,9 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                         icon: const Icon(Icons.search),
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/search');
+                        },
                       ),
                       PopupMenuButton<int>(
                         onSelected: (item) => handleClick(item, context),
