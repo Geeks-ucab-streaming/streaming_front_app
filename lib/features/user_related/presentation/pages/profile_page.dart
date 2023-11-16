@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../widgets/button_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -57,6 +56,9 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          leading: const BackButton(
+            color: Colors.white,
+          ),
           actions: [
             IconButton(
               icon: const Icon(Icons.more_vert),
@@ -277,7 +279,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               if (_edit)
                 Container(
-                  margin: EdgeInsets.only(top: 40),
+                  margin: const EdgeInsets.only(top: 40),
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(

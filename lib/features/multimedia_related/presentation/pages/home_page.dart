@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/features/multimedia_related/domain/entities/track.dart';
-import 'package:streaming_front_app/features/multimedia_related/presentation/widgets/artist_cover_widget.dart';
-import 'package:streaming_front_app/features/multimedia_related/presentation/widgets/complex_track_list_element.dart';
-import 'package:streaming_front_app/features/multimedia_related/presentation/widgets/player_bar_widget.dart';
-import 'package:streaming_front_app/features/user_related/presentation/widgets/default_background.dart';
+
+import '../../../user_related/presentation/widgets/default_background.dart';
+import '../../domain/entities/track.dart';
+import '../widgets/artist_cover_widget.dart';
+import '../widgets/complex_track_list_element.dart';
+import '../widgets/player_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -74,6 +75,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void handleClick(int item, BuildContext context) {
+    switch (item) {
+      case 0:
+        Navigator.pushNamed(context, '/perfil');
+        break;
+      case 1:
+        break;
+      case 2:
+        Navigator.pop(context);
+        Navigator.pushNamed(context, '/landing');
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,25 +104,37 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   AppBar(
                     backgroundColor: Colors.transparent,
+                    leading: const BackButton(
+                      color: Colors.white,
+                    ),
                     actions: [
                       IconButton(
                         icon: const Icon(Icons.search),
                         color: Colors.white,
-                        onPressed: () {
-                          setState(() {});
-                        },
+                        onPressed: () {},
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.more_vert),
-                        color: Colors.white,
-                        onPressed: () {
-                          setState(() {});
-                        },
+                      PopupMenuButton<int>(
+                        onSelected: (item) => handleClick(item, context),
+                        child: const Padding(
+                          padding: EdgeInsets.only(right: 20),
+                          child: Icon(
+                            Icons.more_vert,
+                            color: Colors.white,
+                          ),
+                        ),
+                        itemBuilder: (context) => [
+                          const PopupMenuItem<int>(
+                              value: 0, child: Text('Perfil')),
+                          const PopupMenuItem<int>(
+                              value: 1, child: Text('Términos y condiciones')),
+                          const PopupMenuItem<int>(
+                              value: 2, child: Text('Cerrar Sesión')),
+                        ],
                       ),
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.network(
@@ -152,29 +179,33 @@ class _HomePageState extends State<HomePage> {
                   nameRow('Aqustico Experience'),
                   nameRow('Artistas Trending'),
                   Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       height: 150,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
                           for (var element in artists.entries)
-                            Container(
-                              height: 150,
-                              child: ArtistCoverWidget(
-                                artistImage: AssetImage(element.value),
-                                artistName: element.key,
+                            InkWell(
+                              onTap: () =>
+                                  Navigator.pushNamed(context, '/artist'),
+                              child: Container(
+                                height: 150,
+                                child: ArtistCoverWidget(
+                                  artistImage: AssetImage(element.value),
+                                  artistName: element.key,
+                                ),
                               ),
                             )
                         ],
                       )),
                   nameRow('Tracklist'),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
                         for (var element in songs)
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 5),
+                            margin: const EdgeInsets.symmetric(vertical: 5),
                             height: 70,
                             child: TrackListElement2(element),
                           )
