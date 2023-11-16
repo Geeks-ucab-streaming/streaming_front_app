@@ -243,11 +243,11 @@ Container SongList(List<CancionesModel> categories) {
       itemBuilder: (context, index) {
         return Container(
           height: 75.0,
-          margin: EdgeInsets.symmetric(horizontal: 20.0),
+          margin: const EdgeInsets.symmetric(horizontal: 20.0),
           decoration: BoxDecoration(
             color: const Color.fromARGB(25, 255, 255, 255),
             borderRadius: BorderRadius.circular(15.0),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black45,
                 blurRadius: 10,
@@ -270,7 +270,7 @@ Container SongList(List<CancionesModel> categories) {
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15.0,
                 ),
                 Column(
@@ -287,9 +287,9 @@ Container SongList(List<CancionesModel> categories) {
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
+                    const Text(
                       'C418',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15.0,
                         fontWeight: FontWeight.bold,
@@ -302,9 +302,9 @@ Container SongList(List<CancionesModel> categories) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
+                  const Text(
                     '3:00',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.grey,
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../user_related/presentation/widgets/default_background.dart';
@@ -177,6 +178,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   nameRow('Aqustico Experience'),
+                  Container(
+                    child: myCarousel(),
+                  ),
                   nameRow('Artistas Trending'),
                   Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -225,4 +229,36 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+CarouselSlider myCarousel() {
+  CarouselOptions myOptions = CarouselOptions(
+    height: 200.0,
+    aspectRatio: 1,
+    enableInfiniteScroll: true,
+    reverse: false,
+    enlargeCenterPage: true,
+    enlargeFactor: 0.3,
+    viewportFraction: 0.5,
+  );
+
+  return CarouselSlider(
+    options: myOptions,
+    items: [1, 2, 3, 4, 5].map((i) {
+      return Builder(
+        builder: (BuildContext context) {
+          return Container(
+            width: 200.0,
+            margin: const EdgeInsets.symmetric(horizontal: 5.0),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                image: DecorationImage(
+                  image: AssetImage('assets/images/portada${i}.png'),
+                  fit: BoxFit.fill,
+                )),
+          );
+        },
+      );
+    }).toList(),
+  );
 }
