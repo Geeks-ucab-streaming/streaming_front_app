@@ -12,6 +12,7 @@ class ArtistCoverWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100.0),
       ),
+      color: Colors.transparent,
       child: Column(
         children: [
           ClipOval(
@@ -29,6 +30,7 @@ class ArtistCoverWidget extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),

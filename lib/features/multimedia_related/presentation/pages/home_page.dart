@@ -14,14 +14,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<String> playlists = [
-    'Tradicional  ` venezolana',
+    'Tradicional venezolana',
     'Pop Latino',
     'Alternativo',
     'Urbana',
   ];
 
   Map<String, String> artists = {
-    'Artist 1': 'images/image.jpg',
+    'Artist 1': 'assets/images/image.jpg',
     'Artist 2': 'assets/images/image.jpg',
     'Artist 3': 'assets/images/image.jpg',
     'Artist 4': 'assets/images/image.jpg',
@@ -43,30 +43,34 @@ class _HomePageState extends State<HomePage> {
   ];
 
   Widget nameRow(String rowName) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 10,
-          child: Text(
-            rowName,
-            style: const TextStyle(
-              fontSize: 20,
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 10,
+            child: Text(
+              rowName,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: IconButton(
+              icon: const Icon(
+                Icons.keyboard_arrow_right,
+                size: 30,
+              ),
               color: Colors.white,
+              onPressed: () {},
             ),
           ),
-        ),
-        Expanded(
-          flex: 1,
-          child: IconButton(
-            icon: const Icon(
-              Icons.keyboard_arrow_right,
-              size: 30,
-            ),
-            color: Colors.white,
-            onPressed: () {},
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -78,100 +82,111 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           children: [
             default_background(context),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppBar(
-                      backgroundColor: Colors.transparent,
-                      actions: [
-                        IconButton(
-                          icon: const Icon(Icons.more_vert),
-                          color: Colors.white,
-                          onPressed: () {
-                            setState(() {});
-                          },
-                        ),
-                      ],
-                    ),
-                    ClipRRect(
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppBar(
+                    backgroundColor: Colors.transparent,
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        color: Colors.white,
+                        onPressed: () {
+                          setState(() {});
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.more_vert),
+                        color: Colors.white,
+                        onPressed: () {
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.network(
                         'https://picsum.photos/400/300',
                         width: MediaQuery.of(context).size.width,
                       ),
                     ),
-                    const SizedBox(height: 25),
-                    nameRow('Playlist'),
-                    GridView.count(
+                  ),
+                  nameRow('Playlist'),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    margin: const EdgeInsets.all(0),
+                    child: GridView.count(
+                      padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       crossAxisCount: 2,
+                      childAspectRatio: 1.8,
                       children: [
                         for (var element in playlists)
-                          Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: Image.network(
-                                  'https://picsum.photos/200/200',
-                                  fit: BoxFit.fill,
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              color: Colors.blue,
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              child: Text(
+                                element,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  element,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ), // your child widget here
                           )
                       ],
                     ),
-                    nameRow('Aqustico Experience'),
-                    nameRow('Artistas Trending'),
-                    Container(
-                        height: 150,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            for (var element in artists.entries)
-                              Container(
-                                height: 150,
-                                child: ArtistCoverWidget(
-                                  artistImage: AssetImage(element.value),
-                                  artistName: element.key,
-                                ),
-                              )
-                          ],
-                        )),
-                    nameRow('Tracklist'),
-                    Container(
-                      child: Column(
+                  ),
+                  nameRow('Aqustico Experience'),
+                  nameRow('Artistas Trending'),
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      height: 150,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
                         children: [
-                          for (var element in songs)
+                          for (var element in artists.entries)
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 5),
-                              height: 60,
-                              child: TrackListElement2(element),
+                              height: 150,
+                              child: ArtistCoverWidget(
+                                artistImage: AssetImage(element.value),
+                                artistName: element.key,
+                              ),
                             )
                         ],
-                      ),
+                      )),
+                  nameRow('Tracklist'),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        for (var element in songs)
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 5),
+                            height: 70,
+                            child: TrackListElement2(element),
+                          )
+                      ],
                     ),
-                    PlayerBar(
-                      songName: 'Song 1',
-                      artistName: 'Artist 1',
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 25),
+                  PlayerBar(
+                    songName: 'Song 1',
+                    artistName: 'Artist 1',
+                  ),
+                ],
               ),
             ),
           ],
