@@ -12,7 +12,7 @@ class AdvertisementModel extends AdvertisementEntity {
     List<int> bufferInt = bufferDynamic.map((e) => e as int).toList();
 
     return AdvertisementModel(
-      id: json['id'] as String ?? "",
+      id: json['id'] as String, //?? "",
       image: bufferInt,
     );
   }
