@@ -23,10 +23,10 @@ class _HomePageState extends State<HomePage> {
   ];
 
   Map<String, String> artists = {
-    'Artist 1': 'assets/images/image.jpg',
-    'Artist 2': 'assets/images/image.jpg',
-    'Artist 3': 'assets/images/image.jpg',
-    'Artist 4': 'assets/images/image.jpg',
+    'Beatles': 'assets/images/artist1.jpg',
+    'Metallica': 'assets/images/artist2.png',
+    'New Jean': 'assets/images/artist3.jpg',
+    'Twice': 'assets/images/artist4.jpg',
   };
 
   List<Track> songs = [
@@ -46,8 +46,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget nameRow(String rowName) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      margin: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
           Expanded(
@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  PlayerBar(
+                  const PlayerBar(
                     songName: 'Song 1',
                     artistName: 'Artist 1',
                   ),

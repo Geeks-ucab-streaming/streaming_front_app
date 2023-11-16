@@ -60,7 +60,9 @@ class _MyNewSesionState extends State<NewSesion> {
                   ),
                   const SizedBox(height: 30),
                   createButton(
-                      actionToDo: () {},
+                      actionToDo: () {
+                        Navigator.pushNamed(context, '/home');
+                      },
                       buttonText: 'Iniciar Sesión',
                       maxWidth: 350),
                   const SizedBox(height: 50),

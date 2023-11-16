@@ -35,7 +35,7 @@ class _ArtistViewState extends State<ArtistView> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           alignment: Alignment.topCenter,
-          image: AssetImage('assets/thisisc418.png'),
+          image: AssetImage('assets/images/thisisc418.png'),
           fit: BoxFit.fitWidth,
           colorFilter: ColorFilter.mode(
             Colors.black45,
