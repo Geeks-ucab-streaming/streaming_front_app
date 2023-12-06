@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../features/user_related/presentation/pages/login_page.dart';
 import '../../features/multimedia_related/presentation/pages/search_page.dart';
 import '../../features/multimedia_related/presentation/pages/artist_view.dart';
 import '../../features/multimedia_related/presentation/pages/home_page.dart';
@@ -15,6 +16,7 @@ class AppRoutes {
     return {
       '/landing': (context) => const LandingPage(),
       '/inicio-sesion': (context) => const NewSesion(title: 'Inicio sesion'),
+      '/login': (context) => const LoginPage(),
       '/perfil': (context) => const ProfilePage(),
       '/home': (context) => const HomePage(),
       '/artist': (context) => const ArtistView(title: 'Artist'),

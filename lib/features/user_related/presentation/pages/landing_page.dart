@@ -84,7 +84,9 @@ class _LandingPageState extends State<LandingPage> {
                           GenericText(
                               text: ' Inicia sesión',
                               color: Colors.lightBlueAccent,
-                              onTap: () {})
+                              onTap: () {
+                                Navigator.pushNamed(context, '/login');
+                              })
                         ],
                       ),
                     ),
