@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/config/routes/app_routes.dart';
-import 'features/user_related/presentation/pages/landing_page.dart';
+
+import 'presentation/pages/user_related/landing_page.dart';
+import 'presentation/routes/app_routes.dart';
 
 void main() {
   runApp(const MyApp());

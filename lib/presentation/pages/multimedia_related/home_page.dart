@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/core/util/launch_url.dart';
 
-import '../../../user_related/presentation/widgets/default_background.dart';
-import '../../domain/entities/track.dart';
-import '../widgets/artist_cover_widget.dart';
-import '../widgets/complex_track_list_element.dart';
-import '../widgets/player_bar_widget.dart';
+import '../../../infrastructure/core/util/launch_url.dart';
+import '../core/widgets/default_background.dart';
+import '../../../domain/multimedia_related/track.dart';
+import 'widgets/artist_cover_widget.dart';
+import 'widgets/complex_track_list_element.dart';
+import 'widgets/player_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

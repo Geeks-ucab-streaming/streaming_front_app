@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../features/user_related/presentation/pages/login_page.dart';
-import '../../features/multimedia_related/presentation/pages/search_page.dart';
-import '../../features/multimedia_related/presentation/pages/artist_view.dart';
-import '../../features/multimedia_related/presentation/pages/home_page.dart';
-import '../../features/user_related/presentation/pages/iniciar_sesion.dart';
-import '../../features/user_related/presentation/pages/landing_page.dart';
-import '../../features/user_related/presentation/pages/profile_page.dart';
+import '../pages/multimedia_related/artist_view.dart';
+import '../pages/multimedia_related/home_page.dart';
+import '../pages/multimedia_related/search_page.dart';
+import '../pages/user_related/iniciar_sesion.dart';
+import '../pages/user_related/landing_page.dart';
+import '../pages/user_related/login_page.dart';
+import '../pages/user_related/profile_page.dart';
 
 class AppRoutes {
   AppRoutes();

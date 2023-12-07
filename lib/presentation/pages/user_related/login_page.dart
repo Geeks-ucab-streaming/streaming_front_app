@@ -1,9 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/features/user_related/presentation/widgets/button_widget.dart';
-import 'package:streaming_front_app/features/user_related/presentation/widgets/default_background.dart';
-import 'package:streaming_front_app/features/user_related/presentation/widgets/generic_Text.dart';
-import 'package:streaming_front_app/features/user_related/presentation/widgets/generic_TextFormField.dart';
+
+import '../core/widgets/button_widget.dart';
+import '../core/widgets/default_background.dart';
+import '../core/widgets/generic_Text.dart';
+import '../core/widgets/generic_TextFormField.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

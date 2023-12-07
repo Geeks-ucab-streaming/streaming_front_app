@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/features/multimedia_related/domain/entities/track.dart';
+import 'package:streaming_front_app/domain/multimedia_related/track.dart';
 
 class TrackListElement2 extends StatelessWidget {
   const TrackListElement2(this.trackToDisplay, {super.key});
