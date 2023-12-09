@@ -1,5 +1,16 @@
-class AdvertisementEntity {
-  const AdvertisementEntity({
+class Advertisement {
+  const Advertisement(
+    this.id,
+    this.image,
+  );
+
+  final String? id;
+  final List<int>? image;
+
+  // This cannot go here, because it contaminants the domain
+  /*
+  // constructor that serves
+  const Advertisement({
     String? id,
     List<int>? image,
   });
@@ -13,5 +24,5 @@ class AdvertisementEntity {
       id: json['id'] as String, //?? "",
       image: bufferInt,
     );
-  }
+  }*/
 }
