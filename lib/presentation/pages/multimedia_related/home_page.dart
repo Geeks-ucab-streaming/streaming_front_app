@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/player_test.dart';
 
 import '../../../infrastructure/core/util/launch_url.dart';
 import '../core/widgets/default_background.dart';
@@ -225,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  const PlayerBar(
+                  const PlayerBar1(
                     songName: 'Song 1',
                     artistName: 'Artist 1',
                   ),
