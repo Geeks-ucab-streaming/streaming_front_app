@@ -32,12 +32,14 @@ class _HomePageState extends State<HomePage> {
 
   List<Track> songs = [
     Track(
+      '1',
       'Track 1',
       'Artist 1',
       'https://picsum.photos/50/50',
       3.00,
     ),
     Track(
+      '2',
       'Track 2',
       'Artist 2',
       'https://picsum.photos/50/50',

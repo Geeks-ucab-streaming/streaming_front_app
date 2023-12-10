@@ -1,13 +1,19 @@
+import 'Artist.dart';
+
 class Track {
-  const Track(
+  Track(
+    this.id,
     this.name,
     this.compositor,
     this.imageURL,
-    this.duration,
-  );
+    this.duration, {
+    this.artist,
+  });
 
+  final String id;
   final String name;
   final String compositor;
   final String imageURL;
   final double duration;
+  Artist? artist;
 }
