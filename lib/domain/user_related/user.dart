@@ -1,3 +1,4 @@
+import 'email_address.dart';
 import 'phone_number.dart';
 import 'subscription.dart';
 
@@ -15,6 +16,6 @@ class User {
   final String name;
   final String password;
   final PhoneNumber cellphoneNumber;
-  final String email;
+  final EmailAddress email;
   final Subscription subscription;
 }
