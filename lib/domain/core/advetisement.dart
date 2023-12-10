@@ -1,3 +1,5 @@
+import 'image.dart';
+
 class Advertisement {
   const Advertisement(
     this.id,
@@ -5,7 +7,7 @@ class Advertisement {
   );
 
   final String id;
-  final List<int> image;
+  final Image image;
 
   // This cannot go here, because it contaminants the domain
   /*
