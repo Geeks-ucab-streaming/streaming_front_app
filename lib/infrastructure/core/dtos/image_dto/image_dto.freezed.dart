@@ -106,9 +106,10 @@ class __$$ImageDtoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ImageDtoImpl with DiagnosticableTreeMixin implements _ImageDto {
+class _$ImageDtoImpl extends _ImageDto with DiagnosticableTreeMixin {
   const _$ImageDtoImpl({required this.id, required final List<dynamic> image})
-      : _image = image;
+      : _image = image,
+        super._();
 
   factory _$ImageDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ImageDtoImplFromJson(json);
@@ -165,10 +166,11 @@ class _$ImageDtoImpl with DiagnosticableTreeMixin implements _ImageDto {
   }
 }
 
-abstract class _ImageDto implements ImageDto {
+abstract class _ImageDto extends ImageDto {
   const factory _ImageDto(
       {required final String id,
       required final List<dynamic> image}) = _$ImageDtoImpl;
+  const _ImageDto._() : super._();
 
   factory _ImageDto.fromJson(Map<String, dynamic> json) =
       _$ImageDtoImpl.fromJson;
