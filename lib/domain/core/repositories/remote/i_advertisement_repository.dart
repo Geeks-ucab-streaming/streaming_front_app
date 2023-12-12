@@ -1,5 +1,8 @@
+import 'package:dartz/dartz.dart';
+
 import '../../advetisement.dart';
+import '../../repository_error.dart';
 
 abstract class IAdvertisementRepository {
-  Advertisement getRandomAdvertisement();
+  Future<Either<RepositoryError, Advertisement>> getRandomAdvertisement();
 }
