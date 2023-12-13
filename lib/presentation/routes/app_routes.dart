@@ -18,7 +18,7 @@ class AppRoutes {
       '/inicio-sesion': (context) => const NewSesion(title: 'Inicio sesion'),
       '/login': (context) => const LoginPage(),
       '/perfil': (context) => const ProfilePage(),
-      '/home': (context) => const HomePage(),
+      '/home': (context) => HomePage(),
       '/artist': (context) => const ArtistView(title: 'Artist'),
       '/search': (context) => const SearchPage(),
     };

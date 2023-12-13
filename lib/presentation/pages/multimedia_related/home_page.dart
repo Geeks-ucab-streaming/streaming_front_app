@@ -1,5 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:streaming_front_app/presentation/providers/providers.dart';
 
 import '../../../infrastructure/core/util/launch_url.dart';
 import '../core/widgets/default_background.dart';
@@ -8,29 +12,24 @@ import 'widgets/artist_cover_widget.dart';
 import 'widgets/complex_track_list_element.dart';
 import 'widgets/player_bar_widget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends ConsumerWidget {
+  HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  List<String> playlists = [
+  final List<String> playlists = [
     'Tradicional venezolana',
     'Pop Latino',
     'Alternativo',
     'Urbana',
   ];
 
-  Map<String, String> artists = {
+  final Map<String, String> artists = {
     'Beatles': 'assets/images/artist1.jpg',
     'Metallica': 'assets/images/artist2.png',
     'New Jean': 'assets/images/artist3.jpg',
     'Twice': 'assets/images/artist4.jpg',
   };
 
-  List<Track> songs = [
+  final List<Track> songs = [
     Track(
       '1',
       'Track 1',
@@ -97,7 +96,62 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // provider to listen
+    final advertisement = ref.watch(getRandomAdvertisementProvider);
+    const BoxDecoration boxDecoration = BoxDecoration(
+      color: Colors.deepPurple,
+    );
+    final advertisementWidget = Padding(
+      padding: const EdgeInsets.all(20),
+      child: switch (advertisement) {
+        AsyncData(:final value) => ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                image: DecorationImage(
+                  image: Image.memory(
+                    Uint8List.fromList(
+                        value.fold((l) => [], (r) => r.image.image)),
+                    width: 250,
+                    height: 250,
+                    fit: BoxFit.contain,
+                  ).image,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              height: 300,
+            ),
+          ),
+        AsyncError(:final error) => Container(
+            decoration: boxDecoration,
+            height: 400,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: EdgeInsets.all(
+                MediaQuery.of(context).size.width / 4,
+              ),
+              child: const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            ),
+          ),
+        _ => Container(
+            decoration: boxDecoration,
+            height: 400,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: EdgeInsets.all(
+                MediaQuery.of(context).size.width / 4,
+              ),
+              child: const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
+            ),
+          ),
+      },
+    );
+
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -142,16 +196,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.network(
-                        'https://picsum.photos/400/300',
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                    ),
-                  ),
+                  advertisementWidget,
                   nameRow('Playlist'),
                   Container(
                     padding:
