@@ -1,23 +1,34 @@
+import 'dart:typed_data';
+
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:streaming_front_app/domain/core/advetisement.dart';
+import 'package:streaming_front_app/domain/core/repository_error.dart';
 import '../core/widgets/button_widget.dart';
 import '../core/widgets/generic_Text.dart';
+// Providers
+import '../../providers/services/advertisement/get_random_advertisement.dart';
 
-class LandingPage extends StatefulWidget {
+class LandingPage extends ConsumerWidget {
   const LandingPage({super.key});
 
   @override
-  State<LandingPage> createState() => _LandingPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // provider to listen
+    final advertisement = ref.watch(getRandomAdvertisementProvider);
+    final advertisementImage = switch (advertisement) {
+      AsyncData(:final value) => Image.memory(
+          Uint8List.fromList(value.fold((l) => [], (r) => r.image.image)),
+          width: 250,
+          height: 250,
+          fit: BoxFit.contain,
+        ).image,
+      AsyncError(:final error) =>
+        Image.network('https://picsum.photos/200/300').image,
+      _ => Image.network('https://picsum.photos/200/300').image,
+    };
 
-class _LandingPageState extends State<LandingPage> {
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -28,7 +39,7 @@ class _LandingPageState extends State<LandingPage> {
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                    image: Image.network('https://picsum.photos/200/300').image,
+                    image: advertisementImage,
                     fit: BoxFit.fill,
                   ),
                 ),

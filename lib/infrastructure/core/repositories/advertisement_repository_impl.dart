@@ -32,9 +32,12 @@ class AdvertisementRepositoryImpl extends IAdvertisementRepository {
     try {
       // make the request
       final response = await dio.get('$baseUrl/promotion/random');
+      logger.i('Hi this is the element:');
+      logger.i(response.data.toString());
       // transforming the request to DTO
       final AdvertisementDto advertisementDto =
           AdvertisementDto.fromJson(response.data);
+      logger.i(advertisementDto.toString());
       // return element created by the factory from de DTO
       return Right(
         advertisementFactory.reconstituteAdvertisementFrom(advertisementDto),
@@ -43,14 +46,16 @@ class AdvertisementRepositoryImpl extends IAdvertisementRepository {
       // the request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (error.response != null) {
-        logger.e(error.toString());
+        logger.i('Oh no an error ocurred');
+        logger.e(error.response.toString());
         return Left(
           repositoryErrorFactory.createRepositoryError(
               'Error on advertisement repository that falls out of the range of 2xx and is also not 304'),
         );
       } else {
         // something happened in setting up or sending the request that triggered an Error
-        logger.e(error.toString());
+        logger.i('Oh no an error ocurred');
+        logger.e(error.message.toString());
         return Left(
           repositoryErrorFactory.createRepositoryError(
               'Error on advertisement repository that falls out of the range of 2xx and is also not 304'),

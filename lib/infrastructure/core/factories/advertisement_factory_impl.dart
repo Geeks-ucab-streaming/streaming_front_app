@@ -1,7 +1,6 @@
-import 'image_factory_impl.dart';
-
 import '../../../domain/core/advetisement.dart';
-import '../dtos/advertisement/advertisement_dto.dart';
+import '../dtos/dtos.dart';
+import 'image_factory_impl.dart';
 
 class AdvertisementFactoryImpl {
   AdvertisementFactoryImpl(this.imageFactory);
