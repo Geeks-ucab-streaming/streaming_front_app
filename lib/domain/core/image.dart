@@ -1,9 +1,9 @@
 class Image {
   const Image(
-    this.id,
+    //this.id,
     this.image,
   );
 
-  final String id;
+  //final String id;
   final List<int> image;
 }

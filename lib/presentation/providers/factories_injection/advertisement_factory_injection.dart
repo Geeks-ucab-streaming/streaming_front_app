@@ -9,9 +9,11 @@ AdvertisementFactoryImpl advertisementFactoryInjection(
     AdvertisementFactoryInjectionRef ref) {
   // get the elements needed for this factory
   final imageFactory = ref.watch(imageFactoryInjectionProvider);
+  final idFactory = ref.watch(genericIdFactoryInjectionProvider);
   //
   final AdvertisementFactoryImpl factoryImpl = AdvertisementFactoryImpl(
     imageFactory,
+    idFactory,
   );
 
   return factoryImpl;

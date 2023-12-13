@@ -17,16 +17,50 @@ class LandingPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
     final advertisement = ref.watch(getRandomAdvertisementProvider);
-    final advertisementImage = switch (advertisement) {
-      AsyncData(:final value) => Image.memory(
-          Uint8List.fromList(value.fold((l) => [], (r) => r.image.image)),
-          width: 250,
-          height: 250,
-          fit: BoxFit.contain,
-        ).image,
-      AsyncError(:final error) =>
-        Image.network('https://picsum.photos/200/300').image,
-      _ => Image.network('https://picsum.photos/200/300').image,
+    const BoxDecoration boxDecoration = BoxDecoration(
+      color: Colors.deepPurple,
+    );
+    final advertisementWidget = switch (advertisement) {
+      AsyncData(:final value) => Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            image: DecorationImage(
+              image: Image.memory(
+                Uint8List.fromList(value.fold((l) => [], (r) => r.image.image)),
+                width: 250,
+                height: 250,
+                fit: BoxFit.contain,
+              ).image,
+              fit: BoxFit.fill,
+            ),
+          ),
+          height: 400,
+        ),
+      AsyncError(:final error) => Container(
+          decoration: boxDecoration,
+          height: 400,
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width / 4,
+            ),
+            child: const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          ),
+        ),
+      _ => Container(
+          decoration: boxDecoration,
+          height: MediaQuery.of(context).size.height / 2,
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width / 4,
+            ),
+            child: const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
+          ),
+        ),
     };
 
     return Scaffold(
@@ -35,16 +69,7 @@ class LandingPage extends ConsumerWidget {
         children: <Widget>[
           Stack(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                    image: advertisementImage,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                height: 400,
-              ),
+              advertisementWidget,
               Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,

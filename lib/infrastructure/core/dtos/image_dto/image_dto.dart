@@ -13,13 +13,13 @@ class ImageDto with _$ImageDto {
 
   // factory method
   const factory ImageDto({
-    required String id,
-    required List<dynamic> image,
+    //required String id,
+    required List<dynamic> data,
   }) = _ImageDto;
 
   // method to get the image as a list of integers
   List<int> getImageAsIntList() {
-    return image.map((e) => e as int).toList();
+    return data.map((e) => e as int).toList();
   }
 
   factory ImageDto.fromJson(Map<String, Object?> json) =>

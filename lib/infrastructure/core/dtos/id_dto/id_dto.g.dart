@@ -1,17 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'image_dto.dart';
+part of 'id_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ImageDtoImpl _$$ImageDtoImplFromJson(Map<String, dynamic> json) =>
-    _$ImageDtoImpl(
-      data: json['data'] as List<dynamic>,
+_$IdDtoImpl _$$IdDtoImplFromJson(Map<String, dynamic> json) => _$IdDtoImpl(
+      value: json['value'] as String,
     );
 
-Map<String, dynamic> _$$ImageDtoImplToJson(_$ImageDtoImpl instance) =>
+Map<String, dynamic> _$$IdDtoImplToJson(_$IdDtoImpl instance) =>
     <String, dynamic>{
-      'data': instance.data,
+      'value': instance.value,
     };

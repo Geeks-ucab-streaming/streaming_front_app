@@ -1,3 +1,4 @@
+import 'generic_id.dart';
 import 'image.dart';
 
 class Advertisement {
@@ -6,7 +7,7 @@ class Advertisement {
     this.image,
   );
 
-  final String id;
+  final GenericId id;
   final Image image;
 
   // This cannot go here, because it contaminants the domain

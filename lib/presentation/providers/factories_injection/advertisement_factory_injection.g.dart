@@ -7,7 +7,7 @@ part of 'advertisement_factory_injection.dart';
 // **************************************************************************
 
 String _$advertisementFactoryInjectionHash() =>
-    r'fd51b773f06ba8294d22fdcab045b3100824fc24';
+    r'e53dd2903bd6a3fd185bc0fef6227d3f9d441ce3';
 
 /// See also [advertisementFactoryInjection].
 @ProviderFor(advertisementFactoryInjection)

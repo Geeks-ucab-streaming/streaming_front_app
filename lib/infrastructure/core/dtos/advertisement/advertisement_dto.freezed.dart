@@ -20,7 +20,7 @@ AdvertisementDto _$AdvertisementDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AdvertisementDto {
-  String get id => throw _privateConstructorUsedError;
+  IdDto get id => throw _privateConstructorUsedError;
   ImageDto get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,8 +35,9 @@ abstract class $AdvertisementDtoCopyWith<$Res> {
           AdvertisementDto value, $Res Function(AdvertisementDto) then) =
       _$AdvertisementDtoCopyWithImpl<$Res, AdvertisementDto>;
   @useResult
-  $Res call({String id, ImageDto image});
+  $Res call({IdDto id, ImageDto image});
 
+  $IdDtoCopyWith<$Res> get id;
   $ImageDtoCopyWith<$Res> get image;
 }
 
@@ -60,12 +61,20 @@ class _$AdvertisementDtoCopyWithImpl<$Res, $Val extends AdvertisementDto>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as IdDto,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $IdDtoCopyWith<$Res> get id {
+    return $IdDtoCopyWith<$Res>(_value.id, (value) {
+      return _then(_value.copyWith(id: value) as $Val);
+    });
   }
 
   @override
@@ -85,8 +94,10 @@ abstract class _$$AdvertisementDtoImplCopyWith<$Res>
       __$$AdvertisementDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, ImageDto image});
+  $Res call({IdDto id, ImageDto image});
 
+  @override
+  $IdDtoCopyWith<$Res> get id;
   @override
   $ImageDtoCopyWith<$Res> get image;
 }
@@ -109,7 +120,7 @@ class __$$AdvertisementDtoImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as IdDto,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -129,7 +140,7 @@ class _$AdvertisementDtoImpl
       _$$AdvertisementDtoImplFromJson(json);
 
   @override
-  final String id;
+  final IdDto id;
   @override
   final ImageDto image;
 
@@ -177,14 +188,14 @@ class _$AdvertisementDtoImpl
 
 abstract class _AdvertisementDto implements AdvertisementDto {
   const factory _AdvertisementDto(
-      {required final String id,
+      {required final IdDto id,
       required final ImageDto image}) = _$AdvertisementDtoImpl;
 
   factory _AdvertisementDto.fromJson(Map<String, dynamic> json) =
       _$AdvertisementDtoImpl.fromJson;
 
   @override
-  String get id;
+  IdDto get id;
   @override
   ImageDto get image;
   @override

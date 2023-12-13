@@ -20,8 +20,8 @@ ImageDto _$ImageDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ImageDto {
-  String get id => throw _privateConstructorUsedError;
-  List<dynamic> get image => throw _privateConstructorUsedError;
+//required String id,
+  List<dynamic> get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,7 @@ abstract class $ImageDtoCopyWith<$Res> {
   factory $ImageDtoCopyWith(ImageDto value, $Res Function(ImageDto) then) =
       _$ImageDtoCopyWithImpl<$Res, ImageDto>;
   @useResult
-  $Res call({String id, List<dynamic> image});
+  $Res call({List<dynamic> data});
 }
 
 /// @nodoc
@@ -50,17 +50,12 @@ class _$ImageDtoCopyWithImpl<$Res, $Val extends ImageDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? image = null,
+    Object? data = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      data: null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
     ) as $Val);
   }
@@ -74,7 +69,7 @@ abstract class _$$ImageDtoImplCopyWith<$Res>
       __$$ImageDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, List<dynamic> image});
+  $Res call({List<dynamic> data});
 }
 
 /// @nodoc
@@ -88,17 +83,12 @@ class __$$ImageDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? image = null,
+    Object? data = null,
   }) {
     return _then(_$ImageDtoImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: null == image
-          ? _value._image
-          : image // ignore: cast_nullable_to_non_nullable
+      data: null == data
+          ? _value._data
+          : data // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
     ));
   }
@@ -107,26 +97,26 @@ class __$$ImageDtoImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ImageDtoImpl extends _ImageDto with DiagnosticableTreeMixin {
-  const _$ImageDtoImpl({required this.id, required final List<dynamic> image})
-      : _image = image,
+  const _$ImageDtoImpl({required final List<dynamic> data})
+      : _data = data,
         super._();
 
   factory _$ImageDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ImageDtoImplFromJson(json);
 
+//required String id,
+  final List<dynamic> _data;
+//required String id,
   @override
-  final String id;
-  final List<dynamic> _image;
-  @override
-  List<dynamic> get image {
-    if (_image is EqualUnmodifiableListView) return _image;
+  List<dynamic> get data {
+    if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_image);
+    return EqualUnmodifiableListView(_data);
   }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ImageDto(id: $id, image: $image)';
+    return 'ImageDto(data: $data)';
   }
 
   @override
@@ -134,8 +124,7 @@ class _$ImageDtoImpl extends _ImageDto with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ImageDto'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('image', image));
+      ..add(DiagnosticsProperty('data', data));
   }
 
   @override
@@ -143,14 +132,13 @@ class _$ImageDtoImpl extends _ImageDto with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ImageDtoImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            const DeepCollectionEquality().equals(other._image, _image));
+            const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_image));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
   @JsonKey(ignore: true)
   @override
@@ -167,18 +155,14 @@ class _$ImageDtoImpl extends _ImageDto with DiagnosticableTreeMixin {
 }
 
 abstract class _ImageDto extends ImageDto {
-  const factory _ImageDto(
-      {required final String id,
-      required final List<dynamic> image}) = _$ImageDtoImpl;
+  const factory _ImageDto({required final List<dynamic> data}) = _$ImageDtoImpl;
   const _ImageDto._() : super._();
 
   factory _ImageDto.fromJson(Map<String, dynamic> json) =
       _$ImageDtoImpl.fromJson;
 
-  @override
-  String get id;
-  @override
-  List<dynamic> get image;
+  @override //required String id,
+  List<dynamic> get data;
   @override
   @JsonKey(ignore: true)
   _$$ImageDtoImplCopyWith<_$ImageDtoImpl> get copyWith =>

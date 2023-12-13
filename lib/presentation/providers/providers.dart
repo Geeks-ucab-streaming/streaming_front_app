@@ -2,6 +2,7 @@
 export './factories_injection/image_factory_injection.dart';
 export './factories_injection/advertisement_factory_injection.dart';
 export './factories_injection/repository_error_factory_injection.dart';
+export './factories_injection/generic_id_factory_injection.dart';
 // Logger
 export './logger_injection/logger_injection.dart';
 // Repositories
