@@ -1,10 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:streaming_front_app/domain/core/advetisement.dart';
-import 'package:streaming_front_app/domain/core/repository_error.dart';
 import '../core/widgets/button_widget.dart';
 import '../core/widgets/generic_Text.dart';
 // Providers
@@ -51,7 +48,7 @@ class LandingPage extends ConsumerWidget {
         ),
       _ => Container(
           decoration: boxDecoration,
-          height: MediaQuery.of(context).size.height / 2,
+          height: 400,
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: EdgeInsets.all(
