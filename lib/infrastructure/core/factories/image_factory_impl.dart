@@ -1,4 +1,4 @@
-import '../../../domain/core/image.dart';
+import '../../../domain/core/entities/entities.dart';
 import '../dtos/image_dto/image_dto.dart';
 
 class ImageFactoryImpl {

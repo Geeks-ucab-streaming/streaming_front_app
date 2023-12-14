@@ -1,4 +1,4 @@
-import '../../../domain/core/repository_error.dart';
+import '../../../domain/core/entities/entities.dart';
 
 class RepositoryErrorFactoryImpl {
   RepositoryError createRepositoryError(String errorMessage) {

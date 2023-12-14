@@ -1,4 +1,4 @@
-import '../../playlist.dart';
+import '../../entities/entities.dart';
 
 abstract class IPlaylistRepository {
   // Function to get the playlist created by artist

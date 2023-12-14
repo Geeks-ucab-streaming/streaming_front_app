@@ -3,14 +3,12 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:streaming_front_app/presentation/providers/providers.dart';
 
-import '../../../infrastructure/core/util/launch_url.dart';
-import '../core/widgets/default_background.dart';
-import '../../../domain/multimedia_related/track.dart';
-import 'widgets/artist_cover_widget.dart';
-import 'widgets/complex_track_list_element.dart';
-import 'widgets/player_bar_widget.dart';
+import '../../../../domain/multimedia_related/entities/entities.dart';
+import '../../../../infrastructure/core/util/util.dart';
+import '../../../providers/providers.dart';
+import '../../core/widgets/widgets.dart';
+import '../widgets/widgets.dart';
 
 class HomePage extends ConsumerWidget {
   HomePage({super.key});
@@ -100,12 +98,12 @@ class HomePage extends ConsumerWidget {
     // provider to listen
     final advertisement = ref.watch(getRandomAdvertisementProvider);
     const BoxDecoration boxDecoration = BoxDecoration(
-      color: Colors.deepPurple,
+      color: Colors.transparent,
     );
-    final advertisementWidget = Padding(
-      padding: const EdgeInsets.all(20),
-      child: switch (advertisement) {
-        AsyncData(:final value) => ClipRRect(
+    final advertisementWidget = switch (advertisement) {
+      AsyncData(:final value) => Padding(
+          padding: const EdgeInsets.all(20),
+          child: ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Container(
               decoration: BoxDecoration(
@@ -113,9 +111,10 @@ class HomePage extends ConsumerWidget {
                 image: DecorationImage(
                   image: Image.memory(
                     Uint8List.fromList(
-                        value.fold((l) => [], (r) => r.image.image)),
-                    width: 250,
-                    height: 250,
+                      value.image.image,
+                    ),
+                    width: MediaQuery.of(context).size.width - 40,
+                    height: 300,
                     fit: BoxFit.contain,
                   ).image,
                   fit: BoxFit.fill,
@@ -124,33 +123,28 @@ class HomePage extends ConsumerWidget {
               height: 300,
             ),
           ),
-        AsyncError(:final error) => Container(
-            decoration: boxDecoration,
-            height: 400,
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: EdgeInsets.all(
-                MediaQuery.of(context).size.width / 4,
-              ),
-              child: const CircularProgressIndicator(
+        ),
+      AsyncError(:final error) => Container(
+          child: const Center(
+            child: Text('Ups no hay conexion :D'),
+          ),
+        ),
+      _ => Container(
+          decoration: boxDecoration,
+          height: 200,
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width / 4,
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),
             ),
           ),
-        _ => Container(
-            decoration: boxDecoration,
-            height: 400,
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: EdgeInsets.all(
-                MediaQuery.of(context).size.width / 4,
-              ),
-              child: const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
-            ),
-          ),
-      },
-    );
+        ),
+    };
 
     return Scaffold(
       body: Container(
@@ -232,7 +226,7 @@ class HomePage extends ConsumerWidget {
                   ),
                   nameRow('Aqustico Experience'),
                   Container(
-                    child: myCarousel(),
+                    child: myCarouselHomePage(),
                   ),
                   nameRow('Artistas Trending'),
                   Container(
@@ -284,7 +278,7 @@ class HomePage extends ConsumerWidget {
   }
 }
 
-CarouselSlider myCarousel() {
+CarouselSlider myCarouselHomePage() {
   CarouselOptions myOptions = CarouselOptions(
     height: 200.0,
     aspectRatio: 1,

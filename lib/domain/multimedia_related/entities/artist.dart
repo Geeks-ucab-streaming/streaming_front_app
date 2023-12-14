@@ -1,4 +1,4 @@
-import '../core/image.dart';
+import '../../core/entities/entities.dart';
 
 class Artist {
   Artist(this.id, this.name, this.image);

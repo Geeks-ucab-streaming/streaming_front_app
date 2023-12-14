@@ -1,21 +1,19 @@
-import 'Artist.dart';
-import 'track.dart';
+import 'entities.dart';
 
-class Album {
-  const Album(
+class Track {
+  Track(
     this.id,
     this.name,
     this.compositor,
     this.imageURL,
-    this.tracks,
+    this.duration, {
     this.artist,
-  );
+  });
 
   final String id;
   final String name;
   final String compositor;
-  // THIS NEEDS TO BE CHANGED
   final String imageURL;
-  final List<Track> tracks;
-  final Artist artist;
+  final double duration;
+  Artist? artist;
 }

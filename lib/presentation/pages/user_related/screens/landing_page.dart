@@ -2,10 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../core/widgets/button_widget.dart';
-import '../core/widgets/generic_Text.dart';
-// Providers
-import '../../providers/services/advertisement/get_random_advertisement.dart';
+import '../../core/widgets/widgets.dart';
+import '../../../providers/providers.dart';
 
 class LandingPage extends ConsumerWidget {
   const LandingPage({super.key});
@@ -23,7 +21,7 @@ class LandingPage extends ConsumerWidget {
             color: Colors.transparent,
             image: DecorationImage(
               image: Image.memory(
-                Uint8List.fromList(value.fold((l) => [], (r) => r.image.image)),
+                Uint8List.fromList(value.image.image),
                 width: 250,
                 height: 250,
                 fit: BoxFit.contain,

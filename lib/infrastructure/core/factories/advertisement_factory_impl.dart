@@ -1,6 +1,6 @@
-import 'package:streaming_front_app/infrastructure/core/factories/factories.dart';
+import '../../../domain/core/entities/entities.dart';
+import 'factories.dart';
 
-import '../../../domain/core/advetisement.dart';
 import '../dtos/dtos.dart';
 
 class AdvertisementFactoryImpl {

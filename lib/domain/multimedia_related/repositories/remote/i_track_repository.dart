@@ -1,4 +1,4 @@
-import '../../track.dart';
+import '../../entities/entities.dart';
 
 abstract class ITrackRepository {
   Track getTrackById(String trackId);

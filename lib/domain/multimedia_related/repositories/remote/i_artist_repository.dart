@@ -1,4 +1,4 @@
-import '../../artist.dart';
+import '../../entities/entities.dart';
 
 abstract class IArtistRepository {
   List<Artist> getAllArtist();

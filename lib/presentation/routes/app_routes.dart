@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../pages/multimedia_related/artist_view.dart';
-import '../pages/multimedia_related/home_page.dart';
-import '../pages/multimedia_related/search_page.dart';
-import '../pages/user_related/iniciar_sesion.dart';
-import '../pages/user_related/landing_page.dart';
-import '../pages/user_related/login_page.dart';
-import '../pages/user_related/profile_page.dart';
+import '../pages/multimedia_related/screens/screens.dart';
+import '../pages/user_related/screens/screens.dart';
 
 class AppRoutes {
   AppRoutes();

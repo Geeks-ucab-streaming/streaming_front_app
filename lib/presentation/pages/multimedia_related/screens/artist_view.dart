@@ -73,7 +73,7 @@ class _ArtistViewState extends State<ArtistView> {
               const SizedBox(
                 height: 50,
               ),
-              myCarousel(myCarouselOptions),
+              myCarouselArtistView(myCarouselOptions),
               const SizedBox(
                 height: 50,
               ),
@@ -209,7 +209,7 @@ class ArtistCard extends StatelessWidget {
   }
 }
 
-CarouselSlider myCarousel(CarouselOptions myOptions) {
+CarouselSlider myCarouselArtistView(CarouselOptions myOptions) {
   return CarouselSlider(
     options: myOptions,
     items: [1, 2, 3, 4, 5].map((i) {

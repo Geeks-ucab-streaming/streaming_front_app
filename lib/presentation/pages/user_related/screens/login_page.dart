@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/widgets/button_widget.dart';
-import '../core/widgets/default_background.dart';
-import '../core/widgets/generic_Text.dart';
-import '../core/widgets/generic_TextFormField.dart';
+import '../../core/widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

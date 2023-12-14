@@ -1,6 +1,5 @@
-import 'email_address.dart';
-import 'phone_number.dart';
-import 'subscription.dart';
+import '../value_objects/value_objects.dart';
+import 'entities.dart';
 
 class User {
   const User(

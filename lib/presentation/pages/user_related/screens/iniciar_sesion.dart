@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/widgets/button_widget.dart';
-import '../core/widgets/default_background.dart';
-import '../core/widgets/generic_TextFormField.dart';
+import '../../core/widgets/widgets.dart';
 
 class NewSesion extends StatefulWidget {
   const NewSesion({super.key, required this.title});

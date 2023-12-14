@@ -1,6 +1,5 @@
+import '../../../domain/core/entities/entities.dart';
 import '../dtos/dtos.dart';
-
-import '../../../domain/core/generic_id.dart';
 
 class IdFactoryImpl {
   GenericId reconstituteIdFrom(IdDto idDto) {

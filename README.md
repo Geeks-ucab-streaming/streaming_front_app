@@ -18,3 +18,7 @@ The project seeks to use the architecture established by Reso Coder (*https://re
 2. Launch Android Emulator ()
 3. Run `flutter run lib/main.dart` or click `Run` in VsCode
 4. We hope you enjoy :D
+
+## Util commands
+
+- dart `run build_runner watch` for automated runner builder
