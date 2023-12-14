@@ -31,7 +31,7 @@ class LandingPage extends ConsumerWidget {
           ),
           height: 400,
         ),
-      AsyncError(:final error) => Container(
+      AsyncError(/*:final error*/) => Container(
           decoration: boxDecoration,
           height: 400,
           width: MediaQuery.of(context).size.width,

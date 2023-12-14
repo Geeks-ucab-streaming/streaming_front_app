@@ -124,7 +124,7 @@ class HomePage extends ConsumerWidget {
             ),
           ),
         ),
-      AsyncError(:final error) => Container(
+      AsyncError(/*:final error*/) => Container(
           child: const Center(
             child: Text('Ups no hay conexion :D'),
           ),
