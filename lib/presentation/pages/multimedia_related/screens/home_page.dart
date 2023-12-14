@@ -300,7 +300,7 @@ CarouselSlider myCarouselHomePage() {
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 image: DecorationImage(
-                  image: AssetImage('assets/images/portada${i}.png'),
+                  image: AssetImage('assets/images/portada$i.png'),
                   fit: BoxFit.fill,
                 )),
           );
