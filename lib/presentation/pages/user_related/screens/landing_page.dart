@@ -39,8 +39,15 @@ class LandingPage extends ConsumerWidget {
             padding: EdgeInsets.all(
               MediaQuery.of(context).size.width / 4,
             ),
-            child: const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            child: Center(
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: GenericText(
+                  text: 'Ups no hay conexión',
+                  fontSize: 18,
+                  isBold: true,
+                ),
+              ),
             ),
           ),
         ),

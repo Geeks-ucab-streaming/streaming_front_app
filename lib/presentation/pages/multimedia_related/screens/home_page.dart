@@ -125,8 +125,15 @@ class HomePage extends ConsumerWidget {
           ),
         ),
       AsyncError(/*:final error*/) => Container(
-          child: const Center(
-            child: Text('Ups no hay conexion :D'),
+          child: Center(
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: GenericText(
+                text: 'Ups no hay conexión',
+                fontSize: 18,
+                isBold: true,
+              ),
+            ),
           ),
         ),
       _ => Container(
