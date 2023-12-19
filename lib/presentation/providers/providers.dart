@@ -9,3 +9,5 @@ export './logger_injection/logger_injection.dart';
 export './repositories_injection/advertisement_repository_inj.dart';
 // services
 export './services/advertisement/get_random_advertisement.dart';
+// notifications
+export './notification/foreground_message.dart';
