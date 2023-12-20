@@ -30,23 +30,24 @@ class AudioPlayerHandler {
 
     socket?.on('audioBuffer', (data) {
       Uint8List audioBuffer = data as Uint8List;
-      saveBufferToMp3(audioBuffer).then((filePath) {
+      saveBufferToMp3(audioBuffer, 'assets/music/temporary_audio.mp3').then((filePath) {
         playSong(filePath);
       }).catchError((error) {
-        // Handle error if file saving fails
+        // Manejar el error si falla la creación del archivo
       });
     });
   }
 
-  Future<String> saveBufferToMp3(Uint8List buffer) async {
+  Future<String> saveBufferToMp3(Uint8List buffer, String filePath) async {
     final completer = Completer<String>();
-    final tempFile = File('temporary_audio.mp3');
+    final tempFile = File(filePath);
 
     await tempFile.writeAsBytes(buffer).then((_) {
       completer.complete(tempFile.path);
     }).catchError((error) {
       completer.completeError(error);
     });
+
     return completer.future;
   }
 
@@ -57,11 +58,20 @@ class AudioPlayerHandler {
   }
 
   void nextSong() {
-    // Lógica para avanzar a la siguiente canción
+    final currentIndex = songsList.indexOf(currentSongid);
+    final nextIndex = (currentIndex + 1) % songsList.length; // Obtiene el índice de la siguiente canción circularmente
+
+    currentSongid = songsList[nextIndex];
+    getSong(currentSongid);
   }
 
   void previousSong() {
-    // Lógica para retroceder a la canción anterior
+    final currentIndex = songsList.indexOf(currentSongid);
+    final previousIndex =
+        currentIndex - 1 < 0 ? songsList.length - 1 : currentIndex - 1; // Obtiene el índice de la canción anterior circularmente
+
+    currentSongid = songsList[previousIndex];
+    getSong(currentSongid);
   }
 
   void pauseSong() {
