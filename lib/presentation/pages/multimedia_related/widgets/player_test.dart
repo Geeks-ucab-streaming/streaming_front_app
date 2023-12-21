@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/audioPlayerHandler.dart';
 
+const List<String> itemList = [
+  'c51ab77e-61d1-44a1-956f-09cd63231e48',
+  'bd5b3250-f05a-49d3-8e62-890e3d8ac063',
+  '1a6dcd83-7400-4af4-bd04-733c817f9924',
+  '773a82f6-13c1-4089-9a69-e869007b3b23'
+];
 
 class PlayerBar1 extends StatefulWidget {
   final String songName;
@@ -17,34 +23,11 @@ class PlayerBar1 extends StatefulWidget {
 }
 
 class _PlayerBarState extends State<PlayerBar1> {
-  final audioPlayer = AudioPlayer();
+  final AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler(itemList, true);
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   bool isLoaded = false;
-
-  Future<void> setAudio() async {
-    try {
-      final assetPath = 'assets/music/La vela puerca - Zafar.mp3';
-    
-      if (!isLoaded) { // Verificar si el audio aún no está cargado
-        await audioPlayer.setAsset(assetPath);
-        isLoaded = true; // Marcar el audio como cargado
-      }
-    
-      audioPlayer.play();
-    } catch (e) {
-      print('Error al cargar y reproducir el audio: $e');
-    }
-  }
-
-  
-  @override
-  void dispose() {
-    audioPlayer.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +69,10 @@ class _PlayerBarState extends State<PlayerBar1> {
                             iconSize: 25,
                             onPressed: () async {
                               if (isPlaying) {
-                                await audioPlayer.pause();
+                                //audioPlayerHandler.pauseSong();
                                 isPlaying = false; // Actualiza el estado de reproducción
                               } else {
-                                await setAudio();
+                                audioPlayerHandler.playSong();
                                 isPlaying = true; // Actualiza el estado de reproducción
                               }
                               setState(() {}); // Actualiza el estado del widget

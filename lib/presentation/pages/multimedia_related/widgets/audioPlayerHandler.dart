@@ -1,85 +1,95 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:just_audio/just_audio.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AudioPlayerHandler {
   IO.Socket? socket;
   List<String> songsList;
   late String currentSongid;
   AudioPlayer audioPlayer = AudioPlayer();
-  bool preview = false;
   bool isPlaying = false;
+  bool preview;
+  late Directory tempDir;
 
   AudioPlayerHandler(this.songsList, this.preview) {
     currentSongid = songsList.isNotEmpty ? songsList[0] : '';
-    socket = IO.io('http://localhost:3000/socket.io/socket.io.js', {
-      'transports': ['websocket'],
-    });
-
-    // Resto de la lógica del constructor...
+    _initTempDir();
+    _connectToSocket();
   }
 
-  void getSong(String songId) {
-    socket?.emit("message-from-client", {
-      'preview': preview,
-      'songId': songId
-    });
+  Future<void> _initTempDir() async {
+    tempDir = await getTemporaryDirectory();
+  }
 
-    socket?.on('audioBuffer', (data) {
-      Uint8List audioBuffer = data as Uint8List;
-      saveBufferToMp3(audioBuffer, 'assets/music/temporary_audio.mp3').then((filePath) {
-        playSong(filePath);
-      }).catchError((error) {
-        // Manejar el error si falla la creación del archivo
+  void _connectToSocket() {
+    try {
+      socket = IO.io('http://streaming-api.eastus.azurecontainer.io:3000',
+          <String, dynamic>{
+            'transports': ['websocket'],
+          });
+
+      socket?.onConnect((_) {
+        print('Conectado al servidor del Socket de manera exitosa.');
+        sendSongToServer();
       });
-    });
+
+      socket?.onDisconnect((_) {
+        print('Desconectado del servidor del Socket.');
+      });
+
+      socket?.on('message-from-server', (data) async {
+        Uint8List chunkData = data['chunk'] as Uint8List;
+        await _writeChunkToFile(chunkData);
+      });
+
+      socket?.on('song-transfer-complete', (_) {
+        print('Transferencia completa, comenzando a reproducir.');
+        _playAudioFromTempFile();
+      });
+
+    } catch (e) {
+      print('Error al establecer la conexión con el servidor del Socket: $e');
+    }
   }
 
-  Future<String> saveBufferToMp3(Uint8List buffer, String filePath) async {
-    final completer = Completer<String>();
-    final tempFile = File(filePath);
-
-    await tempFile.writeAsBytes(buffer).then((_) {
-      completer.complete(tempFile.path);
-    }).catchError((error) {
-      completer.completeError(error);
-    });
-
-    return completer.future;
+  void sendSongToServer() {
+    if (socket?.connected ?? false) {
+      try {
+        socket?.emit('message-from-client', {
+          'preview': preview,
+          'songId': currentSongid,
+        });
+        print('Mensaje enviado al servidor con preview: $preview y songId: $currentSongid');
+      } catch (e) {
+        print('Error al enviar el mensaje al servidor: $e');
+      }
+    } else {
+      print('El socket no está conectado');
+    }
   }
 
-  void playSong(String filePath) async {
-    final audioPlayer = AudioPlayer();
-    await audioPlayer.setFilePath(filePath);
-    audioPlayer.play();
+  Future<void> _writeChunkToFile(Uint8List chunkData) async {
+    String filePath = '${tempDir.path}/$currentSongid.mp3';
+    File tempAudioFile = File(filePath);
+    if (!await tempAudioFile.exists()) {
+      await tempAudioFile.create();
+    }
+    await tempAudioFile.writeAsBytes(chunkData, mode: FileMode.append);
   }
 
-  void nextSong() {
-    final currentIndex = songsList.indexOf(currentSongid);
-    final nextIndex = (currentIndex + 1) % songsList.length; // Obtiene el índice de la siguiente canción circularmente
-
-    currentSongid = songsList[nextIndex];
-    getSong(currentSongid);
+  void _playAudioFromTempFile() async {
+    String filePath = '${tempDir.path}/$currentSongid.mp3';
+    if (await File(filePath).exists()) {
+      await audioPlayer.setFilePath(filePath);
+    } else {
+      print('El archivo temporal no existe.');
+    }
   }
 
-  void previousSong() {
-    final currentIndex = songsList.indexOf(currentSongid);
-    final previousIndex =
-        currentIndex - 1 < 0 ? songsList.length - 1 : currentIndex - 1; // Obtiene el índice de la canción anterior circularmente
-
-    currentSongid = songsList[previousIndex];
-    getSong(currentSongid);
+  void playSong() {
+      audioPlayer.play(); 
   }
-
-  void pauseSong() {
-    audioPlayer.pause();
-    isPlaying = false;
-  }
-
- 
-
-  // Resto de la implementación de la clase...
 }

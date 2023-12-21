@@ -7,7 +7,6 @@ import '../core/widgets/default_background.dart';
 import '../../../domain/multimedia_related/track.dart';
 import 'widgets/artist_cover_widget.dart';
 import 'widgets/complex_track_list_element.dart';
-import 'widgets/player_bar_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
