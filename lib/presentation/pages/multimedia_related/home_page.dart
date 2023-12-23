@@ -33,17 +33,34 @@ class _HomePageState extends State<HomePage> {
   List<Track> songs = [
     Track(
       '1',
-      'Track 1',
-      'Artist 1',
-      'https://picsum.photos/50/50',
-      3.00,
+      TrackName('Track 1'),
+      TrackReference('urldummy'),
+      TrackImage('https://picsum.photos/50/50'),
+      TrackCreationDate(DateTime(2021,5,1)),
+      TrackPreview('urldummy'),
+      [
+        TrackGenre('Pop'),
+        TrackGenre('Rock'),
+      ],
     ),
+    // Track(
+    //   '2',
+    //   'Track 2',
+    //   'Artist 2',
+    //   'https://picsum.photos/50/50',
+    //   3.00,
+    // ),
     Track(
       '2',
-      'Track 2',
-      'Artist 2',
-      'https://picsum.photos/50/50',
-      3.00,
+      TrackName('Track 2'),
+      TrackReference('urldummy'),
+      TrackImage('https://picsum.photos/50/50'),
+      TrackCreationDate(DateTime(2021,5,1)),
+      TrackPreview('urldummy'),
+      [
+        TrackGenre('Pop'),
+        TrackGenre('Rock'),
+      ],
     ),
   ];
 

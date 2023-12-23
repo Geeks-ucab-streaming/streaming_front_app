@@ -1,4 +1,3 @@
-
 // class Track {
 //   Track(
 //     this.id,
@@ -25,16 +24,19 @@ class Track {
       this.imageURL,
       this.date,
       this.previewURL,
-      this.genres,
+      this.genres, {
+        this.artist,
+      }
       );
 
-  final String id; //cambiar a Idsong
+  final String id; //cambiar a TrackID
   final TrackName name;
   final TrackReference url;
   final TrackImage imageURL;
   final TrackCreationDate date;
   final TrackPreview previewURL;
   final List<TrackGenre> genres;
+  String? artist;
 }
 
 class TrackName {
