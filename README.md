@@ -21,4 +21,5 @@ The project seeks to use the architecture established by Reso Coder (*https://re
 
 ## Util commands
 
-- dart `run build_runner watch` for automated runner builder
+- `dart run build_runner watch` for automated runner builder
+- `dart run build_runner build` for one time build

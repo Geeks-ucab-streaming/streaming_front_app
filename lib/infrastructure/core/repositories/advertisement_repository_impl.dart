@@ -1,32 +1,26 @@
 import 'package:dio/dio.dart';
-import 'package:logger/logger.dart';
+import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
+
 import '../../../domain/core/entities/entities.dart';
+import '../../../domain/core/repositories/i_repositories.dart';
+import '../dtos/dtos.dart';
+import '../mappers/mappers.dart';
+import '../util/util.dart';
 
-import '../dtos/advertisement/advertisement_dto.dart';
-import '../factories/advertisement_factory_impl.dart';
-import '../factories/repository_error_factory_impl.dart';
-import '../util/base_url.dart';
-
-import '../../../domain/core/repositories/remote/i_advertisement_repository.dart';
-
+@lazySingleton
 class AdvertisementRepositoryImpl extends IAdvertisementRepository {
   // constructor
-  AdvertisementRepositoryImpl(
-    this.logger,
-    this.advertisementFactory,
-    this.repositoryErrorFactory,
-  );
-
-  // elements that get from constructor injection
-  final Logger logger;
-  final AdvertisementFactoryImpl advertisementFactory;
-  final RepositoryErrorFactoryImpl repositoryErrorFactory;
+  AdvertisementRepositoryImpl();
 
   @override
   Future<Advertisement> getRandomAdvertisement() async {
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // logger to output
+    final logger = getIt<LoggerInstance>().getLogger();
     // dio variable to do the request
     final dio = Dio();
-
     // make the request
     final response = await dio.get('$baseUrl/promotion/random');
     logger.t(response.data.toString());
@@ -35,6 +29,6 @@ class AdvertisementRepositoryImpl extends IAdvertisementRepository {
         AdvertisementDto.fromJson(response.data);
     logger.i(advertisementDto.toString());
     // return element created by the factory from de DTO
-    return advertisementFactory.reconstituteAdvertisementFrom(advertisementDto);
+    return AdvertisementMapper.fromRemoteToEntity(advertisementDto);
   }
 }

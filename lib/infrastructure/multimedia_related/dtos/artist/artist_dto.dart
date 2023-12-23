@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../core/dtos/image_dto/image_dto.dart';
+import '../../../core/dtos/dtos.dart';
 
 part 'artist_dto.freezed.dart';
 // Class is serializable

@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../core/dtos/image_dto/image_dto.dart';
+import '../../../core/dtos/dtos.dart';
 import '../track/track_dto.dart';
 
 part 'playlist_dto.freezed.dart';

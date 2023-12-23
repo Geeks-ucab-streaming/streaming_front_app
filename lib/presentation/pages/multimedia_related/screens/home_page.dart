@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/multimedia_related/entities/entities.dart';
 import '../../../../infrastructure/core/util/util.dart';
-import '../../../providers/providers.dart';
+import '../../../../application/core/use_cases/use_cases.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -111,7 +111,7 @@ class HomePage extends ConsumerWidget {
                 image: DecorationImage(
                   image: Image.memory(
                     Uint8List.fromList(
-                      value.image.image,
+                      value.image,
                     ),
                     width: MediaQuery.of(context).size.width - 40,
                     height: 300,

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'injection.dart';
 
 import 'presentation/pages/user_related/screens/screens.dart';
 import 'presentation/routes/app_routes.dart';
 
 void main() {
+  // configure getIt
+  configureDependencies();
+  // run app
   runApp(
     const ProviderScope(
       child: MyApp(),

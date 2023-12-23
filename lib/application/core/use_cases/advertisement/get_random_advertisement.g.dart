@@ -1,25 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'logger_injection.dart';
+part of 'get_random_advertisement.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loggerInjectionHash() => r'2d3e28b1864b20f62ff8ed25cc44ed57fdc70919';
+String _$getRandomAdvertisementHash() =>
+    r'bf71b708ba82d9b6dc217d09f7286e7ebc5289c0';
 
-/// See also [loggerInjection].
-@ProviderFor(loggerInjection)
-final loggerInjectionProvider = AutoDisposeProvider<Logger>.internal(
-  loggerInjection,
-  name: r'loggerInjectionProvider',
+/// See also [getRandomAdvertisement].
+@ProviderFor(getRandomAdvertisement)
+final getRandomAdvertisementProvider =
+    AutoDisposeFutureProvider<AdvertisementPresentation>.internal(
+  getRandomAdvertisement,
+  name: r'getRandomAdvertisementProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$loggerInjectionHash,
+      : _$getRandomAdvertisementHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef LoggerInjectionRef = AutoDisposeProviderRef<Logger>;
+typedef GetRandomAdvertisementRef
+    = AutoDisposeFutureProviderRef<AdvertisementPresentation>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

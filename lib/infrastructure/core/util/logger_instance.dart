@@ -1,10 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'logger_injection.g.dart';
+@lazySingleton
+class LoggerInstance {
+  LoggerInstance();
 
-@riverpod
-Logger loggerInjection(LoggerInjectionRef ref) {
   final Logger logger = Logger(
     printer: PrettyPrinter(
         methodCount: 2, // Number of method calls to be displayed
@@ -16,5 +16,7 @@ Logger loggerInjection(LoggerInjectionRef ref) {
         ),
   );
 
-  return logger;
+  Logger getLogger() {
+    return logger;
+  }
 }

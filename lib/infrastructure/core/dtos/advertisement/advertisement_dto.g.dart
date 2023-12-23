@@ -9,7 +9,7 @@ part of 'advertisement_dto.dart';
 _$AdvertisementDtoImpl _$$AdvertisementDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$AdvertisementDtoImpl(
-      id: IdDto.fromJson(json['id'] as Map<String, dynamic>),
+      id: json['id'] as String,
       image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
     );
 
