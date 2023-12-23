@@ -24,7 +24,8 @@ class Track {
       this.imageURL,
       this.date,
       this.previewURL,
-      this.genres, {
+      this.genres,
+      this.duration, {
         this.artist,
       }
       );
@@ -37,6 +38,23 @@ class Track {
   final TrackPreview previewURL;
   final List<TrackGenre> genres;
   String? artist;
+  final TrackDuration duration;
+
+  String getName(){ return name.name; }
+  String getReference(){ return url.url; }
+  String getImage(){ return imageURL.imageURL; }
+  DateTime getCreationDate(){ return date.date; }
+    String getCreationDateAsString(){ return date.date.toString(); }
+  String getPreview(){ return previewURL.previewURL; }
+  List<String> getGenres(){
+    List<String> genresList = [];
+    for (TrackGenre genre in genres){
+      genresList.add(genre.genre);
+    }
+    return genresList;
+  }
+  String getArtist(){ return artist!; }
+  int getDuration(){ return duration.duration; }
 }
 
 class TrackName {
@@ -75,4 +93,10 @@ class TrackGenre {
   TrackGenre(this.genre);
 
   final String genre;
+}
+
+class TrackDuration {
+  TrackDuration(this.duration);
+
+  final int duration;
 }

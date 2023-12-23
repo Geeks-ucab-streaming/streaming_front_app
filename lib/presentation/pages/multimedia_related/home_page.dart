@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         TrackGenre('Pop'),
         TrackGenre('Rock'),
       ],
+      TrackDuration(193),
     ),
     // Track(
     //   '2',
@@ -61,6 +62,7 @@ class _HomePageState extends State<HomePage> {
         TrackGenre('Pop'),
         TrackGenre('Rock'),
       ],
+      TrackDuration(193),
     ),
   ];
 

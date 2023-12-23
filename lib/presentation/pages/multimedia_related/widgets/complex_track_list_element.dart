@@ -16,20 +16,20 @@ class TrackListElement2 extends StatelessWidget {
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Image.network(
-            trackToDisplay.imageURL,
+            trackToDisplay.getImage(),
             width: 50,
             height: 50,
           ),
         ),
         title: Text(
-          trackToDisplay.name,
+          trackToDisplay.getName(),
           style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
           ),
         ),
         subtitle: Text(
-          trackToDisplay.compositor,
+          trackToDisplay.getArtist(),
           style: const TextStyle(
             color: Color.fromARGB(213, 180, 180, 180),
           ),
@@ -39,7 +39,7 @@ class TrackListElement2 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
-              '${trackToDisplay.duration}',
+              '${trackToDisplay.getDuration()}',
               style: const TextStyle(
                 color: Color.fromARGB(213, 180, 180, 180),
               ),

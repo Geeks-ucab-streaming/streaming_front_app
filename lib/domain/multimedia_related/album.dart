@@ -1,4 +1,4 @@
-import 'Artist.dart';
+import 'artist.dart';
 import 'track.dart';
 
 class Album {
