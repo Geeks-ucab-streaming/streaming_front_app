@@ -7,7 +7,7 @@ part of 'get_random_advertisement.dart';
 // **************************************************************************
 
 String _$getRandomAdvertisementHash() =>
-    r'bf71b708ba82d9b6dc217d09f7286e7ebc5289c0';
+    r'05cb172efeb14196651d04b6083222924214426d';
 
 /// See also [getRandomAdvertisement].
 @ProviderFor(getRandomAdvertisement)
