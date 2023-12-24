@@ -1,7 +1,7 @@
 import '../../entities/entities.dart';
 
 abstract class ITrackRepository {
-  Track getTrackById(String trackId);
-  List<Track> getTracksByArtistId(String artistId);
-  List<Track> getTracksByPlaylistId(String playlistId);
+  Song getTrackById(String trackId);
+  List<Song> getTracksByArtistId(String artistId);
+  List<Song> getTracksByPlaylistId(String playlistId);
 }

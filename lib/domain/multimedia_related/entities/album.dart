@@ -15,6 +15,6 @@ class Album {
   final String compositor;
   // THIS NEEDS TO BE CHANGED
   final String imageURL;
-  final List<Track> tracks;
+  final List<Song> tracks;
   final Artist artist;
 }

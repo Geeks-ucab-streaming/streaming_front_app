@@ -5,7 +5,7 @@ import '../../../../domain/multimedia_related/entities/entities.dart';
 class SimpleTrackListElement extends StatelessWidget {
   const SimpleTrackListElement(this.trackToDisplay, {super.key});
 
-  final Track trackToDisplay;
+  final Song trackToDisplay;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +19,11 @@ class SimpleTrackListElement extends StatelessWidget {
           color: Colors.blueAccent,
         ),
         title: Text(
-          trackToDisplay.name,
+          trackToDisplay.getName(),
           style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
         trailing: Text(
-          '${trackToDisplay.duration}',
+          '${trackToDisplay.getDuration()}',
           style: const TextStyle(
               color: Color.fromARGB(213, 180, 180, 180), fontSize: 18),
         ),

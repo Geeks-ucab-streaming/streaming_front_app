@@ -27,20 +27,39 @@ class HomePage extends ConsumerWidget {
     'Twice': 'assets/images/artist4.jpg',
   };
 
-  final List<Track> songs = [
-    Track(
+  final List<Song> songs = [
+    Song(
       '1',
-      'Track 1',
-      'Artist 1',
-      'https://picsum.photos/50/50',
-      3.00,
+      SongName('Track 1'),
+      SongReference('urldummy'),
+      SongImage([]),
+      SongCreationDate(DateTime(2021, 5, 1)),
+      SongPreview('urldummy'),
+      [
+        SongGenre('Pop'),
+        SongGenre('Rock'),
+      ],
+      SongDuration(193),
     ),
-    Track(
+    // Track(
+    //   '2',
+    //   'Track 2',
+    //   'Artist 2',
+    //   'https://picsum.photos/50/50',
+    //   3.00,
+    // ),
+    Song(
       '2',
-      'Track 2',
-      'Artist 2',
-      'https://picsum.photos/50/50',
-      3.00,
+      SongName('Track 2'),
+      SongReference('urldummy'),
+      SongImage([]),
+      SongCreationDate(DateTime(2021, 5, 1)),
+      SongPreview('urldummy'),
+      [
+        SongGenre('Pop'),
+        SongGenre('Rock'),
+      ],
+      SongDuration(193),
     ),
   ];
 
