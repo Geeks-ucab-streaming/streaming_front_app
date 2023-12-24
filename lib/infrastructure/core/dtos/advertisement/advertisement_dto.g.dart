@@ -10,7 +10,7 @@ _$AdvertisementDtoImpl _$$AdvertisementDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$AdvertisementDtoImpl(
       id: json['id'] as String,
-      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
+      image: json['image'] as List<dynamic>,
     );
 
 Map<String, dynamic> _$$AdvertisementDtoImplToJson(

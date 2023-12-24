@@ -13,7 +13,7 @@ _$AlbumDtoImpl _$$AlbumDtoImplFromJson(Map<String, dynamic> json) =>
       compositor: json['compositor'] as String,
       imageURL: json['imageURL'] as String,
       tracks: (json['tracks'] as List<dynamic>)
-          .map((e) => TrackDto.fromJson(e as Map<String, dynamic>))
+          .map((e) => SongDto.fromJson(e as Map<String, dynamic>))
           .toList(),
       artist: ArtistDto.fromJson(json['artist'] as Map<String, dynamic>),
     );

@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'track_dto.dart';
+part of 'song_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TrackDtoImpl _$$TrackDtoImplFromJson(Map<String, dynamic> json) =>
-    _$TrackDtoImpl(
-      id: json['id'] as String,
+_$SongDtoImpl _$$SongDtoImplFromJson(Map<String, dynamic> json) =>
+    _$SongDtoImpl(
+      songId: json['songId'] as String,
       name: json['name'] as String,
+      duration: json['duration'] as String,
       compositor: json['compositor'] as String,
       imageURL: json['imageURL'] as String,
-      duration: (json['duration'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$TrackDtoImplToJson(_$TrackDtoImpl instance) =>
+Map<String, dynamic> _$$SongDtoImplToJson(_$SongDtoImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'songId': instance.songId,
       'name': instance.name,
+      'duration': instance.duration,
       'compositor': instance.compositor,
       'imageURL': instance.imageURL,
-      'duration': instance.duration,
     };

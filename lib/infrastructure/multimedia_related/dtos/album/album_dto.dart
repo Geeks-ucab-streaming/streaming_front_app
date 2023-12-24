@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
-import '../artist/artist_dto.dart';
-import '../track/track_dto.dart';
+import '../../dtos/dtos.dart';
 
 part 'album_dto.freezed.dart';
 // Class is serializable
@@ -16,7 +15,7 @@ class AlbumDto with _$AlbumDto {
     required String compositor,
     // THIS NEEDS TO BE CHANGED
     required String imageURL,
-    required List<TrackDto> tracks,
+    required List<SongDto> tracks,
     required ArtistDto artist,
   }) = _AlbumDto;
 

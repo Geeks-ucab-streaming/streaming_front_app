@@ -6,5 +6,5 @@ abstract class IPlaylistRepository {
   // get the playlists created by creator id
   List<Playlist> getPlaylistCreatedBy(String creatorId);
   // get top playlists NAME SHOULD BE MORE PRECISE BUT IT MUST BE ASKED TO BACKEND
-  List<Playlist> getTopPlaylist(String creatorId);
+  List<Playlist> getTopFourthPlaylist(String creatorId);
 }

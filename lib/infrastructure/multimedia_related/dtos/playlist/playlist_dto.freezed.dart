@@ -25,7 +25,7 @@ mixin _$PlaylistDto {
   ImageDto get image => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
   int get reproductions => throw _privateConstructorUsedError;
-  List<TrackDto> get tracks => throw _privateConstructorUsedError;
+  List<SongDto> get tracks => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +45,7 @@ abstract class $PlaylistDtoCopyWith<$Res> {
       ImageDto image,
       String duration,
       int reproductions,
-      List<TrackDto> tracks});
+      List<SongDto> tracks});
 
   $ImageDtoCopyWith<$Res> get image;
 }
@@ -94,7 +94,7 @@ class _$PlaylistDtoCopyWithImpl<$Res, $Val extends PlaylistDto>
       tracks: null == tracks
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as List<TrackDto>,
+              as List<SongDto>,
     ) as $Val);
   }
 
@@ -121,7 +121,7 @@ abstract class _$$PlaylistDtoImplCopyWith<$Res>
       ImageDto image,
       String duration,
       int reproductions,
-      List<TrackDto> tracks});
+      List<SongDto> tracks});
 
   @override
   $ImageDtoCopyWith<$Res> get image;
@@ -169,7 +169,7 @@ class __$$PlaylistDtoImplCopyWithImpl<$Res>
       tracks: null == tracks
           ? _value._tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as List<TrackDto>,
+              as List<SongDto>,
     ));
   }
 }
@@ -183,7 +183,7 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
       required this.image,
       required this.duration,
       required this.reproductions,
-      required final List<TrackDto> tracks})
+      required final List<SongDto> tracks})
       : _tracks = tracks;
 
   factory _$PlaylistDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -199,9 +199,9 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
   final String duration;
   @override
   final int reproductions;
-  final List<TrackDto> _tracks;
+  final List<SongDto> _tracks;
   @override
-  List<TrackDto> get tracks {
+  List<SongDto> get tracks {
     if (_tracks is EqualUnmodifiableListView) return _tracks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_tracks);
@@ -266,7 +266,7 @@ abstract class _PlaylistDto implements PlaylistDto {
       required final ImageDto image,
       required final String duration,
       required final int reproductions,
-      required final List<TrackDto> tracks}) = _$PlaylistDtoImpl;
+      required final List<SongDto> tracks}) = _$PlaylistDtoImpl;
 
   factory _PlaylistDto.fromJson(Map<String, dynamic> json) =
       _$PlaylistDtoImpl.fromJson;
@@ -282,7 +282,7 @@ abstract class _PlaylistDto implements PlaylistDto {
   @override
   int get reproductions;
   @override
-  List<TrackDto> get tracks;
+  List<SongDto> get tracks;
   @override
   @JsonKey(ignore: true)
   _$$PlaylistDtoImplCopyWith<_$PlaylistDtoImpl> get copyWith =>

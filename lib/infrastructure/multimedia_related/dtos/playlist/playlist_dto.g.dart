@@ -14,7 +14,7 @@ _$PlaylistDtoImpl _$$PlaylistDtoImplFromJson(Map<String, dynamic> json) =>
       duration: json['duration'] as String,
       reproductions: json['reproductions'] as int,
       tracks: (json['tracks'] as List<dynamic>)
-          .map((e) => TrackDto.fromJson(e as Map<String, dynamic>))
+          .map((e) => SongDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

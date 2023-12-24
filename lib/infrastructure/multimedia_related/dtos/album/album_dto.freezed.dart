@@ -25,7 +25,7 @@ mixin _$AlbumDto {
   String get compositor =>
       throw _privateConstructorUsedError; // THIS NEEDS TO BE CHANGED
   String get imageURL => throw _privateConstructorUsedError;
-  List<TrackDto> get tracks => throw _privateConstructorUsedError;
+  List<SongDto> get tracks => throw _privateConstructorUsedError;
   ArtistDto get artist => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $AlbumDtoCopyWith<$Res> {
       String name,
       String compositor,
       String imageURL,
-      List<TrackDto> tracks,
+      List<SongDto> tracks,
       ArtistDto artist});
 
   $ArtistDtoCopyWith<$Res> get artist;
@@ -90,7 +90,7 @@ class _$AlbumDtoCopyWithImpl<$Res, $Val extends AlbumDto>
       tracks: null == tracks
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as List<TrackDto>,
+              as List<SongDto>,
       artist: null == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -120,7 +120,7 @@ abstract class _$$AlbumDtoImplCopyWith<$Res>
       String name,
       String compositor,
       String imageURL,
-      List<TrackDto> tracks,
+      List<SongDto> tracks,
       ArtistDto artist});
 
   @override
@@ -165,7 +165,7 @@ class __$$AlbumDtoImplCopyWithImpl<$Res>
       tracks: null == tracks
           ? _value._tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as List<TrackDto>,
+              as List<SongDto>,
       artist: null == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
@@ -182,7 +182,7 @@ class _$AlbumDtoImpl with DiagnosticableTreeMixin implements _AlbumDto {
       required this.name,
       required this.compositor,
       required this.imageURL,
-      required final List<TrackDto> tracks,
+      required final List<SongDto> tracks,
       required this.artist})
       : _tracks = tracks;
 
@@ -198,9 +198,9 @@ class _$AlbumDtoImpl with DiagnosticableTreeMixin implements _AlbumDto {
 // THIS NEEDS TO BE CHANGED
   @override
   final String imageURL;
-  final List<TrackDto> _tracks;
+  final List<SongDto> _tracks;
   @override
-  List<TrackDto> get tracks {
+  List<SongDto> get tracks {
     if (_tracks is EqualUnmodifiableListView) return _tracks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_tracks);
@@ -267,7 +267,7 @@ abstract class _AlbumDto implements AlbumDto {
       required final String name,
       required final String compositor,
       required final String imageURL,
-      required final List<TrackDto> tracks,
+      required final List<SongDto> tracks,
       required final ArtistDto artist}) = _$AlbumDtoImpl;
 
   factory _AlbumDto.fromJson(Map<String, dynamic> json) =
@@ -282,7 +282,7 @@ abstract class _AlbumDto implements AlbumDto {
   @override // THIS NEEDS TO BE CHANGED
   String get imageURL;
   @override
-  List<TrackDto> get tracks;
+  List<SongDto> get tracks;
   @override
   ArtistDto get artist;
   @override
