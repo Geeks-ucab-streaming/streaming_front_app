@@ -28,7 +28,7 @@ class AdvertisementRepositoryImpl extends IAdvertisementRepository {
     final AdvertisementDto advertisementDto =
         AdvertisementDto.fromJson(response.data);
     logger.i(advertisementDto.toString());
-    // return element created by the factory from de DTO
+    // return entity element from DTO
     return AdvertisementMapper.fromRemoteToEntity(advertisementDto);
   }
 }
