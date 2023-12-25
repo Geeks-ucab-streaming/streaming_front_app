@@ -1,62 +1,57 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:just_audio/just_audio.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:path_provider/path_provider.dart';
 
 class AudioPlayerHandler {
   IO.Socket? socket;
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  bool isPlaying = false;
+
+  // InfoProvided related
   List<String> songsList;
   late String currentSongid;
-  AudioPlayer audioPlayer = AudioPlayer();
-  bool isPlaying = false;
   bool preview;
+
+  // Buffers & Song related
   late Directory tempDir;
+  late String filePath;
+  bool isProcessingQueue = false;
+  bool isUpdating=false;
+  List<Uint8List> bufferQueue = [];
 
   AudioPlayerHandler(this.songsList, this.preview) {
-    currentSongid = songsList.isNotEmpty ? songsList[0] : '';
-    _initTempDir();
-    _connectToSocket();
+    currentSongid = songsList.isNotEmpty ? songsList[0] : ''; // Puedes asignar un valor predeterminado aquí
+    _initTempDir().then((_) {
+      filePath = '${tempDir.path}/$currentSongid.mp3';
+      connectSocket();
+    });
   }
 
   Future<void> _initTempDir() async {
     tempDir = await getTemporaryDirectory();
   }
 
-  void _connectToSocket() {
+  void connectSocket() {
     try {
       socket = IO.io('http://streaming-api.eastus.azurecontainer.io:3000',
           <String, dynamic>{
             'transports': ['websocket'],
           });
-
-      socket?.onConnect((_) {
-        print('Conectado al servidor del Socket de manera exitosa.');
-        sendSongToServer();
-      });
-
-      socket?.onDisconnect((_) {
-        print('Desconectado del servidor del Socket.');
-      });
-
-      socket?.on('message-from-server', (data) async {
-        Uint8List chunkData = data['chunk'] as Uint8List;
-        await _writeChunkToFile(chunkData);
-      });
-
-      socket?.on('song-transfer-complete', (_) {
-        print('Transferencia completa, comenzando a reproducir.');
-        _playAudioFromTempFile();
-      });
-
+      addlisteners();
     } catch (e) {
       print('Error al establecer la conexión con el servidor del Socket: $e');
     }
+
   }
 
-  void sendSongToServer() {
+  void requestSongToServer() {
     if (socket?.connected ?? false) {
+      File(filePath).delete();
       try {
         socket?.emit('message-from-client', {
           'preview': preview,
@@ -70,26 +65,99 @@ class AudioPlayerHandler {
       print('El socket no está conectado');
     }
   }
+  
+  void addlisteners() {
+    
+      socket?.onConnect((_) {
+        print('Conectado al servidor del Socket de manera exitosa.');
+        requestSongToServer();
+      });
 
-  Future<void> _writeChunkToFile(Uint8List chunkData) async {
-    String filePath = '${tempDir.path}/$currentSongid.mp3';
-    File tempAudioFile = File(filePath);
-    if (!await tempAudioFile.exists()) {
-      await tempAudioFile.create();
+      socket?.onDisconnect((_) {
+        print('Desconectado del servidor del Socket.');
+      });
+      
+      socket?.on('message-from-server', (payload) async {
+        print('Nuevo chunk recibido del servidor');
+        // Recibir y procesar el payload
+        
+        if (payload is Map && payload.containsKey('chunk')) {
+          Uint8List chunkData = payload['chunk'] as Uint8List;
+          bufferQueue.add(chunkData);
+        
+          if (!isProcessingQueue) {
+            isProcessingQueue = true;
+            processBuffers();
+          }
+        } else {
+          print('Payload error');
+        }
+      }
+    );
+  }
+  
+  void processBuffers() async {
+      while (bufferQueue.isNotEmpty) {
+        Uint8List buffer = bufferQueue.removeAt(0);
+        if (!isUpdating) {
+          isUpdating = true;
+          print('Sending feed');
+          await feedPlayerFile(buffer);
+        }
     }
-    await tempAudioFile.writeAsBytes(chunkData, mode: FileMode.append);
+    isProcessingQueue = false;
+  }
+  
+  Future<void> feedPlayerFile(buffer) async {
+    try {
+      if (!await File(filePath).exists()) {
+        await File(filePath).create();
+      }
+      if (isUpdating) {
+        print("Feeding...");
+        await File(filePath).writeAsBytes(buffer, mode: FileMode.append);
+        print('Uint8List guardado como archivo MP3 en: $filePath');
+        isUpdating = false;
+      }
+    } on Exception catch (e) {
+      print("Feeding fail: $e");
+    }
   }
 
-  void _playAudioFromTempFile() async {
-    String filePath = '${tempDir.path}/$currentSongid.mp3';
-    if (await File(filePath).exists()) {
-      await audioPlayer.setFilePath(filePath);
-    } else {
-      print('El archivo temporal no existe.');
+  Future<void> _playAudioFromTempFile() async {
+    try{
+        if (!isPlaying) {
+        await _audioPlayer.setFilePath('${tempDir.path}/$currentSongid.mp3');
+        await _audioPlayer.play();
+        isPlaying = true;
+      }
+    }catch(e){
+      print('Error al reproducir el archivo MP3: $e');
     }
   }
 
   void playSong() {
-      audioPlayer.play(); 
+    try {
+      _playAudioFromTempFile();
+      
+    } on Exception catch (e) {
+      print("Fail: $e");
+    }
   }
+
+  void pauseSong() {
+    if (isPlaying) {
+      _audioPlayer.pause();
+    }
+  }
+
+  void stopSong() {
+    if (isPlaying) {
+      _audioPlayer.stop();
+      isPlaying = false;
+    }
+  }
+  
+  
 }
+

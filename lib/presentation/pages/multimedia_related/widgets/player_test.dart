@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/audioPlayerHandler.dart';
 
 const List<String> itemList = [
-  'c51ab77e-61d1-44a1-956f-09cd63231e48',
   'bd5b3250-f05a-49d3-8e62-890e3d8ac063',
+  'c51ab77e-61d1-44a1-956f-09cd63231e48',
   '1a6dcd83-7400-4af4-bd04-733c817f9924',
   '773a82f6-13c1-4089-9a69-e869007b3b23'
 ];
@@ -23,7 +23,7 @@ class PlayerBar1 extends StatefulWidget {
 }
 
 class _PlayerBarState extends State<PlayerBar1> {
-  final AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler(itemList, true);
+  final AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler(itemList, false);
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
@@ -69,11 +69,9 @@ class _PlayerBarState extends State<PlayerBar1> {
                             iconSize: 25,
                             onPressed: () async {
                               if (isPlaying) {
-                                //audioPlayerHandler.pauseSong();
-                                isPlaying = false; // Actualiza el estado de reproducción
+                                audioPlayerHandler.playSong();
                               } else {
                                 audioPlayerHandler.playSong();
-                                isPlaying = true; // Actualiza el estado de reproducción
                               }
                               setState(() {}); // Actualiza el estado del widget
                             },
