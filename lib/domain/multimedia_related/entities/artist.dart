@@ -1,5 +1,3 @@
-import '../../core/entities/entities.dart';
-
 class Artist {
   Artist(this.id, this.name, this.image);
 
@@ -7,18 +5,22 @@ class Artist {
   final ArtistName name;
   final ArtistImageReference image;
 
-  String getName(){ return name.name; }
-  String getImage(){ return image.imageURL; }
+  String getName() {
+    return name.name;
+  }
 
+  String getImage() {
+    return image.imageURL;
+  }
 }
 
-class ArtistName{
+class ArtistName {
   ArtistName(this.name);
 
   final String name;
 }
 
-class ArtistImageReference{
+class ArtistImageReference {
   ArtistImageReference(this.imageURL);
 
   final String imageURL;
