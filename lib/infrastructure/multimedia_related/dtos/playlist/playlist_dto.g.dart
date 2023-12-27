@@ -10,11 +10,13 @@ _$PlaylistDtoImpl _$$PlaylistDtoImplFromJson(Map<String, dynamic> json) =>
     _$PlaylistDtoImpl(
       id: json['id'] as String,
       name: json['name'] as String,
-      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
       duration: json['duration'] as String,
-      reproductions: json['reproductions'] as int,
-      tracks: (json['tracks'] as List<dynamic>)
-          .map((e) => SongDto.fromJson(e as Map<String, dynamic>))
+      image: json['image'] as List<dynamic>,
+      creators: (json['creators'] as List<dynamic>)
+          .map((e) => PlaylistCreatorDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      songs: (json['songs'] as List<dynamic>)
+          .map((e) => PlaylistSongDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -22,8 +24,59 @@ Map<String, dynamic> _$$PlaylistDtoImplToJson(_$PlaylistDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'image': instance.image,
       'duration': instance.duration,
-      'reproductions': instance.reproductions,
-      'tracks': instance.tracks,
+      'image': instance.image,
+      'creators': instance.creators,
+      'songs': instance.songs,
+    };
+
+_$PlaylistCreatorDtoImpl _$$PlaylistCreatorDtoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PlaylistCreatorDtoImpl(
+      creatorId: json['creatorId'] as String,
+      creatorName: json['creatorName'] as String,
+    );
+
+Map<String, dynamic> _$$PlaylistCreatorDtoImplToJson(
+        _$PlaylistCreatorDtoImpl instance) =>
+    <String, dynamic>{
+      'creatorId': instance.creatorId,
+      'creatorName': instance.creatorName,
+    };
+
+_$PlaylistSongDtoImpl _$$PlaylistSongDtoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PlaylistSongDtoImpl(
+      songId: json['songId'] as String,
+      name: json['name'] as String,
+      duration: json['duration'] as String,
+      image: json['image'] as List<dynamic>,
+      artists: (json['artists'] as List<dynamic>)
+          .map(
+              (e) => PlaylistSongCreatorDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$PlaylistSongDtoImplToJson(
+        _$PlaylistSongDtoImpl instance) =>
+    <String, dynamic>{
+      'songId': instance.songId,
+      'name': instance.name,
+      'duration': instance.duration,
+      'image': instance.image,
+      'artists': instance.artists,
+    };
+
+_$PlaylistSongCreatorDtoImpl _$$PlaylistSongCreatorDtoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PlaylistSongCreatorDtoImpl(
+      creatorId: json['creatorId'] as String,
+      creatorName: json['creatorName'] as String,
+    );
+
+Map<String, dynamic> _$$PlaylistSongCreatorDtoImplToJson(
+        _$PlaylistSongCreatorDtoImpl instance) =>
+    <String, dynamic>{
+      'creatorId': instance.creatorId,
+      'creatorName': instance.creatorName,
     };

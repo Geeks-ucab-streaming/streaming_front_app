@@ -1,2 +1,2 @@
-export 'advertisement_mapper.dart';
-export 'image_mapper.dart';
+export './advertisement_mapper.dart';
+export './image_mapper.dart';
