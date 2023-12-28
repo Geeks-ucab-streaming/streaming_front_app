@@ -9,7 +9,7 @@ import '../dtos/dtos.dart';
 import '../mappers/mappers.dart';
 
 @lazySingleton
-abstract class PlaylistRepositoryImpl extends IPlaylistRepository {
+class PlaylistRepositoryImpl extends IPlaylistRepository {
   // get playlist by id
   @override
   Future<Playlist> getPlaylistById(String playlistId) async {
