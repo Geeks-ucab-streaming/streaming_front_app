@@ -1,4 +1,3 @@
-import '../../core/entities/entities.dart';
 import '../../multimedia_related/entities/entities.dart';
 
 class Playlist {

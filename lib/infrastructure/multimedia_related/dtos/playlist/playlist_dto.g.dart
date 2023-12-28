@@ -52,8 +52,7 @@ _$PlaylistSongDtoImpl _$$PlaylistSongDtoImplFromJson(
       duration: json['duration'] as String,
       image: json['image'] as List<dynamic>,
       artists: (json['artists'] as List<dynamic>)
-          .map(
-              (e) => PlaylistSongCreatorDto.fromJson(e as Map<String, dynamic>))
+          .map((e) => PlaylistSongArtistDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -67,16 +66,16 @@ Map<String, dynamic> _$$PlaylistSongDtoImplToJson(
       'artists': instance.artists,
     };
 
-_$PlaylistSongCreatorDtoImpl _$$PlaylistSongCreatorDtoImplFromJson(
+_$PlaylistSongArtistDtoImpl _$$PlaylistSongArtistDtoImplFromJson(
         Map<String, dynamic> json) =>
-    _$PlaylistSongCreatorDtoImpl(
-      creatorId: json['creatorId'] as String,
-      creatorName: json['creatorName'] as String,
+    _$PlaylistSongArtistDtoImpl(
+      id: json['id'] as String,
+      name: json['name'] as String,
     );
 
-Map<String, dynamic> _$$PlaylistSongCreatorDtoImplToJson(
-        _$PlaylistSongCreatorDtoImpl instance) =>
+Map<String, dynamic> _$$PlaylistSongArtistDtoImplToJson(
+        _$PlaylistSongArtistDtoImpl instance) =>
     <String, dynamic>{
-      'creatorId': instance.creatorId,
-      'creatorName': instance.creatorName,
+      'id': instance.id,
+      'name': instance.name,
     };

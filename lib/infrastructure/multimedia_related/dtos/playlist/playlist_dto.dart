@@ -38,7 +38,7 @@ class PlaylistSongDto with _$PlaylistSongDto {
     required String name,
     required String duration,
     required List<dynamic> image,
-    required List<PlaylistSongCreatorDto> artists,
+    required List<PlaylistSongArtistDto> artists,
   }) = _PlaylistSongDto;
 
   factory PlaylistSongDto.fromJson(Map<String, Object?> json) =>
@@ -46,12 +46,12 @@ class PlaylistSongDto with _$PlaylistSongDto {
 }
 
 @freezed
-class PlaylistSongCreatorDto with _$PlaylistSongCreatorDto {
-  const factory PlaylistSongCreatorDto({
-    required String creatorId,
-    required String creatorName,
-  }) = _PlaylistSongCreatorDto;
+class PlaylistSongArtistDto with _$PlaylistSongArtistDto {
+  const factory PlaylistSongArtistDto({
+    required String id,
+    required String name,
+  }) = _PlaylistSongArtistDto;
 
-  factory PlaylistSongCreatorDto.fromJson(Map<String, Object?> json) =>
-      _$PlaylistSongCreatorDtoFromJson(json);
+  factory PlaylistSongArtistDto.fromJson(Map<String, Object?> json) =>
+      _$PlaylistSongArtistDtoFromJson(json);
 }

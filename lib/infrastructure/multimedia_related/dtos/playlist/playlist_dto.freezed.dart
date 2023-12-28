@@ -474,8 +474,7 @@ mixin _$PlaylistSongDto {
   String get name => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
   List<dynamic> get image => throw _privateConstructorUsedError;
-  List<PlaylistSongCreatorDto> get artists =>
-      throw _privateConstructorUsedError;
+  List<PlaylistSongArtistDto> get artists => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -494,7 +493,7 @@ abstract class $PlaylistSongDtoCopyWith<$Res> {
       String name,
       String duration,
       List<dynamic> image,
-      List<PlaylistSongCreatorDto> artists});
+      List<PlaylistSongArtistDto> artists});
 }
 
 /// @nodoc
@@ -536,7 +535,7 @@ class _$PlaylistSongDtoCopyWithImpl<$Res, $Val extends PlaylistSongDto>
       artists: null == artists
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
-              as List<PlaylistSongCreatorDto>,
+              as List<PlaylistSongArtistDto>,
     ) as $Val);
   }
 }
@@ -554,7 +553,7 @@ abstract class _$$PlaylistSongDtoImplCopyWith<$Res>
       String name,
       String duration,
       List<dynamic> image,
-      List<PlaylistSongCreatorDto> artists});
+      List<PlaylistSongArtistDto> artists});
 }
 
 /// @nodoc
@@ -594,7 +593,7 @@ class __$$PlaylistSongDtoImplCopyWithImpl<$Res>
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
-              as List<PlaylistSongCreatorDto>,
+              as List<PlaylistSongArtistDto>,
     ));
   }
 }
@@ -609,7 +608,7 @@ class _$PlaylistSongDtoImpl
       required this.name,
       required this.duration,
       required final List<dynamic> image,
-      required final List<PlaylistSongCreatorDto> artists})
+      required final List<PlaylistSongArtistDto> artists})
       : _image = image,
         _artists = artists;
 
@@ -630,9 +629,9 @@ class _$PlaylistSongDtoImpl
     return EqualUnmodifiableListView(_image);
   }
 
-  final List<PlaylistSongCreatorDto> _artists;
+  final List<PlaylistSongArtistDto> _artists;
   @override
-  List<PlaylistSongCreatorDto> get artists {
+  List<PlaylistSongArtistDto> get artists {
     if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_artists);
@@ -699,7 +698,7 @@ abstract class _PlaylistSongDto implements PlaylistSongDto {
           required final String name,
           required final String duration,
           required final List<dynamic> image,
-          required final List<PlaylistSongCreatorDto> artists}) =
+          required final List<PlaylistSongArtistDto> artists}) =
       _$PlaylistSongDtoImpl;
 
   factory _PlaylistSongDto.fromJson(Map<String, dynamic> json) =
@@ -714,43 +713,43 @@ abstract class _PlaylistSongDto implements PlaylistSongDto {
   @override
   List<dynamic> get image;
   @override
-  List<PlaylistSongCreatorDto> get artists;
+  List<PlaylistSongArtistDto> get artists;
   @override
   @JsonKey(ignore: true)
   _$$PlaylistSongDtoImplCopyWith<_$PlaylistSongDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-PlaylistSongCreatorDto _$PlaylistSongCreatorDtoFromJson(
+PlaylistSongArtistDto _$PlaylistSongArtistDtoFromJson(
     Map<String, dynamic> json) {
-  return _PlaylistSongCreatorDto.fromJson(json);
+  return _PlaylistSongArtistDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PlaylistSongCreatorDto {
-  String get creatorId => throw _privateConstructorUsedError;
-  String get creatorName => throw _privateConstructorUsedError;
+mixin _$PlaylistSongArtistDto {
+  String get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PlaylistSongCreatorDtoCopyWith<PlaylistSongCreatorDto> get copyWith =>
+  $PlaylistSongArtistDtoCopyWith<PlaylistSongArtistDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PlaylistSongCreatorDtoCopyWith<$Res> {
-  factory $PlaylistSongCreatorDtoCopyWith(PlaylistSongCreatorDto value,
-          $Res Function(PlaylistSongCreatorDto) then) =
-      _$PlaylistSongCreatorDtoCopyWithImpl<$Res, PlaylistSongCreatorDto>;
+abstract class $PlaylistSongArtistDtoCopyWith<$Res> {
+  factory $PlaylistSongArtistDtoCopyWith(PlaylistSongArtistDto value,
+          $Res Function(PlaylistSongArtistDto) then) =
+      _$PlaylistSongArtistDtoCopyWithImpl<$Res, PlaylistSongArtistDto>;
   @useResult
-  $Res call({String creatorId, String creatorName});
+  $Res call({String id, String name});
 }
 
 /// @nodoc
-class _$PlaylistSongCreatorDtoCopyWithImpl<$Res,
-        $Val extends PlaylistSongCreatorDto>
-    implements $PlaylistSongCreatorDtoCopyWith<$Res> {
-  _$PlaylistSongCreatorDtoCopyWithImpl(this._value, this._then);
+class _$PlaylistSongArtistDtoCopyWithImpl<$Res,
+        $Val extends PlaylistSongArtistDto>
+    implements $PlaylistSongArtistDtoCopyWith<$Res> {
+  _$PlaylistSongArtistDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -760,58 +759,57 @@ class _$PlaylistSongCreatorDtoCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? creatorId = null,
-    Object? creatorName = null,
+    Object? id = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
-      creatorId: null == creatorId
-          ? _value.creatorId
-          : creatorId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      creatorName: null == creatorName
-          ? _value.creatorName
-          : creatorName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$PlaylistSongCreatorDtoImplCopyWith<$Res>
-    implements $PlaylistSongCreatorDtoCopyWith<$Res> {
-  factory _$$PlaylistSongCreatorDtoImplCopyWith(
-          _$PlaylistSongCreatorDtoImpl value,
-          $Res Function(_$PlaylistSongCreatorDtoImpl) then) =
-      __$$PlaylistSongCreatorDtoImplCopyWithImpl<$Res>;
+abstract class _$$PlaylistSongArtistDtoImplCopyWith<$Res>
+    implements $PlaylistSongArtistDtoCopyWith<$Res> {
+  factory _$$PlaylistSongArtistDtoImplCopyWith(
+          _$PlaylistSongArtistDtoImpl value,
+          $Res Function(_$PlaylistSongArtistDtoImpl) then) =
+      __$$PlaylistSongArtistDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String creatorId, String creatorName});
+  $Res call({String id, String name});
 }
 
 /// @nodoc
-class __$$PlaylistSongCreatorDtoImplCopyWithImpl<$Res>
-    extends _$PlaylistSongCreatorDtoCopyWithImpl<$Res,
-        _$PlaylistSongCreatorDtoImpl>
-    implements _$$PlaylistSongCreatorDtoImplCopyWith<$Res> {
-  __$$PlaylistSongCreatorDtoImplCopyWithImpl(
-      _$PlaylistSongCreatorDtoImpl _value,
-      $Res Function(_$PlaylistSongCreatorDtoImpl) _then)
+class __$$PlaylistSongArtistDtoImplCopyWithImpl<$Res>
+    extends _$PlaylistSongArtistDtoCopyWithImpl<$Res,
+        _$PlaylistSongArtistDtoImpl>
+    implements _$$PlaylistSongArtistDtoImplCopyWith<$Res> {
+  __$$PlaylistSongArtistDtoImplCopyWithImpl(_$PlaylistSongArtistDtoImpl _value,
+      $Res Function(_$PlaylistSongArtistDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? creatorId = null,
-    Object? creatorName = null,
+    Object? id = null,
+    Object? name = null,
   }) {
-    return _then(_$PlaylistSongCreatorDtoImpl(
-      creatorId: null == creatorId
-          ? _value.creatorId
-          : creatorId // ignore: cast_nullable_to_non_nullable
+    return _then(_$PlaylistSongArtistDtoImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      creatorName: null == creatorName
-          ? _value.creatorName
-          : creatorName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -819,78 +817,75 @@ class __$$PlaylistSongCreatorDtoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PlaylistSongCreatorDtoImpl
+class _$PlaylistSongArtistDtoImpl
     with DiagnosticableTreeMixin
-    implements _PlaylistSongCreatorDto {
-  const _$PlaylistSongCreatorDtoImpl(
-      {required this.creatorId, required this.creatorName});
+    implements _PlaylistSongArtistDto {
+  const _$PlaylistSongArtistDtoImpl({required this.id, required this.name});
 
-  factory _$PlaylistSongCreatorDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PlaylistSongCreatorDtoImplFromJson(json);
+  factory _$PlaylistSongArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaylistSongArtistDtoImplFromJson(json);
 
   @override
-  final String creatorId;
+  final String id;
   @override
-  final String creatorName;
+  final String name;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PlaylistSongCreatorDto(creatorId: $creatorId, creatorName: $creatorName)';
+    return 'PlaylistSongArtistDto(id: $id, name: $name)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'PlaylistSongCreatorDto'))
-      ..add(DiagnosticsProperty('creatorId', creatorId))
-      ..add(DiagnosticsProperty('creatorName', creatorName));
+      ..add(DiagnosticsProperty('type', 'PlaylistSongArtistDto'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('name', name));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PlaylistSongCreatorDtoImpl &&
-            (identical(other.creatorId, creatorId) ||
-                other.creatorId == creatorId) &&
-            (identical(other.creatorName, creatorName) ||
-                other.creatorName == creatorName));
+            other is _$PlaylistSongArtistDtoImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, creatorId, creatorName);
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PlaylistSongCreatorDtoImplCopyWith<_$PlaylistSongCreatorDtoImpl>
-      get copyWith => __$$PlaylistSongCreatorDtoImplCopyWithImpl<
-          _$PlaylistSongCreatorDtoImpl>(this, _$identity);
+  _$$PlaylistSongArtistDtoImplCopyWith<_$PlaylistSongArtistDtoImpl>
+      get copyWith => __$$PlaylistSongArtistDtoImplCopyWithImpl<
+          _$PlaylistSongArtistDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PlaylistSongCreatorDtoImplToJson(
+    return _$$PlaylistSongArtistDtoImplToJson(
       this,
     );
   }
 }
 
-abstract class _PlaylistSongCreatorDto implements PlaylistSongCreatorDto {
-  const factory _PlaylistSongCreatorDto(
-      {required final String creatorId,
-      required final String creatorName}) = _$PlaylistSongCreatorDtoImpl;
+abstract class _PlaylistSongArtistDto implements PlaylistSongArtistDto {
+  const factory _PlaylistSongArtistDto(
+      {required final String id,
+      required final String name}) = _$PlaylistSongArtistDtoImpl;
 
-  factory _PlaylistSongCreatorDto.fromJson(Map<String, dynamic> json) =
-      _$PlaylistSongCreatorDtoImpl.fromJson;
+  factory _PlaylistSongArtistDto.fromJson(Map<String, dynamic> json) =
+      _$PlaylistSongArtistDtoImpl.fromJson;
 
   @override
-  String get creatorId;
+  String get id;
   @override
-  String get creatorName;
+  String get name;
   @override
   @JsonKey(ignore: true)
-  _$$PlaylistSongCreatorDtoImplCopyWith<_$PlaylistSongCreatorDtoImpl>
+  _$$PlaylistSongArtistDtoImplCopyWith<_$PlaylistSongArtistDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

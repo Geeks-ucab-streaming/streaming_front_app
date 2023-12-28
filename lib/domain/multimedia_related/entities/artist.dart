@@ -1,17 +1,33 @@
 class Artist {
-  Artist(this.id, this.name, this.image);
+  Artist({
+    this.id,
+    this.name,
+    this.image,
+    this.artistGenre,
+  });
 
-  final String id; //cambiar a ArtistId
-  final ArtistName name;
-  final ArtistImageReference image;
+  final ArtistId? id;
+  final ArtistName? name;
+  final ArtistImageReference? image;
+  final ArtistGenre? artistGenre;
 
-  String getName() {
-    return name.name;
+  String? getId() {
+    return id?.id;
   }
 
-  String getImage() {
-    return image.imageURL;
+  String? getName() {
+    return name?.name;
   }
+
+  List<int>? getImage() {
+    return image?.imageURL;
+  }
+}
+
+class ArtistId {
+  ArtistId(this.id);
+
+  final String id;
 }
 
 class ArtistName {
@@ -23,5 +39,11 @@ class ArtistName {
 class ArtistImageReference {
   ArtistImageReference(this.imageURL);
 
-  final String imageURL;
+  final List<int> imageURL;
+}
+
+class ArtistGenre {
+  ArtistGenre(this.genre);
+
+  final String genre;
 }
