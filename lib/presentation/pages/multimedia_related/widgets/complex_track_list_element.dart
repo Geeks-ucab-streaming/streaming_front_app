@@ -23,7 +23,7 @@ class TrackListElement2 extends StatelessWidget {
               image: DecorationImage(
                 image: Image.memory(
                   Uint8List.fromList(
-                    trackToDisplay.getImage(),
+                    trackToDisplay.getImage()!,
                   ),
                   width: MediaQuery.of(context).size.width - 40,
                   height: 300,
@@ -36,14 +36,14 @@ class TrackListElement2 extends StatelessWidget {
           ),
         ),
         title: Text(
-          trackToDisplay.getName(),
+          trackToDisplay.getName()!,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
           ),
         ),
         subtitle: Text(
-          trackToDisplay.getArtist(),
+          trackToDisplay.getArtist()!,
           style: const TextStyle(
             color: Color.fromARGB(213, 180, 180, 180),
           ),

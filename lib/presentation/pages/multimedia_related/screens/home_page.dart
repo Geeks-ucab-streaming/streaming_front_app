@@ -29,17 +29,17 @@ class HomePage extends ConsumerWidget {
 
   final List<Song> songs = [
     Song(
-      '1',
-      SongName('Track 1'),
-      SongReference('urldummy'),
-      SongImage([]),
-      SongCreationDate(DateTime(2021, 5, 1)),
-      SongPreview('urldummy'),
-      [
+      id: SongId('1'),
+      name: SongName('Track 1'),
+      //SongReference('urldummy'),
+      image: SongImage([]),
+      date: SongCreationDate(DateTime(2021, 5, 1)),
+      previewURL: SongPreview('urldummy'),
+      genres: [
         SongGenre('Pop'),
         SongGenre('Rock'),
       ],
-      SongDuration(193),
+      duration: SongDuration(193),
     ),
     // Track(
     //   '2',
@@ -49,17 +49,17 @@ class HomePage extends ConsumerWidget {
     //   3.00,
     // ),
     Song(
-      '2',
-      SongName('Track 2'),
-      SongReference('urldummy'),
-      SongImage([]),
-      SongCreationDate(DateTime(2021, 5, 1)),
-      SongPreview('urldummy'),
-      [
+      id: SongId('2'),
+      name: SongName('Track 2'),
+      //SongReference('urldummy'),
+      image: SongImage([]),
+      date: SongCreationDate(DateTime(2021, 5, 1)),
+      previewURL: SongPreview('urldummy'),
+      genres: [
         SongGenre('Pop'),
         SongGenre('Rock'),
       ],
-      SongDuration(193),
+      duration: SongDuration(193),
     ),
   ];
 

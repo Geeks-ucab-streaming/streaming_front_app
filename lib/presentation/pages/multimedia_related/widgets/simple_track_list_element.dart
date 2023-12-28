@@ -19,7 +19,7 @@ class SimpleTrackListElement extends StatelessWidget {
           color: Colors.blueAccent,
         ),
         title: Text(
-          trackToDisplay.getName(),
+          trackToDisplay.getName()!,
           style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
         trailing: Text(
