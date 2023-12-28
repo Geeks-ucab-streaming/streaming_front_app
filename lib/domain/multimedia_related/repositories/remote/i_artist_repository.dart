@@ -1,6 +1,8 @@
 import '../../entities/entities.dart';
 
 abstract class IArtistRepository {
-  List<Artist> getAllArtist();
-  Artist getArtistById(String artistId);
+  // get artist by id
+  Future<Artist> getArtistById(String artistId);
+  // get top artists
+  Future<List<Artist>> getTrendingArtists();
 }

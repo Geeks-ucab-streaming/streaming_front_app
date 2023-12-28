@@ -24,7 +24,7 @@ mixin _$SongDto {
   String get name => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
   String get compositor => throw _privateConstructorUsedError;
-  String get imageURL => throw _privateConstructorUsedError;
+  List<dynamic> get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +41,7 @@ abstract class $SongDtoCopyWith<$Res> {
       String name,
       String duration,
       String compositor,
-      String imageURL});
+      List<dynamic> image});
 }
 
 /// @nodoc
@@ -61,7 +61,7 @@ class _$SongDtoCopyWithImpl<$Res, $Val extends SongDto>
     Object? name = null,
     Object? duration = null,
     Object? compositor = null,
-    Object? imageURL = null,
+    Object? image = null,
   }) {
     return _then(_value.copyWith(
       songId: null == songId
@@ -80,10 +80,10 @@ class _$SongDtoCopyWithImpl<$Res, $Val extends SongDto>
           ? _value.compositor
           : compositor // ignore: cast_nullable_to_non_nullable
               as String,
-      imageURL: null == imageURL
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
-              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ) as $Val);
   }
 }
@@ -100,7 +100,7 @@ abstract class _$$SongDtoImplCopyWith<$Res> implements $SongDtoCopyWith<$Res> {
       String name,
       String duration,
       String compositor,
-      String imageURL});
+      List<dynamic> image});
 }
 
 /// @nodoc
@@ -118,7 +118,7 @@ class __$$SongDtoImplCopyWithImpl<$Res>
     Object? name = null,
     Object? duration = null,
     Object? compositor = null,
-    Object? imageURL = null,
+    Object? image = null,
   }) {
     return _then(_$SongDtoImpl(
       songId: null == songId
@@ -137,10 +137,10 @@ class __$$SongDtoImplCopyWithImpl<$Res>
           ? _value.compositor
           : compositor // ignore: cast_nullable_to_non_nullable
               as String,
-      imageURL: null == imageURL
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
-              as String,
+      image: null == image
+          ? _value._image
+          : image // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ));
   }
 }
@@ -153,7 +153,8 @@ class _$SongDtoImpl with DiagnosticableTreeMixin implements _SongDto {
       required this.name,
       required this.duration,
       required this.compositor,
-      required this.imageURL});
+      required final List<dynamic> image})
+      : _image = image;
 
   factory _$SongDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$SongDtoImplFromJson(json);
@@ -166,12 +167,17 @@ class _$SongDtoImpl with DiagnosticableTreeMixin implements _SongDto {
   final String duration;
   @override
   final String compositor;
+  final List<dynamic> _image;
   @override
-  final String imageURL;
+  List<dynamic> get image {
+    if (_image is EqualUnmodifiableListView) return _image;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_image);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SongDto(songId: $songId, name: $name, duration: $duration, compositor: $compositor, imageURL: $imageURL)';
+    return 'SongDto(songId: $songId, name: $name, duration: $duration, compositor: $compositor, image: $image)';
   }
 
   @override
@@ -183,7 +189,7 @@ class _$SongDtoImpl with DiagnosticableTreeMixin implements _SongDto {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('duration', duration))
       ..add(DiagnosticsProperty('compositor', compositor))
-      ..add(DiagnosticsProperty('imageURL', imageURL));
+      ..add(DiagnosticsProperty('image', image));
   }
 
   @override
@@ -197,14 +203,13 @@ class _$SongDtoImpl with DiagnosticableTreeMixin implements _SongDto {
                 other.duration == duration) &&
             (identical(other.compositor, compositor) ||
                 other.compositor == compositor) &&
-            (identical(other.imageURL, imageURL) ||
-                other.imageURL == imageURL));
+            const DeepCollectionEquality().equals(other._image, _image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, songId, name, duration, compositor, imageURL);
+  int get hashCode => Object.hash(runtimeType, songId, name, duration,
+      compositor, const DeepCollectionEquality().hash(_image));
 
   @JsonKey(ignore: true)
   @override
@@ -226,7 +231,7 @@ abstract class _SongDto implements SongDto {
       required final String name,
       required final String duration,
       required final String compositor,
-      required final String imageURL}) = _$SongDtoImpl;
+      required final List<dynamic> image}) = _$SongDtoImpl;
 
   factory _SongDto.fromJson(Map<String, dynamic> json) = _$SongDtoImpl.fromJson;
 
@@ -239,7 +244,7 @@ abstract class _SongDto implements SongDto {
   @override
   String get compositor;
   @override
-  String get imageURL;
+  List<dynamic> get image;
   @override
   @JsonKey(ignore: true)
   _$$SongDtoImplCopyWith<_$SongDtoImpl> get copyWith =>

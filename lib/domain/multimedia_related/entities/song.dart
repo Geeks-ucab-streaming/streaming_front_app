@@ -24,7 +24,7 @@ class Song {
     this.date,
     this.previewURL,
     this.genres,
-    this.artist,
+    this.artists,
     this.duration,
   });
 
@@ -34,7 +34,7 @@ class Song {
   final SongCreationDate? date;
   final SongPreview? previewURL;
   final List<SongGenre>? genres;
-  final String? artist;
+  final List<String>? artists;
   final SongDuration? duration;
 
   String? getName() {
@@ -65,8 +65,8 @@ class Song {
     return genresList;
   }
 
-  String? getArtist() {
-    return artist;
+  List<String>? getArtist() {
+    return artists;
   }
 
   int? getDuration() {

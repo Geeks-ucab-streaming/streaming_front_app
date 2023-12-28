@@ -43,7 +43,7 @@ class TrackListElement2 extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          trackToDisplay.getArtist()!,
+          trackToDisplay.getArtist()![0],
           style: const TextStyle(
             color: Color.fromARGB(213, 180, 180, 180),
           ),

@@ -13,7 +13,7 @@ class SongDto with _$SongDto {
     required String name,
     required String duration,
     required String compositor,
-    required String imageURL,
+    required List<dynamic> image,
   }) = _SongDto;
 
   factory SongDto.fromJson(Map<String, Object?> json) =>

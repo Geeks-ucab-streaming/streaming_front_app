@@ -1,15 +1,21 @@
+import 'entities.dart';
+
 class Artist {
   Artist({
     this.id,
     this.name,
     this.image,
     this.artistGenre,
+    this.albums,
+    this.songs,
   });
 
   final ArtistId? id;
   final ArtistName? name;
-  final ArtistImageReference? image;
+  final ArtistImage? image;
   final ArtistGenre? artistGenre;
+  final List<Album>? albums;
+  final List<Song>? songs;
 
   String? getId() {
     return id?.id;
@@ -20,7 +26,7 @@ class Artist {
   }
 
   List<int>? getImage() {
-    return image?.imageURL;
+    return image?.image;
   }
 }
 
@@ -36,10 +42,10 @@ class ArtistName {
   final String name;
 }
 
-class ArtistImageReference {
-  ArtistImageReference(this.imageURL);
+class ArtistImage {
+  ArtistImage(this.image);
 
-  final List<int> imageURL;
+  final List<int> image;
 }
 
 class ArtistGenre {
