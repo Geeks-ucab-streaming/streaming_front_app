@@ -25,7 +25,7 @@ _$TrendingArtistDtoImpl _$$TrendingArtistDtoImplFromJson(
     _$TrendingArtistDtoImpl(
       id: json['id'] as String,
       name: json['name'] as String,
-      image: json['image'] as List<dynamic>,
+      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$TrendingArtistDtoImplToJson(

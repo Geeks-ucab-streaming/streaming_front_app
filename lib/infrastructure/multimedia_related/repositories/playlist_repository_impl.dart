@@ -37,7 +37,7 @@ class PlaylistRepositoryImpl extends IPlaylistRepository {
 
   // get top fourth playlists
   @override
-  Future<List<Playlist>> getTopFourthPlaylist(String creatorId) async {
+  Future<List<Playlist>> getTopFourthPlaylist() async {
     // getIt instance
     GetIt getIt = GetIt.I;
     // logger to output

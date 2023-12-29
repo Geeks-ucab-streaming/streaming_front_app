@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:streaming_front_app/infrastructure/core/dtos/dtos.dart';
 
 part 'song_dto.freezed.dart';
 
@@ -13,7 +14,7 @@ class SongDto with _$SongDto {
     required String name,
     required String duration,
     required String compositor,
-    required List<dynamic> image,
+    required ImageDto image,
   }) = _SongDto;
 
   factory SongDto.fromJson(Map<String, Object?> json) =>

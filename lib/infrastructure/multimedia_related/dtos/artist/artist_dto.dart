@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:streaming_front_app/infrastructure/core/dtos/dtos.dart';
 
 part 'artist_dto.freezed.dart';
 // Class is serializable
@@ -10,7 +11,7 @@ class ArtistDto with _$ArtistDto {
   const factory ArtistDto({
     required String id,
     required String name,
-    required List<dynamic> image,
+    required ImageDto image,
     required List<ArtistAlbumDto> albums,
     required List<ArtistSongDto> songs,
   }) = _ArtistDto;
@@ -23,7 +24,7 @@ class ArtistDto with _$ArtistDto {
 class ArtistAlbumDto with _$ArtistAlbumDto {
   const factory ArtistAlbumDto({
     required String id,
-    required List<dynamic> image,
+    required ImageDto image,
   }) = _ArtistAlbumDto;
 
   factory ArtistAlbumDto.fromJson(Map<String, Object?> json) =>
@@ -35,7 +36,7 @@ class ArtistSongDto with _$ArtistSongDto {
   const factory ArtistSongDto({
     required String id,
     required String duration,
-    required List<dynamic> image,
+    required ImageDto image,
     required List<ArtistSongArtistDto> artists,
   }) = _ArtistSongDto;
 

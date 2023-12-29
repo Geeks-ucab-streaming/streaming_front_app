@@ -179,7 +179,7 @@ TrendingArtistDto _$TrendingArtistDtoFromJson(Map<String, dynamic> json) {
 mixin _$TrendingArtistDto {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  List<dynamic> get image => throw _privateConstructorUsedError;
+  ImageDto get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -193,7 +193,9 @@ abstract class $TrendingArtistDtoCopyWith<$Res> {
           TrendingArtistDto value, $Res Function(TrendingArtistDto) then) =
       _$TrendingArtistDtoCopyWithImpl<$Res, TrendingArtistDto>;
   @useResult
-  $Res call({String id, String name, List<dynamic> image});
+  $Res call({String id, String name, ImageDto image});
+
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -225,8 +227,16 @@ class _$TrendingArtistDtoCopyWithImpl<$Res, $Val extends TrendingArtistDto>
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ImageDtoCopyWith<$Res> get image {
+    return $ImageDtoCopyWith<$Res>(_value.image, (value) {
+      return _then(_value.copyWith(image: value) as $Val);
+    });
   }
 }
 
@@ -238,7 +248,10 @@ abstract class _$$TrendingArtistDtoImplCopyWith<$Res>
       __$$TrendingArtistDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, List<dynamic> image});
+  $Res call({String id, String name, ImageDto image});
+
+  @override
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -266,9 +279,9 @@ class __$$TrendingArtistDtoImplCopyWithImpl<$Res>
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
-          ? _value._image
+          ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
     ));
   }
 }
@@ -279,10 +292,7 @@ class _$TrendingArtistDtoImpl
     with DiagnosticableTreeMixin
     implements _TrendingArtistDto {
   const _$TrendingArtistDtoImpl(
-      {required this.id,
-      required this.name,
-      required final List<dynamic> image})
-      : _image = image;
+      {required this.id, required this.name, required this.image});
 
   factory _$TrendingArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$TrendingArtistDtoImplFromJson(json);
@@ -291,13 +301,8 @@ class _$TrendingArtistDtoImpl
   final String id;
   @override
   final String name;
-  final List<dynamic> _image;
   @override
-  List<dynamic> get image {
-    if (_image is EqualUnmodifiableListView) return _image;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_image);
-  }
+  final ImageDto image;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -321,13 +326,12 @@ class _$TrendingArtistDtoImpl
             other is _$TrendingArtistDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality().equals(other._image, _image));
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, const DeepCollectionEquality().hash(_image));
+  int get hashCode => Object.hash(runtimeType, id, name, image);
 
   @JsonKey(ignore: true)
   @override
@@ -348,7 +352,7 @@ abstract class _TrendingArtistDto implements TrendingArtistDto {
   const factory _TrendingArtistDto(
       {required final String id,
       required final String name,
-      required final List<dynamic> image}) = _$TrendingArtistDtoImpl;
+      required final ImageDto image}) = _$TrendingArtistDtoImpl;
 
   factory _TrendingArtistDto.fromJson(Map<String, dynamic> json) =
       _$TrendingArtistDtoImpl.fromJson;
@@ -358,7 +362,7 @@ abstract class _TrendingArtistDto implements TrendingArtistDto {
   @override
   String get name;
   @override
-  List<dynamic> get image;
+  ImageDto get image;
   @override
   @JsonKey(ignore: true)
   _$$TrendingArtistDtoImplCopyWith<_$TrendingArtistDtoImpl> get copyWith =>

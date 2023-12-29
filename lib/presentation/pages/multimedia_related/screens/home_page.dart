@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../domain/multimedia_related/entities/entities.dart';
 import '../../../../infrastructure/core/util/util.dart';
-import '../../../../application/core/use_cases/use_cases.dart';
+import '../../../../application/multimedia_related/use_cases/use_cases.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -115,40 +115,117 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
-    final advertisement = ref.watch(getRandomAdvertisementProvider);
+    final homeInfo = ref.watch(getHomeInfoProvider);
+
     const BoxDecoration boxDecoration = BoxDecoration(
       color: Colors.transparent,
     );
-    final advertisementWidget = switch (advertisement) {
+    final homeBodyWidget = switch (homeInfo) {
       AsyncData(:final value) => Padding(
           padding: const EdgeInsets.all(20),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                image: DecorationImage(
-                  image: Image.memory(
-                    Uint8List.fromList(
-                      value.image,
+          child: Column(
+            children: [
+              /*ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    image: DecorationImage(
+                      image: Image.memory(
+                        Uint8List.fromList(
+                          value.advertisement.image,
+                        ),
+                        width: MediaQuery.of(context).size.width - 40,
+                        height: 300,
+                        fit: BoxFit.contain,
+                      ).image,
+                      fit: BoxFit.fill,
                     ),
-                    width: MediaQuery.of(context).size.width - 40,
-                    height: 300,
-                    fit: BoxFit.contain,
-                  ).image,
-                  fit: BoxFit.fill,
+                  ),
+                  height: 300,
+                ),
+              ),*/
+              nameRow('Playlist'),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                margin: const EdgeInsets.all(0),
+                child: GridView.count(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.8,
+                  children: [
+                    for (var element in playlists)
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          color: Colors.blue,
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                            element,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ), // your child widget here
+                      )
+                  ],
                 ),
               ),
-              height: 300,
-            ),
+              /*
+              nameRow('Aqustico Experience'),
+              Container(
+                child: myCarouselHomePage(),
+              ),
+              nameRow('Artistas Trending'),
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  height: 150,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      for (var element in artists.entries)
+                        InkWell(
+                          onTap: () => Navigator.pushNamed(context, '/artist'),
+                          child: Container(
+                            height: 150,
+                            child: ArtistCoverWidget(
+                              artistImage: AssetImage(element.value),
+                              artistName: element.key,
+                            ),
+                          ),
+                        )
+                    ],
+                  )),
+              nameRow('Tracklist'),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    for (var element in songs)
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        height: 70,
+                        child: TrackListElement2(element),
+                      )
+                  ],
+                ),
+              ),*/
+            ],
           ),
         ),
-      AsyncError(/*:final error*/) => Container(
+      AsyncError(:final error) => Container(
           child: Center(
             child: RichText(
               textAlign: TextAlign.center,
               text: GenericText(
-                text: 'Ups no hay conexión',
+                text: error.toString(),
                 fontSize: 18,
                 isBold: true,
               ),
@@ -216,79 +293,7 @@ class HomePage extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  advertisementWidget,
-                  nameRow('Playlist'),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                    margin: const EdgeInsets.all(0),
-                    child: GridView.count(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      crossAxisCount: 2,
-                      childAspectRatio: 1.8,
-                      children: [
-                        for (var element in playlists)
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              color: Colors.blue,
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              child: Text(
-                                element,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ), // your child widget here
-                          )
-                      ],
-                    ),
-                  ),
-                  nameRow('Aqustico Experience'),
-                  Container(
-                    child: myCarouselHomePage(),
-                  ),
-                  nameRow('Artistas Trending'),
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      height: 150,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          for (var element in artists.entries)
-                            InkWell(
-                              onTap: () =>
-                                  Navigator.pushNamed(context, '/artist'),
-                              child: Container(
-                                height: 150,
-                                child: ArtistCoverWidget(
-                                  artistImage: AssetImage(element.value),
-                                  artistName: element.key,
-                                ),
-                              ),
-                            )
-                        ],
-                      )),
-                  nameRow('Tracklist'),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        for (var element in songs)
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 5),
-                            height: 70,
-                            child: TrackListElement2(element),
-                          )
-                      ],
-                    ),
-                  ),
+                  homeBodyWidget,
                   const SizedBox(height: 25),
                   const PlayerBar(
                     songName: 'Song 1',

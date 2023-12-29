@@ -1,5 +1,7 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../core/dtos/dtos.dart';
 
 part 'playlist_dto.freezed.dart';
 // Class is serializable
@@ -11,7 +13,7 @@ class PlaylistDto with _$PlaylistDto {
     required String id,
     required String name,
     required String duration,
-    required List<dynamic> image,
+    required ImageDto image,
     required List<PlaylistCreatorDto> creators,
     required List<PlaylistSongDto> songs,
   }) = _PlaylistDto;
@@ -37,7 +39,7 @@ class PlaylistSongDto with _$PlaylistSongDto {
     required String songId,
     required String name,
     required String duration,
-    required List<dynamic> image,
+    required ImageDto image,
     required List<PlaylistSongArtistDto> artists,
   }) = _PlaylistSongDto;
 

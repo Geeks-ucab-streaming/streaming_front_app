@@ -1,5 +1,7 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../core/dtos/dtos.dart';
 
 part 'trending_artists_dto.freezed.dart';
 // Class is serializable
@@ -20,7 +22,7 @@ class TrendingArtistDto with _$TrendingArtistDto {
   const factory TrendingArtistDto({
     required String id,
     required String name,
-    required List<dynamic> image,
+    required ImageDto image,
   }) = _TrendingArtistDto;
 
   factory TrendingArtistDto.fromJson(Map<String, Object?> json) =>

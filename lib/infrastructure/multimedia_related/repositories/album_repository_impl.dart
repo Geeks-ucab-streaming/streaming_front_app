@@ -18,7 +18,7 @@ class AlbumRepositoryImpl extends IAlbumRepository {
 
   // get top albums
   @override
-  Future<List<Album>> getTopAlbums(String creatorId) async {
+  Future<List<Album>> getTopAlbums() async {
     // getIt instance
     GetIt getIt = GetIt.I;
     // logger to output

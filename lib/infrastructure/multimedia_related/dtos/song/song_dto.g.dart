@@ -12,7 +12,7 @@ _$SongDtoImpl _$$SongDtoImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       duration: json['duration'] as String,
       compositor: json['compositor'] as String,
-      image: json['image'] as List<dynamic>,
+      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SongDtoImplToJson(_$SongDtoImpl instance) =>

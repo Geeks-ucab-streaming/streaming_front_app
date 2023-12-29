@@ -6,5 +6,5 @@ abstract class IPlaylistRepository {
   // get the playlists created by creator id
   Future<List<Playlist>> getPlaylistCreatedBy(String creatorId);
   // get top fourth playlists
-  Future<List<Playlist>> getTopFourthPlaylist(String creatorId);
+  Future<List<Playlist>> getTopFourthPlaylist();
 }

@@ -177,7 +177,7 @@ TopPlaylistDto _$TopPlaylistDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TopPlaylistDto {
   String get id => throw _privateConstructorUsedError;
-  List<dynamic> get image => throw _privateConstructorUsedError;
+  ImageDto get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -191,7 +191,9 @@ abstract class $TopPlaylistDtoCopyWith<$Res> {
           TopPlaylistDto value, $Res Function(TopPlaylistDto) then) =
       _$TopPlaylistDtoCopyWithImpl<$Res, TopPlaylistDto>;
   @useResult
-  $Res call({String id, List<dynamic> image});
+  $Res call({String id, ImageDto image});
+
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -218,8 +220,16 @@ class _$TopPlaylistDtoCopyWithImpl<$Res, $Val extends TopPlaylistDto>
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ImageDtoCopyWith<$Res> get image {
+    return $ImageDtoCopyWith<$Res>(_value.image, (value) {
+      return _then(_value.copyWith(image: value) as $Val);
+    });
   }
 }
 
@@ -231,7 +241,10 @@ abstract class _$$TopPlaylistDtoImplCopyWith<$Res>
       __$$TopPlaylistDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, List<dynamic> image});
+  $Res call({String id, ImageDto image});
+
+  @override
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -254,9 +267,9 @@ class __$$TopPlaylistDtoImplCopyWithImpl<$Res>
           : id // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
-          ? _value._image
+          ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
     ));
   }
 }
@@ -266,22 +279,15 @@ class __$$TopPlaylistDtoImplCopyWithImpl<$Res>
 class _$TopPlaylistDtoImpl
     with DiagnosticableTreeMixin
     implements _TopPlaylistDto {
-  const _$TopPlaylistDtoImpl(
-      {required this.id, required final List<dynamic> image})
-      : _image = image;
+  const _$TopPlaylistDtoImpl({required this.id, required this.image});
 
   factory _$TopPlaylistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$TopPlaylistDtoImplFromJson(json);
 
   @override
   final String id;
-  final List<dynamic> _image;
   @override
-  List<dynamic> get image {
-    if (_image is EqualUnmodifiableListView) return _image;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_image);
-  }
+  final ImageDto image;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -303,13 +309,12 @@ class _$TopPlaylistDtoImpl
         (other.runtimeType == runtimeType &&
             other is _$TopPlaylistDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            const DeepCollectionEquality().equals(other._image, _image));
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_image));
+  int get hashCode => Object.hash(runtimeType, id, image);
 
   @JsonKey(ignore: true)
   @override
@@ -329,7 +334,7 @@ class _$TopPlaylistDtoImpl
 abstract class _TopPlaylistDto implements TopPlaylistDto {
   const factory _TopPlaylistDto(
       {required final String id,
-      required final List<dynamic> image}) = _$TopPlaylistDtoImpl;
+      required final ImageDto image}) = _$TopPlaylistDtoImpl;
 
   factory _TopPlaylistDto.fromJson(Map<String, dynamic> json) =
       _$TopPlaylistDtoImpl.fromJson;
@@ -337,7 +342,7 @@ abstract class _TopPlaylistDto implements TopPlaylistDto {
   @override
   String get id;
   @override
-  List<dynamic> get image;
+  ImageDto get image;
   @override
   @JsonKey(ignore: true)
   _$$TopPlaylistDtoImplCopyWith<_$TopPlaylistDtoImpl> get copyWith =>

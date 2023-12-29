@@ -17,63 +17,68 @@ class Playlist {
   final PlaylistPlays? plays;
   final List<Song>? songs;
 
-  String? getID() {
-    return id?.id;
+  String? getId() {
+    return id?.value;
   }
 
   String? getName() {
-    return name?.name;
+    return name?.value;
   }
 
   List<int>? getImage() {
-    return image?.image;
+    return image?.value;
   }
 
   int? getDuration() {
-    return duration?.duration;
+    return duration?.value;
   }
 
   int? getPlays() {
-    return plays?.plays;
+    return plays?.value;
   }
 
-  List<Song>? getTracks() {
+  List<Song>? getSongs() {
     return songs;
+  }
+
+  @override
+  String toString() {
+    return '{id: ${getId()}, name: ${getName()}, image: ${getImage()?.length}, duration: ${getDuration()}}';
   }
 }
 
 class PlaylistID {
-  PlaylistID(this.id);
+  PlaylistID(this.value);
 
-  final String id;
+  final String value;
 }
 
 class PlaylistName {
-  PlaylistName(this.name) {
-    assert(name.length <= 40);
+  PlaylistName(this.value) {
+    assert(value.length <= 40);
   }
 
-  final String name;
+  final String value;
 }
 
 class PlaylistImage {
-  PlaylistImage(this.image);
+  PlaylistImage(this.value);
 
-  final List<int> image;
+  final List<int> value;
 }
 
 class PlaylistDuration {
-  PlaylistDuration(this.duration) {
-    assert(duration >= 0);
+  PlaylistDuration(this.value) {
+    assert(value >= 0);
   }
 
-  final int duration;
+  final int value;
 }
 
 class PlaylistPlays {
-  PlaylistPlays(this.plays) {
-    assert(plays >= 0);
+  PlaylistPlays(this.value) {
+    assert(value >= 0);
   }
 
-  final int plays;
+  final int value;
 }

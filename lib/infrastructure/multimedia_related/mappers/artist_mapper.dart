@@ -8,14 +8,18 @@ class ArtistMapper {
       id: ArtistId(artistDto.id),
       name: ArtistName(artistDto.name),
       image: ArtistImage(
-        ImageConverter.fromDynamicListToIntList(artistDto.image),
+        ImageConverter.fromDynamicListToIntList(
+          artistDto.image.getImageAsIntList(),
+        ),
       ),
       albums: artistDto.albums
           .map(
             (artistAlbumDto) => Album(
               id: AlbumId(artistAlbumDto.id),
               image: AlbumImage(
-                ImageConverter.fromDynamicListToIntList(artistAlbumDto.image),
+                ImageConverter.fromDynamicListToIntList(
+                  artistAlbumDto.image.getImageAsIntList(),
+                ),
               ),
             ),
           )
@@ -28,7 +32,9 @@ class ArtistMapper {
                 int.parse(artistSongDto.duration),
               ),
               image: SongImage(
-                ImageConverter.fromDynamicListToIntList(artistSongDto.image),
+                ImageConverter.fromDynamicListToIntList(
+                  artistSongDto.image.getImageAsIntList(),
+                ),
               ),
               artists:
                   artistSongDto.artists.map((element) => element.name).toList(),
@@ -45,7 +51,9 @@ class ArtistMapper {
           (artist) => Artist(
             id: ArtistId(artist.id),
             image: ArtistImage(
-              ImageConverter.fromDynamicListToIntList(artist.image),
+              ImageConverter.fromDynamicListToIntList(
+                artist.image.getImageAsIntList(),
+              ),
             ),
             name: ArtistName(artist.name),
           ),

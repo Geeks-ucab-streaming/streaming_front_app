@@ -174,7 +174,7 @@ TopAlbumDto _$TopAlbumDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TopAlbumDto {
   String get id => throw _privateConstructorUsedError;
-  List<dynamic> get image => throw _privateConstructorUsedError;
+  ImageDto get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -188,7 +188,9 @@ abstract class $TopAlbumDtoCopyWith<$Res> {
           TopAlbumDto value, $Res Function(TopAlbumDto) then) =
       _$TopAlbumDtoCopyWithImpl<$Res, TopAlbumDto>;
   @useResult
-  $Res call({String id, List<dynamic> image});
+  $Res call({String id, ImageDto image});
+
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -215,8 +217,16 @@ class _$TopAlbumDtoCopyWithImpl<$Res, $Val extends TopAlbumDto>
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ImageDtoCopyWith<$Res> get image {
+    return $ImageDtoCopyWith<$Res>(_value.image, (value) {
+      return _then(_value.copyWith(image: value) as $Val);
+    });
   }
 }
 
@@ -228,7 +238,10 @@ abstract class _$$TopAlbumDtoImplCopyWith<$Res>
       __$$TopAlbumDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, List<dynamic> image});
+  $Res call({String id, ImageDto image});
+
+  @override
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -251,9 +264,9 @@ class __$$TopAlbumDtoImplCopyWithImpl<$Res>
           : id // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
-          ? _value._image
+          ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
     ));
   }
 }
@@ -261,22 +274,15 @@ class __$$TopAlbumDtoImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TopAlbumDtoImpl with DiagnosticableTreeMixin implements _TopAlbumDto {
-  const _$TopAlbumDtoImpl(
-      {required this.id, required final List<dynamic> image})
-      : _image = image;
+  const _$TopAlbumDtoImpl({required this.id, required this.image});
 
   factory _$TopAlbumDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$TopAlbumDtoImplFromJson(json);
 
   @override
   final String id;
-  final List<dynamic> _image;
   @override
-  List<dynamic> get image {
-    if (_image is EqualUnmodifiableListView) return _image;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_image);
-  }
+  final ImageDto image;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -298,13 +304,12 @@ class _$TopAlbumDtoImpl with DiagnosticableTreeMixin implements _TopAlbumDto {
         (other.runtimeType == runtimeType &&
             other is _$TopAlbumDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            const DeepCollectionEquality().equals(other._image, _image));
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_image));
+  int get hashCode => Object.hash(runtimeType, id, image);
 
   @JsonKey(ignore: true)
   @override
@@ -323,7 +328,7 @@ class _$TopAlbumDtoImpl with DiagnosticableTreeMixin implements _TopAlbumDto {
 abstract class _TopAlbumDto implements TopAlbumDto {
   const factory _TopAlbumDto(
       {required final String id,
-      required final List<dynamic> image}) = _$TopAlbumDtoImpl;
+      required final ImageDto image}) = _$TopAlbumDtoImpl;
 
   factory _TopAlbumDto.fromJson(Map<String, dynamic> json) =
       _$TopAlbumDtoImpl.fromJson;
@@ -331,7 +336,7 @@ abstract class _TopAlbumDto implements TopAlbumDto {
   @override
   String get id;
   @override
-  List<dynamic> get image;
+  ImageDto get image;
   @override
   @JsonKey(ignore: true)
   _$$TopAlbumDtoImplCopyWith<_$TopAlbumDtoImpl> get copyWith =>

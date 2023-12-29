@@ -9,7 +9,10 @@ class PlaylistMapper {
         .map((element) => Playlist(
               id: PlaylistID(element.id),
               image: PlaylistImage(
-                  ImageConverter.fromDynamicListToIntList(element.image)),
+                ImageConverter.fromDynamicListToIntList(
+                  element.image.getImageAsIntList(),
+                ),
+              ),
             ))
         .toList();
     return topFourthPlaylists;
@@ -21,7 +24,7 @@ class PlaylistMapper {
       name: PlaylistName(playlistDto.name),
       image: PlaylistImage(
         ImageConverter.fromDynamicListToIntList(
-          playlistDto.image,
+          playlistDto.image.getImageAsIntList(),
         ),
       ),
       duration: PlaylistDuration(
@@ -33,7 +36,7 @@ class PlaylistMapper {
                 name: SongName(playlistSongDto.name),
                 image: SongImage(
                   ImageConverter.fromDynamicListToIntList(
-                    playlistSongDto.image,
+                    playlistSongDto.image.getImageAsIntList(),
                   ),
                 ),
                 duration: SongDuration(

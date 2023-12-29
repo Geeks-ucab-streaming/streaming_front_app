@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:streaming_front_app/infrastructure/core/dtos/dtos.dart';
 
 part 'top_album_dto.freezed.dart';
 // Class is serializable
@@ -19,7 +20,7 @@ class TopAlbumsDto with _$TopAlbumsDto {
 class TopAlbumDto with _$TopAlbumDto {
   const factory TopAlbumDto({
     required String id,
-    required List<dynamic> image,
+    required ImageDto image,
   }) = _TopAlbumDto;
 
   factory TopAlbumDto.fromJson(Map<String, Object?> json) =>

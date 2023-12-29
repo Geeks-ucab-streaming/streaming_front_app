@@ -18,38 +18,50 @@ class Artist {
   final List<Song>? songs;
 
   String? getId() {
-    return id?.id;
+    return id?.value;
   }
 
   String? getName() {
-    return name?.name;
+    return name?.value;
   }
 
   List<int>? getImage() {
-    return image?.image;
+    return image?.value;
+  }
+
+  String? getGenre() {
+    return artistGenre?.value;
+  }
+
+  List<Album>? getAlbums() {
+    return albums;
+  }
+
+  List<Song>? getSongs() {
+    return songs;
   }
 }
 
 class ArtistId {
-  ArtistId(this.id);
+  ArtistId(this.value);
 
-  final String id;
+  final String value;
 }
 
 class ArtistName {
-  ArtistName(this.name);
+  ArtistName(this.value);
 
-  final String name;
+  final String value;
 }
 
 class ArtistImage {
-  ArtistImage(this.image);
+  ArtistImage(this.value);
 
-  final List<int> image;
+  final List<int> value;
 }
 
 class ArtistGenre {
-  ArtistGenre(this.genre);
+  ArtistGenre(this.value);
 
-  final String genre;
+  final String value;
 }

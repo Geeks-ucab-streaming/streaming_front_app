@@ -23,7 +23,7 @@ mixin _$PlaylistDto {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
-  List<dynamic> get image => throw _privateConstructorUsedError;
+  ImageDto get image => throw _privateConstructorUsedError;
   List<PlaylistCreatorDto> get creators => throw _privateConstructorUsedError;
   List<PlaylistSongDto> get songs => throw _privateConstructorUsedError;
 
@@ -43,9 +43,11 @@ abstract class $PlaylistDtoCopyWith<$Res> {
       {String id,
       String name,
       String duration,
-      List<dynamic> image,
+      ImageDto image,
       List<PlaylistCreatorDto> creators,
       List<PlaylistSongDto> songs});
+
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -84,7 +86,7 @@ class _$PlaylistDtoCopyWithImpl<$Res, $Val extends PlaylistDto>
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
       creators: null == creators
           ? _value.creators
           : creators // ignore: cast_nullable_to_non_nullable
@@ -94,6 +96,14 @@ class _$PlaylistDtoCopyWithImpl<$Res, $Val extends PlaylistDto>
           : songs // ignore: cast_nullable_to_non_nullable
               as List<PlaylistSongDto>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ImageDtoCopyWith<$Res> get image {
+    return $ImageDtoCopyWith<$Res>(_value.image, (value) {
+      return _then(_value.copyWith(image: value) as $Val);
+    });
   }
 }
 
@@ -109,9 +119,12 @@ abstract class _$$PlaylistDtoImplCopyWith<$Res>
       {String id,
       String name,
       String duration,
-      List<dynamic> image,
+      ImageDto image,
       List<PlaylistCreatorDto> creators,
       List<PlaylistSongDto> songs});
+
+  @override
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -146,9 +159,9 @@ class __$$PlaylistDtoImplCopyWithImpl<$Res>
           : duration // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
-          ? _value._image
+          ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
       creators: null == creators
           ? _value._creators
           : creators // ignore: cast_nullable_to_non_nullable
@@ -168,11 +181,10 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
       {required this.id,
       required this.name,
       required this.duration,
-      required final List<dynamic> image,
+      required this.image,
       required final List<PlaylistCreatorDto> creators,
       required final List<PlaylistSongDto> songs})
-      : _image = image,
-        _creators = creators,
+      : _creators = creators,
         _songs = songs;
 
   factory _$PlaylistDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -184,14 +196,8 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
   final String name;
   @override
   final String duration;
-  final List<dynamic> _image;
   @override
-  List<dynamic> get image {
-    if (_image is EqualUnmodifiableListView) return _image;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_image);
-  }
-
+  final ImageDto image;
   final List<PlaylistCreatorDto> _creators;
   @override
   List<PlaylistCreatorDto> get creators {
@@ -235,7 +241,7 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
-            const DeepCollectionEquality().equals(other._image, _image) &&
+            (identical(other.image, image) || other.image == image) &&
             const DeepCollectionEquality().equals(other._creators, _creators) &&
             const DeepCollectionEquality().equals(other._songs, _songs));
   }
@@ -247,7 +253,7 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
       id,
       name,
       duration,
-      const DeepCollectionEquality().hash(_image),
+      image,
       const DeepCollectionEquality().hash(_creators),
       const DeepCollectionEquality().hash(_songs));
 
@@ -270,7 +276,7 @@ abstract class _PlaylistDto implements PlaylistDto {
       {required final String id,
       required final String name,
       required final String duration,
-      required final List<dynamic> image,
+      required final ImageDto image,
       required final List<PlaylistCreatorDto> creators,
       required final List<PlaylistSongDto> songs}) = _$PlaylistDtoImpl;
 
@@ -284,7 +290,7 @@ abstract class _PlaylistDto implements PlaylistDto {
   @override
   String get duration;
   @override
-  List<dynamic> get image;
+  ImageDto get image;
   @override
   List<PlaylistCreatorDto> get creators;
   @override
@@ -473,7 +479,7 @@ mixin _$PlaylistSongDto {
   String get songId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
-  List<dynamic> get image => throw _privateConstructorUsedError;
+  ImageDto get image => throw _privateConstructorUsedError;
   List<PlaylistSongArtistDto> get artists => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -492,8 +498,10 @@ abstract class $PlaylistSongDtoCopyWith<$Res> {
       {String songId,
       String name,
       String duration,
-      List<dynamic> image,
+      ImageDto image,
       List<PlaylistSongArtistDto> artists});
+
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -531,12 +539,20 @@ class _$PlaylistSongDtoCopyWithImpl<$Res, $Val extends PlaylistSongDto>
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
       artists: null == artists
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<PlaylistSongArtistDto>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ImageDtoCopyWith<$Res> get image {
+    return $ImageDtoCopyWith<$Res>(_value.image, (value) {
+      return _then(_value.copyWith(image: value) as $Val);
+    });
   }
 }
 
@@ -552,8 +568,11 @@ abstract class _$$PlaylistSongDtoImplCopyWith<$Res>
       {String songId,
       String name,
       String duration,
-      List<dynamic> image,
+      ImageDto image,
       List<PlaylistSongArtistDto> artists});
+
+  @override
+  $ImageDtoCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -587,9 +606,9 @@ class __$$PlaylistSongDtoImplCopyWithImpl<$Res>
           : duration // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
-          ? _value._image
+          ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as ImageDto,
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
@@ -607,10 +626,9 @@ class _$PlaylistSongDtoImpl
       {required this.songId,
       required this.name,
       required this.duration,
-      required final List<dynamic> image,
+      required this.image,
       required final List<PlaylistSongArtistDto> artists})
-      : _image = image,
-        _artists = artists;
+      : _artists = artists;
 
   factory _$PlaylistSongDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlaylistSongDtoImplFromJson(json);
@@ -621,14 +639,8 @@ class _$PlaylistSongDtoImpl
   final String name;
   @override
   final String duration;
-  final List<dynamic> _image;
   @override
-  List<dynamic> get image {
-    if (_image is EqualUnmodifiableListView) return _image;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_image);
-  }
-
+  final ImageDto image;
   final List<PlaylistSongArtistDto> _artists;
   @override
   List<PlaylistSongArtistDto> get artists {
@@ -663,18 +675,13 @@ class _$PlaylistSongDtoImpl
             (identical(other.name, name) || other.name == name) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
-            const DeepCollectionEquality().equals(other._image, _image) &&
+            (identical(other.image, image) || other.image == image) &&
             const DeepCollectionEquality().equals(other._artists, _artists));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      songId,
-      name,
-      duration,
-      const DeepCollectionEquality().hash(_image),
+  int get hashCode => Object.hash(runtimeType, songId, name, duration, image,
       const DeepCollectionEquality().hash(_artists));
 
   @JsonKey(ignore: true)
@@ -697,7 +704,7 @@ abstract class _PlaylistSongDto implements PlaylistSongDto {
           {required final String songId,
           required final String name,
           required final String duration,
-          required final List<dynamic> image,
+          required final ImageDto image,
           required final List<PlaylistSongArtistDto> artists}) =
       _$PlaylistSongDtoImpl;
 
@@ -711,7 +718,7 @@ abstract class _PlaylistSongDto implements PlaylistSongDto {
   @override
   String get duration;
   @override
-  List<dynamic> get image;
+  ImageDto get image;
   @override
   List<PlaylistSongArtistDto> get artists;
   @override

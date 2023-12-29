@@ -5,8 +5,8 @@ class AdvertisementPresentationMapper {
   static AdvertisementPresentation fromEntityToPresentation(
       Advertisement advertisement) {
     return AdvertisementPresentation(
-      advertisement.id as String,
-      advertisement.image?.image as List<int>,
+      advertisement.getId() as String,
+      advertisement.getImage() as List<int>,
     );
   }
 }

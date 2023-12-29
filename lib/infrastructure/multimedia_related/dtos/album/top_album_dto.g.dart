@@ -21,7 +21,7 @@ Map<String, dynamic> _$$TopAlbumsDtoImplToJson(_$TopAlbumsDtoImpl instance) =>
 _$TopAlbumDtoImpl _$$TopAlbumDtoImplFromJson(Map<String, dynamic> json) =>
     _$TopAlbumDtoImpl(
       id: json['id'] as String,
-      image: json['image'] as List<dynamic>,
+      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$TopAlbumDtoImplToJson(_$TopAlbumDtoImpl instance) =>
