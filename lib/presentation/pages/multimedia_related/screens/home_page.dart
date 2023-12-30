@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+//import 'package:overlapped_carousel/overlapped_carousel.dart';
 
 import '../../../../domain/multimedia_related/entities/entities.dart';
 import '../../../../infrastructure/core/util/util.dart';
@@ -12,13 +13,6 @@ import '../widgets/widgets.dart';
 
 class HomePage extends ConsumerWidget {
   HomePage({super.key});
-
-  final List<String> playlists = [
-    'Tradicional venezolana',
-    'Pop Latino',
-    'Alternativo',
-    'Urbana',
-  ];
 
   final Map<String, String> artists = {
     'Beatles': 'assets/images/artist1.jpg',
@@ -121,11 +115,13 @@ class HomePage extends ConsumerWidget {
       color: Colors.transparent,
     );
     final homeBodyWidget = switch (homeInfo) {
-      AsyncData(:final value) => Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              /*ClipRRect(
+      AsyncData(:final value) => Column(
+          children: [
+            /*
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              margin: const EdgeInsets.all(0),
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Container(
                   decoration: BoxDecoration(
@@ -144,81 +140,161 @@ class HomePage extends ConsumerWidget {
                   ),
                   height: 300,
                 ),
-              ),*/
-              nameRow('Playlist'),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                margin: const EdgeInsets.all(0),
-                child: GridView.count(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.8,
-                  children: [
-                    for (var element in playlists)
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          color: Colors.blue,
+              ),
+            ),
+            */
+            nameRow('Playlist'),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              margin: const EdgeInsets.all(0),
+              child: GridView.count(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                childAspectRatio: 1.8,
+                children: [
+                  for (var playlist in value.playlists)
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        image: DecorationImage(
+                          image: Image.memory(
+                            Uint8List.fromList(
+                              playlist.image,
+                            ),
+                            fit: BoxFit.contain,
+                          ).image,
+                          fit: BoxFit.fill,
                         ),
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          child: Text(
-                            element,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ), // your child widget here
-                      )
-                  ],
-                ),
+                      ),
+                    ),
+                ],
               ),
-              /*
-              nameRow('Aqustico Experience'),
-              Container(
-                child: myCarouselHomePage(),
-              ),
-              nameRow('Artistas Trending'),
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+            ),
+            nameRow('Aqustico Experience'),
+            Container(
+              child: CarouselSlider(
+                options: CarouselOptions(
                   height: 150,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      for (var element in artists.entries)
-                        InkWell(
-                          onTap: () => Navigator.pushNamed(context, '/artist'),
-                          child: Container(
-                            height: 150,
-                            child: ArtistCoverWidget(
-                              artistImage: AssetImage(element.value),
-                              artistName: element.key,
+                  viewportFraction: 0.4,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 1000),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  //onPageChanged: callbackFunction,
+                  scrollDirection: Axis.horizontal,
+                ),
+                items: value.albums.map((album) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            image: DecorationImage(
+                              image: Image.memory(
+                                Uint8List.fromList(
+                                  album.image,
+                                ),
+                                fit: BoxFit.contain,
+                              ).image,
+                              fit: BoxFit.fill,
                             ),
                           ),
-                        )
-                    ],
-                  )),
-              nameRow('Tracklist'),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    for (var element in songs)
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        height: 70,
-                        child: TrackListElement2(element),
-                      )
-                  ],
-                ),
-              ),*/
-            ],
-          ),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+            /*
+          SizedBox(
+            height: 200,
+            child: OverlappedCarousel(
+              widgets: value.albums.map((album) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          image: DecorationImage(
+                            image: Image.memory(
+                              Uint8List.fromList(
+                                album.image,
+                              ),
+                              fit: BoxFit.contain,
+                            ).image,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        height: 300,
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
+              //List of widgets
+              currentIndex: 2,
+              onClicked: (index) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("You clicked at $index"),
+                  ),
+                );
+              },
+            ),
+          ),*/ /*
+          nameRow('Artistas Trending'),
+          Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              height: 150,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  for (var element in artists.entries)
+                    InkWell(
+                      onTap: () => Navigator.pushNamed(context, '/artist'),
+                      child: Container(
+                        height: 150,
+                        child: ArtistCoverWidget(
+                          artistImage: AssetImage(element.value),
+                          artistName: element.key,
+                        ),
+                      ),
+                    )
+                ],
+              ),),
+              */
+            /*
+          nameRow('Tracklist'),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                for (var element in songs)
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    height: 70,
+                    child: TrackListElement2(element),
+                  )
+              ],
+            ),
+          ),*/
+            const SizedBox(height: 25),
+            const PlayerBar(
+              songName: 'Song 1',
+              artistName: 'Artist 1',
+            ),
+          ],
         ),
       AsyncError(:final error) => Container(
           child: Center(
@@ -250,7 +326,7 @@ class HomePage extends ConsumerWidget {
     };
 
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
@@ -284,21 +360,22 @@ class HomePage extends ConsumerWidget {
                         ),
                         itemBuilder: (context) => [
                           const PopupMenuItem<int>(
-                              value: 0, child: Text('Perfil')),
+                            value: 0,
+                            child: Text('Perfil'),
+                          ),
                           const PopupMenuItem<int>(
-                              value: 1, child: Text('Términos y condiciones')),
+                            value: 1,
+                            child: Text('Términos y condiciones'),
+                          ),
                           const PopupMenuItem<int>(
-                              value: 2, child: Text('Cerrar Sesión')),
+                            value: 2,
+                            child: Text('Cerrar Sesión'),
+                          ),
                         ],
                       ),
                     ],
                   ),
                   homeBodyWidget,
-                  const SizedBox(height: 25),
-                  const PlayerBar(
-                    songName: 'Song 1',
-                    artistName: 'Artist 1',
-                  ),
                 ],
               ),
             ),
@@ -307,36 +384,4 @@ class HomePage extends ConsumerWidget {
       ),
     );
   }
-}
-
-CarouselSlider myCarouselHomePage() {
-  CarouselOptions myOptions = CarouselOptions(
-    height: 200.0,
-    aspectRatio: 1,
-    enableInfiniteScroll: true,
-    reverse: false,
-    enlargeCenterPage: true,
-    enlargeFactor: 0.3,
-    viewportFraction: 0.5,
-  );
-
-  return CarouselSlider(
-    options: myOptions,
-    items: [1, 2, 3, 4, 5].map((i) {
-      return Builder(
-        builder: (BuildContext context) {
-          return Container(
-            width: 200.0,
-            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/portada$i.png'),
-                  fit: BoxFit.fill,
-                )),
-          );
-        },
-      );
-    }).toList(),
-  );
 }

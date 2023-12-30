@@ -50,6 +50,7 @@ dependencies:
   logger: ^2.0.2+1
   injectable: ^2.3.2
   injectable_generator: ^2.4.1
+  overlapped_carousel: ^1.0.1
 
 dev_dependencies:
   flutter_test:
