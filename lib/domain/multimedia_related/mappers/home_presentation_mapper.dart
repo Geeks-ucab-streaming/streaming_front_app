@@ -8,7 +8,7 @@ class HomePresentationMapper {
     List<Playlist> topPlaylists,
     List<Album> topAlbums,
     List<Artist> topArtists,
-    List<Song> trackList,
+    List<Song> trendingSongs,
   ) {
     return HomePresentation(
       advertisement: HomeAdvertisement(
@@ -31,9 +31,7 @@ class HomePresentationMapper {
             ),
           )
           .toList(),
-      artists: []
-      /*
-      topArtists
+      artists: topArtists
           .map(
             (element) => HomeArtist(
               id: element.getId() as String,
@@ -41,10 +39,18 @@ class HomePresentationMapper {
               image: element.getImage() as List<int>,
             ),
           )
-          .toList()
-          */
-      ,
-      trackList: [],
+          .toList(),
+      trackList: trendingSongs
+          .map(
+            (element) => HomeTrackListElement(
+              id: element.getId() as String,
+              name: element.getName() as String,
+              composer: element.getArtist()?.first as String,
+              duration: element.getDuration().toString() as String,
+              image: element.getImage() as List<int>,
+            ),
+          )
+          .toList(),
     );
   }
 }

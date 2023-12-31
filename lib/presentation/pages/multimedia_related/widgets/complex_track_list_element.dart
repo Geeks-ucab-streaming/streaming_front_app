@@ -1,12 +1,15 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import '../../../../domain/multimedia_related/entities/entities.dart';
+import 'package:streaming_front_app/domain/multimedia_related/data_presentation/data_presentation.dart';
 
-class TrackListElement2 extends StatelessWidget {
-  const TrackListElement2(this.trackToDisplay, {super.key});
+class ComplexTrackListElement extends StatelessWidget {
+  const ComplexTrackListElement({
+    super.key,
+    required this.trackToDisplay,
+  });
 
-  final Song trackToDisplay;
+  final HomeTrackListElement trackToDisplay;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class TrackListElement2 extends StatelessWidget {
               image: DecorationImage(
                 image: Image.memory(
                   Uint8List.fromList(
-                    trackToDisplay.getImage()!,
+                    trackToDisplay.image,
                   ),
                   width: MediaQuery.of(context).size.width - 40,
                   height: 300,
@@ -36,14 +39,14 @@ class TrackListElement2 extends StatelessWidget {
           ),
         ),
         title: Text(
-          trackToDisplay.getName()!,
+          trackToDisplay.name,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
           ),
         ),
         subtitle: Text(
-          trackToDisplay.getArtist()![0],
+          trackToDisplay.composer,
           style: const TextStyle(
             color: Color.fromARGB(213, 180, 180, 180),
           ),
@@ -53,7 +56,7 @@ class TrackListElement2 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
-              '${trackToDisplay.getDuration()}',
+              trackToDisplay.duration,
               style: const TextStyle(
                 color: Color.fromARGB(213, 180, 180, 180),
               ),

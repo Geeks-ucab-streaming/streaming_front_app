@@ -18,13 +18,14 @@ Future<HomePresentation> getHomeInfo(GetHomeInfoRef ref) async {
   // getIt instance
   GetIt getIt = GetIt.I;
   // logger to output
-  final logger = getIt<LoggerInstance>().getLogger();
+  //final logger = getIt<LoggerInstance>().getLogger();
   // get the repositories
   final IAdvertisementRepository advertisementRepo =
       getIt<AdvertisementRepositoryImpl>();
   final IPlaylistRepository playlistsRepo = getIt<PlaylistRepositoryImpl>();
   final IAlbumRepository albumsRepo = getIt<AlbumRepositoryImpl>();
   final IArtistRepository artistsRepo = getIt<ArtistRepositoryImpl>();
+  final ISongRepository songsRepo = getIt<SongRepositoryImpl>();
   // get the information from the repositories
   final Advertisement advertisement =
       await advertisementRepo.getRandomAdvertisement();
@@ -32,15 +33,13 @@ Future<HomePresentation> getHomeInfo(GetHomeInfoRef ref) async {
       await playlistsRepo.getTopFourthPlaylist();
   final List<Album> topAlbums = await albumsRepo.getTopAlbums();
   final List<Artist> topArtists = await artistsRepo.getTrendingArtists();
-
-  logger.d('Top playlists: ${topPlaylists.toString()}');
-  logger.d('Top albums: ${topAlbums.toString()}');
+  final List<Song> trendingSongs = await songsRepo.getTrendingSongs();
 
   return HomePresentationMapper.homeFromEntityToPresentation(
     advertisement,
     topPlaylists,
     topAlbums,
     topArtists,
-    [],
+    trendingSongs,
   );
 }

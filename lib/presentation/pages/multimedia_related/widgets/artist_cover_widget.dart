@@ -1,10 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 class ArtistCoverWidget extends StatelessWidget {
-  final ImageProvider artistImage;
+  final List<int> artistImage;
   final String artistName;
 
-  ArtistCoverWidget({required this.artistImage, required this.artistName});
+  const ArtistCoverWidget({
+    super.key,
+    required this.artistImage,
+    required this.artistName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +22,19 @@ class ArtistCoverWidget extends StatelessWidget {
       child: Column(
         children: [
           ClipOval(
-            child: Image(
-              image: artistImage,
-              fit: BoxFit.cover,
-              width: 100,
-              height: 100,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                image: DecorationImage(
+                  image: Image.memory(
+                    Uint8List.fromList(
+                      artistImage,
+                    ),
+                    fit: BoxFit.contain,
+                  ).image,
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
           ),
           Padding(

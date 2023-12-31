@@ -14,49 +14,6 @@ import '../widgets/widgets.dart';
 class HomePage extends ConsumerWidget {
   HomePage({super.key});
 
-  final Map<String, String> artists = {
-    'Beatles': 'assets/images/artist1.jpg',
-    'Metallica': 'assets/images/artist2.png',
-    'New Jean': 'assets/images/artist3.jpg',
-    'Twice': 'assets/images/artist4.jpg',
-  };
-
-  final List<Song> songs = [
-    Song(
-      id: SongId('1'),
-      name: SongName('Track 1'),
-      //SongReference('urldummy'),
-      image: SongImage([]),
-      date: SongCreationDate(DateTime(2021, 5, 1)),
-      previewURL: SongPreview('urldummy'),
-      genres: [
-        SongGenre('Pop'),
-        SongGenre('Rock'),
-      ],
-      duration: SongDuration(193),
-    ),
-    // Track(
-    //   '2',
-    //   'Track 2',
-    //   'Artist 2',
-    //   'https://picsum.photos/50/50',
-    //   3.00,
-    // ),
-    Song(
-      id: SongId('2'),
-      name: SongName('Track 2'),
-      //SongReference('urldummy'),
-      image: SongImage([]),
-      date: SongCreationDate(DateTime(2021, 5, 1)),
-      previewURL: SongPreview('urldummy'),
-      genres: [
-        SongGenre('Pop'),
-        SongGenre('Rock'),
-      ],
-      duration: SongDuration(193),
-    ),
-  ];
-
   Widget nameRow(String rowName) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -213,6 +170,7 @@ class HomePage extends ConsumerWidget {
               ),
             ),
             /*
+            ////////////////////// NEW CAROUSEL TEST ///////////////////////////
           SizedBox(
             height: 200,
             child: OverlappedCarousel(
@@ -250,43 +208,42 @@ class HomePage extends ConsumerWidget {
                 );
               },
             ),
-          ),*/ /*
-          nameRow('Artistas Trending'),
-          Container(
+          ),*/
+            nameRow('Artistas Trending'),
+            Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 150,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  for (var element in artists.entries)
+                  for (var artist in value.artists)
                     InkWell(
                       onTap: () => Navigator.pushNamed(context, '/artist'),
-                      child: Container(
+                      child: SizedBox(
                         height: 150,
                         child: ArtistCoverWidget(
-                          artistImage: AssetImage(element.value),
-                          artistName: element.key,
+                          artistImage: artist.image,
+                          artistName: artist.name,
                         ),
                       ),
                     )
                 ],
-              ),),
-              */
-            /*
-          nameRow('Tracklist'),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                for (var element in songs)
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    height: 70,
-                    child: TrackListElement2(element),
-                  )
-              ],
+              ),
             ),
-          ),*/
+            nameRow('Tracklist'),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  for (var song in value.trackList)
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      height: 70,
+                      child: ComplexTrackListElement(trackToDisplay: song),
+                    )
+                ],
+              ),
+            ),
             const SizedBox(height: 25),
             const PlayerBar(
               songName: 'Song 1',

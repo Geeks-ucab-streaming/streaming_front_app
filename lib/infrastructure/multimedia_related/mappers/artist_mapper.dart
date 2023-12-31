@@ -1,5 +1,4 @@
 import '../../../domain/multimedia_related/entities/entities.dart';
-import '../../core/util/util.dart';
 import '../dtos/dtos.dart';
 
 class ArtistMapper {
@@ -8,18 +7,14 @@ class ArtistMapper {
       id: ArtistId(artistDto.id),
       name: ArtistName(artistDto.name),
       image: ArtistImage(
-        ImageConverter.fromDynamicListToIntList(
-          artistDto.image.getImageAsIntList(),
-        ),
+        artistDto.image.getImageAsIntList(),
       ),
       albums: artistDto.albums
           .map(
             (artistAlbumDto) => Album(
               id: AlbumId(artistAlbumDto.id),
               image: AlbumImage(
-                ImageConverter.fromDynamicListToIntList(
-                  artistAlbumDto.image.getImageAsIntList(),
-                ),
+                artistAlbumDto.image.getImageAsIntList(),
               ),
             ),
           )
@@ -32,9 +27,7 @@ class ArtistMapper {
                 int.parse(artistSongDto.duration),
               ),
               image: SongImage(
-                ImageConverter.fromDynamicListToIntList(
-                  artistSongDto.image.getImageAsIntList(),
-                ),
+                artistSongDto.image.getImageAsIntList(),
               ),
               artists:
                   artistSongDto.artists.map((element) => element.name).toList(),
@@ -51,9 +44,7 @@ class ArtistMapper {
           (artist) => Artist(
             id: ArtistId(artist.id),
             image: ArtistImage(
-              ImageConverter.fromDynamicListToIntList(
-                artist.image.getImageAsIntList(),
-              ),
+              artist.image.getImageAsIntList(),
             ),
             name: ArtistName(artist.name),
           ),

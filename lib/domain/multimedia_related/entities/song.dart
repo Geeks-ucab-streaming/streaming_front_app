@@ -37,30 +37,34 @@ class Song {
   final List<String>? artists;
   final SongDuration? duration;
 
+  String? getId() {
+    return id?.value;
+  }
+
   String? getName() {
-    return name?.name;
+    return name?.value;
   }
 
   List<int>? getImage() {
-    return image?.image;
+    return image?.value;
   }
 
   DateTime? getCreationDate() {
-    return date?.date;
+    return date?.value;
   }
 
   String? getCreationDateAsString() {
-    return date?.date.toString();
+    return date?.value.toString();
   }
 
   String? getPreview() {
-    return previewURL?.previewURL;
+    return previewURL?.value;
   }
 
   List<String> getGenres() {
     List<String> genresList = [];
     for (SongGenre genre in genres!) {
-      genresList.add(genre.genre);
+      genresList.add(genre.value);
     }
     return genresList;
   }
@@ -70,7 +74,7 @@ class Song {
   }
 
   int? getDuration() {
-    return duration?.duration;
+    return duration?.value;
   }
 }
 
@@ -81,39 +85,39 @@ class SongId {
 }
 
 class SongName {
-  SongName(this.name);
+  SongName(this.value);
 
-  final String name;
+  final String value;
 }
 
 class SongImage {
-  SongImage(this.image);
+  SongImage(this.value);
 
-  final List<int> image;
+  final List<int> value;
 }
 
 class SongCreationDate {
-  SongCreationDate(this.date) {
-    assert(date.isBefore(DateTime.now()));
+  SongCreationDate(this.value) {
+    assert(value.isBefore(DateTime.now()));
   }
 
-  final DateTime date;
+  final DateTime value;
 }
 
 class SongPreview {
-  SongPreview(this.previewURL);
+  SongPreview(this.value);
 
-  final String previewURL;
+  final String value;
 }
 
 class SongGenre {
-  SongGenre(this.genre);
+  SongGenre(this.value);
 
-  final String genre;
+  final String value;
 }
 
 class SongDuration {
-  SongDuration(this.duration);
+  SongDuration(this.value);
 
-  final int duration;
+  final int value;
 }
