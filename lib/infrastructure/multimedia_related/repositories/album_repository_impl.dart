@@ -26,7 +26,7 @@ class AlbumRepositoryImpl extends IAlbumRepository {
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // make the request
-    final response = await dio.get('/playlist/top_playlist?tipo=album');
+    final response = await dio.get('/album/top_album');
     logger.i(response.data.toString());
     // transforming the request to DTO
     final TopAlbumsDto topAlbumsDto = TopAlbumsDto.fromJson(response.data);

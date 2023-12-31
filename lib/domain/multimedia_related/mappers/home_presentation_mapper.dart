@@ -31,15 +31,19 @@ class HomePresentationMapper {
             ),
           )
           .toList(),
-      artists: topArtists
+      artists: []
+      /*
+      topArtists
           .map(
             (element) => HomeArtist(
-              id: element.id as String,
-              name: element.name as String,
-              image: element.image as List<int>,
+              id: element.getId() as String,
+              name: element.getName() as String,
+              image: element.getImage() as List<int>,
             ),
           )
-          .toList(),
+          .toList()
+          */
+      ,
       trackList: [],
     );
   }

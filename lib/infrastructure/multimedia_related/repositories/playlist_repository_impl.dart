@@ -45,7 +45,7 @@ class PlaylistRepositoryImpl extends IPlaylistRepository {
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // make the request
-    final response = await dio.get('/playlist/top_playlist?tipo=playlist');
+    final response = await dio.get('/playlist/top_playlist');
     logger.i(response.data.toString());
     // transforming the request to DTO
     final TopPlaylistsDto topPlaylistDto =
