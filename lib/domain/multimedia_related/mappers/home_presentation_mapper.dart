@@ -12,10 +12,8 @@ class HomePresentationMapper {
   ) {
     return HomePresentation(
       advertisement: HomeAdvertisement(
-        //id: advertisement.id as String,
-        id: 'Hi',
-        //image: advertisement.image?.image as List<int>,
-        image: [],
+        id: advertisement.getId() as String,
+        image: advertisement.getImage() as List<int>,
       ),
       playlists: topPlaylists
           .map(
@@ -33,7 +31,7 @@ class HomePresentationMapper {
             ),
           )
           .toList(),
-      artists: [] /*topArtists
+      artists: topArtists
           .map(
             (element) => HomeArtist(
               id: element.id as String,
@@ -41,8 +39,7 @@ class HomePresentationMapper {
               image: element.image as List<int>,
             ),
           )
-          .toList()*/
-      ,
+          .toList(),
       trackList: [],
     );
   }

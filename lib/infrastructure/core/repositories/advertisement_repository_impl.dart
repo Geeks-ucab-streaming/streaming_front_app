@@ -19,7 +19,7 @@ class AdvertisementRepositoryImpl extends IAdvertisementRepository {
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // make the request
-    final response = await dio.get('/promotion/random');
+    final response = await dio.get('/promotion');
     logger.i(response.data.toString());
     // transforming the request to DTO
     final AdvertisementDto advertisementDto =

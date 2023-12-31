@@ -117,7 +117,6 @@ class HomePage extends ConsumerWidget {
     final homeBodyWidget = switch (homeInfo) {
       AsyncData(:final value) => Column(
           children: [
-            /*
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
               margin: const EdgeInsets.all(0),
@@ -142,7 +141,6 @@ class HomePage extends ConsumerWidget {
                 ),
               ),
             ),
-            */
             nameRow('Playlist'),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),

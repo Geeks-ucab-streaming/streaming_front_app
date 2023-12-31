@@ -26,22 +26,21 @@ Future<HomePresentation> getHomeInfo(GetHomeInfoRef ref) async {
   final IAlbumRepository albumsRepo = getIt<AlbumRepositoryImpl>();
   final IArtistRepository artistsRepo = getIt<ArtistRepositoryImpl>();
   // get the information from the repositories
-  /*final Advertisement advertisement =
-  await advertisementRepo.getRandomAdvertisement();*/
+  final Advertisement advertisement =
+      await advertisementRepo.getRandomAdvertisement();
   final List<Playlist> topPlaylists =
       await playlistsRepo.getTopFourthPlaylist();
   final List<Album> topAlbums = await albumsRepo.getTopAlbums();
-  /*final List<Artist> topArtists = await artistsRepo.getTrendingArtists();*/
+  final List<Artist> topArtists = await artistsRepo.getTrendingArtists();
 
   logger.d('Top playlists: ${topPlaylists.toString()}');
   logger.d('Top albums: ${topAlbums.toString()}');
 
   return HomePresentationMapper.homeFromEntityToPresentation(
-    //advertisement,
-    const Advertisement(),
+    advertisement,
     topPlaylists,
     topAlbums,
-    [],
+    topArtists,
     [],
   );
 }
