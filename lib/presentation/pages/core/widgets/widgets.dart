@@ -1,4 +1,3 @@
-export './background.dart';
 export './banner.dart';
 export './button_widget.dart';
 export './default_background.dart';

@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Stack(
         children: [
-          default_background(context),
+          const DefaultBackground(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(

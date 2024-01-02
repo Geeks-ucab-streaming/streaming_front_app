@@ -25,7 +25,7 @@ class _MyNewSesionState extends State<NewSesion> {
     return Scaffold(
       body: Stack(
         children: [
-          default_background(context),
+          const DefaultBackground(),
           SingleChildScrollView(
             // Añadido SingleChildScrollView aquí
             child: Padding(

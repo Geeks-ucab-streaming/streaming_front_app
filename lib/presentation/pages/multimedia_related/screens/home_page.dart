@@ -259,7 +259,7 @@ class HomePage extends ConsumerWidget {
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
-            default_background(context),
+            const DefaultBackground(),
             SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
