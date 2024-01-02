@@ -6,4 +6,4 @@ import '../../../../domain/core/mappers/mappers.dart';
 import '../../../../domain/core/repositories/i_repositories.dart';
 import '../../../../infrastructure/core/repositories/repositories.dart';
 
-part 'auth.g.dart';
+//part 'auth.g.dart';

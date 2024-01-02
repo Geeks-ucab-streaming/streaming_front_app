@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../../../domain/auth/enums/enums.dart';
 import '../../../domain/auth/repositories/repositories.dart';
 
+/*
 @lazySingleton
 class AuthRepositoryImpl extends IAuthRepository {
   @override
@@ -23,3 +24,4 @@ class AuthRepositoryImpl extends IAuthRepository {
     return .fromRemoteToEntity(advertisementDto);
   }
 }
+*/

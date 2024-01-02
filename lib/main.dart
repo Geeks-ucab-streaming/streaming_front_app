@@ -1,22 +1,22 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 
-import 'firebase_options.dart';
 import 'infrastructure/core/services/services.dart';
 import 'injection.dart';
 import 'presentation/pages/user_related/screens/screens.dart';
 import 'presentation/routes/app_routes.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // configure getIt
   configureDependencies();
   // firebase config
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  FireBaseAPI();
+  // getIt instance
+  GetIt getIt = GetIt.I;
+  // local variables
+  FireBaseAPI fireBaseAPI = getIt<FireBaseAPI>();
+  fireBaseAPI.apiInitialization;
   // run app
   runApp(
     const ProviderScope(

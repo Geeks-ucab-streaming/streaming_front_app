@@ -11,7 +11,10 @@ class FireBaseAPI extends IFireBaseAPI {
   late FirebaseMessaging firebaseMessaging;
   late Logger logger;
 
-  FireBaseAPI() {
+  FireBaseAPI();
+
+  @override
+  void apiInitialization() {
     // getIt instance
     GetIt getIt = GetIt.I;
     // local variables
@@ -25,6 +28,7 @@ class FireBaseAPI extends IFireBaseAPI {
     }
   }
 
+  @override
   Future<String?> getAppToken() async {
     // get app token
     try {
@@ -37,6 +41,7 @@ class FireBaseAPI extends IFireBaseAPI {
     }
   }
 
+  @override
   Future<void> initNotifications() async {
     await firebaseMessaging.requestPermission();
     // set up foreground notifications

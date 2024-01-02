@@ -12,7 +12,7 @@ import '../mappers/mappers.dart';
 class ArtistRepositoryImpl extends IArtistRepository {
   // get artist by id
   @override
-  Future<Artist> getArtistById(String artistId) async {
+  Future<Artist> getArtistAllInfoById(String artistId) async {
     // getIt instance
     GetIt getIt = GetIt.I;
     // logger to output
