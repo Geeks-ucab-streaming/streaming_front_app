@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
 //import 'package:overlapped_carousel/overlapped_carousel.dart';
@@ -67,14 +66,6 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
     final homeInfo = ref.watch(getHomeInfoProvider);
-    // getIt instance
-    GetIt getIt = GetIt.I;
-    // logger to output
-    final logger = getIt<LoggerInstance>().getLogger();
-
-    const BoxDecoration boxDecoration = BoxDecoration(
-      color: Colors.transparent,
-    );
 
     final homeBodyWidget = switch (homeInfo) {
       AsyncData(:final value) => Column(
@@ -257,17 +248,8 @@ class HomePage extends ConsumerWidget {
             ),
           ],
         ),
-      AsyncError(:final error) => Container(
-          child: Center(
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: GenericText(
-                text: error.toString(),
-                fontSize: 18,
-                isBold: true,
-              ),
-            ),
-          ),
+      AsyncError(:final error) => ErrorImage(
+          error: error,
         ),
       _ => const Loading()
     };

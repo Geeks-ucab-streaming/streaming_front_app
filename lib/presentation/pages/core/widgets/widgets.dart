@@ -5,3 +5,4 @@ export './default_background.dart';
 export './generic_Text.dart';
 export './generic_TextFormField.dart';
 export './loading.dart';
+export './error_image.dart';
