@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           const DefaultBackground(),
@@ -49,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 15),
                 CustomTextFormField(
-                  hintText: 'Introduce tu numero de telefono',
+                  hintText: 'Ingresa tu número de identificación ',
                   controller: _controller,
                 ),
                 const SizedBox(height: 30),
@@ -62,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 15),
                 const CustomTextFormField(
-                  hintText: 'Introduce tu numero de telefono',
+                  hintText: 'Ingresa tu contraseña',
                 ),
                 const SizedBox(height: 30),
                 Row(
