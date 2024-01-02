@@ -23,6 +23,7 @@ class _MyNewSesionState extends State<NewSesion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           const DefaultBackground(),

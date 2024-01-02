@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:streaming_front_app/application/auth/services/services.dart';
 
-import '../../core/util/util.dart';
+import '../util/util.dart';
 
 @lazySingleton
 class FireBaseAPI extends IFireBaseAPI {
