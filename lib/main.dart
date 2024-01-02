@@ -1,13 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'injection.dart';
 
+import 'firebase_options.dart';
+import 'infrastructure/auth/services/services.dart';
+import 'injection.dart';
 import 'presentation/pages/user_related/screens/screens.dart';
 import 'presentation/routes/app_routes.dart';
 
-void main() {
+void main() async {
   // configure getIt
   configureDependencies();
+  // firebase config
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FireBaseAPI();
   // run app
   runApp(
     const ProviderScope(
