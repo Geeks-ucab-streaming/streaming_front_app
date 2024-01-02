@@ -16,8 +16,6 @@ part 'get_home_info.g.dart';
 Future<HomePresentation> getHomeInfo(GetHomeInfoRef ref) async {
   // getIt instance
   GetIt getIt = GetIt.I;
-  // logger to output
-  //final logger = getIt<LoggerInstance>().getLogger();
   // get the repositories
   final IAdvertisementRepository advertisementRepo =
       getIt<AdvertisementRepositoryImpl>();

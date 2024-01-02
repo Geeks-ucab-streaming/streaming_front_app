@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
 //import 'package:overlapped_carousel/overlapped_carousel.dart';
@@ -11,7 +12,7 @@ import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
 class HomePage extends ConsumerWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   Widget nameRow(String rowName) {
     return Container(
@@ -66,10 +67,15 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
     final homeInfo = ref.watch(getHomeInfoProvider);
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // logger to output
+    final logger = getIt<LoggerInstance>().getLogger();
 
     const BoxDecoration boxDecoration = BoxDecoration(
       color: Colors.transparent,
     );
+
     final homeBodyWidget = switch (homeInfo) {
       AsyncData(:final value) => Column(
           children: [
@@ -137,7 +143,7 @@ class HomePage extends ConsumerWidget {
                   reverse: false,
                   autoPlay: true,
                   autoPlayInterval: const Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 1000),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 1000),
                   autoPlayCurve: Curves.fastOutSlowIn,
                   enlargeCenterPage: true,
                   enlargeFactor: 0.3,
@@ -263,21 +269,7 @@ class HomePage extends ConsumerWidget {
             ),
           ),
         ),
-      _ => Container(
-          decoration: boxDecoration,
-          height: 200,
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width / 4,
-            ),
-            child: const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
-            ),
-          ),
-        ),
+      _ => const Loading()
     };
 
     return Scaffold(
