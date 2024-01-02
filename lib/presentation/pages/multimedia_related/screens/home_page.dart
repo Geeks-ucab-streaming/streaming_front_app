@@ -3,11 +3,10 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-//import 'package:overlapped_carousel/overlapped_carousel.dart';
 
-import '../../../../domain/multimedia_related/entities/entities.dart';
-import '../../../../infrastructure/core/util/util.dart';
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
+//import 'package:overlapped_carousel/overlapped_carousel.dart';
+import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -104,6 +103,7 @@ class HomePage extends ConsumerWidget {
               margin: const EdgeInsets.all(0),
               child: GridView.count(
                 padding: EdgeInsets.zero,
+                physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
@@ -212,19 +212,18 @@ class HomePage extends ConsumerWidget {
             nameRow('Artistas Trending'),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              height: 150,
+              height: 180,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
                   for (var artist in value.artists)
                     InkWell(
                       onTap: () => Navigator.pushNamed(context, '/artist'),
-                      child: SizedBox(
-                        height: 150,
-                        child: ArtistCoverWidget(
-                          artistImage: artist.image,
-                          artistName: artist.name,
-                        ),
+                      child: ArtistCoverWidget(
+                        artistImage: artist.image,
+                        artistName: artist.name,
+                        widgetHeight: 180,
+                        imageSize: 130,
                       ),
                     )
                 ],
@@ -236,11 +235,12 @@ class HomePage extends ConsumerWidget {
               child: Column(
                 children: [
                   for (var song in value.trackList)
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      height: 70,
-                      child: ComplexTrackListElement(trackToDisplay: song),
-                    )
+                    ComplexTrackListElement(
+                      songName: song.name,
+                      songImage: song.image,
+                      songComposer: song.composer,
+                      songDuration: song.duration,
+                    ),
                 ],
               ),
             ),

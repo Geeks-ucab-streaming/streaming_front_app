@@ -73,7 +73,7 @@ class Song {
     return artists;
   }
 
-  int? getDuration() {
+  String? getDuration() {
     return duration?.value;
   }
 }
@@ -119,5 +119,5 @@ class SongGenre {
 class SongDuration {
   SongDuration(this.value);
 
-  final int value;
+  final String value;
 }

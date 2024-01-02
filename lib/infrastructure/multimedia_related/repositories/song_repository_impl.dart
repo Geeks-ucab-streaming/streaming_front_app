@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../domain/multimedia_related/entities/entities.dart';
 import '../../../domain/multimedia_related/repositories/i_repositories.dart';
-import '../../core/util/util.dart';
 import '../dtos/dtos.dart';
 import '../mappers/mappers.dart';
 
@@ -33,17 +32,13 @@ class SongRepositoryImpl extends ISongRepository {
   Future<List<Song>> getTrendingSongs() async {
     // getIt instance
     GetIt getIt = GetIt.I;
-    // logger to output
-    final logger = getIt<LoggerInstance>().getLogger();
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // make the request
     final response = await dio.get('/songs/trending');
-    logger.d(response.data.toString());
     // transforming the request to DTO
     final TrendingSongsDto trendingSongsDto =
         TrendingSongsDto.fromJson(response.data);
-    logger.d(trendingSongsDto.toString());
     // return entity element from DTO
     return SongMapper.trendingSongsFromRemoteToEntity(trendingSongsDto);
   }

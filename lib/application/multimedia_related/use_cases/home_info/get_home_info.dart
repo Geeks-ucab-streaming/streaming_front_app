@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
 import '../../../../../domain/core/repositories/i_repositories.dart';
 import '../../../../../infrastructure/core/repositories/repositories.dart';

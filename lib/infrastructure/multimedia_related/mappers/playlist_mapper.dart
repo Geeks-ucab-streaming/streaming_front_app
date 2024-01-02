@@ -33,7 +33,7 @@ class PlaylistMapper {
                   playlistSongDto.image.getImageAsIntList(),
                 ),
                 duration: SongDuration(
-                  int.parse(playlistSongDto.duration),
+                  playlistSongDto.duration,
                 ),
               ))
           .toList(),

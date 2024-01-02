@@ -35,17 +35,13 @@ class ArtistRepositoryImpl extends IArtistRepository {
   Future<List<Artist>> getTrendingArtists() async {
     // getIt instance
     GetIt getIt = GetIt.I;
-    // logger to output
-    final logger = getIt<LoggerInstance>().getLogger();
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // make the request
     final response = await dio.get('/artists/top_artists');
-    logger.i(response.data.toString());
     // transforming the request to DTO
     final TrendingArtistsDto trendingArtistsDto =
         TrendingArtistsDto.fromJson(response.data);
-    logger.i(trendingArtistsDto.toString());
     // return entity element from DTO
     return ArtistMapper.trendingArtistsFromRemoteToEntity(trendingArtistsDto);
   }

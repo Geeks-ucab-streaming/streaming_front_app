@@ -40,17 +40,22 @@ class HomePresentationMapper {
             ),
           )
           .toList(),
-      trackList: trendingSongs
-          .map(
-            (element) => HomeTrackListElement(
-              id: element.getId() as String,
-              name: element.getName() as String,
-              composer: element.getArtist()?.first as String,
-              duration: element.getDuration().toString() as String,
-              image: element.getImage() as List<int>,
-            ),
-          )
-          .toList(),
+      trackList: trendingSongs.map(
+        (element) {
+          String trendingSongDuration = element.getDuration() as String;
+          trendingSongDuration = (trendingSongDuration.substring(0, 2) == '00')
+              ? trendingSongDuration.substring(3)
+              : trendingSongDuration;
+
+          return HomeTrackListElement(
+            id: element.getId() as String,
+            name: element.getName() as String,
+            composer: element.getArtist()?.first as String,
+            duration: trendingSongDuration,
+            image: element.getImage() as List<int>,
+          );
+        },
+      ).toList(),
     );
   }
 }

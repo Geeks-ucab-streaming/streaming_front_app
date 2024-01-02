@@ -40,17 +40,13 @@ class PlaylistRepositoryImpl extends IPlaylistRepository {
   Future<List<Playlist>> getTopFourthPlaylist() async {
     // getIt instance
     GetIt getIt = GetIt.I;
-    // logger to output
-    final logger = getIt<LoggerInstance>().getLogger();
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // make the request
     final response = await dio.get('/playlist/top_playlist');
-    logger.i(response.data.toString());
     // transforming the request to DTO
     final TopPlaylistsDto topPlaylistDto =
         TopPlaylistsDto.fromJson(response.data);
-    logger.i(topPlaylistDto.toString());
     // return entity element from DTO
     return PlaylistMapper.topPlaylistFromRemoteToEntity(topPlaylistDto);
   }

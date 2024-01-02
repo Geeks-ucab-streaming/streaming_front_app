@@ -10,7 +10,7 @@ class SongMapper {
             id: SongId(song.songId),
             name: SongName(song.name),
             duration: SongDuration(
-              int.parse(song.duration),
+              song.duration,
             ),
             artists: song.artists
                 .map((trendingSongArtistDto) => trendingSongArtistDto.name)

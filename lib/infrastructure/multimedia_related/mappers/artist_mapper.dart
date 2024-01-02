@@ -24,7 +24,7 @@ class ArtistMapper {
             (artistSongDto) => Song(
               id: SongId(artistSongDto.id),
               duration: SongDuration(
-                int.parse(artistSongDto.duration),
+                artistSongDto.duration,
               ),
               image: SongImage(
                 artistSongDto.image.getImageAsIntList(),
