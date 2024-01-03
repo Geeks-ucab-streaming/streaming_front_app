@@ -70,6 +70,25 @@ class ArtistView extends ConsumerWidget {
                     ),
                   ),
                 ),
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: RadialGradient(
+                        center: Alignment.topRight,
+                        radius: 1.5,
+                        colors: [
+                          Color.fromARGB(
+                            180,
+                            63,
+                            17,
+                            131,
+                          ), // Color inicial (esquina)
+                          Colors.transparent, // Transición a transparente
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
