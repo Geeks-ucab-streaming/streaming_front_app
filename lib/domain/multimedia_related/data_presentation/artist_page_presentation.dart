@@ -17,6 +17,7 @@ class ArtistPageInfo with _$ArtistPageInfo {
   const factory ArtistPageInfo({
     required String id,
     required String name,
+    required String genre,
     required List<int> image,
     required String totalAmountAlbums,
     required String totalSongsAlbums,

@@ -22,6 +22,7 @@ class ArtistPagePresentationMapper {
         return ArtistPageInfo(
           id: artist.getId() as String,
           name: artist.getName() as String,
+          genre: artist.getGenre() as String,
           image: artist.getImage() as List<int>,
           totalAmountAlbums: artistTotalAmountAlbums,
           totalSongsAlbums: artistTotalAmountSongs,
@@ -36,20 +37,22 @@ class ArtistPagePresentationMapper {
             ),
           )
           .toList() as List<ArtistAlbumPresentation>,
-      songs: artist.getSongs()?.map((song) {
-        String artistSongDuration = song.getDuration() as String;
-        artistSongDuration = (artistSongDuration.substring(0, 2) == '00')
-            ? artistSongDuration.substring(3)
-            : artistSongDuration;
+      songs: artist.getSongs()?.map(
+        (song) {
+          String artistSongDuration = song.getDuration() as String;
+          artistSongDuration = (artistSongDuration.substring(0, 2) == '00')
+              ? artistSongDuration.substring(3)
+              : artistSongDuration;
 
-        return ArtistSongPresentation(
-          id: song.getId() as String,
-          name: 'TODO NOMBRE',
-          composer: song.getArtist()?.join(', ') as String,
-          duration: artistSongDuration,
-          image: song.getImage() as List<int>,
-        );
-      }).toList() as List<ArtistSongPresentation>,
+          return ArtistSongPresentation(
+            id: song.getId() as String,
+            name: song.getName() as String,
+            composer: song.getArtist()?.join(', ') as String,
+            duration: artistSongDuration,
+            image: song.getImage() as List<int>,
+          );
+        },
+      ).toList() as List<ArtistSongPresentation>,
     );
   }
 }

@@ -228,6 +228,7 @@ abstract class _ArtistPagePresentation implements ArtistPagePresentation {
 mixin _$ArtistPageInfo {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get genre => throw _privateConstructorUsedError;
   List<int> get image => throw _privateConstructorUsedError;
   String get totalAmountAlbums => throw _privateConstructorUsedError;
   String get totalSongsAlbums => throw _privateConstructorUsedError;
@@ -246,6 +247,7 @@ abstract class $ArtistPageInfoCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
+      String genre,
       List<int> image,
       String totalAmountAlbums,
       String totalSongsAlbums});
@@ -266,6 +268,7 @@ class _$ArtistPageInfoCopyWithImpl<$Res, $Val extends ArtistPageInfo>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? genre = null,
     Object? image = null,
     Object? totalAmountAlbums = null,
     Object? totalSongsAlbums = null,
@@ -278,6 +281,10 @@ class _$ArtistPageInfoCopyWithImpl<$Res, $Val extends ArtistPageInfo>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      genre: null == genre
+          ? _value.genre
+          : genre // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value.image
@@ -306,6 +313,7 @@ abstract class _$$ArtistPageInfoImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
+      String genre,
       List<int> image,
       String totalAmountAlbums,
       String totalSongsAlbums});
@@ -324,6 +332,7 @@ class __$$ArtistPageInfoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? genre = null,
     Object? image = null,
     Object? totalAmountAlbums = null,
     Object? totalSongsAlbums = null,
@@ -336,6 +345,10 @@ class __$$ArtistPageInfoImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      genre: null == genre
+          ? _value.genre
+          : genre // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value._image
@@ -361,6 +374,7 @@ class _$ArtistPageInfoImpl
   const _$ArtistPageInfoImpl(
       {required this.id,
       required this.name,
+      required this.genre,
       required final List<int> image,
       required this.totalAmountAlbums,
       required this.totalSongsAlbums})
@@ -370,6 +384,8 @@ class _$ArtistPageInfoImpl
   final String id;
   @override
   final String name;
+  @override
+  final String genre;
   final List<int> _image;
   @override
   List<int> get image {
@@ -385,7 +401,7 @@ class _$ArtistPageInfoImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ArtistPageInfo(id: $id, name: $name, image: $image, totalAmountAlbums: $totalAmountAlbums, totalSongsAlbums: $totalSongsAlbums)';
+    return 'ArtistPageInfo(id: $id, name: $name, genre: $genre, image: $image, totalAmountAlbums: $totalAmountAlbums, totalSongsAlbums: $totalSongsAlbums)';
   }
 
   @override
@@ -395,6 +411,7 @@ class _$ArtistPageInfoImpl
       ..add(DiagnosticsProperty('type', 'ArtistPageInfo'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('genre', genre))
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('totalAmountAlbums', totalAmountAlbums))
       ..add(DiagnosticsProperty('totalSongsAlbums', totalSongsAlbums));
@@ -407,6 +424,7 @@ class _$ArtistPageInfoImpl
             other is _$ArtistPageInfoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.genre, genre) || other.genre == genre) &&
             const DeepCollectionEquality().equals(other._image, _image) &&
             (identical(other.totalAmountAlbums, totalAmountAlbums) ||
                 other.totalAmountAlbums == totalAmountAlbums) &&
@@ -419,6 +437,7 @@ class _$ArtistPageInfoImpl
       runtimeType,
       id,
       name,
+      genre,
       const DeepCollectionEquality().hash(_image),
       totalAmountAlbums,
       totalSongsAlbums);
@@ -435,6 +454,7 @@ abstract class _ArtistPageInfo implements ArtistPageInfo {
   const factory _ArtistPageInfo(
       {required final String id,
       required final String name,
+      required final String genre,
       required final List<int> image,
       required final String totalAmountAlbums,
       required final String totalSongsAlbums}) = _$ArtistPageInfoImpl;
@@ -443,6 +463,8 @@ abstract class _ArtistPageInfo implements ArtistPageInfo {
   String get id;
   @override
   String get name;
+  @override
+  String get genre;
   @override
   List<int> get image;
   @override

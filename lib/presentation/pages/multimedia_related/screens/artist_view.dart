@@ -123,18 +123,17 @@ class ArtistView extends ConsumerWidget {
                                     Text(
                                       value.artist.name,
                                       textAlign: TextAlign.left,
-                                      overflow: TextOverflow
-                                          .ellipsis, // TODO: replace with clip
+                                      overflow: TextOverflow.clip,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 30,
                                         color: Colors.white,
                                       ),
                                     ),
-                                    const Text(
-                                      'GENERO TODO',
+                                    Text(
+                                      value.artist.genre,
                                       textAlign: TextAlign.right,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
                                       ),

@@ -23,6 +23,7 @@ mixin _$ArtistDto {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   ImageDto get image => throw _privateConstructorUsedError;
+  String get genre => throw _privateConstructorUsedError;
   List<ArtistAlbumDto> get albums => throw _privateConstructorUsedError;
   List<ArtistSongDto> get songs => throw _privateConstructorUsedError;
 
@@ -41,6 +42,7 @@ abstract class $ArtistDtoCopyWith<$Res> {
       {String id,
       String name,
       ImageDto image,
+      String genre,
       List<ArtistAlbumDto> albums,
       List<ArtistSongDto> songs});
 
@@ -63,6 +65,7 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
     Object? id = null,
     Object? name = null,
     Object? image = null,
+    Object? genre = null,
     Object? albums = null,
     Object? songs = null,
   }) {
@@ -79,6 +82,10 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
+      genre: null == genre
+          ? _value.genre
+          : genre // ignore: cast_nullable_to_non_nullable
+              as String,
       albums: null == albums
           ? _value.albums
           : albums // ignore: cast_nullable_to_non_nullable
@@ -111,6 +118,7 @@ abstract class _$$ArtistDtoImplCopyWith<$Res>
       {String id,
       String name,
       ImageDto image,
+      String genre,
       List<ArtistAlbumDto> albums,
       List<ArtistSongDto> songs});
 
@@ -132,6 +140,7 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? image = null,
+    Object? genre = null,
     Object? albums = null,
     Object? songs = null,
   }) {
@@ -148,6 +157,10 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
+      genre: null == genre
+          ? _value.genre
+          : genre // ignore: cast_nullable_to_non_nullable
+              as String,
       albums: null == albums
           ? _value._albums
           : albums // ignore: cast_nullable_to_non_nullable
@@ -167,6 +180,7 @@ class _$ArtistDtoImpl with DiagnosticableTreeMixin implements _ArtistDto {
       {required this.id,
       required this.name,
       required this.image,
+      required this.genre,
       required final List<ArtistAlbumDto> albums,
       required final List<ArtistSongDto> songs})
       : _albums = albums,
@@ -181,6 +195,8 @@ class _$ArtistDtoImpl with DiagnosticableTreeMixin implements _ArtistDto {
   final String name;
   @override
   final ImageDto image;
+  @override
+  final String genre;
   final List<ArtistAlbumDto> _albums;
   @override
   List<ArtistAlbumDto> get albums {
@@ -199,7 +215,7 @@ class _$ArtistDtoImpl with DiagnosticableTreeMixin implements _ArtistDto {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ArtistDto(id: $id, name: $name, image: $image, albums: $albums, songs: $songs)';
+    return 'ArtistDto(id: $id, name: $name, image: $image, genre: $genre, albums: $albums, songs: $songs)';
   }
 
   @override
@@ -210,6 +226,7 @@ class _$ArtistDtoImpl with DiagnosticableTreeMixin implements _ArtistDto {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('genre', genre))
       ..add(DiagnosticsProperty('albums', albums))
       ..add(DiagnosticsProperty('songs', songs));
   }
@@ -222,6 +239,7 @@ class _$ArtistDtoImpl with DiagnosticableTreeMixin implements _ArtistDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.image, image) || other.image == image) &&
+            (identical(other.genre, genre) || other.genre == genre) &&
             const DeepCollectionEquality().equals(other._albums, _albums) &&
             const DeepCollectionEquality().equals(other._songs, _songs));
   }
@@ -233,6 +251,7 @@ class _$ArtistDtoImpl with DiagnosticableTreeMixin implements _ArtistDto {
       id,
       name,
       image,
+      genre,
       const DeepCollectionEquality().hash(_albums),
       const DeepCollectionEquality().hash(_songs));
 
@@ -255,6 +274,7 @@ abstract class _ArtistDto implements ArtistDto {
       {required final String id,
       required final String name,
       required final ImageDto image,
+      required final String genre,
       required final List<ArtistAlbumDto> albums,
       required final List<ArtistSongDto> songs}) = _$ArtistDtoImpl;
 
@@ -267,6 +287,8 @@ abstract class _ArtistDto implements ArtistDto {
   String get name;
   @override
   ImageDto get image;
+  @override
+  String get genre;
   @override
   List<ArtistAlbumDto> get albums;
   @override
@@ -464,6 +486,7 @@ ArtistSongDto _$ArtistSongDtoFromJson(Map<String, dynamic> json) {
 mixin _$ArtistSongDto {
   String get id => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   ImageDto get image => throw _privateConstructorUsedError;
   List<ArtistSongArtistDto> get artists => throw _privateConstructorUsedError;
 
@@ -482,6 +505,7 @@ abstract class $ArtistSongDtoCopyWith<$Res> {
   $Res call(
       {String id,
       String duration,
+      String name,
       ImageDto image,
       List<ArtistSongArtistDto> artists});
 
@@ -503,6 +527,7 @@ class _$ArtistSongDtoCopyWithImpl<$Res, $Val extends ArtistSongDto>
   $Res call({
     Object? id = null,
     Object? duration = null,
+    Object? name = null,
     Object? image = null,
     Object? artists = null,
   }) {
@@ -514,6 +539,10 @@ class _$ArtistSongDtoCopyWithImpl<$Res, $Val extends ArtistSongDto>
       duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value.image
@@ -546,6 +575,7 @@ abstract class _$$ArtistSongDtoImplCopyWith<$Res>
   $Res call(
       {String id,
       String duration,
+      String name,
       ImageDto image,
       List<ArtistSongArtistDto> artists});
 
@@ -566,6 +596,7 @@ class __$$ArtistSongDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? duration = null,
+    Object? name = null,
     Object? image = null,
     Object? artists = null,
   }) {
@@ -577,6 +608,10 @@ class __$$ArtistSongDtoImplCopyWithImpl<$Res>
       duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value.image
@@ -598,6 +633,7 @@ class _$ArtistSongDtoImpl
   const _$ArtistSongDtoImpl(
       {required this.id,
       required this.duration,
+      required this.name,
       required this.image,
       required final List<ArtistSongArtistDto> artists})
       : _artists = artists;
@@ -610,6 +646,8 @@ class _$ArtistSongDtoImpl
   @override
   final String duration;
   @override
+  final String name;
+  @override
   final ImageDto image;
   final List<ArtistSongArtistDto> _artists;
   @override
@@ -621,7 +659,7 @@ class _$ArtistSongDtoImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ArtistSongDto(id: $id, duration: $duration, image: $image, artists: $artists)';
+    return 'ArtistSongDto(id: $id, duration: $duration, name: $name, image: $image, artists: $artists)';
   }
 
   @override
@@ -631,6 +669,7 @@ class _$ArtistSongDtoImpl
       ..add(DiagnosticsProperty('type', 'ArtistSongDto'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('duration', duration))
+      ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('artists', artists));
   }
@@ -643,13 +682,14 @@ class _$ArtistSongDtoImpl
             (identical(other.id, id) || other.id == id) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.image, image) || other.image == image) &&
             const DeepCollectionEquality().equals(other._artists, _artists));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, duration, image,
+  int get hashCode => Object.hash(runtimeType, id, duration, name, image,
       const DeepCollectionEquality().hash(_artists));
 
   @JsonKey(ignore: true)
@@ -670,6 +710,7 @@ abstract class _ArtistSongDto implements ArtistSongDto {
   const factory _ArtistSongDto(
       {required final String id,
       required final String duration,
+      required final String name,
       required final ImageDto image,
       required final List<ArtistSongArtistDto> artists}) = _$ArtistSongDtoImpl;
 
@@ -680,6 +721,8 @@ abstract class _ArtistSongDto implements ArtistSongDto {
   String get id;
   @override
   String get duration;
+  @override
+  String get name;
   @override
   ImageDto get image;
   @override

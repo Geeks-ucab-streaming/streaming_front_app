@@ -9,6 +9,7 @@ class ArtistMapper {
       image: ArtistImage(
         artistDto.image.getImageAsIntList(),
       ),
+      artistGenre: ArtistGenre(artistDto.genre),
       albums: artistDto.albums
           .map(
             (artistAlbumDto) => Album(
@@ -23,6 +24,7 @@ class ArtistMapper {
           .map(
             (artistSongDto) => Song(
               id: SongId(artistSongDto.id),
+              name: SongName(artistSongDto.name),
               duration: SongDuration(
                 artistSongDto.duration,
               ),

@@ -12,6 +12,7 @@ class ArtistDto with _$ArtistDto {
     required String id,
     required String name,
     required ImageDto image,
+    required String genre,
     required List<ArtistAlbumDto> albums,
     required List<ArtistSongDto> songs,
   }) = _ArtistDto;
@@ -36,6 +37,7 @@ class ArtistSongDto with _$ArtistSongDto {
   const factory ArtistSongDto({
     required String id,
     required String duration,
+    required String name,
     required ImageDto image,
     required List<ArtistSongArtistDto> artists,
   }) = _ArtistSongDto;
