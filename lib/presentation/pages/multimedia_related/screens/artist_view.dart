@@ -114,49 +114,52 @@ class ArtistView extends ConsumerWidget {
                               ),
                             ),
                             Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    value.artist.name,
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow
-                                        .ellipsis, // TODO: replace with clip
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                      color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      value.artist.name,
+                                      textAlign: TextAlign.left,
+                                      overflow: TextOverflow
+                                          .ellipsis, // TODO: replace with clip
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                  const Text(
-                                    'GENERO TODO',
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
+                                    const Text(
+                                      'GENERO TODO',
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    value.artist.totalAmountAlbums,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
+                                    const SizedBox(
+                                      height: 20,
                                     ),
-                                  ),
-                                  Text(
-                                    value.artist.totalSongsAlbums,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
+                                    Text(
+                                      value.artist.totalAmountAlbums,
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      value.artist.totalSongsAlbums,
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:streaming_front_app/application/auth/services/services.dart';
+import '../../../application/auth/services/services.dart';
+import '../../../firebase_options.dart';
 
 import '../util/util.dart';
 
@@ -14,7 +16,10 @@ class FireBaseAPI extends IFireBaseAPI {
   FireBaseAPI();
 
   @override
-  void apiInitialization() {
+  Future<void> apiInitialization() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     // getIt instance
     GetIt getIt = GetIt.I;
     // local variables
@@ -29,6 +34,18 @@ class FireBaseAPI extends IFireBaseAPI {
   }
 
   @override
+  Future<void> initNotifications() async {
+    await firebaseMessaging.requestPermission();
+    // set up foreground notifications
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
+  }
+
+  @override
   Future<String?> getAppToken() async {
     // get app token
     try {
@@ -39,17 +56,5 @@ class FireBaseAPI extends IFireBaseAPI {
     } catch (error) {
       throw Error();
     }
-  }
-
-  @override
-  Future<void> initNotifications() async {
-    await firebaseMessaging.requestPermission();
-    // set up foreground notifications
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true, // Required to display a heads up notification
-      badge: true,
-      sound: true,
-    );
   }
 }

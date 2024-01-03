@@ -15,7 +15,7 @@ void main() async {
   GetIt getIt = GetIt.I;
   // local variables
   FireBaseAPI fireBaseAPI = getIt<FireBaseAPI>();
-  fireBaseAPI.apiInitialization();
+  await fireBaseAPI.apiInitialization();
   // run app
   runApp(
     const ProviderScope(
