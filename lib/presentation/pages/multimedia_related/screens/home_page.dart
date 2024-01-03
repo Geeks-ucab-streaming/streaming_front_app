@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
 //import 'package:overlapped_carousel/overlapped_carousel.dart';
@@ -48,7 +49,7 @@ class HomePage extends ConsumerWidget {
   void handleClick(int item, BuildContext context) {
     switch (item) {
       case 0:
-        Navigator.pushNamed(context, '/perfil');
+        context.goNamed('profile');
         break;
       case 1:
         UrlLauncher.launchUrlUtil(
@@ -56,8 +57,7 @@ class HomePage extends ConsumerWidget {
         );
         break;
       case 2:
-        Navigator.pop(context);
-        Navigator.pushNamed(context, '/landing');
+        context.goNamed('landing');
         break;
     }
   }
@@ -215,7 +215,8 @@ class HomePage extends ConsumerWidget {
                 children: [
                   for (var artist in value.artists)
                     InkWell(
-                      onTap: () => Navigator.pushNamed(context, '/artist'),
+                      onTap: () => context.goNamed('artist',
+                          pathParameters: {'artistId': artist.id}),
                       child: ArtistCoverWidget(
                         artistImage: artist.image,
                         artistName: artist.name,
@@ -275,7 +276,7 @@ class HomePage extends ConsumerWidget {
                         icon: const Icon(Icons.search),
                         color: Colors.white,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/search');
+                          context.goNamed('search');
                         },
                       ),
                       PopupMenuButton<int>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/widgets/widgets.dart';
 
@@ -59,7 +60,7 @@ class _SignInState extends State<SignIn> {
                   const SizedBox(height: 30),
                   createButton(
                       actionToDo: () {
-                        Navigator.pushNamed(context, '/home');
+                        context.go('/home');
                       },
                       buttonText: 'Iniciar Sesión',
                       maxWidth: 350),

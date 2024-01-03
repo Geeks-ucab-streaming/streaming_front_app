@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/widgets/widgets.dart';
 
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       createButton(
                         actionToDo: () {
-                          Navigator.pushNamed(context, '/home');
+                          context.go('/home');
                         },
                         buttonText: 'Iniciar Sesión',
                         maxWidth: 350,
@@ -105,8 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                                   text: 'Regístrate',
                                   color: Colors.lightBlueAccent,
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/inicio-sesion');
+                                    context.go('/sign-in');
                                   }),
                             ],
                           ),

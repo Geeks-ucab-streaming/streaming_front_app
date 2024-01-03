@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/widgets/widgets.dart';
 import '../../../../application/core/use_cases/use_cases.dart';
 
@@ -110,8 +111,7 @@ class LandingPage extends ConsumerWidget {
                     ),
                     const SizedBox(height: 30),
                     createButton(
-                      actionToDo: () =>
-                          Navigator.pushNamed(context, '/inicio-sesion'),
+                      actionToDo: () => context.go('/sign-in'),
                       buttonText: 'REGISTRATE AQUI',
                     ),
                     const SizedBox(height: 30),
@@ -123,7 +123,7 @@ class LandingPage extends ConsumerWidget {
                               text: ' Inicia sesión',
                               color: Colors.lightBlueAccent,
                               onTap: () {
-                                Navigator.pushNamed(context, '/login');
+                                context.go('/login');
                               })
                         ],
                       ),
@@ -138,7 +138,7 @@ class LandingPage extends ConsumerWidget {
                               text: 'Invitado',
                               color: Colors.lightBlueAccent,
                               onTap: () {
-                                Navigator.pushNamed(context, '/home');
+                                context.go('/home');
                               }),
                         ],
                       ),
