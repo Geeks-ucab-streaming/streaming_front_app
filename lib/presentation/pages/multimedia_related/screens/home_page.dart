@@ -137,7 +137,7 @@ class HomePage extends ConsumerWidget {
                   autoPlayAnimationDuration: const Duration(milliseconds: 1000),
                   autoPlayCurve: Curves.fastOutSlowIn,
                   enlargeCenterPage: true,
-                  enlargeFactor: 0.3,
+                  enlargeFactor: 0.4,
                   //onPageChanged: callbackFunction,
                   scrollDirection: Axis.horizontal,
                 ),
@@ -249,7 +249,7 @@ class HomePage extends ConsumerWidget {
             ),
           ],
         ),
-      AsyncError(:final error) => ErrorImage(
+      AsyncError(:final Error error) => ErrorImage(
           error: error,
         ),
       _ => const Loading()

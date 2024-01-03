@@ -1,12 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'dart:typed_data';
 import 'dart:ui';
 
-class ArtistView extends StatelessWidget {
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../application/multimedia_related/use_cases/use_cases.dart';
+import '../../core/widgets/widgets.dart';
+import '../widgets/widgets.dart';
+
+class ArtistView extends ConsumerWidget {
   ArtistView({super.key, required this.artistId});
 
   final String artistId;
-  CarouselOptions myCarouselOptions = CarouselOptions(
+  final CarouselOptions myCarouselOptions = CarouselOptions(
     height: 200.0,
     aspectRatio: 1,
     enableInfiniteScroll: true,
@@ -17,298 +24,267 @@ class ArtistView extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          alignment: Alignment.topCenter,
-          image: AssetImage('assets/images/thisisc418.png'),
-          fit: BoxFit.fitWidth,
-          colorFilter: ColorFilter.mode(
-            Colors.black45,
-            BlendMode.dstATop,
-          ),
-        ),
-        gradient: LinearGradient(
-          colors: [
-            /*Colors.white,
-            //Color.fromARGB(255, 42, 25, 94),
-            Color.fromARGB(255, 13, 7, 27),
-            Color.fromARGB(255, 42, 25, 94),
-            Color.fromARGB(255, 57, 25, 130),*/
-            Color.fromARGB(255, 42, 25, 94),
-            Color.fromARGB(255, 13, 7, 27),
-            Color.fromARGB(255, 42, 25, 94),
-          ],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-        ),
-      ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 30),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            leading: const BackButton(
-              color: Colors.white,
-            ),
-          ),
-          body: ListView(
-            children: <Widget>[
-              const ArtistCard(),
-              const SizedBox(
-                height: 50,
-              ),
-              myCarouselArtistView(myCarouselOptions),
-              const SizedBox(
-                height: 50,
-              ),
-              //SongList(categories),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // provider to listen
+    final artistInfo = ref.watch(getArtistInfoProvider(artistId));
 
-class CancionesModel {
-  String name;
-  String imagePath;
-
-  CancionesModel({
-    required this.name,
-    required this.imagePath,
-  });
-
-  static List<CancionesModel> getCanciones() {
-    List<CancionesModel> categories = [];
-
-    categories.add(
-      CancionesModel(
-        name: 'Septic Shock',
-        imagePath: 'assets/images/portada1.png',
-      ),
-    );
-
-    categories.add(
-      CancionesModel(
-        name: 'Match Cut',
-        imagePath: 'assets/images/portada2.png',
-      ),
-    );
-
-    categories.add(
-      CancionesModel(
-        name: 'Post depression',
-        imagePath: 'assets/images/portada3.png',
-      ),
-    );
-
-    categories.add(
-      CancionesModel(
-        name: 'Leak',
-        imagePath: 'assets/images/portada4.png',
-      ),
-    );
-
-    categories.add(
-      CancionesModel(
-        name: 'I lack an emotion',
-        imagePath: 'assets/images/portada5.png',
-      ),
-    );
-
-    return categories;
-  }
-}
-
-class ArtistCard extends StatelessWidget {
-  const ArtistCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          margin: const EdgeInsets.fromLTRB(40.0, 10.0, 20.0, 0.0),
-          width: MediaQuery.of(context).size.width * 0.4,
-          height: MediaQuery.of(context).size.width * 0.4,
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black45,
-                  blurRadius: 10,
-                  spreadRadius: 0,
-                  offset: Offset(0, 5),
-                ),
-              ],
-              image: DecorationImage(
-                image: AssetImage('assets/images/thisisc418.png'),
-                fit: BoxFit.fill,
-              )),
-        ),
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'C418',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 36,
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              'Electrónica',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              '5 álbumes',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              'Burda de canciones',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-CarouselSlider myCarouselArtistView(CarouselOptions myOptions) {
-  return CarouselSlider(
-    options: myOptions,
-    items: [1, 2, 3, 4, 5].map((i) {
-      return Builder(
-        builder: (BuildContext context) {
-          return Container(
-            width: 200.0,
-            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/portada${i}.png'),
-                  fit: BoxFit.fill,
-                )),
-          );
-        },
-      );
-    }).toList(),
-  );
-}
-
-Container SongList(List<CancionesModel> categories) {
-  return Container(
-    width: 400.0,
-    height: 300.0,
-    child: ListView.separated(
-      separatorBuilder: (context, index) => const SizedBox(
-        height: 10.0,
-      ),
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        return Container(
-          height: 75.0,
-          margin: const EdgeInsets.symmetric(horizontal: 20.0),
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(25, 255, 255, 255),
-            borderRadius: BorderRadius.circular(15.0),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black45,
-                blurRadius: 10,
-                spreadRadius: 0,
-                offset: Offset(0, 0),
-                blurStyle: BlurStyle.outer,
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+    final widgetBody = switch (artistInfo) {
+      AsyncData(:final value) => Scaffold(
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                const DefaultBackground(),
                 Container(
-                  width: 75.0,
+                  height: MediaQuery.of(context).size.height / 2,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(categories[index].imagePath),
+                      image: Image.memory(
+                        Uint8List.fromList(
+                          value.artist.image,
+                        ),
+                        fit: BoxFit.contain,
+                      ).image,
+                      fit: BoxFit.fill,
                     ),
-                    borderRadius: BorderRadius.circular(15.0),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 42, 25, 94),
+                        Color.fromARGB(255, 13, 7, 27),
+                        Color.fromARGB(255, 42, 25, 94),
+                      ],
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 15.0,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      categories[index].name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 30),
+                    child: Scaffold(
+                      backgroundColor: Colors.transparent,
+                      appBar: AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: const BackButton(
+                          color: Colors.white,
+                        ),
                       ),
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
                     ),
-                    const Text(
-                      'C418',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
+                  ),
                 ),
-              ]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const Text(
-                    '3:00',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.left,
+                SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: const BackButton(
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin:
+                                  const EdgeInsets.only(left: 40, right: 20),
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10.0),
+                                ),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black45,
+                                    blurRadius: 10,
+                                    spreadRadius: 0,
+                                    offset: Offset(0, 5),
+                                  ),
+                                ],
+                                image: DecorationImage(
+                                  image: Image.memory(
+                                    Uint8List.fromList(
+                                      value.artist.image,
+                                    ),
+                                    fit: BoxFit.contain,
+                                  ).image,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    value.artist.name,
+                                    textAlign: TextAlign.left,
+                                    overflow: TextOverflow
+                                        .ellipsis, // TODO: replace with clip
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const Text(
+                                    'GENERO TODO',
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    value.artist.totalAmountAlbums,
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    value.artist.totalSongsAlbums,
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        height: 150,
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                            height: 150,
+                            viewportFraction: 0.4,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 3),
+                            autoPlayAnimationDuration:
+                                const Duration(milliseconds: 1000),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            enlargeFactor: 0.3,
+                            enableInfiniteScroll: false,
+                            scrollDirection: Axis.horizontal,
+                          ),
+                          items: value.albums.map((album) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      image: DecorationImage(
+                                        image: Image.memory(
+                                          Uint8List.fromList(
+                                            album.image,
+                                          ),
+                                          fit: BoxFit.contain,
+                                        ).image,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          children: [
+                            for (var song in value.songs)
+                              ComplexTrackListElement(
+                                songName: song.name,
+                                songImage: song.image,
+                                songComposer: song.composer,
+                                songDuration: song.duration,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.play_arrow),
-                    color: Colors.cyanAccent,
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        );
-      },
-    ),
-  );
+        ),
+      AsyncError(:final Error error) => Scaffold(
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                const DefaultBackground(),
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: const BackButton(
+                          color: Colors.white,
+                        ),
+                      ),
+                      ErrorImage(
+                        error: error,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      _ => Scaffold(
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                const DefaultBackground(),
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: const BackButton(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Loading(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+    };
+
+    return widgetBody;
+  }
 }

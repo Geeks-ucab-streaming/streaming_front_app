@@ -56,6 +56,7 @@ class ComplexTrackListElement extends StatelessWidget {
                 width: 20,
               ),
               SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -69,6 +70,7 @@ class ComplexTrackListElement extends StatelessWidget {
                     ),
                     Text(
                       songComposer,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: Color.fromARGB(145, 255, 255, 255),
                         fontSize: 16,

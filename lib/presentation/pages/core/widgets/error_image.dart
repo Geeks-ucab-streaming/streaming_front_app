@@ -6,7 +6,7 @@ import '../../../../infrastructure/core/util/util.dart';
 class ErrorImage extends StatelessWidget {
   const ErrorImage({super.key, required this.error});
 
-  final Object error;
+  final Error error;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +19,7 @@ class ErrorImage extends StatelessWidget {
     // logger to output
     final logger = getIt<LoggerInstance>().getLogger();
     logger.e(error.toString());
+    logger.e(error.stackTrace);
 
     return Container(
       decoration: boxDecoration,

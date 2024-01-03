@@ -6,13 +6,27 @@ class ArtistPagePresentationMapper {
     Artist artist,
   ) {
     return ArtistPagePresentation(
-      artist: ArtistPageInfo(
-        id: artist.getId() as String,
-        name: artist.getName() as String,
-        image: artist.getImage() as List<int>,
-        totalAmountAlbums: artist.getAlbums()?.length.toString() as String,
-        totalSongsAlbums: artist.getSongs()?.length.toString() as String,
-      ),
+      artist: () {
+        String artistTotalAmountAlbums =
+            artist.getAlbums()?.length.toString() as String;
+        artistTotalAmountAlbums = (artist.getAlbums()?.length as int == 1)
+            ? '$artistTotalAmountAlbums álbum'
+            : '$artistTotalAmountAlbums álbumes';
+
+        String artistTotalAmountSongs =
+            artist.getSongs()?.length.toString() as String;
+        artistTotalAmountSongs = (artist.getSongs()?.length as int == 1)
+            ? '$artistTotalAmountSongs canción'
+            : '$artistTotalAmountSongs canciones';
+
+        return ArtistPageInfo(
+          id: artist.getId() as String,
+          name: artist.getName() as String,
+          image: artist.getImage() as List<int>,
+          totalAmountAlbums: artistTotalAmountAlbums,
+          totalSongsAlbums: artistTotalAmountSongs,
+        );
+      }(),
       albums: artist
           .getAlbums()
           ?.map(
@@ -22,18 +36,20 @@ class ArtistPagePresentationMapper {
             ),
           )
           .toList() as List<ArtistAlbumPresentation>,
-      songs: artist
-          .getSongs()
-          ?.map(
-            (song) => ArtistSongPresentation(
-              id: song.getId() as String,
-              name: song.getName() as String,
-              composer: song.getArtist()?.join(' ') as String,
-              duration: song.getDuration() as String,
-              image: song.getImage() as List<int>,
-            ),
-          )
-          .toList() as List<ArtistSongPresentation>,
+      songs: artist.getSongs()?.map((song) {
+        String artistSongDuration = song.getDuration() as String;
+        artistSongDuration = (artistSongDuration.substring(0, 2) == '00')
+            ? artistSongDuration.substring(3)
+            : artistSongDuration;
+
+        return ArtistSongPresentation(
+          id: song.getId() as String,
+          name: 'TODO NOMBRE',
+          composer: song.getArtist()?.join(', ') as String,
+          duration: artistSongDuration,
+          image: song.getImage() as List<int>,
+        );
+      }).toList() as List<ArtistSongPresentation>,
     );
   }
 }

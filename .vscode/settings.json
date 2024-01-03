@@ -1,9 +1,14 @@
 {
 	"bloc.newBlocTemplate.type": "equatable",
 	"cSpell.words": [
+		"álbum",
+		"álbumes",
+		"canción",
+		"canciones",
 		"digitel",
 		"dtos",
 		"femenino",
+		"LTRB",
 		"masculino",
 		"movistar",
 		"portada"
