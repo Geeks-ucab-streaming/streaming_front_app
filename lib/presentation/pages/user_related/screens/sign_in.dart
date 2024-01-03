@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../core/widgets/widgets.dart';
 
-class NewSesion extends StatefulWidget {
-  const NewSesion({super.key, required this.title});
-
-  final String title;
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<NewSesion> createState() => _MyNewSesionState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _MyNewSesionState extends State<NewSesion> {
+class _SignInState extends State<SignIn> {
   final TextEditingController _controller = TextEditingController();
 
   @override

@@ -2,22 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:ui';
 
-class ArtistView extends StatefulWidget {
-  const ArtistView({super.key, required this.title});
+class ArtistView extends StatelessWidget {
+  ArtistView({super.key, required this.artistId});
 
-  final String title;
-
-  @override
-  State<ArtistView> createState() => _ArtistViewState();
-}
-
-class _ArtistViewState extends State<ArtistView> {
-  List<CancionesModel> categories = [];
-
-  void _getInitialInfo() {
-    categories = CancionesModel.getCanciones();
-  }
-
+  final String artistId;
   CarouselOptions myCarouselOptions = CarouselOptions(
     height: 200.0,
     aspectRatio: 1,
@@ -30,7 +18,6 @@ class _ArtistViewState extends State<ArtistView> {
 
   @override
   Widget build(BuildContext context) {
-    _getInitialInfo();
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -77,7 +64,7 @@ class _ArtistViewState extends State<ArtistView> {
               const SizedBox(
                 height: 50,
               ),
-              SongList(categories),
+              //SongList(categories),
             ],
           ),
         ),
