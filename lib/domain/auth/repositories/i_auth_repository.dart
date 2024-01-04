@@ -1,5 +1,6 @@
-import '../enums/enums.dart';
+import '../entities/entities.dart';
 
 abstract class IAuthRepository {
-  Future<AuthState> login(String phone, String token);
+  Future<JwtToken> login(String phone);
+  Future<User> getUserByToken(JwtToken token);
 }
