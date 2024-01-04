@@ -29,7 +29,7 @@ class _SignInState extends State<SignIn> {
           SingleChildScrollView(
             // Añadido SingleChildScrollView aquí
             child: Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +45,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   const SizedBox(height: 25),
                   const Text(
-                    'Numero de identificación',
+                    'Número de teléfono',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white,
@@ -53,7 +53,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   const SizedBox(height: 20),
                   CustomTextFormField(
-                    hintText: 'Introduce tu numero de telefono',
+                    hintText: 'Ingresa tu número de teléfono',
                     controller: _controller,
                     maxWidth: 350,
                   ),
@@ -74,11 +74,53 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  const Text(
-                    'Si no tienes cuenta suscribete con tu operadora',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
+                  RichText(
+                    text: TextSpan(
+                      //style: defaultStyle,
+                      children: <TextSpan>[
+                        GenericText(
+                          text:
+                              'Si no tienes cuenta suscribete con tu operadora',
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(44, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: IconButton(
+                      icon: Center(
+                        child: Image.asset(
+                          'assets/images/digitel_logo.png',
+                          height: 100,
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(44, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: IconButton(
+                      icon: Center(
+                        child: Image.asset(
+                          'assets/images/movistar_logo.png',
+                          height: 100,
+                        ),
+                      ),
+                      onPressed: () {},
                     ),
                   ),
                 ],
