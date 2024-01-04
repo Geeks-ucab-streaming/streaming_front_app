@@ -9,20 +9,19 @@ part of 'user_dto.dart';
 _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
     _$UserDtoImpl(
       id: json['id'] as String,
-      name: json['name'] as String,
-      password: json['password'] as String,
-      cellphoneNumber: json['cellphoneNumber'] as String,
-      email: json['email'] as String,
-      subscription: SubscriptionDto.fromJson(
-          json['subscription'] as Map<String, dynamic>),
+      phone: json['phone'] as String,
+      name: json['name'] as String? ?? "",
+      email: json['email'] as String? ?? "",
+      birthdate: json['birthdate'] as String? ?? "",
+      genre: json['genre'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'phone': instance.phone,
       'name': instance.name,
-      'password': instance.password,
-      'cellphoneNumber': instance.cellphoneNumber,
       'email': instance.email,
-      'subscription': instance.subscription,
+      'birthdate': instance.birthdate,
+      'genre': instance.genre,
     };

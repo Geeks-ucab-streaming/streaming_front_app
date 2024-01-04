@@ -1,16 +1,18 @@
 class User {
   User({
     this.token,
-    this.firstName,
-    this.lastName,
+    this.phone,
+    this.id,
+    this.name,
     this.email,
     this.birthday,
     this.gender,
   });
 
   final JwtToken? token;
-  final UserFirstName? firstName;
-  final UserLastName? lastName;
+  final UserPhone? phone;
+  final UserId? id;
+  final UserName? name;
   final UserEmail? email;
   final UserBirthday? birthday;
   final UserGender? gender;
@@ -19,12 +21,16 @@ class User {
     return token?.value;
   }
 
-  String? getFirstName() {
-    return firstName?.value;
+  String? getPhone() {
+    return phone?.value;
   }
 
-  String? getLastName() {
-    return lastName?.value;
+  String? getId() {
+    return id?.value;
+  }
+
+  String? getName() {
+    return name?.value;
   }
 
   String? getEmail() {
@@ -45,14 +51,18 @@ class JwtToken {
   final String value;
 }
 
-class UserFirstName {
-  UserFirstName(this.value);
-
+class UserPhone {
+  UserPhone(this.value);
   final String value;
 }
 
-class UserLastName {
-  UserLastName(this.value);
+class UserId {
+  UserId(this.value);
+  final String value;
+}
+
+class UserName {
+  UserName(this.value);
 
   final String value;
 }

@@ -21,12 +21,11 @@ UserDto _$UserDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserDto {
   String get id => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError; // CAN CHANGE
-  String get cellphoneNumber =>
-      throw _privateConstructorUsedError; // CAN CHANGE
   String get email => throw _privateConstructorUsedError;
-  SubscriptionDto get subscription => throw _privateConstructorUsedError;
+  String get birthdate => throw _privateConstructorUsedError;
+  String get genre => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,13 +39,11 @@ abstract class $UserDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String phone,
       String name,
-      String password,
-      String cellphoneNumber,
       String email,
-      SubscriptionDto subscription});
-
-  $SubscriptionDtoCopyWith<$Res> get subscription;
+      String birthdate,
+      String genre});
 }
 
 /// @nodoc
@@ -63,46 +60,38 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
   @override
   $Res call({
     Object? id = null,
+    Object? phone = null,
     Object? name = null,
-    Object? password = null,
-    Object? cellphoneNumber = null,
     Object? email = null,
-    Object? subscription = null,
+    Object? birthdate = null,
+    Object? genre = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      cellphoneNumber: null == cellphoneNumber
-          ? _value.cellphoneNumber
-          : cellphoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      subscription: null == subscription
-          ? _value.subscription
-          : subscription // ignore: cast_nullable_to_non_nullable
-              as SubscriptionDto,
+      birthdate: null == birthdate
+          ? _value.birthdate
+          : birthdate // ignore: cast_nullable_to_non_nullable
+              as String,
+      genre: null == genre
+          ? _value.genre
+          : genre // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $SubscriptionDtoCopyWith<$Res> get subscription {
-    return $SubscriptionDtoCopyWith<$Res>(_value.subscription, (value) {
-      return _then(_value.copyWith(subscription: value) as $Val);
-    });
   }
 }
 
@@ -115,14 +104,11 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String phone,
       String name,
-      String password,
-      String cellphoneNumber,
       String email,
-      SubscriptionDto subscription});
-
-  @override
-  $SubscriptionDtoCopyWith<$Res> get subscription;
+      String birthdate,
+      String genre});
 }
 
 /// @nodoc
@@ -137,37 +123,37 @@ class __$$UserDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? phone = null,
     Object? name = null,
-    Object? password = null,
-    Object? cellphoneNumber = null,
     Object? email = null,
-    Object? subscription = null,
+    Object? birthdate = null,
+    Object? genre = null,
   }) {
     return _then(_$UserDtoImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      cellphoneNumber: null == cellphoneNumber
-          ? _value.cellphoneNumber
-          : cellphoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      subscription: null == subscription
-          ? _value.subscription
-          : subscription // ignore: cast_nullable_to_non_nullable
-              as SubscriptionDto,
+      birthdate: null == birthdate
+          ? _value.birthdate
+          : birthdate // ignore: cast_nullable_to_non_nullable
+              as String,
+      genre: null == genre
+          ? _value.genre
+          : genre // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -177,11 +163,11 @@ class __$$UserDtoImplCopyWithImpl<$Res>
 class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
   const _$UserDtoImpl(
       {required this.id,
-      required this.name,
-      required this.password,
-      required this.cellphoneNumber,
-      required this.email,
-      required this.subscription});
+      required this.phone,
+      this.name = "",
+      this.email = "",
+      this.birthdate = "",
+      this.genre = ""});
 
   factory _$UserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDtoImplFromJson(json);
@@ -189,21 +175,23 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
   @override
   final String id;
   @override
+  final String phone;
+  @override
+  @JsonKey()
   final String name;
   @override
-  final String password;
-// CAN CHANGE
-  @override
-  final String cellphoneNumber;
-// CAN CHANGE
-  @override
+  @JsonKey()
   final String email;
   @override
-  final SubscriptionDto subscription;
+  @JsonKey()
+  final String birthdate;
+  @override
+  @JsonKey()
+  final String genre;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserDto(id: $id, name: $name, password: $password, cellphoneNumber: $cellphoneNumber, email: $email, subscription: $subscription)';
+    return 'UserDto(id: $id, phone: $phone, name: $name, email: $email, birthdate: $birthdate, genre: $genre)';
   }
 
   @override
@@ -212,11 +200,11 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
     properties
       ..add(DiagnosticsProperty('type', 'UserDto'))
       ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('phone', phone))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('password', password))
-      ..add(DiagnosticsProperty('cellphoneNumber', cellphoneNumber))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('subscription', subscription));
+      ..add(DiagnosticsProperty('birthdate', birthdate))
+      ..add(DiagnosticsProperty('genre', genre));
   }
 
   @override
@@ -225,20 +213,18 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
         (other.runtimeType == runtimeType &&
             other is _$UserDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.cellphoneNumber, cellphoneNumber) ||
-                other.cellphoneNumber == cellphoneNumber) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.subscription, subscription) ||
-                other.subscription == subscription));
+            (identical(other.birthdate, birthdate) ||
+                other.birthdate == birthdate) &&
+            (identical(other.genre, genre) || other.genre == genre));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, password, cellphoneNumber, email, subscription);
+  int get hashCode =>
+      Object.hash(runtimeType, id, phone, name, email, birthdate, genre);
 
   @JsonKey(ignore: true)
   @override
@@ -257,26 +243,26 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
 abstract class _UserDto implements UserDto {
   const factory _UserDto(
       {required final String id,
-      required final String name,
-      required final String password,
-      required final String cellphoneNumber,
-      required final String email,
-      required final SubscriptionDto subscription}) = _$UserDtoImpl;
+      required final String phone,
+      final String name,
+      final String email,
+      final String birthdate,
+      final String genre}) = _$UserDtoImpl;
 
   factory _UserDto.fromJson(Map<String, dynamic> json) = _$UserDtoImpl.fromJson;
 
   @override
   String get id;
   @override
+  String get phone;
+  @override
   String get name;
   @override
-  String get password;
-  @override // CAN CHANGE
-  String get cellphoneNumber;
-  @override // CAN CHANGE
   String get email;
   @override
-  SubscriptionDto get subscription;
+  String get birthdate;
+  @override
+  String get genre;
   @override
   @JsonKey(ignore: true)
   _$$UserDtoImplCopyWith<_$UserDtoImpl> get copyWith =>
