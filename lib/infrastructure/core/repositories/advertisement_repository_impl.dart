@@ -19,7 +19,7 @@ class AdvertisementRepositoryImpl extends IAdvertisementRepository {
     final response = await dio.get('/promotion');
     // transforming the request to DTO
     final AdvertisementDto advertisementDto =
-        AdvertisementDto.fromJson(response.data);
+        AdvertisementDto.fromJson(response.data["data"]);
     // return entity element from DTO
     return AdvertisementMapper.fromRemoteToEntity(advertisementDto);
   }

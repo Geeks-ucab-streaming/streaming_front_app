@@ -45,7 +45,7 @@ Map<String, dynamic> _$$ArtistAlbumDtoImplToJson(
 
 _$ArtistSongDtoImpl _$$ArtistSongDtoImplFromJson(Map<String, dynamic> json) =>
     _$ArtistSongDtoImpl(
-      id: json['id'] as String,
+      songId: json['songId'] as String,
       duration: json['duration'] as String,
       name: json['name'] as String,
       image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
@@ -56,7 +56,7 @@ _$ArtistSongDtoImpl _$$ArtistSongDtoImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ArtistSongDtoImplToJson(_$ArtistSongDtoImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'songId': instance.songId,
       'duration': instance.duration,
       'name': instance.name,
       'image': instance.image,

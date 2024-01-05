@@ -23,7 +23,7 @@ class ArtistRepositoryImpl extends IArtistRepository {
     final response = await dio.get('/artists/$artistId');
     logger.i(response.data.toString());
     // transforming the request to DTO
-    final ArtistDto artistDto = ArtistDto.fromJson(response.data);
+    final ArtistDto artistDto = ArtistDto.fromJson(response.data["data"]);
     logger.i(artistDto);
     // return entity element from DTO
     return ArtistMapper.artistCompleteInfoFromRemoteToEntity(artistDto);
@@ -40,7 +40,7 @@ class ArtistRepositoryImpl extends IArtistRepository {
     final response = await dio.get('/artists/top_artists');
     // transforming the request to DTO
     final TrendingArtistsDto trendingArtistsDto =
-        TrendingArtistsDto.fromJson(response.data);
+        TrendingArtistsDto.fromJson(response.data["data"]);
     // return entity element from DTO
     return ArtistMapper.trendingArtistsFromRemoteToEntity(trendingArtistsDto);
   }

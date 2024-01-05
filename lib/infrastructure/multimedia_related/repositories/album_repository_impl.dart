@@ -26,7 +26,8 @@ class AlbumRepositoryImpl extends IAlbumRepository {
     // make the request
     final response = await dio.get('/album/top_album');
     // transforming the request to DTO
-    final TopAlbumsDto topAlbumsDto = TopAlbumsDto.fromJson(response.data);
+    final TopAlbumsDto topAlbumsDto =
+        TopAlbumsDto.fromJson(response.data["data"]);
     // return entity element from DTO
     return AlbumMapper.topAlbumsFromRemoteToEntity(topAlbumsDto);
   }

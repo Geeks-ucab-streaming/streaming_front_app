@@ -46,7 +46,7 @@ class PlaylistRepositoryImpl extends IPlaylistRepository {
     final response = await dio.get('/playlist/top_playlist');
     // transforming the request to DTO
     final TopPlaylistsDto topPlaylistDto =
-        TopPlaylistsDto.fromJson(response.data);
+        TopPlaylistsDto.fromJson(response.data["data"]);
     // return entity element from DTO
     return PlaylistMapper.topPlaylistFromRemoteToEntity(topPlaylistDto);
   }

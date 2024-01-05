@@ -38,7 +38,7 @@ class SongRepositoryImpl extends ISongRepository {
     final response = await dio.get('/songs/trending');
     // transforming the request to DTO
     final TrendingSongsDto trendingSongsDto =
-        TrendingSongsDto.fromJson(response.data);
+        TrendingSongsDto.fromJson(response.data["data"]);
     // return entity element from DTO
     return SongMapper.trendingSongsFromRemoteToEntity(trendingSongsDto);
   }
