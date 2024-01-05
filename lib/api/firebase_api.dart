@@ -14,7 +14,7 @@ class FirebaseApi {
     final fCMToken = await _firebaseMessaging.getToken();
 
     //Imprime el token
-    print('Token: $fCMToken'); //ESTO NO DEBE SEGUIR PARA PRODUCCION
+    //print('Token: $fCMToken'); //ESTO NO DEBE SEGUIR PARA PRODUCCION
 
     //Inicializa ajustes para notificaciones push
     initPushNotifications();
