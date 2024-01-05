@@ -7,7 +7,6 @@ import 'package:streaming_front_app/domain/auth/errors/errors.dart';
 import '../../../domain/auth/entities/entities.dart';
 import '../../../domain/auth/repositories/repositories.dart';
 import '../../../domain/auth/value_objects/value_objects.dart';
-import '../../core/util/util.dart';
 import '../dtos/dtos.dart';
 import '../mappers/mappers.dart';
 
