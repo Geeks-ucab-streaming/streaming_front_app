@@ -2,9 +2,8 @@ import '../../../domain/auth/entities/entities.dart';
 import '../dtos/dtos.dart';
 
 class UserMapper {
-  static User fromRemoteToEntity(JwtToken jwtToken, UserDto userDto) {
+  static User fromRemoteToEntity(UserDto userDto) {
     return User(
-        token: JwtToken(jwtToken.value),
         phone: UserPhone(userDto.phone),
         id: UserId(userDto.id),
         name: UserName(userDto.name),

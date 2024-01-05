@@ -1,1 +1,1 @@
-enum AuthState { initialize, authenticated, unauthenticated }
+enum AuthStateEnum { initialize, authenticated, unauthenticated }

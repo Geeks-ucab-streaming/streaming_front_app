@@ -1,26 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../application/auth/use_cases/use_cases.dart';
 import '../../core/widgets/widgets.dart';
 
-class SignIn extends StatefulWidget {
+class SignIn extends HookConsumerWidget {
   const SignIn({super.key});
 
-  @override
-  State<SignIn> createState() => _SignInState();
-}
-
-class _SignInState extends State<SignIn> {
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void handleLoginClick({
+    required BuildContext context,
+    required WidgetRef ref,
+    required String phone,
+    required bool showErrorMessage,
+    required String errorMessage,
+  }) {
+    final response = ref.read(loginProvider(phone));
+    response.when(
+      data: (value) {
+        value.fold((error) {
+          showErrorMessage = true;
+          errorMessage = error.message;
+        }, (jwtToken) {
+          context.go('home');
+        });
+      },
+      error: (error, stackTrace) {
+        print(error.toString());
+        print(stackTrace.toString());
+      },
+      loading: () {},
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // text controller from react hooks
+    final phoneController = useTextEditingController();
+    // show error message
+    bool showErrorMessage = false;
+    String errorMessage = "";
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -54,13 +75,19 @@ class _SignInState extends State<SignIn> {
                   const SizedBox(height: 20),
                   CustomTextFormField(
                     hintText: 'Ingresa tu número de teléfono',
-                    controller: _controller,
                     maxWidth: 350,
+                    controller: phoneController,
                   ),
                   const SizedBox(height: 30),
                   createButton(
                       actionToDo: () {
-                        context.go('/home');
+                        handleLoginClick(
+                          context: context,
+                          ref: ref,
+                          errorMessage: errorMessage,
+                          showErrorMessage: showErrorMessage,
+                          phone: phoneController.text,
+                        );
                       },
                       buttonText: 'Iniciar Sesión',
                       maxWidth: 350),

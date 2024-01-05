@@ -1,6 +1,5 @@
 class User {
   User({
-    this.token,
     this.phone,
     this.id,
     this.name,
@@ -8,18 +7,12 @@ class User {
     this.birthday,
     this.gender,
   });
-
-  final JwtToken? token;
   final UserPhone? phone;
   final UserId? id;
   final UserName? name;
   final UserEmail? email;
   final UserBirthday? birthday;
   final UserGender? gender;
-
-  String? getToken() {
-    return token?.value;
-  }
 
   String? getPhone() {
     return phone?.value;
@@ -44,11 +37,6 @@ class User {
   String? getGender() {
     return gender?.value;
   }
-}
-
-class JwtToken {
-  JwtToken(this.value);
-  final String value;
 }
 
 class UserPhone {

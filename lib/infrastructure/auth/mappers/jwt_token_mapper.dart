@@ -1,4 +1,4 @@
-import '../../../domain/auth/entities/entities.dart';
+import '../../../domain/auth/value_objects/value_objects.dart';
 import '../dtos/dtos.dart';
 
 class JwtTokenMapper {

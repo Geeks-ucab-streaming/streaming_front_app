@@ -1,9 +1,28 @@
-import 'package:get_it/get_it.dart';
+//import 'package:get_it/get_it.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../domain/auth/entities/entities.dart';
+import '../../../domain/auth/enums/enums.dart';
+import '../../../domain/auth/value_objects/value_objects.dart';
 
-import '../../../../domain/core/data_presentation/data_presentation.dart';
-import '../../../../domain/core/mappers/mappers.dart';
-import '../../../../domain/core/repositories/i_repositories.dart';
-import '../../../../infrastructure/core/repositories/repositories.dart';
+part 'auth.g.dart';
 
-//part 'auth.g.dart';
+@riverpod
+class Auth extends _$Auth {
+  @override
+  AuthUserState build() {
+    // TODO FIND USER FROM DATABASE
+    return AuthUserState(state: AuthStateEnum.unauthenticated);
+  }
+
+  void login({
+    required User user,
+    required JwtToken jwtToken,
+  }) {
+    state.login(
+      user: user,
+      jwtToken: jwtToken,
+    );
+  }
+
+  // TODO function to get user from local database through a repository
+}
