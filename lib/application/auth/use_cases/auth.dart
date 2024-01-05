@@ -6,7 +6,7 @@ import '../../../domain/auth/value_objects/value_objects.dart';
 
 part 'auth.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Auth extends _$Auth {
   @override
   AuthUserState build() {

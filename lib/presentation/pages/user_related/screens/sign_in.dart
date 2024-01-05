@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:streaming_front_app/domain/auth/enums/enums.dart';
 
 import '../../../../application/auth/use_cases/use_cases.dart';
 import '../../core/widgets/widgets.dart';
@@ -12,30 +13,35 @@ class SignIn extends HookConsumerWidget {
   void handleLoginClick({
     required BuildContext context,
     required WidgetRef ref,
+    required LoginStateEnum loginProvider,
     required String phone,
     required bool showErrorMessage,
     required String errorMessage,
-  }) {
-    final response = ref.read(loginProvider(phone));
-    response.when(
-      data: (value) {
-        value.fold((error) {
-          showErrorMessage = true;
-          errorMessage = error.message;
-        }, (jwtToken) {
-          context.go('home');
-        });
-      },
-      error: (error, stackTrace) {
-        print(error.toString());
-        print(stackTrace.toString());
-      },
-      loading: () {},
-    );
+  }) async {
+    await ref.read(loginHelperProvider.notifier).login(phone: phone);
+
+    print("Valor del estado del Login helper: ${loginProvider.toString()}");
+    //pass, wrongValues, error, unChange
+    switch (loginProvider) {
+      case LoginStateEnum.pass:
+        context.goNamed('home');
+        break;
+      case LoginStateEnum.wrongValues:
+        errorMessage = "Valores incorrectos";
+        showErrorMessage = true;
+        break;
+      case LoginStateEnum.error:
+        errorMessage = "Server error";
+        showErrorMessage = true;
+        break;
+      default:
+    }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // login state
+    final LoginStateEnum loginProvider = ref.watch(loginHelperProvider);
     // text controller from react hooks
     final phoneController = useTextEditingController();
     // show error message
@@ -84,6 +90,7 @@ class SignIn extends HookConsumerWidget {
                         handleLoginClick(
                           context: context,
                           ref: ref,
+                          loginProvider: loginProvider,
                           errorMessage: errorMessage,
                           showErrorMessage: showErrorMessage,
                           phone: phoneController.text,

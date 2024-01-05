@@ -48,4 +48,10 @@ class AuthUserState {
     userToken = jwtToken;
     state = AuthStateEnum.authenticated;
   }
+
+  // overrides
+  @override
+  String toString() {
+    return '{state: $state, token: ${userToken.toString()}, user: ${user.toString()}}';
+  }
 }

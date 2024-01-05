@@ -37,6 +37,11 @@ class User {
   String? getGender() {
     return gender?.value;
   }
+
+  @override
+  String toString() {
+    return '{id: ${id?.value}, phone: ${phone?.value} email: ${email?.value}, name: ${name?.value}, birthdate: ${birthday?.value}}';
+  }
 }
 
 class UserPhone {

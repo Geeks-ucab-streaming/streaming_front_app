@@ -20,7 +20,7 @@ class AuthRepositoryImpl extends IAuthRepository {
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // get the logger instance
-    final logger = getIt<LoggerInstance>().getLogger();
+    //final logger = getIt<LoggerInstance>().getLogger();
     // make the request
     final response = await dio.post(
       '/auth/login',
@@ -28,14 +28,14 @@ class AuthRepositoryImpl extends IAuthRepository {
         'phone': phone,
       },
     );
-    logger.d(response.data);
+    //logger.d(response.data);
 
     // verify if the user is logged in based on response
     final int statusCode = response.data["statusCode"];
     if (statusCode == 200) {
       // transforming the request to DTO
       final jwtTokenDto = JwtTokenDto.fromJson(response.data["data"]);
-      logger.d(jwtTokenDto.toString());
+      //logger.d(jwtTokenDto.toString());
       // return the domain element
       return Right(
         JwtTokenMapper.loginJwtFromRemoteToEntity(jwtTokenDto),
@@ -60,18 +60,18 @@ class AuthRepositoryImpl extends IAuthRepository {
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // get the logger instance
-    final logger = getIt<LoggerInstance>().getLogger();
+    //final logger = getIt<LoggerInstance>().getLogger();
     // make the request
     final response = await dio.get(
-      '/auth/login',
+      '/user',
       options: Options(
         headers: {"Authorization": "Bearer ${token.value}"},
       ),
     );
-    logger.d(response.toString());
+    //logger.d(response.toString());
     // transforming the request to DTO
     final userDto = UserDto.fromJson(response.data);
-    logger.d(userDto.toString());
+    //logger.d(userDto.toString());
     // return entity element from DTO
     return UserMapper.fromRemoteToEntity(userDto);
   }
