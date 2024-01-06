@@ -141,32 +141,55 @@ class AppRouter extends _$AppRouter {
       routes: <RouteBase>[
         GoRoute(
           path: '/',
-          name: 'home',
+          name: 'landing',
           builder: (BuildContext context, GoRouterState state) {
-            return const HomePage();
+            return const LandingPage();
           },
           routes: <RouteBase>[
             GoRoute(
-              path: 'artist/:artistId',
-              name: 'artist',
+              path: 'sign-in',
+              name: 'sign-in',
               builder: (BuildContext context, GoRouterState state) {
-                return ArtistView(
-                    artistId: state.pathParameters['artistId'] as String);
+                return const SignIn();
               },
             ),
             GoRoute(
-              path: 'profile',
-              name: 'profile',
+              path: 'login',
+              name: 'login',
               builder: (BuildContext context, GoRouterState state) {
-                return const ProfilePage();
+                return const LoginPage();
               },
             ),
             GoRoute(
-              path: 'search',
-              name: 'search',
+              path: 'home',
+              name: 'home',
               builder: (BuildContext context, GoRouterState state) {
-                return const SearchPage();
+                return const HomePage();
               },
+              routes: <RouteBase>[
+                GoRoute(
+                  path: 'artist/:artistId',
+                  name: 'artist',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return ArtistView(
+                        artistId: state.pathParameters['artistId'] as String);
+                  },
+                ),
+                GoRoute(
+                  path: 'profile',
+                  name: 'profile',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const ProfilePage();
+                  },
+                ),
+                GoRoute(
+                  path: 'search',
+                  name: 'search',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const SearchPage();
+                  },
+                ),
+              ],
             ),
           ],
         ),

@@ -313,7 +313,11 @@ class HomePage extends ConsumerWidget {
                         },
                       ),
                       PopupMenuButton<int>(
-                        onSelected: (item) => handleClick(item, context),
+                        onSelected: (item) =>
+                            ThreeDotsMenuGetter.getMenuHandler(ref: ref)(
+                          context: context,
+                          item: item,
+                        ),
                         child: const Padding(
                           padding: EdgeInsets.only(right: 20),
                           child: Icon(
@@ -321,20 +325,8 @@ class HomePage extends ConsumerWidget {
                             color: Colors.white,
                           ),
                         ),
-                        itemBuilder: (context) => [
-                          const PopupMenuItem<int>(
-                            value: 0,
-                            child: Text('Perfil'),
-                          ),
-                          const PopupMenuItem<int>(
-                            value: 1,
-                            child: Text('Términos y condiciones'),
-                          ),
-                          const PopupMenuItem<int>(
-                            value: 2,
-                            child: Text('Cerrar Sesión'),
-                          ),
-                        ],
+                        itemBuilder: (context) =>
+                            ThreeDotsMenuGetter.getMenu(ref: ref),
                       ),
                     ],
                   ),
