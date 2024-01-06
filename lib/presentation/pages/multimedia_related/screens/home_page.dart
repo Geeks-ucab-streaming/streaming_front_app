@@ -4,7 +4,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:streaming_front_app/domain/auth/enums/enums.dart';
 
+import '../../../../application/auth/use_cases/use_cases.dart';
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
 //import 'package:overlapped_carousel/overlapped_carousel.dart';
 import '../../../../infrastructure/core/util/util.dart';
@@ -66,6 +68,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
     final homeInfo = ref.watch(getHomeInfoProvider);
+    final authState = ref.watch(authProvider);
 
     final homeBodyWidget = switch (homeInfo) {
       AsyncData(:final value) => Column(
@@ -94,6 +97,36 @@ class HomePage extends ConsumerWidget {
                 ),
               ),
             ),
+            switch (authState.state) {
+              AuthStateEnum.initialize => Container(),
+              AuthStateEnum.authenticated => Container(),
+              AuthStateEnum.unauthenticated => InkWell(
+                  onTap: () {
+                    context.goNamed('login');
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    margin: const EdgeInsets.only(top: 25, bottom: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              HomeRandomSubscriptionGetter
+                                  .getRandomImageAsset(),
+                            ),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        height: 150,
+                      ),
+                    ),
+                  ),
+                ),
+            },
             nameRow('Playlist'),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -141,29 +174,31 @@ class HomePage extends ConsumerWidget {
                   //onPageChanged: callbackFunction,
                   scrollDirection: Axis.horizontal,
                 ),
-                items: value.albums.map((album) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            image: DecorationImage(
-                              image: Image.memory(
-                                Uint8List.fromList(
-                                  album.image,
-                                ),
-                                fit: BoxFit.contain,
-                              ).image,
-                              fit: BoxFit.fill,
+                items: value.albums.map(
+                  (album) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                image: Image.memory(
+                                  Uint8List.fromList(
+                                    album.image,
+                                  ),
+                                  fit: BoxFit.contain,
+                                ).image,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                }).toList(),
+                        );
+                      },
+                    );
+                  },
+                ).toList(),
               ),
             ),
             /*
@@ -268,9 +303,7 @@ class HomePage extends ConsumerWidget {
                 children: [
                   AppBar(
                     backgroundColor: Colors.transparent,
-                    leading: const BackButton(
-                      color: Colors.white,
-                    ),
+                    iconTheme: const IconThemeData(color: Colors.white),
                     actions: [
                       IconButton(
                         icon: const Icon(Icons.search),
