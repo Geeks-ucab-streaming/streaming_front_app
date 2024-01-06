@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streaming_front_app/presentation/pages/multimedia_related/screens/playlist_view.dart';
 
 import '../pages/multimedia_related/screens/screens.dart';
 import '../pages/user_related/screens/screens.dart';
@@ -44,6 +45,14 @@ final GoRouter router = GoRouter(
             return const HomePage();
           },
           routes: <RouteBase>[
+             GoRoute(
+              path: 'playlist/:playlistId',
+              name: 'playlist',
+              builder: (BuildContext context, GoRouterState state) {
+                return PlaylistView(
+                    playlistId: state.pathParameters['playlistId'] as String);
+              },
+            ),
             GoRoute(
               path: 'artist/:artistId',
               name: 'artist',

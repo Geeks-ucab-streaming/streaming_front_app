@@ -108,17 +108,21 @@ class HomePage extends ConsumerWidget {
                 childAspectRatio: 1.8,
                 children: [
                   for (var playlist in value.playlists)
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        image: DecorationImage(
-                          image: Image.memory(
-                            Uint8List.fromList(
-                              playlist.image,
-                            ),
-                            fit: BoxFit.contain,
-                          ).image,
-                          fit: BoxFit.fill,
+                    GestureDetector(
+                      onTap: () => context.goNamed('playlist',
+                          pathParameters: {'playlistId': /*playlist.id*/'1'}), //EL id esta asi para probar la vista
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          image: DecorationImage(
+                            image: Image.memory(
+                              Uint8List.fromList(
+                                playlist.image,
+                              ),
+                              fit: BoxFit.contain,
+                            ).image,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
