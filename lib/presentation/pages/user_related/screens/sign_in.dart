@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:streaming_front_app/domain/auth/enums/enums.dart';
 
@@ -11,28 +10,35 @@ class SignIn extends HookConsumerWidget {
   const SignIn({super.key});
 
   void handleLoginClick({
-    required BuildContext context,
     required WidgetRef ref,
     required LoginStateEnum loginProvider,
     required String phone,
-    required bool showErrorMessage,
-    required String errorMessage,
   }) async {
     await ref.read(loginHelperProvider.notifier).login(phone: phone);
 
     print("Valor del estado del Login helper: ${loginProvider.toString()}");
-    //pass, wrongValues, error, unChange
+  }
+
+  void changPageIfSuccessful({
+    required BuildContext context,
+    required WidgetRef ref,
+    required LoginStateEnum loginProvider,
+    required bool showErrorMessage,
+    required String errorMessage,
+  }) {
+    print("Valor del estado en changePage: ${loginProvider.toString()}");
+//pass, wrongValues, error, unChange
     switch (loginProvider) {
       case LoginStateEnum.pass:
-        context.goNamed('home');
+        // do nothing for now
         break;
       case LoginStateEnum.wrongValues:
-        errorMessage = "Valores incorrectos";
-        showErrorMessage = true;
+        //errorMessage = "Valores incorrectos";
+        //showErrorMessage = true;
         break;
       case LoginStateEnum.error:
-        errorMessage = "Server error";
-        showErrorMessage = true;
+        //errorMessage = "Server error";
+        //showErrorMessage = true;
         break;
       default:
     }
@@ -47,6 +53,14 @@ class SignIn extends HookConsumerWidget {
     // show error message
     bool showErrorMessage = false;
     String errorMessage = "";
+
+    changPageIfSuccessful(
+      context: context,
+      ref: ref,
+      loginProvider: loginProvider,
+      errorMessage: errorMessage,
+      showErrorMessage: showErrorMessage,
+    );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -88,11 +102,8 @@ class SignIn extends HookConsumerWidget {
                   createButton(
                       actionToDo: () {
                         handleLoginClick(
-                          context: context,
                           ref: ref,
                           loginProvider: loginProvider,
-                          errorMessage: errorMessage,
-                          showErrorMessage: showErrorMessage,
                           phone: phoneController.text,
                         );
                       },

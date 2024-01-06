@@ -1,25 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login.dart';
+part of 'app_router.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginHelperHash() => r'44d0a73fe9a7d8e8b9e2cd0d7d6b74ff3d007137';
+String _$appRouterHash() => r'36fd119b1151d2961a979a224f0c088b4feceda6';
 
-/// See also [LoginHelper].
-@ProviderFor(LoginHelper)
-final loginHelperProvider =
-    NotifierProvider<LoginHelper, LoginStateEnum>.internal(
-  LoginHelper.new,
-  name: r'loginHelperProvider',
+/// See also [AppRouter].
+@ProviderFor(AppRouter)
+final appRouterProvider = NotifierProvider<AppRouter, GoRouter>.internal(
+  AppRouter.new,
+  name: r'appRouterProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$loginHelperHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$appRouterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$LoginHelper = Notifier<LoginStateEnum>;
+typedef _$AppRouter = Notifier<GoRouter>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
