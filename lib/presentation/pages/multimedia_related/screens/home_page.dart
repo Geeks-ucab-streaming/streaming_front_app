@@ -48,22 +48,6 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  void handleClick(int item, BuildContext context) {
-    switch (item) {
-      case 0:
-        context.goNamed('profile');
-        break;
-      case 1:
-        UrlLauncher.launchUrlUtil(
-          Uri.parse('https://aqustico.com/terminos-y-condiciones/'),
-        );
-        break;
-      case 2:
-        context.goNamed('landing');
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
@@ -121,7 +105,7 @@ class HomePage extends ConsumerWidget {
                             fit: BoxFit.fill,
                           ),
                         ),
-                        height: 150,
+                        height: 120,
                       ),
                     ),
                   ),
