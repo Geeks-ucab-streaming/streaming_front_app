@@ -241,7 +241,7 @@ class ArtistView extends ConsumerWidget {
                         AuthStateEnum.authenticated => Container(),
                         AuthStateEnum.unauthenticated => InkWell(
                             onTap: () {
-                              context.goNamed('login');
+                              context.push('/login');
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
