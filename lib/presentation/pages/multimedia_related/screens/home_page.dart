@@ -268,7 +268,7 @@ class HomePage extends ConsumerWidget {
             ),
           ],
         ),
-      AsyncError(:final Error error) => ErrorImage(
+      AsyncError(:final error) => ErrorImage(
           error: error,
         ),
       _ => const Loading()

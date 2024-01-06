@@ -40,23 +40,14 @@ class LandingPage extends ConsumerWidget {
             height: 400,
           ),
         ),
-      AsyncError(/*:final error*/) => SizedBox(
+      AsyncError(:final error) => SizedBox(
           height: 400,
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: EdgeInsets.all(
               MediaQuery.of(context).size.width / 4,
             ),
-            child: Center(
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: GenericText(
-                  text: 'Ups no hay conexión',
-                  fontSize: 18,
-                  isBold: true,
-                ),
-              ),
-            ),
+            child: ErrorMessage(error: error),
           ),
         ),
       _ => SizedBox(

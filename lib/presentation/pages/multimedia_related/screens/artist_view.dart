@@ -292,7 +292,7 @@ class ArtistView extends ConsumerWidget {
             ),
           ),
         ),
-      AsyncError(:final Error error) => Scaffold(
+      AsyncError(:final error) => Scaffold(
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(
