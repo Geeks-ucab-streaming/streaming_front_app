@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
+import '../widgets/widgets.dart';
 
 class PlaylistView extends ConsumerWidget {
   PlaylistView({super.key, required this.playlistId});
@@ -176,6 +177,10 @@ class PlaylistView extends ConsumerWidget {
                   ),
                   const SizedBox(
                     height: 10,
+                  ),
+                  SizedBox(
+                    height: 150.0,
+                    child: PlaylistPlayer(),
                   ),
                   Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),

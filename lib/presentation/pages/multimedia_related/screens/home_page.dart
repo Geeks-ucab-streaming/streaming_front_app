@@ -133,7 +133,7 @@ class HomePage extends ConsumerWidget {
             Container(
               child: CarouselSlider(
                 options: CarouselOptions(
-                  height: 150,
+                  height: 200,
                   viewportFraction: 0.4,
                   reverse: false,
                   autoPlay: true,
