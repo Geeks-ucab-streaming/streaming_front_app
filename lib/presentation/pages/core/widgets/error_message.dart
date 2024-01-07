@@ -4,9 +4,10 @@ import 'package:get_it/get_it.dart';
 import '../../../../infrastructure/core/util/util.dart';
 
 class ErrorMessage extends StatelessWidget {
-  const ErrorMessage({super.key, required this.error});
+  const ErrorMessage({super.key, required this.error, required this.message});
 
   final Object error;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +19,21 @@ class ErrorMessage extends StatelessWidget {
     logger.e(error.toString());
     //logger.e(errorAsError.stackTrace);
 
-    return const Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.error_outline,
             size: 100,
             color: Colors.white,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
-            'Algo salió mal.',
-            style: TextStyle(
+            message,
+            style: const TextStyle(
                 fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ],

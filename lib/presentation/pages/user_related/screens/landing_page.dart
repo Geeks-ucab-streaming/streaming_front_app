@@ -47,7 +47,7 @@ class LandingPage extends ConsumerWidget {
             padding: EdgeInsets.all(
               MediaQuery.of(context).size.width / 4,
             ),
-            child: ErrorMessage(error: error),
+            child: ErrorMessage(error: error, message: 'Algo salió mal.'),
           ),
         ),
       _ => SizedBox(
