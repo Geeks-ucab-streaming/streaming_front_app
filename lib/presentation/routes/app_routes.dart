@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streaming_front_app/presentation/pages/multimedia_related/screens/album_view.dart';
 import 'package:streaming_front_app/presentation/pages/multimedia_related/screens/playlist_view.dart';
 
 import '../pages/multimedia_related/screens/screens.dart';
@@ -51,6 +52,14 @@ final GoRouter router = GoRouter(
               builder: (BuildContext context, GoRouterState state) {
                 return PlaylistView(
                     playlistId: state.pathParameters['playlistId'] as String);
+              },
+            ),
+            GoRoute(
+              path: 'album/:albumId',
+              name: 'album',
+              builder: (BuildContext context, GoRouterState state) {
+                return AlbumView(
+                    albumId: state.pathParameters['albumId'] as String);
               },
             ),
             GoRoute(

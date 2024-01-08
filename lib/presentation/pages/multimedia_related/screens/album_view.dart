@@ -8,10 +8,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
-class PlaylistView extends ConsumerWidget {
-  PlaylistView({super.key, required this.playlistId});
+class AlbumView extends ConsumerWidget {
+  AlbumView({super.key, required this.albumId});
 
-  final String playlistId;
+  final String albumId;
   final CarouselOptions myCarouselOptions = CarouselOptions(
     height: 200.0,
     aspectRatio: 1,
@@ -25,7 +25,7 @@ class PlaylistView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
-    // final playlistInfo = ref.watch(getPlaylistInfoProvider(playlistId));
+    // final albumInfo = ref.watch(getAlbumInfoProvider(albumId));
 
     return Scaffold(
       body: SizedBox(
@@ -40,7 +40,7 @@ class PlaylistView extends ConsumerWidget {
                   image: AssetImage('assets/images/Album.png'),
                   /*Image.memory(
                     Uint8List.fromList(
-                      value.playlist.image)
+                      value.album.image)
                     ),*/
                 ),
                 gradient: const LinearGradient(
@@ -121,7 +121,7 @@ class PlaylistView extends ConsumerWidget {
                                   image: AssetImage('assets/images/Album.png'),
                                   /*Image.memory(
                                     Uint8List.fromList(
-                                      value.playlist.image,
+                                      value.album.image,
                                     ),
                                     fit: BoxFit.contain,
                                   ).image,*/
@@ -137,8 +137,8 @@ class PlaylistView extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'NombrePlaylist'
-                                      /*value.playlist.name*/,
+                                      'NombreAlbum'
+                                      /*value.album.name*/,
                                       textAlign: TextAlign.left,
                                       overflow: TextOverflow.clip,
                                       style: const TextStyle(
@@ -147,12 +147,19 @@ class PlaylistView extends ConsumerWidget {
                                         color: Colors.white,
                                       ),
                                     ),
+                                    Text(
+                                      'Artista',
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                     const SizedBox(
                                       height: 20,
                                     ),
                                     Text(
-                                      '25 mins'
-                                      /*value.playlist.duration*/,
+                                      '7 canciones',
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 15,
@@ -160,8 +167,8 @@ class PlaylistView extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(
-                                      '12.642 plays'
-                                      /*value.playlist.plays*/,
+                                      '25 mins'
+                                      /*value.album.duration*/,
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 15,
@@ -177,10 +184,6 @@ class PlaylistView extends ConsumerWidget {
                   ),
                   const SizedBox(
                     height: 10,
-                  ),
-                  SizedBox(
-                    height: 150.0,
-                    child: PlaylistPlayer(),
                   ),
                   Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
