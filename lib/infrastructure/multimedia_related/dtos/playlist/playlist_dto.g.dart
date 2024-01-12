@@ -12,6 +12,7 @@ _$PlaylistDtoImpl _$$PlaylistDtoImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       duration: json['duration'] as String,
       image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
+      streams: json['streams'] as int,
       creators: (json['creators'] as List<dynamic>)
           .map((e) => PlaylistCreatorDto.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$PlaylistDtoImplToJson(_$PlaylistDtoImpl instance) =>
       'name': instance.name,
       'duration': instance.duration,
       'image': instance.image,
+      'streams': instance.streams,
       'creators': instance.creators,
       'songs': instance.songs,
     };

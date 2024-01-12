@@ -420,6 +420,7 @@ abstract class _PlaylistPageInfo implements PlaylistPageInfo {
 mixin _$PlaylistSongPresentation {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get duration => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlaylistSongPresentationCopyWith<PlaylistSongPresentation> get copyWith =>
@@ -432,7 +433,7 @@ abstract class $PlaylistSongPresentationCopyWith<$Res> {
           $Res Function(PlaylistSongPresentation) then) =
       _$PlaylistSongPresentationCopyWithImpl<$Res, PlaylistSongPresentation>;
   @useResult
-  $Res call({String id, String name});
+  $Res call({String id, String name, String duration});
 }
 
 /// @nodoc
@@ -451,6 +452,7 @@ class _$PlaylistSongPresentationCopyWithImpl<$Res,
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? duration = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -460,6 +462,10 @@ class _$PlaylistSongPresentationCopyWithImpl<$Res,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -474,7 +480,7 @@ abstract class _$$PlaylistSongPresentationImplCopyWith<$Res>
       __$$PlaylistSongPresentationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name});
+  $Res call({String id, String name, String duration});
 }
 
 /// @nodoc
@@ -492,6 +498,7 @@ class __$$PlaylistSongPresentationImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? duration = null,
   }) {
     return _then(_$PlaylistSongPresentationImpl(
       id: null == id
@@ -502,6 +509,10 @@ class __$$PlaylistSongPresentationImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -511,16 +522,19 @@ class __$$PlaylistSongPresentationImplCopyWithImpl<$Res>
 class _$PlaylistSongPresentationImpl
     with DiagnosticableTreeMixin
     implements _PlaylistSongPresentation {
-  const _$PlaylistSongPresentationImpl({required this.id, required this.name});
+  const _$PlaylistSongPresentationImpl(
+      {required this.id, required this.name, required this.duration});
 
   @override
   final String id;
   @override
   final String name;
+  @override
+  final String duration;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PlaylistSongPresentation(id: $id, name: $name)';
+    return 'PlaylistSongPresentation(id: $id, name: $name, duration: $duration)';
   }
 
   @override
@@ -529,7 +543,8 @@ class _$PlaylistSongPresentationImpl
     properties
       ..add(DiagnosticsProperty('type', 'PlaylistSongPresentation'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('duration', duration));
   }
 
   @override
@@ -538,11 +553,13 @@ class _$PlaylistSongPresentationImpl
         (other.runtimeType == runtimeType &&
             other is _$PlaylistSongPresentationImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode => Object.hash(runtimeType, id, name, duration);
 
   @JsonKey(ignore: true)
   @override
@@ -555,12 +572,15 @@ class _$PlaylistSongPresentationImpl
 abstract class _PlaylistSongPresentation implements PlaylistSongPresentation {
   const factory _PlaylistSongPresentation(
       {required final String id,
-      required final String name}) = _$PlaylistSongPresentationImpl;
+      required final String name,
+      required final String duration}) = _$PlaylistSongPresentationImpl;
 
   @override
   String get id;
   @override
   String get name;
+  @override
+  String get duration;
   @override
   @JsonKey(ignore: true)
   _$$PlaylistSongPresentationImplCopyWith<_$PlaylistSongPresentationImpl>

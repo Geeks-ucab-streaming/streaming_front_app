@@ -7,21 +7,21 @@ import '../../../../domain/multimedia_related/mappers/mappers.dart';
 import '../../../../domain/multimedia_related/repositories/i_repositories.dart';
 import '../../../../infrastructure/multimedia_related/repositories/repositories.dart';
 
-part 'get_playlist_info.g.dart';
+part 'get_album_info.g.dart';
 
 @riverpod
-Future<PlaylistPagePresentation> getPlaylistInfo(
-  GetPlaylistInfoRef ref,
-  String playlistId,
+Future<AlbumPagePresentation> getAlbumInfo(
+  GetAlbumInfoRef ref,
+  String albumId,
 ) async {
   //getIt instance
   GetIt getIt = GetIt.I;
   // get the repository
-  final IPlaylistRepository playlistRepo = getIt<PlaylistRepositoryImpl>();
+  final IAlbumRepository albumRepo = getIt<AlbumRepositoryImpl>();
   //get the information from the repository
-  final Playlist playlist =
-    await playlistRepo.getPlaylistById(playlistId);
+  final Album album =
+    await albumRepo.getAlbumById(albumId);
 
-  return PlaylistPagePresentationMapper.playlistPageFromEntityToPresentation(
-    playlist);
+  return AlbumPagePresentationMapper.albumPageFromEntityToPresentation(
+    album);
 }

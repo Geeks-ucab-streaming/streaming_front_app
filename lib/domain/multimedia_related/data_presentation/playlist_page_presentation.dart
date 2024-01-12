@@ -27,5 +27,6 @@ class PlaylistSongPresentation with _$PlaylistSongPresentation {
   const factory PlaylistSongPresentation({
     required String id,
     required String name,
+    required String duration,
   }) = _PlaylistSongPresentation;
 }

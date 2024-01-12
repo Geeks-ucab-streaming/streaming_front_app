@@ -29,7 +29,7 @@ class Playlist {
     return image?.value;
   }
 
-  int? getDuration() {
+  String? getDuration() {
     return duration?.value;
   }
 
@@ -69,10 +69,10 @@ class PlaylistImage {
 
 class PlaylistDuration {
   PlaylistDuration(this.value) {
-    assert(value >= 0);
+    assert(value.length <= 40);
   }
 
-  final int value;
+  final String value;
 }
 
 class PlaylistPlays {

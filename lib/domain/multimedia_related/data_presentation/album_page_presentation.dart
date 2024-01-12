@@ -17,6 +17,7 @@ class AlbumPageInfo with _$AlbumPageInfo {
     required String id,
     required String name,
     required List<int> image,
+    required String artist,
     required String duration,
     required String totalSongs,
   }) = _AlbumPageInfo;

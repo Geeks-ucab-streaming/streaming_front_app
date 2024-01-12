@@ -191,6 +191,7 @@ mixin _$AlbumPageInfo {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   List<int> get image => throw _privateConstructorUsedError;
+  String get artist => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
   String get totalSongs => throw _privateConstructorUsedError;
 
@@ -209,6 +210,7 @@ abstract class $AlbumPageInfoCopyWith<$Res> {
       {String id,
       String name,
       List<int> image,
+      String artist,
       String duration,
       String totalSongs});
 }
@@ -229,6 +231,7 @@ class _$AlbumPageInfoCopyWithImpl<$Res, $Val extends AlbumPageInfo>
     Object? id = null,
     Object? name = null,
     Object? image = null,
+    Object? artist = null,
     Object? duration = null,
     Object? totalSongs = null,
   }) {
@@ -245,6 +248,10 @@ class _$AlbumPageInfoCopyWithImpl<$Res, $Val extends AlbumPageInfo>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      artist: null == artist
+          ? _value.artist
+          : artist // ignore: cast_nullable_to_non_nullable
+              as String,
       duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
@@ -269,6 +276,7 @@ abstract class _$$AlbumPageInfoImplCopyWith<$Res>
       {String id,
       String name,
       List<int> image,
+      String artist,
       String duration,
       String totalSongs});
 }
@@ -287,6 +295,7 @@ class __$$AlbumPageInfoImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? image = null,
+    Object? artist = null,
     Object? duration = null,
     Object? totalSongs = null,
   }) {
@@ -303,6 +312,10 @@ class __$$AlbumPageInfoImplCopyWithImpl<$Res>
           ? _value._image
           : image // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      artist: null == artist
+          ? _value.artist
+          : artist // ignore: cast_nullable_to_non_nullable
+              as String,
       duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
@@ -324,6 +337,7 @@ class _$AlbumPageInfoImpl
       {required this.id,
       required this.name,
       required final List<int> image,
+      required this.artist,
       required this.duration,
       required this.totalSongs})
       : _image = image;
@@ -341,13 +355,15 @@ class _$AlbumPageInfoImpl
   }
 
   @override
+  final String artist;
+  @override
   final String duration;
   @override
   final String totalSongs;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AlbumPageInfo(id: $id, name: $name, image: $image, duration: $duration, totalSongs: $totalSongs)';
+    return 'AlbumPageInfo(id: $id, name: $name, image: $image, artist: $artist, duration: $duration, totalSongs: $totalSongs)';
   }
 
   @override
@@ -358,6 +374,7 @@ class _$AlbumPageInfoImpl
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('artist', artist))
       ..add(DiagnosticsProperty('duration', duration))
       ..add(DiagnosticsProperty('totalSongs', totalSongs));
   }
@@ -370,6 +387,7 @@ class _$AlbumPageInfoImpl
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._image, _image) &&
+            (identical(other.artist, artist) || other.artist == artist) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
             (identical(other.totalSongs, totalSongs) ||
@@ -377,8 +395,14 @@ class _$AlbumPageInfoImpl
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name,
-      const DeepCollectionEquality().hash(_image), duration, totalSongs);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      const DeepCollectionEquality().hash(_image),
+      artist,
+      duration,
+      totalSongs);
 
   @JsonKey(ignore: true)
   @override
@@ -392,6 +416,7 @@ abstract class _AlbumPageInfo implements AlbumPageInfo {
       {required final String id,
       required final String name,
       required final List<int> image,
+      required final String artist,
       required final String duration,
       required final String totalSongs}) = _$AlbumPageInfoImpl;
 
@@ -401,6 +426,8 @@ abstract class _AlbumPageInfo implements AlbumPageInfo {
   String get name;
   @override
   List<int> get image;
+  @override
+  String get artist;
   @override
   String get duration;
   @override

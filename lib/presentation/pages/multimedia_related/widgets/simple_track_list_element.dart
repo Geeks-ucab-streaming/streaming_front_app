@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/multimedia_related/entities/entities.dart';
-
 class SimpleTrackListElement extends StatelessWidget {
-  const SimpleTrackListElement(this.trackToDisplay, {super.key});
+  const SimpleTrackListElement({super.key,
+  required this.songName,
+  required this.songDuration, 
+  });
 
-  final Song trackToDisplay;
+  final String songName;
+  final String songDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +21,11 @@ class SimpleTrackListElement extends StatelessWidget {
           color: Colors.blueAccent,
         ),
         title: Text(
-          trackToDisplay.getName()!,
+          songName,
           style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
         trailing: Text(
-          '${trackToDisplay.getDuration()}',
+          songDuration,
           style: const TextStyle(
               color: Color.fromARGB(213, 180, 180, 180), fontSize: 18),
         ),

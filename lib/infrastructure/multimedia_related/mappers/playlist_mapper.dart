@@ -22,9 +22,8 @@ class PlaylistMapper {
       image: PlaylistImage(
         playlistDto.image.getImageAsIntList(),
       ),
-      duration: PlaylistDuration(
-        int.parse(playlistDto.duration),
-      ),
+      duration: PlaylistDuration(playlistDto.duration),
+      plays: PlaylistPlays(playlistDto.streams),
       songs: playlistDto.songs
           .map((playlistSongDto) => Song(
                 id: SongId(playlistSongDto.songId),
