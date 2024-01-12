@@ -125,17 +125,22 @@ class HomePage extends ConsumerWidget {
                 childAspectRatio: 1.8,
                 children: [
                   for (var playlist in value.playlists)
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        image: DecorationImage(
-                          image: Image.memory(
-                            Uint8List.fromList(
-                              playlist.image,
-                            ),
-                            fit: BoxFit.contain,
-                          ).image,
-                          fit: BoxFit.fill,
+                    GestureDetector(
+                      onTap: () => context.goNamed('playlist', pathParameters: {
+                        'playlistId': /*playlist.id*/ '1'
+                      }), //EL id esta asi para probar la vista
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          image: DecorationImage(
+                            image: Image.memory(
+                              Uint8List.fromList(
+                                playlist.image,
+                              ),
+                              fit: BoxFit.contain,
+                            ).image,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
@@ -146,7 +151,7 @@ class HomePage extends ConsumerWidget {
             Container(
               child: CarouselSlider(
                 options: CarouselOptions(
-                  height: 150,
+                  height: 200,
                   viewportFraction: 0.4,
                   reverse: false,
                   autoPlay: true,
@@ -158,11 +163,14 @@ class HomePage extends ConsumerWidget {
                   //onPageChanged: callbackFunction,
                   scrollDirection: Axis.horizontal,
                 ),
-                items: value.albums.map(
-                  (album) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return ClipRRect(
+                items: value.albums.map((album) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return GestureDetector(
+                        onTap: () => context.goNamed('album', pathParameters: {
+                          'albumId': /*album.id*/ '1'
+                        }), //EL id esta asi para probar la vista
+                        child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Container(
                             decoration: BoxDecoration(
@@ -178,11 +186,11 @@ class HomePage extends ConsumerWidget {
                               ),
                             ),
                           ),
-                        );
-                      },
-                    );
-                  },
-                ).toList(),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
               ),
             ),
             /*
