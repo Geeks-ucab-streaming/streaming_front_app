@@ -6,8 +6,17 @@ import 'package:streaming_front_app/domain/auth/enums/enums.dart';
 import '../../../../application/auth/use_cases/use_cases.dart';
 import '../../core/widgets/widgets.dart';
 
-class SignIn extends HookConsumerWidget {
+class SignIn extends StatefulHookConsumerWidget {
   const SignIn({super.key});
+
+  @override
+  ConsumerState<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends ConsumerState<SignIn> {
+  // local state variables
+  final String _errorMessage = 'Hi this is default error message';
+  final bool _showErrorMessage = false;
 
   void handleLoginClick({
     required WidgetRef ref,
@@ -19,7 +28,7 @@ class SignIn extends HookConsumerWidget {
     print("Valor del estado del Login helper: ${loginProvider.toString()}");
   }
 
-  void changPageIfSuccessful({
+  void handleLoginOrSignInResponse({
     required BuildContext context,
     required WidgetRef ref,
     required LoginStateEnum loginProvider,
@@ -33,33 +42,32 @@ class SignIn extends HookConsumerWidget {
         // do nothing for now
         break;
       case LoginStateEnum.wrongValues:
-        //errorMessage = "Valores incorrectos";
-        //showErrorMessage = true;
+        print('Llegamos a wrong values');
+        errorMessage = "Valores incorrectos";
+        showErrorMessage = true;
         break;
       case LoginStateEnum.error:
-        //errorMessage = "Server error";
-        //showErrorMessage = true;
+        print('Llegamos a error');
+        errorMessage = "Server error";
+        showErrorMessage = true;
         break;
       default:
     }
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // login state
     final LoginStateEnum loginProvider = ref.watch(loginHelperProvider);
     // text controller from react hooks
     final phoneController = useTextEditingController();
-    // show error message
-    bool showErrorMessage = false;
-    String errorMessage = "";
 
-    changPageIfSuccessful(
+    handleLoginOrSignInResponse(
       context: context,
       ref: ref,
       loginProvider: loginProvider,
-      errorMessage: errorMessage,
-      showErrorMessage: showErrorMessage,
+      errorMessage: _errorMessage,
+      showErrorMessage: _showErrorMessage,
     );
 
     return Scaffold(
@@ -68,7 +76,6 @@ class SignIn extends HookConsumerWidget {
         children: [
           const DefaultBackground(),
           SingleChildScrollView(
-            // Añadido SingleChildScrollView aquí
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -95,20 +102,30 @@ class SignIn extends HookConsumerWidget {
                   const SizedBox(height: 20),
                   CustomTextFormField(
                     hintText: 'Ingresa tu número de teléfono',
-                    maxWidth: 350,
+                    maxWidth: MediaQuery.of(context).size.width - 40,
                     controller: phoneController,
+                    iconSuffixData: Icons.error_outline,
                   ),
-                  const SizedBox(height: 30),
+                  // error message if there is a problem
+                  if (_showErrorMessage) ...[
+                    const SizedBox(height: 20),
+                    ErrorInputMessage(
+                      message: _errorMessage,
+                      iconData: Icons.error,
+                    ),
+                  ],
+                  const SizedBox(height: 20),
                   createButton(
-                      actionToDo: () {
-                        handleLoginClick(
-                          ref: ref,
-                          loginProvider: loginProvider,
-                          phone: phoneController.text,
-                        );
-                      },
-                      buttonText: 'Iniciar Sesión',
-                      maxWidth: 350),
+                    actionToDo: () {
+                      handleLoginClick(
+                        ref: ref,
+                        loginProvider: loginProvider,
+                        phone: phoneController.text,
+                      );
+                    },
+                    buttonText: 'Iniciar Sesión',
+                    maxWidth: MediaQuery.of(context).size.width - 40,
+                  ),
                   const SizedBox(height: 50),
                   const Text(
                     'Subscribete',
