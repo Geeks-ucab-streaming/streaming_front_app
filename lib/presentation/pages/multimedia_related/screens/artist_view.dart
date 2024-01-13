@@ -5,11 +5,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:streaming_front_app/application/auth/use_cases/use_cases.dart';
-import 'package:streaming_front_app/domain/auth/enums/enums.dart';
-import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
+import '../../../../application/auth/states/states.dart';
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
+import '../../../../domain/auth/enums/enums.dart';
+import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 

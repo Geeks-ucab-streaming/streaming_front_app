@@ -10,7 +10,7 @@ import '../../../domain/auth/value_objects/value_objects.dart';
 import '../../../infrastructure/auth/repositories/repositories.dart';
 import '../../../infrastructure/core/util/util.dart';
 import '../../core/routes/app_router.dart';
-import 'use_cases.dart';
+import '../states/states.dart';
 
 part 'login.g.dart';
 

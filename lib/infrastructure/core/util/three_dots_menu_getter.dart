@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../application/auth/use_cases/use_cases.dart';
+import '../../../application/auth/states/states.dart';
 import '../../../domain/auth/enums/enums.dart';
 import 'util.dart';
 

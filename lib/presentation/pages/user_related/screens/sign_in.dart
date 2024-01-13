@@ -29,7 +29,6 @@ class _SignInState extends ConsumerState<SignIn> {
   }
 
   void handleLoginOrSignInResponse({
-    required BuildContext context,
     required WidgetRef ref,
     required LoginStateEnum loginProvider,
   }) {
@@ -59,7 +58,6 @@ class _SignInState extends ConsumerState<SignIn> {
     final phoneController = useTextEditingController();
 
     handleLoginOrSignInResponse(
-      context: context,
       ref: ref,
       loginProvider: loginProvider,
     );
