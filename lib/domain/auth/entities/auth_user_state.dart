@@ -49,12 +49,6 @@ class AuthUserState {
     state = AuthStateEnum.authenticated;
   }
 
-  void logout() {
-    user = null;
-    userToken = null;
-    state = AuthStateEnum.unauthenticated;
-  }
-
   // overrides
   @override
   String toString() {

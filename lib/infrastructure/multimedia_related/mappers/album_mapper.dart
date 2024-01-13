@@ -16,7 +16,7 @@ class AlbumMapper {
     return topAlbums;
   }
 
-  static Album albumByIdFromRemoteToEntity(AlbumDto albumDto) {
+  static Album albumByIdFromRemoteToEntity(AlbumDto albumDto){
     return Album(
       id: AlbumId(albumDto.id),
       name: AlbumName(albumDto.name),
@@ -24,11 +24,10 @@ class AlbumMapper {
         albumDto.image.getImageAsIntList(),
       ),
       duration: AlbumDuration(albumDto.duration),
-      artist: AlbumArtist(albumDto.songs.first.artists.first
-          .name), //TEMPORAL HASTA QUE SE PASE BIEN ARTISTA
+      artist: AlbumArtist(albumDto.songs.first.artists.first.name), //TEMPORAL HASTA QUE SE PASE BIEN ARTISTA
       songs: albumDto.songs
-          .map((albumSongDto) => Song(
-                id: SongId(albumSongDto.id),
+        .map((albumSongDto) => Song(
+                id: SongId(albumSongDto.songId),
                 name: SongName(albumSongDto.name),
                 image: SongImage(
                   albumSongDto.image.getImageAsIntList(),
@@ -37,7 +36,7 @@ class AlbumMapper {
                   albumSongDto.duration,
                 ),
               ))
-          .toList(),
+              .toList(),
     );
   }
 }

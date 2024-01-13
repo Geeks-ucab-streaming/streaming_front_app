@@ -1,4 +1,0 @@
-enum AvailableOperators {
-  movistar,
-  digitel,
-}

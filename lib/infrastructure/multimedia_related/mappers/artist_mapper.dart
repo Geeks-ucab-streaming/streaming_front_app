@@ -23,7 +23,7 @@ class ArtistMapper {
       songs: artistDto.songs
           .map(
             (artistSongDto) => Song(
-              id: SongId(artistSongDto.id),
+              id: SongId(artistSongDto.songId),
               name: SongName(artistSongDto.name),
               duration: SongDuration(
                 artistSongDto.duration,

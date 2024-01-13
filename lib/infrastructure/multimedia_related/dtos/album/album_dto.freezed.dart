@@ -497,7 +497,7 @@ AlbumSongDto _$AlbumSongDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AlbumSongDto {
-  String get id => throw _privateConstructorUsedError;
+  String get songId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
   ImageDto get image => throw _privateConstructorUsedError;
@@ -516,7 +516,7 @@ abstract class $AlbumSongDtoCopyWith<$Res> {
       _$AlbumSongDtoCopyWithImpl<$Res, AlbumSongDto>;
   @useResult
   $Res call(
-      {String id,
+      {String songId,
       String name,
       String duration,
       ImageDto image,
@@ -538,16 +538,16 @@ class _$AlbumSongDtoCopyWithImpl<$Res, $Val extends AlbumSongDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? songId = null,
     Object? name = null,
     Object? duration = null,
     Object? image = null,
     Object? artists = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      songId: null == songId
+          ? _value.songId
+          : songId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -586,7 +586,7 @@ abstract class _$$AlbumSongDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {String songId,
       String name,
       String duration,
       ImageDto image,
@@ -607,16 +607,16 @@ class __$$AlbumSongDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? songId = null,
     Object? name = null,
     Object? duration = null,
     Object? image = null,
     Object? artists = null,
   }) {
     return _then(_$AlbumSongDtoImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      songId: null == songId
+          ? _value.songId
+          : songId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -642,7 +642,7 @@ class __$$AlbumSongDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AlbumSongDtoImpl with DiagnosticableTreeMixin implements _AlbumSongDto {
   const _$AlbumSongDtoImpl(
-      {required this.id,
+      {required this.songId,
       required this.name,
       required this.duration,
       required this.image,
@@ -653,7 +653,7 @@ class _$AlbumSongDtoImpl with DiagnosticableTreeMixin implements _AlbumSongDto {
       _$$AlbumSongDtoImplFromJson(json);
 
   @override
-  final String id;
+  final String songId;
   @override
   final String name;
   @override
@@ -670,7 +670,7 @@ class _$AlbumSongDtoImpl with DiagnosticableTreeMixin implements _AlbumSongDto {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AlbumSongDto(id: $id, name: $name, duration: $duration, image: $image, artists: $artists)';
+    return 'AlbumSongDto(songId: $songId, name: $name, duration: $duration, image: $image, artists: $artists)';
   }
 
   @override
@@ -678,7 +678,7 @@ class _$AlbumSongDtoImpl with DiagnosticableTreeMixin implements _AlbumSongDto {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'AlbumSongDto'))
-      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('songId', songId))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('duration', duration))
       ..add(DiagnosticsProperty('image', image))
@@ -690,7 +690,7 @@ class _$AlbumSongDtoImpl with DiagnosticableTreeMixin implements _AlbumSongDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AlbumSongDtoImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.songId, songId) || other.songId == songId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
@@ -700,7 +700,7 @@ class _$AlbumSongDtoImpl with DiagnosticableTreeMixin implements _AlbumSongDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, duration, image,
+  int get hashCode => Object.hash(runtimeType, songId, name, duration, image,
       const DeepCollectionEquality().hash(_artists));
 
   @JsonKey(ignore: true)
@@ -719,7 +719,7 @@ class _$AlbumSongDtoImpl with DiagnosticableTreeMixin implements _AlbumSongDto {
 
 abstract class _AlbumSongDto implements AlbumSongDto {
   const factory _AlbumSongDto(
-      {required final String id,
+      {required final String songId,
       required final String name,
       required final String duration,
       required final ImageDto image,
@@ -729,7 +729,7 @@ abstract class _AlbumSongDto implements AlbumSongDto {
       _$AlbumSongDtoImpl.fromJson;
 
   @override
-  String get id;
+  String get songId;
   @override
   String get name;
   @override

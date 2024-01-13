@@ -1,89 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:streaming_front_app/domain/auth/enums/enums.dart';
 
 import '../../../../application/auth/use_cases/use_cases.dart';
 import '../../core/widgets/widgets.dart';
 
-class SignIn extends StatefulHookConsumerWidget {
+class SignIn extends HookConsumerWidget {
   const SignIn({super.key});
 
-  @override
-  ConsumerState<SignIn> createState() => _SignInState();
-}
-
-class _SignInState extends ConsumerState<SignIn> {
-  // local state variables
-  String _errorMessage = 'Hi this is default error message';
-  bool _showErrorMessage = false;
-
   void handleLoginClick({
+    required BuildContext context,
+    required WidgetRef ref,
     required LoginStateEnum loginProvider,
     required String phone,
+    required bool showErrorMessage,
+    required String errorMessage,
   }) async {
     await ref.read(loginHelperProvider.notifier).login(phone: phone);
 
     print("Valor del estado del Login helper: ${loginProvider.toString()}");
-  }
-
-  void handleLoginResponse({
-    required WidgetRef ref,
-    required LoginStateEnum loginProvider,
-  }) {
-    print("Valor del estado en changePage: ${loginProvider.toString()}");
-//pass, wrongValues, error, unChange
+    //pass, wrongValues, error, unChange
     switch (loginProvider) {
       case LoginStateEnum.pass:
-        // do nothing for now
+        context.goNamed('home');
         break;
       case LoginStateEnum.wrongValues:
-        _errorMessage = "Valores incorrectos";
-        _showErrorMessage = true;
+        errorMessage = "Valores incorrectos";
+        showErrorMessage = true;
         break;
       case LoginStateEnum.error:
-        _errorMessage = "Server error";
-        _showErrorMessage = true;
+        errorMessage = "Server error";
+        showErrorMessage = true;
         break;
       default:
     }
   }
 
-  void handleSignInClick({
-    required String phone,
-    required AvailableOperators cellphoneOperator,
-  }) async {
-    await ref.read(signInHelperProvider.notifier).signIn(
-          phone: phone,
-          cellphoneOperator: cellphoneOperator,
-        );
-  }
-
-  void handleSignInResponse({
-    required String? signInMessage,
-  }) {
-    if (signInMessage != null) {
-      _errorMessage = signInMessage;
-      _showErrorMessage = true;
-    }
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // login state
     final LoginStateEnum loginProvider = ref.watch(loginHelperProvider);
-    // sign-in state
-    final String? signInProvider = ref.watch(signInHelperProvider);
     // text controller from react hooks
     final phoneController = useTextEditingController();
-
-    // handle the response of the login
-    handleLoginResponse(
-      ref: ref,
-      loginProvider: loginProvider,
-    );
-    // handle the response of the sign-in
-    handleSignInResponse(signInMessage: signInProvider);
+    // show error message
+    bool showErrorMessage = false;
+    String errorMessage = "";
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -91,6 +54,7 @@ class _SignInState extends ConsumerState<SignIn> {
         children: [
           const DefaultBackground(),
           SingleChildScrollView(
+            // Añadido SingleChildScrollView aquí
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -117,29 +81,23 @@ class _SignInState extends ConsumerState<SignIn> {
                   const SizedBox(height: 20),
                   CustomTextFormField(
                     hintText: 'Ingresa tu número de teléfono',
-                    maxWidth: MediaQuery.of(context).size.width - 40,
+                    maxWidth: 350,
                     controller: phoneController,
-                    iconSuffixData: Icons.error_outline,
                   ),
-                  // error message if there is a problem
-                  if (_showErrorMessage) ...[
-                    const SizedBox(height: 20),
-                    ErrorInputMessage(
-                      message: _errorMessage,
-                      iconData: Icons.error,
-                    ),
-                  ],
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   createButton(
-                    actionToDo: () {
-                      handleLoginClick(
-                        loginProvider: loginProvider,
-                        phone: phoneController.text,
-                      );
-                    },
-                    buttonText: 'Iniciar Sesión',
-                    maxWidth: MediaQuery.of(context).size.width - 40,
-                  ),
+                      actionToDo: () {
+                        handleLoginClick(
+                          context: context,
+                          ref: ref,
+                          loginProvider: loginProvider,
+                          errorMessage: errorMessage,
+                          showErrorMessage: showErrorMessage,
+                          phone: phoneController.text,
+                        );
+                      },
+                      buttonText: 'Iniciar Sesión',
+                      maxWidth: 350),
                   const SizedBox(height: 50),
                   const Text(
                     'Subscribete',
@@ -177,12 +135,7 @@ class _SignInState extends ConsumerState<SignIn> {
                           height: 100,
                         ),
                       ),
-                      onPressed: () {
-                        handleSignInClick(
-                          phone: phoneController.text,
-                          cellphoneOperator: AvailableOperators.digitel,
-                        );
-                      },
+                      onPressed: () {},
                     ),
                   ),
                   const SizedBox(
@@ -201,12 +154,7 @@ class _SignInState extends ConsumerState<SignIn> {
                           height: 100,
                         ),
                       ),
-                      onPressed: () {
-                        handleSignInClick(
-                          phone: phoneController.text,
-                          cellphoneOperator: AvailableOperators.movistar,
-                        );
-                      },
+                      onPressed: () {},
                     ),
                   ),
                 ],

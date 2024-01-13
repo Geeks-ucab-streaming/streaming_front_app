@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../core/dtos/dtos.dart';
+import '../../dtos/dtos.dart';
 
 part 'album_dto.freezed.dart';
 // Class is serializable
@@ -37,7 +38,7 @@ class AlbumCreatorDto with _$AlbumCreatorDto {
 @freezed
 class AlbumSongDto with _$AlbumSongDto {
   const factory AlbumSongDto({
-    required String id,
+    required String songId,
     required String name,
     required String duration,
     required ImageDto image,
