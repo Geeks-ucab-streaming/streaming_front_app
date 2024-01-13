@@ -1,6 +1,7 @@
 //import 'package:get_it/get_it.dart'; it will be needed for repositories
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:streaming_front_app/presentation/routes/app_router.dart';
+import 'package:streaming_front_app/application/core/routes/app_router.dart';
+
 import '../../../domain/auth/entities/entities.dart';
 import '../../../domain/auth/enums/enums.dart';
 import '../../../domain/auth/value_objects/value_objects.dart';

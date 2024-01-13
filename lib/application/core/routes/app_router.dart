@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../pages/multimedia_related/screens/screens.dart';
-import '../pages/user_related/screens/screens.dart';
+import '../../../presentation/pages/multimedia_related/screens/screens.dart';
+import '../../../presentation/pages/user_related/screens/screens.dart';
 
 part 'app_router.g.dart';
 
