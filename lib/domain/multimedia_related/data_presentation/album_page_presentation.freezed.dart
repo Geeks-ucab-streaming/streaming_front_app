@@ -442,6 +442,7 @@ abstract class _AlbumPageInfo implements AlbumPageInfo {
 mixin _$AlbumSongPresentation {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get duration => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AlbumSongPresentationCopyWith<AlbumSongPresentation> get copyWith =>
@@ -454,7 +455,7 @@ abstract class $AlbumSongPresentationCopyWith<$Res> {
           $Res Function(AlbumSongPresentation) then) =
       _$AlbumSongPresentationCopyWithImpl<$Res, AlbumSongPresentation>;
   @useResult
-  $Res call({String id, String name});
+  $Res call({String id, String name, String duration});
 }
 
 /// @nodoc
@@ -473,6 +474,7 @@ class _$AlbumSongPresentationCopyWithImpl<$Res,
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? duration = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -482,6 +484,10 @@ class _$AlbumSongPresentationCopyWithImpl<$Res,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -496,7 +502,7 @@ abstract class _$$AlbumSongPresentationImplCopyWith<$Res>
       __$$AlbumSongPresentationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name});
+  $Res call({String id, String name, String duration});
 }
 
 /// @nodoc
@@ -513,6 +519,7 @@ class __$$AlbumSongPresentationImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? duration = null,
   }) {
     return _then(_$AlbumSongPresentationImpl(
       id: null == id
@@ -523,6 +530,10 @@ class __$$AlbumSongPresentationImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -532,16 +543,19 @@ class __$$AlbumSongPresentationImplCopyWithImpl<$Res>
 class _$AlbumSongPresentationImpl
     with DiagnosticableTreeMixin
     implements _AlbumSongPresentation {
-  const _$AlbumSongPresentationImpl({required this.id, required this.name});
+  const _$AlbumSongPresentationImpl(
+      {required this.id, required this.name, required this.duration});
 
   @override
   final String id;
   @override
   final String name;
+  @override
+  final String duration;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AlbumSongPresentation(id: $id, name: $name)';
+    return 'AlbumSongPresentation(id: $id, name: $name, duration: $duration)';
   }
 
   @override
@@ -550,7 +564,8 @@ class _$AlbumSongPresentationImpl
     properties
       ..add(DiagnosticsProperty('type', 'AlbumSongPresentation'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('duration', duration));
   }
 
   @override
@@ -559,11 +574,13 @@ class _$AlbumSongPresentationImpl
         (other.runtimeType == runtimeType &&
             other is _$AlbumSongPresentationImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode => Object.hash(runtimeType, id, name, duration);
 
   @JsonKey(ignore: true)
   @override
@@ -576,12 +593,15 @@ class _$AlbumSongPresentationImpl
 abstract class _AlbumSongPresentation implements AlbumSongPresentation {
   const factory _AlbumSongPresentation(
       {required final String id,
-      required final String name}) = _$AlbumSongPresentationImpl;
+      required final String name,
+      required final String duration}) = _$AlbumSongPresentationImpl;
 
   @override
   String get id;
   @override
   String get name;
+  @override
+  String get duration;
   @override
   @JsonKey(ignore: true)
   _$$AlbumSongPresentationImplCopyWith<_$AlbumSongPresentationImpl>

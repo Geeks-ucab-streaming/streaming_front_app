@@ -4,7 +4,7 @@ class Album {
   const Album({
     this.id,
     this.name,
-    this.compositor,
+    this.duration,
     this.image,
     this.songs,
     this.artist,
@@ -12,7 +12,7 @@ class Album {
 
   final AlbumId? id;
   final AlbumName? name;
-  final AlbumCompositor? compositor;
+  final AlbumDuration? duration;
   final AlbumImage? image;
   final List<Song>? songs;
   final AlbumArtist? artist;
@@ -25,8 +25,8 @@ class Album {
     return name?.value;
   }
 
-  String? getCompositor() {
-    return compositor?.value;
+  String? getDuration() {
+    return duration?.value;
   }
 
   List<int>? getImage() {
@@ -57,8 +57,8 @@ class AlbumName {
   final String value;
 }
 
-class AlbumCompositor {
-  AlbumCompositor(this.value);
+class AlbumDuration {
+  AlbumDuration(this.value);
   final String value;
 }
 

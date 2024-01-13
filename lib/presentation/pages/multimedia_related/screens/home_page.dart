@@ -150,7 +150,7 @@ class HomePage extends ConsumerWidget {
                     builder: (BuildContext context) {
                       return GestureDetector(
                          onTap: () => context.goNamed('album',
-                          pathParameters: {'albumId': /*album.id*/'1'}), //EL id esta asi para probar la vista
+                          pathParameters: {'albumId': album.id}), 
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Container(

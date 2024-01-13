@@ -28,5 +28,6 @@ class AlbumSongPresentation with _$AlbumSongPresentation {
   const factory AlbumSongPresentation({
     required String id,
     required String name,
+    required String duration,
   }) = _AlbumSongPresentation;
 }
