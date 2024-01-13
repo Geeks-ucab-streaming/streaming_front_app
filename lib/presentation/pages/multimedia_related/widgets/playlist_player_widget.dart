@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:audio_waveforms/audio_waveforms.dart';
 
-class PlaylistPlayer extends StatefulWidget{
-
+class PlaylistPlayer extends StatefulWidget {
   const PlaylistPlayer({
     Key? key,
   }) : super(key: key);
@@ -100,8 +100,7 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
                     icon: Icon(Icons.volume_up_rounded),
                     iconSize: 30,
                     color: Colors.white,
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                   )
                 ],
               ),
@@ -114,7 +113,6 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
 }
 
 class ShuffleButton extends StatefulWidget {
-
   const ShuffleButton({
     Key? key,
   }) : super(key: key);
@@ -129,13 +127,11 @@ class _ShuffleButtonState extends State<ShuffleButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(
-        isShuffle ? Icons.shuffle_on_outlined : Icons.shuffle
-      ),
+      icon: Icon(isShuffle ? Icons.shuffle_on_outlined : Icons.shuffle),
       iconSize: 30,
       color: Colors.white,
       onPressed: () {
-        setState((){
+        setState(() {
           isShuffle = !isShuffle;
         });
       },
