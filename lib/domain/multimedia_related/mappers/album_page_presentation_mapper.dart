@@ -17,7 +17,7 @@ class AlbumPagePresentationMapper {
           id: album.getId() as String,
           name: album.getName() as String,
           image: album.getImage() as List<int>,
-          duration: '4 mins',//album.getDuration() as String,         //CAMBIAR ESTO
+          duration: album.getDuration() as String,     
           totalSongs: albumTotalSongs,
           artist: album.getArtist() as String
           );
@@ -27,6 +27,7 @@ class AlbumPagePresentationMapper {
           return AlbumSongPresentation(
             id: song.getId() as String,
             name: song.getName() as String,
+            duration: song.getDuration() as String
             );
         },
       ).toList() as List<AlbumSongPresentation>,
