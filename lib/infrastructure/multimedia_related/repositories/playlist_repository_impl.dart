@@ -23,7 +23,7 @@ class PlaylistRepositoryImpl extends IPlaylistRepository {
     final response = await dio.get('/playlist/$playlistId');
     logger.i(response.data.toString());
     // transforming the request to DTO
-    final PlaylistDto playlistDto = PlaylistDto.fromJson(response.data);
+    final PlaylistDto playlistDto = PlaylistDto.fromJson(response.data["data"]);
     logger.i(playlistDto.toString());
     // return entity element from DTO
     return PlaylistMapper.playlistByIdFromRemoteToEntity(playlistDto);

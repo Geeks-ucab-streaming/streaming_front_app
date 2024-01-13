@@ -24,6 +24,7 @@ mixin _$PlaylistDto {
   String get name => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
   ImageDto get image => throw _privateConstructorUsedError;
+  int get streams => throw _privateConstructorUsedError;
   List<PlaylistCreatorDto> get creators => throw _privateConstructorUsedError;
   List<PlaylistSongDto> get songs => throw _privateConstructorUsedError;
 
@@ -44,6 +45,7 @@ abstract class $PlaylistDtoCopyWith<$Res> {
       String name,
       String duration,
       ImageDto image,
+      int streams,
       List<PlaylistCreatorDto> creators,
       List<PlaylistSongDto> songs});
 
@@ -67,6 +69,7 @@ class _$PlaylistDtoCopyWithImpl<$Res, $Val extends PlaylistDto>
     Object? name = null,
     Object? duration = null,
     Object? image = null,
+    Object? streams = null,
     Object? creators = null,
     Object? songs = null,
   }) {
@@ -87,6 +90,10 @@ class _$PlaylistDtoCopyWithImpl<$Res, $Val extends PlaylistDto>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
+      streams: null == streams
+          ? _value.streams
+          : streams // ignore: cast_nullable_to_non_nullable
+              as int,
       creators: null == creators
           ? _value.creators
           : creators // ignore: cast_nullable_to_non_nullable
@@ -120,6 +127,7 @@ abstract class _$$PlaylistDtoImplCopyWith<$Res>
       String name,
       String duration,
       ImageDto image,
+      int streams,
       List<PlaylistCreatorDto> creators,
       List<PlaylistSongDto> songs});
 
@@ -142,6 +150,7 @@ class __$$PlaylistDtoImplCopyWithImpl<$Res>
     Object? name = null,
     Object? duration = null,
     Object? image = null,
+    Object? streams = null,
     Object? creators = null,
     Object? songs = null,
   }) {
@@ -162,6 +171,10 @@ class __$$PlaylistDtoImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
+      streams: null == streams
+          ? _value.streams
+          : streams // ignore: cast_nullable_to_non_nullable
+              as int,
       creators: null == creators
           ? _value._creators
           : creators // ignore: cast_nullable_to_non_nullable
@@ -182,6 +195,7 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
       required this.name,
       required this.duration,
       required this.image,
+      required this.streams,
       required final List<PlaylistCreatorDto> creators,
       required final List<PlaylistSongDto> songs})
       : _creators = creators,
@@ -198,6 +212,8 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
   final String duration;
   @override
   final ImageDto image;
+  @override
+  final int streams;
   final List<PlaylistCreatorDto> _creators;
   @override
   List<PlaylistCreatorDto> get creators {
@@ -216,7 +232,7 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PlaylistDto(id: $id, name: $name, duration: $duration, image: $image, creators: $creators, songs: $songs)';
+    return 'PlaylistDto(id: $id, name: $name, duration: $duration, image: $image, streams: $streams, creators: $creators, songs: $songs)';
   }
 
   @override
@@ -228,6 +244,7 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('duration', duration))
       ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('streams', streams))
       ..add(DiagnosticsProperty('creators', creators))
       ..add(DiagnosticsProperty('songs', songs));
   }
@@ -242,6 +259,7 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
             (identical(other.image, image) || other.image == image) &&
+            (identical(other.streams, streams) || other.streams == streams) &&
             const DeepCollectionEquality().equals(other._creators, _creators) &&
             const DeepCollectionEquality().equals(other._songs, _songs));
   }
@@ -254,6 +272,7 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
       name,
       duration,
       image,
+      streams,
       const DeepCollectionEquality().hash(_creators),
       const DeepCollectionEquality().hash(_songs));
 
@@ -277,6 +296,7 @@ abstract class _PlaylistDto implements PlaylistDto {
       required final String name,
       required final String duration,
       required final ImageDto image,
+      required final int streams,
       required final List<PlaylistCreatorDto> creators,
       required final List<PlaylistSongDto> songs}) = _$PlaylistDtoImpl;
 
@@ -291,6 +311,8 @@ abstract class _PlaylistDto implements PlaylistDto {
   String get duration;
   @override
   ImageDto get image;
+  @override
+  int get streams;
   @override
   List<PlaylistCreatorDto> get creators;
   @override

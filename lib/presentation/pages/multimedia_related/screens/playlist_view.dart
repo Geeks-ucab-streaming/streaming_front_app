@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
+import '../../../../application/multimedia_related/use_cases/playlist_info/get_playlist_info.dart';
 import '../widgets/widgets.dart';
 
 class PlaylistView extends ConsumerWidget {
@@ -24,10 +25,11 @@ class PlaylistView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // provider to listen
-    // final playlistInfo = ref.watch(getPlaylistInfoProvider(playlistId));
+    //provider to listen
+    final playlistInfo = ref.watch(getPlaylistInfoProvider(playlistId));
 
-    return Scaffold(
+    final widgetBody = switch (playlistInfo) {
+      AsyncData(:final value) => Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -37,11 +39,13 @@ class PlaylistView extends ConsumerWidget {
               height: MediaQuery.of(context).size.height / 2,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/Album.png'),
-                  /*Image.memory(
+                  image: Image.memory(
                     Uint8List.fromList(
-                      value.playlist.image)
-                    ),*/
+                      value.playlist.image,
+                    ),
+                    fit: BoxFit.contain,
+                  ).image,
+                  fit: BoxFit.fill,
                 ),
                 gradient: const LinearGradient(
                   colors: [
@@ -118,13 +122,12 @@ class PlaylistView extends ConsumerWidget {
                                   ),
                                 ],
                                 image: DecorationImage(
-                                  image: AssetImage('assets/images/Album.png'),
-                                  /*Image.memory(
+                                  image: Image.memory(
                                     Uint8List.fromList(
                                       value.playlist.image,
                                     ),
                                     fit: BoxFit.contain,
-                                  ).image,*/
+                                  ).image,
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -137,8 +140,7 @@ class PlaylistView extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'NombrePlaylist'
-                                      /*value.playlist.name*/,
+                                      value.playlist.name,
                                       textAlign: TextAlign.left,
                                       overflow: TextOverflow.clip,
                                       style: const TextStyle(
@@ -151,8 +153,7 @@ class PlaylistView extends ConsumerWidget {
                                       height: 20,
                                     ),
                                     Text(
-                                      '25 mins'
-                                      /*value.playlist.duration*/,
+                                      'Duración: ${value.playlist.duration}',
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 15,
@@ -160,8 +161,7 @@ class PlaylistView extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(
-                                      '12.642 plays'
-                                      /*value.playlist.plays*/,
+                                      'Reproducciones: ${value.playlist.totalPlays}',
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 15,
@@ -186,10 +186,11 @@ class PlaylistView extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: [
-                             /*for (var song in value.songs)
+                             for (var song in value.songs)
                               SimpleTrackListElement(
-                                trackToDisplay: song.name,
-                              ),*/
+                                songName: song.name,
+                                songDuration: song.duration,
+                              ),
                           ],
                         ),
                       ),
@@ -199,8 +200,61 @@ class PlaylistView extends ConsumerWidget {
           ],
         ),
       ),
-    );
+    ),
+    AsyncError(:final Error error) => Scaffold(
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                const DefaultBackground(),
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: const BackButton(
+                          color: Colors.white,
+                        ),
+                      ),
+                      ErrorImage(
+                        error: error,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      _ => Scaffold(
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                const DefaultBackground(),
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: const BackButton(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Loading(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+    };
 
-    //return const Placeholder();
+    return widgetBody;
   }
 }

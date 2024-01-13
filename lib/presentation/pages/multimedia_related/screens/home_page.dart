@@ -110,7 +110,7 @@ class HomePage extends ConsumerWidget {
                   for (var playlist in value.playlists)
                     GestureDetector(
                       onTap: () => context.goNamed('playlist',
-                          pathParameters: {'playlistId': /*playlist.id*/'1'}), //EL id esta asi para probar la vista
+                          pathParameters: {'playlistId': playlist.id}), 
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
