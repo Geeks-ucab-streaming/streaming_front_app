@@ -1,10 +1,9 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../image_dto/image_dto.dart';
+import '../dtos.dart';
 
 part 'advertisement_dto.freezed.dart';
-
 // Class is serializable
 part 'advertisement_dto.g.dart';
 

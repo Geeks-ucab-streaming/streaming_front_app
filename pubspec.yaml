@@ -48,6 +48,14 @@ dependencies:
   flutter_riverpod: ^2.4.9
   riverpod_annotation: ^2.3.3
   logger: ^2.0.2+1
+  injectable: ^2.3.2
+  injectable_generator: ^2.4.1
+  overlapped_carousel: ^1.0.1
+  firebase_messaging: ^14.7.9
+  firebase_core: ^2.24.2
+  go_router: ^13.0.0
+  hooks_riverpod: ^2.4.9
+  flutter_native_splash: ^2.3.7
 
 dev_dependencies:
   flutter_test:
@@ -98,3 +106,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  color: "#1b1327"
+  image: "assets/images/aqustico_simple_logo.png"
+  android_12:
+    color: "#1b1327"
+    image: "assets/images/aqustico_simple_logo.png"
