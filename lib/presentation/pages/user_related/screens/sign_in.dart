@@ -15,8 +15,8 @@ class SignIn extends StatefulHookConsumerWidget {
 
 class _SignInState extends ConsumerState<SignIn> {
   // local state variables
-  final String _errorMessage = 'Hi this is default error message';
-  final bool _showErrorMessage = false;
+  String _errorMessage = 'Hi this is default error message';
+  bool _showErrorMessage = false;
 
   void handleLoginClick({
     required WidgetRef ref,
@@ -32,8 +32,6 @@ class _SignInState extends ConsumerState<SignIn> {
     required BuildContext context,
     required WidgetRef ref,
     required LoginStateEnum loginProvider,
-    required bool showErrorMessage,
-    required String errorMessage,
   }) {
     print("Valor del estado en changePage: ${loginProvider.toString()}");
 //pass, wrongValues, error, unChange
@@ -42,14 +40,12 @@ class _SignInState extends ConsumerState<SignIn> {
         // do nothing for now
         break;
       case LoginStateEnum.wrongValues:
-        print('Llegamos a wrong values');
-        errorMessage = "Valores incorrectos";
-        showErrorMessage = true;
+        _errorMessage = "Valores incorrectos";
+        _showErrorMessage = true;
         break;
       case LoginStateEnum.error:
-        print('Llegamos a error');
-        errorMessage = "Server error";
-        showErrorMessage = true;
+        _errorMessage = "Server error";
+        _showErrorMessage = true;
         break;
       default:
     }
@@ -66,8 +62,6 @@ class _SignInState extends ConsumerState<SignIn> {
       context: context,
       ref: ref,
       loginProvider: loginProvider,
-      errorMessage: _errorMessage,
-      showErrorMessage: _showErrorMessage,
     );
 
     return Scaffold(
