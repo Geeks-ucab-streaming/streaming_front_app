@@ -19,7 +19,6 @@ class _SignInState extends ConsumerState<SignIn> {
   bool _showErrorMessage = false;
 
   void handleLoginClick({
-    required WidgetRef ref,
     required LoginStateEnum loginProvider,
     required String phone,
   }) async {
@@ -28,7 +27,7 @@ class _SignInState extends ConsumerState<SignIn> {
     print("Valor del estado del Login helper: ${loginProvider.toString()}");
   }
 
-  void handleLoginOrSignInResponse({
+  void handleLoginResponse({
     required WidgetRef ref,
     required LoginStateEnum loginProvider,
   }) {
@@ -50,17 +49,41 @@ class _SignInState extends ConsumerState<SignIn> {
     }
   }
 
+  void handleSignInClick({
+    required String phone,
+    required AvailableOperators cellphoneOperator,
+  }) async {
+    await ref.read(signInHelperProvider.notifier).signIn(
+          phone: phone,
+          cellphoneOperator: cellphoneOperator,
+        );
+  }
+
+  void handleSignInResponse({
+    required String? signInMessage,
+  }) {
+    if (signInMessage != null) {
+      _errorMessage = signInMessage;
+      _showErrorMessage = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // login state
     final LoginStateEnum loginProvider = ref.watch(loginHelperProvider);
+    // sign-in state
+    final String? signInProvider = ref.watch(signInHelperProvider);
     // text controller from react hooks
     final phoneController = useTextEditingController();
 
-    handleLoginOrSignInResponse(
+    // handle the response of the login
+    handleLoginResponse(
       ref: ref,
       loginProvider: loginProvider,
     );
+    // handle the response of the sign-in
+    handleSignInResponse(signInMessage: signInProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -110,7 +133,6 @@ class _SignInState extends ConsumerState<SignIn> {
                   createButton(
                     actionToDo: () {
                       handleLoginClick(
-                        ref: ref,
                         loginProvider: loginProvider,
                         phone: phoneController.text,
                       );
@@ -155,7 +177,12 @@ class _SignInState extends ConsumerState<SignIn> {
                           height: 100,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        handleSignInClick(
+                          phone: phoneController.text,
+                          cellphoneOperator: AvailableOperators.digitel,
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -174,7 +201,12 @@ class _SignInState extends ConsumerState<SignIn> {
                           height: 100,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        handleSignInClick(
+                          phone: phoneController.text,
+                          cellphoneOperator: AvailableOperators.movistar,
+                        );
+                      },
                     ),
                   ),
                 ],
