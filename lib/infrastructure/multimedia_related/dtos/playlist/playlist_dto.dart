@@ -14,6 +14,7 @@ class PlaylistDto with _$PlaylistDto {
     required String name,
     required String duration,
     required ImageDto image,
+    required int streams,
     required List<PlaylistCreatorDto> creators,
     required List<PlaylistSongDto> songs,
   }) = _PlaylistDto;

@@ -126,9 +126,8 @@ class HomePage extends ConsumerWidget {
                 children: [
                   for (var playlist in value.playlists)
                     GestureDetector(
-                      onTap: () => context.goNamed('playlist', pathParameters: {
-                        'playlistId': /*playlist.id*/ '1'
-                      }), //EL id esta asi para probar la vista
+                      onTap: () => context.goNamed('playlist',
+                          pathParameters: {'playlistId': playlist.id}),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
@@ -167,9 +166,8 @@ class HomePage extends ConsumerWidget {
                   return Builder(
                     builder: (BuildContext context) {
                       return GestureDetector(
-                        onTap: () => context.goNamed('album', pathParameters: {
-                          'albumId': /*album.id*/ '1'
-                        }), //EL id esta asi para probar la vista
+                        onTap: () => context.goNamed('album',
+                            pathParameters: {'albumId': album.id}),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Container(

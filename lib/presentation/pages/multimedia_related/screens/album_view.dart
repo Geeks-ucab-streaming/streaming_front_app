@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
+import '../../../../application/multimedia_related/use_cases/album_info/get_album_info.dart';
 import '../widgets/widgets.dart';
 
 class AlbumView extends ConsumerWidget {
@@ -25,9 +25,10 @@ class AlbumView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
-    // final albumInfo = ref.watch(getAlbumInfoProvider(albumId));
+    final albumInfo = ref.watch(getAlbumInfoProvider(albumId));
 
-    return Scaffold(
+    final widgetBody = switch (albumInfo) {
+      AsyncData(:final value) => Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -37,11 +38,13 @@ class AlbumView extends ConsumerWidget {
               height: MediaQuery.of(context).size.height / 2,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/Album.png'),
-                  /*Image.memory(
+                  image: Image.memory(
                     Uint8List.fromList(
-                      value.album.image)
-                    ),*/
+                      value.album.image,
+                    ),
+                    fit: BoxFit.contain,
+                  ).image,
+                  fit: BoxFit.fill,
                 ),
                 gradient: const LinearGradient(
                   colors: [
@@ -118,13 +121,12 @@ class AlbumView extends ConsumerWidget {
                                   ),
                                 ],
                                 image: DecorationImage(
-                                  image: AssetImage('assets/images/Album.png'),
-                                  /*Image.memory(
+                                  image: Image.memory(
                                     Uint8List.fromList(
                                       value.album.image,
                                     ),
                                     fit: BoxFit.contain,
-                                  ).image,*/
+                                  ).image,
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -137,8 +139,7 @@ class AlbumView extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'NombreAlbum'
-                                      /*value.album.name*/,
+                                      value.album.name,
                                       textAlign: TextAlign.left,
                                       overflow: TextOverflow.clip,
                                       style: const TextStyle(
@@ -148,7 +149,7 @@ class AlbumView extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(
-                                      'Artista',
+                                      value.album.artist,
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 20,
@@ -159,7 +160,7 @@ class AlbumView extends ConsumerWidget {
                                       height: 20,
                                     ),
                                     Text(
-                                      '7 canciones',
+                                      value.album.totalSongs,
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 15,
@@ -167,8 +168,7 @@ class AlbumView extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(
-                                      '25 mins'
-                                      /*value.album.duration*/,
+                                      value.album.duration,
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 15,
@@ -189,10 +189,11 @@ class AlbumView extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: [
-                             /*for (var song in value.songs)
+                             for (var song in value.songs)
                               SimpleTrackListElement(
-                                trackToDisplay: song.name,
-                              ),*/
+                                songName: song.name,
+                                songDuration: song.duration,
+                              ),
                           ],
                         ),
                       ),
@@ -202,8 +203,61 @@ class AlbumView extends ConsumerWidget {
           ],
         ),
       ),
-    );
+    ),
+    AsyncError(:final Error error) => Scaffold(
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                const DefaultBackground(),
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: const BackButton(
+                          color: Colors.white,
+                        ),
+                      ),
+                      ErrorImage(
+                        error: error,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      _ => Scaffold(
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                const DefaultBackground(),
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppBar(
+                        backgroundColor: Colors.transparent,
+                        leading: const BackButton(
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Loading(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
 
-    //return const Placeholder();
+    };
+    return widgetBody;
   }
 }
