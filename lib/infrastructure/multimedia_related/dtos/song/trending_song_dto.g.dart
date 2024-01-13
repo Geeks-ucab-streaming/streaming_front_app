@@ -23,7 +23,7 @@ Map<String, dynamic> _$$TrendingSongsDtoImplToJson(
 _$TrendingSongDtoImpl _$$TrendingSongDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$TrendingSongDtoImpl(
-      songId: json['songId'] as String,
+      id: json['id'] as String,
       name: json['name'] as String,
       duration: json['duration'] as String,
       artists: (json['artists'] as List<dynamic>)
@@ -35,7 +35,7 @@ _$TrendingSongDtoImpl _$$TrendingSongDtoImplFromJson(
 Map<String, dynamic> _$$TrendingSongDtoImplToJson(
         _$TrendingSongDtoImpl instance) =>
     <String, dynamic>{
-      'songId': instance.songId,
+      'id': instance.id,
       'name': instance.name,
       'duration': instance.duration,
       'artists': instance.artists,

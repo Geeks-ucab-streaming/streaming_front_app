@@ -35,7 +35,7 @@ class ArtistAlbumDto with _$ArtistAlbumDto {
 @freezed
 class ArtistSongDto with _$ArtistSongDto {
   const factory ArtistSongDto({
-    required String songId,
+    required String id,
     required String duration,
     required String name,
     required ImageDto image,

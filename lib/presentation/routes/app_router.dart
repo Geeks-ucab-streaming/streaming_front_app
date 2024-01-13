@@ -51,6 +51,23 @@ class AppRouter extends _$AppRouter {
               },
               routes: <RouteBase>[
                 GoRoute(
+                  path: 'playlist/:playlistId',
+                  name: 'playlist',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return PlaylistView(
+                        playlistId:
+                            state.pathParameters['playlistId'] as String);
+                  },
+                ),
+                GoRoute(
+                  path: 'album/:albumId',
+                  name: 'album',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return AlbumView(
+                        albumId: state.pathParameters['albumId'] as String);
+                  },
+                ),
+                GoRoute(
                   path: 'artist/:artistId',
                   name: 'artist',
                   builder: (BuildContext context, GoRouterState state) {
@@ -99,6 +116,22 @@ class AppRouter extends _$AppRouter {
             return const HomePage();
           },
           routes: <RouteBase>[
+            GoRoute(
+              path: 'playlist/:playlistId',
+              name: 'playlist',
+              builder: (BuildContext context, GoRouterState state) {
+                return PlaylistView(
+                    playlistId: state.pathParameters['playlistId'] as String);
+              },
+            ),
+            GoRoute(
+              path: 'album/:albumId',
+              name: 'album',
+              builder: (BuildContext context, GoRouterState state) {
+                return AlbumView(
+                    albumId: state.pathParameters['albumId'] as String);
+              },
+            ),
             GoRoute(
               path: 'artist/:artistId',
               name: 'artist',
@@ -167,6 +200,23 @@ class AppRouter extends _$AppRouter {
                 return const HomePage();
               },
               routes: <RouteBase>[
+                GoRoute(
+                  path: 'playlist/:playlistId',
+                  name: 'playlist',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return PlaylistView(
+                        playlistId:
+                            state.pathParameters['playlistId'] as String);
+                  },
+                ),
+                GoRoute(
+                  path: 'album/:albumId',
+                  name: 'album',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return AlbumView(
+                        albumId: state.pathParameters['albumId'] as String);
+                  },
+                ),
                 GoRoute(
                   path: 'artist/:artistId',
                   name: 'artist',

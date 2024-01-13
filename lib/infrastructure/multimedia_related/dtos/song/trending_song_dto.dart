@@ -20,7 +20,7 @@ class TrendingSongsDto with _$TrendingSongsDto {
 @freezed
 class TrendingSongDto with _$TrendingSongDto {
   const factory TrendingSongDto({
-    required String songId,
+    required String id,
     required String name,
     required String duration,
     required List<TrendingSongArtistDto> artists,

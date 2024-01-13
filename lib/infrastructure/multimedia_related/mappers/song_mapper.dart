@@ -7,7 +7,7 @@ class SongMapper {
     List<Song> trendingSongs = trendingSongsDto.songs
         .map(
           (song) => Song(
-            id: SongId(song.songId),
+            id: SongId(song.id),
             name: SongName(song.name),
             duration: SongDuration(
               song.duration,
