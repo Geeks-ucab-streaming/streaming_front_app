@@ -175,7 +175,7 @@ TrendingSongDto _$TrendingSongDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TrendingSongDto {
-  String get songId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get duration => throw _privateConstructorUsedError;
   List<TrendingSongArtistDto> get artists => throw _privateConstructorUsedError;
@@ -194,7 +194,7 @@ abstract class $TrendingSongDtoCopyWith<$Res> {
       _$TrendingSongDtoCopyWithImpl<$Res, TrendingSongDto>;
   @useResult
   $Res call(
-      {String songId,
+      {String id,
       String name,
       String duration,
       List<TrendingSongArtistDto> artists,
@@ -216,16 +216,16 @@ class _$TrendingSongDtoCopyWithImpl<$Res, $Val extends TrendingSongDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? songId = null,
+    Object? id = null,
     Object? name = null,
     Object? duration = null,
     Object? artists = null,
     Object? image = null,
   }) {
     return _then(_value.copyWith(
-      songId: null == songId
-          ? _value.songId
-          : songId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -264,7 +264,7 @@ abstract class _$$TrendingSongDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String songId,
+      {String id,
       String name,
       String duration,
       List<TrendingSongArtistDto> artists,
@@ -285,16 +285,16 @@ class __$$TrendingSongDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? songId = null,
+    Object? id = null,
     Object? name = null,
     Object? duration = null,
     Object? artists = null,
     Object? image = null,
   }) {
     return _then(_$TrendingSongDtoImpl(
-      songId: null == songId
-          ? _value.songId
-          : songId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -322,7 +322,7 @@ class _$TrendingSongDtoImpl
     with DiagnosticableTreeMixin
     implements _TrendingSongDto {
   const _$TrendingSongDtoImpl(
-      {required this.songId,
+      {required this.id,
       required this.name,
       required this.duration,
       required final List<TrendingSongArtistDto> artists,
@@ -333,7 +333,7 @@ class _$TrendingSongDtoImpl
       _$$TrendingSongDtoImplFromJson(json);
 
   @override
-  final String songId;
+  final String id;
   @override
   final String name;
   @override
@@ -351,7 +351,7 @@ class _$TrendingSongDtoImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TrendingSongDto(songId: $songId, name: $name, duration: $duration, artists: $artists, image: $image)';
+    return 'TrendingSongDto(id: $id, name: $name, duration: $duration, artists: $artists, image: $image)';
   }
 
   @override
@@ -359,7 +359,7 @@ class _$TrendingSongDtoImpl
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TrendingSongDto'))
-      ..add(DiagnosticsProperty('songId', songId))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('duration', duration))
       ..add(DiagnosticsProperty('artists', artists))
@@ -371,7 +371,7 @@ class _$TrendingSongDtoImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TrendingSongDtoImpl &&
-            (identical(other.songId, songId) || other.songId == songId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
@@ -381,7 +381,7 @@ class _$TrendingSongDtoImpl
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, songId, name, duration,
+  int get hashCode => Object.hash(runtimeType, id, name, duration,
       const DeepCollectionEquality().hash(_artists), image);
 
   @JsonKey(ignore: true)
@@ -401,7 +401,7 @@ class _$TrendingSongDtoImpl
 
 abstract class _TrendingSongDto implements TrendingSongDto {
   const factory _TrendingSongDto(
-      {required final String songId,
+      {required final String id,
       required final String name,
       required final String duration,
       required final List<TrendingSongArtistDto> artists,
@@ -411,7 +411,7 @@ abstract class _TrendingSongDto implements TrendingSongDto {
       _$TrendingSongDtoImpl.fromJson;
 
   @override
-  String get songId;
+  String get id;
   @override
   String get name;
   @override

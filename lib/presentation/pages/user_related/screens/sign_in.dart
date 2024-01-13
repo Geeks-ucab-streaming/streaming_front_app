@@ -1,52 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:streaming_front_app/domain/auth/enums/enums.dart';
 
 import '../../../../application/auth/use_cases/use_cases.dart';
 import '../../core/widgets/widgets.dart';
 
-class SignIn extends HookConsumerWidget {
+class SignIn extends StatefulHookConsumerWidget {
   const SignIn({super.key});
 
+  @override
+  ConsumerState<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends ConsumerState<SignIn> {
+  // local state variables
+  String _errorMessage = 'Hi this is default error message';
+  bool _showErrorMessage = false;
+
   void handleLoginClick({
-    required BuildContext context,
-    required WidgetRef ref,
     required LoginStateEnum loginProvider,
     required String phone,
-    required bool showErrorMessage,
-    required String errorMessage,
   }) async {
     await ref.read(loginHelperProvider.notifier).login(phone: phone);
 
     print("Valor del estado del Login helper: ${loginProvider.toString()}");
-    //pass, wrongValues, error, unChange
+  }
+
+  void handleLoginResponse({
+    required WidgetRef ref,
+    required LoginStateEnum loginProvider,
+  }) {
+    print("Valor del estado en changePage: ${loginProvider.toString()}");
+//pass, wrongValues, error, unChange
     switch (loginProvider) {
       case LoginStateEnum.pass:
-        context.goNamed('home');
+        // do nothing for now
         break;
       case LoginStateEnum.wrongValues:
-        errorMessage = "Valores incorrectos";
-        showErrorMessage = true;
+        _errorMessage = "Valores incorrectos";
+        _showErrorMessage = true;
         break;
       case LoginStateEnum.error:
-        errorMessage = "Server error";
-        showErrorMessage = true;
+        _errorMessage = "Server error";
+        _showErrorMessage = true;
         break;
       default:
     }
   }
 
+  void handleSignInClick({
+    required String phone,
+    required AvailableOperators cellphoneOperator,
+  }) async {
+    await ref.read(signInHelperProvider.notifier).signIn(
+          phone: phone,
+          cellphoneOperator: cellphoneOperator,
+        );
+  }
+
+  void handleSignInResponse({
+    required String? signInMessage,
+  }) {
+    if (signInMessage != null) {
+      _errorMessage = signInMessage;
+      _showErrorMessage = true;
+    }
+  }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // login state
     final LoginStateEnum loginProvider = ref.watch(loginHelperProvider);
+    // sign-in state
+    final String? signInProvider = ref.watch(signInHelperProvider);
     // text controller from react hooks
     final phoneController = useTextEditingController();
-    // show error message
-    bool showErrorMessage = false;
-    String errorMessage = "";
+
+    // handle the response of the login
+    handleLoginResponse(
+      ref: ref,
+      loginProvider: loginProvider,
+    );
+    // handle the response of the sign-in
+    handleSignInResponse(signInMessage: signInProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -54,7 +91,6 @@ class SignIn extends HookConsumerWidget {
         children: [
           const DefaultBackground(),
           SingleChildScrollView(
-            // Añadido SingleChildScrollView aquí
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -81,23 +117,29 @@ class SignIn extends HookConsumerWidget {
                   const SizedBox(height: 20),
                   CustomTextFormField(
                     hintText: 'Ingresa tu número de teléfono',
-                    maxWidth: 350,
+                    maxWidth: MediaQuery.of(context).size.width - 40,
                     controller: phoneController,
+                    iconSuffixData: Icons.error_outline,
                   ),
-                  const SizedBox(height: 30),
+                  // error message if there is a problem
+                  if (_showErrorMessage) ...[
+                    const SizedBox(height: 20),
+                    ErrorInputMessage(
+                      message: _errorMessage,
+                      iconData: Icons.error,
+                    ),
+                  ],
+                  const SizedBox(height: 20),
                   createButton(
-                      actionToDo: () {
-                        handleLoginClick(
-                          context: context,
-                          ref: ref,
-                          loginProvider: loginProvider,
-                          errorMessage: errorMessage,
-                          showErrorMessage: showErrorMessage,
-                          phone: phoneController.text,
-                        );
-                      },
-                      buttonText: 'Iniciar Sesión',
-                      maxWidth: 350),
+                    actionToDo: () {
+                      handleLoginClick(
+                        loginProvider: loginProvider,
+                        phone: phoneController.text,
+                      );
+                    },
+                    buttonText: 'Iniciar Sesión',
+                    maxWidth: MediaQuery.of(context).size.width - 40,
+                  ),
                   const SizedBox(height: 50),
                   const Text(
                     'Subscribete',
@@ -135,7 +177,12 @@ class SignIn extends HookConsumerWidget {
                           height: 100,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        handleSignInClick(
+                          phone: phoneController.text,
+                          cellphoneOperator: AvailableOperators.digitel,
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -154,7 +201,12 @@ class SignIn extends HookConsumerWidget {
                           height: 100,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        handleSignInClick(
+                          phone: phoneController.text,
+                          cellphoneOperator: AvailableOperators.movistar,
+                        );
+                      },
                     ),
                   ),
                 ],

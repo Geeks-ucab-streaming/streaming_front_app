@@ -26,7 +26,7 @@ class PlaylistMapper {
       plays: PlaylistPlays(playlistDto.streams),
       songs: playlistDto.songs
           .map((playlistSongDto) => Song(
-                id: SongId(playlistSongDto.songId),
+                id: SongId(playlistSongDto.id),
                 name: SongName(playlistSongDto.name),
                 image: SongImage(
                   playlistSongDto.image.getImageAsIntList(),

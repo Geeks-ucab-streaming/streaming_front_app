@@ -4,8 +4,12 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../application/auth/states/states.dart';
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
+import '../../../../domain/auth/enums/enums.dart';
+import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -25,8 +29,9 @@ class ArtistView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // provider to listen
+    // providers to watch
     final artistInfo = ref.watch(getArtistInfoProvider(artistId));
+    final authState = ref.watch(authProvider);
 
     final widgetBody = switch (artistInfo) {
       AsyncData(:final value) => Scaffold(
@@ -231,6 +236,38 @@ class ArtistView extends ConsumerWidget {
                       const SizedBox(
                         height: 40,
                       ),
+                      switch (authState.state) {
+                        AuthStateEnum.initialize => Container(),
+                        AuthStateEnum.authenticated => Container(),
+                        AuthStateEnum.unauthenticated => InkWell(
+                            onTap: () {
+                              context.push('/login');
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 0,
+                              ),
+                              margin: const EdgeInsets.only(top: 0, bottom: 40),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        HomeRandomSubscriptionGetter
+                                            .getRandomImageAsset(),
+                                      ),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                  height: 120,
+                                ),
+                              ),
+                            ),
+                          ),
+                      },
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
@@ -245,6 +282,9 @@ class ArtistView extends ConsumerWidget {
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 40,
+                      ),
                     ],
                   ),
                 ),
@@ -252,7 +292,7 @@ class ArtistView extends ConsumerWidget {
             ),
           ),
         ),
-      AsyncError(:final Error error) => Scaffold(
+      AsyncError(:final error) => Scaffold(
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(

@@ -37,7 +37,7 @@ class PlaylistCreatorDto with _$PlaylistCreatorDto {
 @freezed
 class PlaylistSongDto with _$PlaylistSongDto {
   const factory PlaylistSongDto({
-    required String songId,
+    required String id,
     required String name,
     required String duration,
     required ImageDto image,

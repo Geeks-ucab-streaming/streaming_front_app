@@ -1,15 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:streaming_front_app/domain/auth/enums/enums.dart';
-import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
 import '../../../domain/auth/entities/entities.dart';
+import '../../../domain/auth/enums/enums.dart';
 import '../../../domain/auth/errors/errors.dart';
 import '../../../domain/auth/repositories/repositories.dart';
 import '../../../domain/auth/value_objects/value_objects.dart';
 import '../../../infrastructure/auth/repositories/repositories.dart';
-import 'use_cases.dart';
+import '../../../infrastructure/core/util/util.dart';
+import '../../core/routes/app_router.dart';
+import '../states/states.dart';
 
 part 'login.g.dart';
 
@@ -50,6 +51,9 @@ class LoginHelper extends _$LoginHelper {
         logger.d(
             'Valor del authState luego del login: ${ref.read(authProvider).toString()}');
         state = LoginStateEnum.pass;
+        // everything good so change page
+        ref.read(appRouterProvider.notifier).changeRouterBasedOnLogin();
+        ref.read(appRouterProvider).goNamed('home');
       },
     );
     logger.d(
