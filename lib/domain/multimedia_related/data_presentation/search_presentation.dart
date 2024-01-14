@@ -46,7 +46,6 @@ class SearchAlbum with _$SearchAlbum {
   const factory SearchAlbum({
     required String id,
     required String name,
-    required List<AlbumCreatorDto> creators,
     required List<int> image,
   }) = _SearchAlbum;
 }
