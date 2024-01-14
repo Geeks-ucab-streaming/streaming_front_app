@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
 import '../../../domain/auth/entities/entities.dart';
 import '../../../domain/auth/enums/enums.dart';
@@ -23,7 +24,7 @@ class AuthRepositoryImpl extends IAuthRepository {
     //final logger = getIt<LoggerInstance>().getLogger();
     // make the request
     final response = await dio.post(
-      '/auth/login',
+      '/auth/log-in',
       data: {
         'phone': phone,
       },
@@ -120,7 +121,7 @@ class AuthRepositoryImpl extends IAuthRepository {
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // get the logger instance
-    //final logger = getIt<LoggerInstance>().getLogger();
+    final logger = getIt<LoggerInstance>().getLogger();
     // make the request
     final response = await dio.get(
       '/user',
@@ -128,9 +129,9 @@ class AuthRepositoryImpl extends IAuthRepository {
         headers: {"Authorization": "Bearer ${token.value}"},
       ),
     );
-    //logger.d(response.toString());
+    logger.d(response.toString());
     // transforming the request to DTO
-    final userDto = UserDto.fromJson(response.data);
+    final userDto = UserDto.fromJson(response.data["data"]);
     //logger.d(userDto.toString());
     // return entity element from DTO
     return UserMapper.fromRemoteToEntity(userDto);
