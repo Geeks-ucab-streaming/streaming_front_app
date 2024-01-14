@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/audioPlayerHandler.dart';
+import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/Socket/AudioPlayerManager.dart';
+//import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/audioPlayerHandler.dart';
 
 const List<String> itemList = [
-  'bd5b3250-f05a-49d3-8e62-890e3d8ac063',
+  
   'c51ab77e-61d1-44a1-956f-09cd63231e48',
+  'bd5b3250-f05a-49d3-8e62-890e3d8ac063',
   '1a6dcd83-7400-4af4-bd04-733c817f9924',
   '773a82f6-13c1-4089-9a69-e869007b3b23'
 ];
@@ -23,7 +25,7 @@ class PlayerBar1 extends StatefulWidget {
 }
 
 class _PlayerBarState extends State<PlayerBar1> {
-  final AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler(itemList, false);
+  final AudioPlayerManager audioPlayerHandler = AudioPlayerManager(itemList, false);
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
@@ -63,16 +65,79 @@ class _PlayerBarState extends State<PlayerBar1> {
                         child: Align(
                           alignment: Alignment.center,
                           child: IconButton(
-                            icon: Icon(
-                              isPlaying ? Icons.pause : Icons.play_arrow,
-                            ),
+                            icon: Icon(Icons.play_arrow),
+                            iconSize: 25,
+                            onPressed: () async {   
+                              audioPlayerHandler.playSong();
+                              setState(() {}); // Actualiza el estado del widget
+                            },
+                          ),
+                        ),
+                      )
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color.fromARGB(255, 33, 212, 243),
+                      ),
+                      child: CircleAvatar(
+                        radius: 20,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: IconButton(
+                            icon: const Icon(Icons.pause_rounded),
                             iconSize: 25,
                             onPressed: () async {
-                              if (isPlaying) {
-                                audioPlayerHandler.playSong();
-                              } else {
-                                audioPlayerHandler.playSong();
-                              }
+                              audioPlayerHandler.pauseSong(); 
+                              setState(() {}); // Actualiza el estado del widget
+                            },
+                          ),
+                        ),
+                      )
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color.fromARGB(255, 33, 212, 243),
+                      ),
+                      child: CircleAvatar(
+                        radius: 20,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: IconButton(
+                            icon: const Icon(Icons.skip_previous_rounded),
+                            iconSize: 25,
+                            onPressed: () async {
+                              //audioPlayerHandler.previousSong(); 
+                              setState(() {}); // Actualiza el estado del widget
+                            },
+                          ),
+                        ),
+                      )
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color.fromARGB(255, 33, 212, 243),
+                      ),
+                      child: CircleAvatar(
+                        radius: 20,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: IconButton(
+                            icon: const Icon(Icons.skip_next_rounded),
+                            iconSize: 25,
+                            onPressed: () async {
+                              audioPlayerHandler.nextSongSafely(); 
                               setState(() {}); // Actualiza el estado del widget
                             },
                           ),
