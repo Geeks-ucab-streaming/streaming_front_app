@@ -1,34 +1,44 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:streaming_front_app/domain/auth/data_presentation/data_presentation.dart';
 
-class ProfilePage extends StatefulWidget {
+import '../../../../application/auth/states/states.dart';
+import '../../core/widgets/widgets.dart';
+
+class ProfilePage extends StatefulHookConsumerWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  bool _edit = false;
-
-  String nameAndLastName = '';
-  String email = '';
-  DateTime? dateOfBirth;
-  String gender = '';
+class _ProfilePageState extends ConsumerState<ProfilePage> {
+  // form key
   final _formKey = GlobalKey<FormState>();
-  DateTime selectedDate = DateTime.now();
+  // is editable
+  bool _edit = false;
+  // local variables
+  DateTime _selectedDate = DateTime.now();
+  String _gender = '';
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+  Future<void> _selectDate(
+    BuildContext context,
+    TextEditingController dateOfBirthController,
+  ) async {
+    // get the date from user
+    final DateTime? pickedDate = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: _selectedDate,
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
+    // update the date
+    if (pickedDate != null && pickedDate != _selectedDate) {
       setState(() {
-        selectedDate = picked;
+        _selectedDate = pickedDate;
       });
+      dateOfBirthController.text = pickedDate.toIso8601String();
     }
   }
 
@@ -40,6 +50,52 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    // get the user
+    final authState = ref.watch(authProvider.notifier);
+    UserPresentation userInfo = authState.getUserInfoToShow();
+    // controllers from react hooks
+    final nameController = useTextEditingController(text: userInfo.name);
+    final emailController = useTextEditingController(text: userInfo.email);
+    final dateOfBirthController = useTextEditingController(
+      text: userInfo.birthday,
+    );
+    //final genderController = useTextEditingController(text: userInfo.gender);
+
+    var genderSelector = SizedBox(
+      child: DropdownButtonFormField(
+        style: const TextStyle(color: Colors.white),
+        dropdownColor: const Color.fromARGB(
+          255,
+          13,
+          7,
+          27,
+        ),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: const Color.fromARGB(80, 151, 151, 151),
+          border: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          labelText: '',
+        ),
+        icon: const Icon(
+          Icons.arrow_drop_down,
+          color: Colors.white,
+        ),
+        items: const [
+          DropdownMenuItem(
+            value: 'Femenino',
+            child: Text('F'),
+          ),
+          DropdownMenuItem(
+            value: 'Masculino',
+            child: Text('M'),
+          ),
+        ],
+        onChanged: (_edit) ? (value) => {} : null,
+      ),
+    );
+
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Stack(
@@ -57,9 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 IconButton(
                   icon: const Icon(Icons.more_vert),
                   color: Colors.white,
-                  onPressed: () {
-                    setState(() {});
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),
@@ -67,12 +121,12 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     child: Form(
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             height: 100,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,10 +135,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   'Perfil',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 30),
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                  ),
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.edit_square),
+                                  icon: (_edit)
+                                      ? const Icon(Icons.edit_square)
+                                      : const Icon(Icons.edit),
                                   color: Colors.white,
                                   onPressed: () {
                                     setState(() {
@@ -110,19 +168,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: Colors.white, fontSize: 18),
                                   ),
                                 ),
-                                TextFormField(
-                                  enabled: _edit,
-                                  style: const TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor:
-                                        Color.fromARGB(80, 151, 151, 151),
-                                    border: UnderlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0)),
-                                    labelText: '',
-                                  ),
-                                ),
+                                CustomTextFormField(
+                                  hintText: 'Your name is empty',
+                                  controller: nameController,
+                                  isEnable: _edit,
+                                )
                               ],
                             ),
                           ),
@@ -141,18 +191,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: Colors.white, fontSize: 18),
                                   ),
                                 ),
-                                TextFormField(
-                                  enabled: _edit,
-                                  style: const TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor:
-                                        const Color.fromARGB(80, 151, 151, 151),
-                                    border: UnderlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0)),
-                                    labelText: '',
-                                  ),
+                                CustomTextFormField(
+                                  hintText: 'Your email is empty',
+                                  controller: emailController,
+                                  isEnable: _edit,
                                 ),
                               ],
                             ),
@@ -181,35 +223,51 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   fontSize: 18),
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             child: Row(
                                               children: [
                                                 Expanded(
-                                                  child: TextFormField(
+                                                  child: CustomTextFormField(
+                                                    hintText: 'Empty',
+                                                    controller:
+                                                        dateOfBirthController,
+                                                    iconSuffixData:
+                                                        Icons.arrow_drop_down,
+                                                    isEnable: _edit,
+                                                    isReadOnly: true,
+                                                    actionToDo: () async {
+                                                      _selectDate(
+                                                        context,
+                                                        dateOfBirthController,
+                                                      );
+                                                    },
+                                                  ), /*TextFormField(
                                                     enabled: _edit,
                                                     style: const TextStyle(
-                                                        color: Colors.white),
+                                                      color: Colors.white,
+                                                    ),
                                                     decoration: InputDecoration(
                                                       filled: true,
                                                       fillColor:
                                                           const Color.fromARGB(
-                                                              80,
-                                                              151,
-                                                              151,
-                                                              151),
+                                                        80,
+                                                        151,
+                                                        151,
+                                                        151,
+                                                      ),
                                                       border:
                                                           UnderlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15.0)),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15.0),
+                                                      ),
                                                       labelText: '',
                                                     ),
                                                     readOnly: true,
                                                     onTap: () async {
                                                       _selectDate(context);
                                                     },
-                                                  ),
+                                                  ),*/
                                                 ),
                                               ],
                                             ),
@@ -231,48 +289,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                             'Genero',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18),
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                            ),
                                           ),
                                         ),
-                                        Container(
-                                          child: DropdownButtonFormField(
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                            dropdownColor: const Color.fromARGB(
-                                                255, 13, 7, 27),
-                                            decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: const Color.fromARGB(
-                                                  80, 151, 151, 151),
-                                              border: UnderlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15.0)),
-                                              labelText: '',
-                                            ),
-                                            icon: const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.white,
-                                            ),
-                                            items: const [
-                                              DropdownMenuItem(
-                                                value: 'Femenino',
-                                                child: Text('F'),
-                                              ),
-                                              DropdownMenuItem(
-                                                value: 'Masculino',
-                                                child: Text('M'),
-                                              ),
-                                              DropdownMenuItem(
-                                                value: 'Otro',
-                                                child: Text('O'),
-                                              ),
-                                            ],
-                                            onChanged:
-                                                (_edit) ? (value) => {} : null,
-                                          ),
-                                        )
+                                        genderSelector
                                       ],
                                     ),
                                   )
@@ -328,8 +350,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               text: TextSpan(
                                 text: 'Haz Click Aquí',
                                 style: const TextStyle(
-                                    color: Colors.lightBlueAccent,
-                                    fontSize: 16),
+                                  color: Colors.lightBlueAccent,
+                                  fontSize: 16,
+                                ),
                                 //style: linkStyle,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {

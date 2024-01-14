@@ -1,6 +1,8 @@
 //import 'package:get_it/get_it.dart'; it will be needed for repositories
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streaming_front_app/application/core/routes/app_router.dart';
+import 'package:streaming_front_app/domain/auth/data_presentation/data_presentation.dart';
+import 'package:streaming_front_app/domain/auth/mappers/mappers.dart';
 
 import '../../../domain/auth/entities/entities.dart';
 import '../../../domain/auth/enums/enums.dart';
@@ -32,6 +34,12 @@ class Auth extends _$Auth {
     // update router and go to landing page
     ref.read(appRouterProvider.notifier).changeRouterBasedOnLogout();
     ref.read(appRouterProvider).goNamed('landing');
+  }
+
+  UserPresentation getUserInfoToShow() {
+    return UserPresentationMapper.fromEntityToPresentation(
+      state.user as User,
+    );
   }
 
   // TODO function to get user from local database through a repository
