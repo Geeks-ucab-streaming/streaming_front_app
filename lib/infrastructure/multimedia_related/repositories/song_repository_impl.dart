@@ -35,7 +35,7 @@ class SongRepositoryImpl extends ISongRepository {
     // get dio variable from getIt to do the request
     Dio dio = getIt<Dio>();
     // make the request
-    final response = await dio.get('/songs/trending');
+    final response = await dio.get('/song/top_songs');
     // transforming the request to DTO
     final TrendingSongsDto trendingSongsDto =
         TrendingSongsDto.fromJson(response.data["data"]);
