@@ -99,14 +99,14 @@ class PlaylistView extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.width *0.5,
-                    child: Row(
+                    height: MediaQuery.of(context).size.width *0.7,
+                    child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                               margin:
-                                  const EdgeInsets.only(left: 40, right: 20),
+                                  const EdgeInsets.only(left: 20, right: 20),
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.width * 0.4,
                               decoration: BoxDecoration(
@@ -134,15 +134,15 @@ class PlaylistView extends ConsumerWidget {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 20),
+                                padding: const EdgeInsets.only(right: 10, left: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       value.playlist.name,
-                                      textAlign: TextAlign.left,
-                                      overflow: TextOverflow.clip,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 30,
@@ -150,7 +150,7 @@ class PlaylistView extends ConsumerWidget {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 20,
+                                      height: 10,
                                     ),
                                     Text(
                                       'Duración: ${value.playlist.duration}',

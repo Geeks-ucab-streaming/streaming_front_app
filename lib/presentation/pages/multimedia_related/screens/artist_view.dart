@@ -211,19 +211,23 @@ class ArtistView extends ConsumerWidget {
                           items: value.albums.map((album) {
                             return Builder(
                               builder: (BuildContext context) {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      image: DecorationImage(
-                                        image: Image.memory(
-                                          Uint8List.fromList(
-                                            album.image,
-                                          ),
-                                          fit: BoxFit.contain,
-                                        ).image,
-                                        fit: BoxFit.fill,
+                                return GestureDetector(
+                                  onTap: () => context.goNamed('album',
+                                    pathParameters: {'albumId': album.id}),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        image: DecorationImage(
+                                          image: Image.memory(
+                                            Uint8List.fromList(
+                                              album.image,
+                                            ),
+                                            fit: BoxFit.contain,
+                                          ).image,
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
                                   ),
