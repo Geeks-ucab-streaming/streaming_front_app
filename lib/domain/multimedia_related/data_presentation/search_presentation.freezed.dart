@@ -800,6 +800,7 @@ abstract class _SearchPlaylist implements SearchPlaylist {
 /// @nodoc
 mixin _$SearchAlbum {
   String get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   List<int> get image => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -813,7 +814,7 @@ abstract class $SearchAlbumCopyWith<$Res> {
           SearchAlbum value, $Res Function(SearchAlbum) then) =
       _$SearchAlbumCopyWithImpl<$Res, SearchAlbum>;
   @useResult
-  $Res call({String id, List<int> image});
+  $Res call({String id, String name, List<int> image});
 }
 
 /// @nodoc
@@ -830,12 +831,17 @@ class _$SearchAlbumCopyWithImpl<$Res, $Val extends SearchAlbum>
   @override
   $Res call({
     Object? id = null,
+    Object? name = null,
     Object? image = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value.image
@@ -853,7 +859,7 @@ abstract class _$$SearchAlbumImplCopyWith<$Res>
       __$$SearchAlbumImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, List<int> image});
+  $Res call({String id, String name, List<int> image});
 }
 
 /// @nodoc
@@ -868,12 +874,17 @@ class __$$SearchAlbumImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? name = null,
     Object? image = null,
   }) {
     return _then(_$SearchAlbumImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value._image
@@ -886,11 +897,14 @@ class __$$SearchAlbumImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
-  const _$SearchAlbumImpl({required this.id, required final List<int> image})
+  const _$SearchAlbumImpl(
+      {required this.id, required this.name, required final List<int> image})
       : _image = image;
 
   @override
   final String id;
+  @override
+  final String name;
   final List<int> _image;
   @override
   List<int> get image {
@@ -901,7 +915,7 @@ class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchAlbum(id: $id, image: $image)';
+    return 'SearchAlbum(id: $id, name: $name, image: $image)';
   }
 
   @override
@@ -910,6 +924,7 @@ class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
     properties
       ..add(DiagnosticsProperty('type', 'SearchAlbum'))
       ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('image', image));
   }
 
@@ -919,12 +934,13 @@ class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
         (other.runtimeType == runtimeType &&
             other is _$SearchAlbumImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._image, _image));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_image));
+  int get hashCode => Object.hash(
+      runtimeType, id, name, const DeepCollectionEquality().hash(_image));
 
   @JsonKey(ignore: true)
   @override
@@ -936,10 +952,13 @@ class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
 abstract class _SearchAlbum implements SearchAlbum {
   const factory _SearchAlbum(
       {required final String id,
+      required final String name,
       required final List<int> image}) = _$SearchAlbumImpl;
 
   @override
   String get id;
+  @override
+  String get name;
   @override
   List<int> get image;
   @override
