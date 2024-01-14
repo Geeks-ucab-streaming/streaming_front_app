@@ -9,6 +9,9 @@ class EndpointsGetter {
     'log-in': '/auth/log-in',
     // user endpoints
     'get-user-by-token': '/user',
+    // promotion
+    'get-random-promotion': '/promotion',
+    // TODO rest
   };
 
   String getLogger({required String endpointKey}) {
