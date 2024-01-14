@@ -38,6 +38,7 @@ class SearchPlaylist with _$SearchPlaylist {
   const factory SearchPlaylist({
     required String id,
     required List<int> image,
+    required String name,
   }) = _SearchPlaylist;
 }
 
@@ -45,7 +46,7 @@ class SearchPlaylist with _$SearchPlaylist {
 class SearchAlbum with _$SearchAlbum {
   const factory SearchAlbum({
     required String id,
-    required String name,
     required List<int> image,
+    required String name,
   }) = _SearchAlbum;
 }

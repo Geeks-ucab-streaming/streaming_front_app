@@ -11,7 +11,7 @@ import '../mappers/mappers.dart';
 class SearchRepositoryImpl extends ISearchRepository{
 
   @override
-  Future<Album> getSearchQueryResults(String query) async {
+  Future<SearchResult> getSearchQueryResults(String query) async {
     // getIt instance
     GetIt getIt = GetIt.I;
     // logger to output
@@ -23,9 +23,9 @@ class SearchRepositoryImpl extends ISearchRepository{
     logger.i(response.data.toString());
     // transforming the request to DTO
 
-    final AlbumDto albumDto = AlbumDto.fromJson(response.data["data"]);
-    logger.i(albumDto.toString());
+    final SearchDto searchDto = SearchDto.fromJson(response.data["data"]);
+    logger.i(searchDto.toString());
     // return entity element from DTO
-    return AlbumMapper.albumByIdFromRemoteToEntity(albumDto);
+    return SearchMapper.searchResultFromRemoteToEntity(searchDto);
   }
 }

@@ -647,6 +647,7 @@ abstract class _SearchTrackListElement implements SearchTrackListElement {
 mixin _$SearchPlaylist {
   String get id => throw _privateConstructorUsedError;
   List<int> get image => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchPlaylistCopyWith<SearchPlaylist> get copyWith =>
@@ -659,7 +660,7 @@ abstract class $SearchPlaylistCopyWith<$Res> {
           SearchPlaylist value, $Res Function(SearchPlaylist) then) =
       _$SearchPlaylistCopyWithImpl<$Res, SearchPlaylist>;
   @useResult
-  $Res call({String id, List<int> image});
+  $Res call({String id, List<int> image, String name});
 }
 
 /// @nodoc
@@ -677,6 +678,7 @@ class _$SearchPlaylistCopyWithImpl<$Res, $Val extends SearchPlaylist>
   $Res call({
     Object? id = null,
     Object? image = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -687,6 +689,10 @@ class _$SearchPlaylistCopyWithImpl<$Res, $Val extends SearchPlaylist>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -699,7 +705,7 @@ abstract class _$$SearchPlaylistImplCopyWith<$Res>
       __$$SearchPlaylistImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, List<int> image});
+  $Res call({String id, List<int> image, String name});
 }
 
 /// @nodoc
@@ -715,6 +721,7 @@ class __$$SearchPlaylistImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? image = null,
+    Object? name = null,
   }) {
     return _then(_$SearchPlaylistImpl(
       id: null == id
@@ -725,6 +732,10 @@ class __$$SearchPlaylistImplCopyWithImpl<$Res>
           ? _value._image
           : image // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -734,7 +745,8 @@ class __$$SearchPlaylistImplCopyWithImpl<$Res>
 class _$SearchPlaylistImpl
     with DiagnosticableTreeMixin
     implements _SearchPlaylist {
-  const _$SearchPlaylistImpl({required this.id, required final List<int> image})
+  const _$SearchPlaylistImpl(
+      {required this.id, required final List<int> image, required this.name})
       : _image = image;
 
   @override
@@ -748,8 +760,11 @@ class _$SearchPlaylistImpl
   }
 
   @override
+  final String name;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchPlaylist(id: $id, image: $image)';
+    return 'SearchPlaylist(id: $id, image: $image, name: $name)';
   }
 
   @override
@@ -758,7 +773,8 @@ class _$SearchPlaylistImpl
     properties
       ..add(DiagnosticsProperty('type', 'SearchPlaylist'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('image', image));
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('name', name));
   }
 
   @override
@@ -767,12 +783,13 @@ class _$SearchPlaylistImpl
         (other.runtimeType == runtimeType &&
             other is _$SearchPlaylistImpl &&
             (identical(other.id, id) || other.id == id) &&
-            const DeepCollectionEquality().equals(other._image, _image));
+            const DeepCollectionEquality().equals(other._image, _image) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_image));
+  int get hashCode => Object.hash(
+      runtimeType, id, const DeepCollectionEquality().hash(_image), name);
 
   @JsonKey(ignore: true)
   @override
@@ -785,12 +802,15 @@ class _$SearchPlaylistImpl
 abstract class _SearchPlaylist implements SearchPlaylist {
   const factory _SearchPlaylist(
       {required final String id,
-      required final List<int> image}) = _$SearchPlaylistImpl;
+      required final List<int> image,
+      required final String name}) = _$SearchPlaylistImpl;
 
   @override
   String get id;
   @override
   List<int> get image;
+  @override
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$$SearchPlaylistImplCopyWith<_$SearchPlaylistImpl> get copyWith =>
@@ -800,8 +820,8 @@ abstract class _SearchPlaylist implements SearchPlaylist {
 /// @nodoc
 mixin _$SearchAlbum {
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
   List<int> get image => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchAlbumCopyWith<SearchAlbum> get copyWith =>
@@ -814,7 +834,7 @@ abstract class $SearchAlbumCopyWith<$Res> {
           SearchAlbum value, $Res Function(SearchAlbum) then) =
       _$SearchAlbumCopyWithImpl<$Res, SearchAlbum>;
   @useResult
-  $Res call({String id, String name, List<int> image});
+  $Res call({String id, List<int> image, String name});
 }
 
 /// @nodoc
@@ -831,22 +851,22 @@ class _$SearchAlbumCopyWithImpl<$Res, $Val extends SearchAlbum>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
     Object? image = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -859,7 +879,7 @@ abstract class _$$SearchAlbumImplCopyWith<$Res>
       __$$SearchAlbumImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, List<int> image});
+  $Res call({String id, List<int> image, String name});
 }
 
 /// @nodoc
@@ -874,22 +894,22 @@ class __$$SearchAlbumImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
     Object? image = null,
+    Object? name = null,
   }) {
     return _then(_$SearchAlbumImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       image: null == image
           ? _value._image
           : image // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -898,13 +918,11 @@ class __$$SearchAlbumImplCopyWithImpl<$Res>
 
 class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
   const _$SearchAlbumImpl(
-      {required this.id, required this.name, required final List<int> image})
+      {required this.id, required final List<int> image, required this.name})
       : _image = image;
 
   @override
   final String id;
-  @override
-  final String name;
   final List<int> _image;
   @override
   List<int> get image {
@@ -914,8 +932,11 @@ class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
   }
 
   @override
+  final String name;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchAlbum(id: $id, name: $name, image: $image)';
+    return 'SearchAlbum(id: $id, image: $image, name: $name)';
   }
 
   @override
@@ -924,8 +945,8 @@ class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
     properties
       ..add(DiagnosticsProperty('type', 'SearchAlbum'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('image', image));
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('name', name));
   }
 
   @override
@@ -934,13 +955,13 @@ class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
         (other.runtimeType == runtimeType &&
             other is _$SearchAlbumImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality().equals(other._image, _image));
+            const DeepCollectionEquality().equals(other._image, _image) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, name, const DeepCollectionEquality().hash(_image));
+      runtimeType, id, const DeepCollectionEquality().hash(_image), name);
 
   @JsonKey(ignore: true)
   @override
@@ -952,15 +973,15 @@ class _$SearchAlbumImpl with DiagnosticableTreeMixin implements _SearchAlbum {
 abstract class _SearchAlbum implements SearchAlbum {
   const factory _SearchAlbum(
       {required final String id,
-      required final String name,
-      required final List<int> image}) = _$SearchAlbumImpl;
+      required final List<int> image,
+      required final String name}) = _$SearchAlbumImpl;
 
   @override
   String get id;
   @override
-  String get name;
-  @override
   List<int> get image;
+  @override
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$$SearchAlbumImplCopyWith<_$SearchAlbumImpl> get copyWith =>

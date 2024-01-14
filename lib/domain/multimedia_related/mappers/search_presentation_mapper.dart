@@ -39,6 +39,7 @@ static SearchPresentation searchFromEntityToPresentation(
             (element) => SearchPlaylist(
               id: element.getId() as String,
               image: element.getImage() as List<int>,
+              name: element.getName() as String,
             ),
           )
           .toList(),
@@ -46,6 +47,7 @@ static SearchPresentation searchFromEntityToPresentation(
             (element) => SearchAlbum(
               id: element.getId() as String,
               image: element.getImage() as List<int>,
+              name: element.getName() as String,
             ),
           )
           .toList(),

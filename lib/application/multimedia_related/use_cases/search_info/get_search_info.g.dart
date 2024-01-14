@@ -6,21 +6,20 @@ part of 'get_search_info.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getSearchInfoHash() => r'0a73e87a23a450cf07fa294328f31b83fee88c91';
+String _$getHomeInfoHash() => r'ac539cbabbdf4cff032278b6fc249f41b4574eb1';
 
-/// See also [getSearchInfo].
-@ProviderFor(getSearchInfo)
-final getSearchInfoProvider =
+/// See also [getHomeInfo].
+@ProviderFor(getHomeInfo)
+final getHomeInfoProvider =
     AutoDisposeFutureProvider<SearchPresentation>.internal(
-  getSearchInfo,
-  name: r'getSearchInfoProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$getSearchInfoHash,
+  getHomeInfo,
+  name: r'getHomeInfoProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$getHomeInfoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef GetSearchInfoRef = AutoDisposeFutureProviderRef<SearchPresentation>;
+typedef GetHomeInfoRef = AutoDisposeFutureProviderRef<SearchPresentation>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

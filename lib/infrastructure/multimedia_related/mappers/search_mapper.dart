@@ -29,23 +29,22 @@ class SearchMapper{
         },
       ).toList(),
       playlists: searchDto.playlists?.map(
-        (playlist) {
-          return Playlist(
+              (playlist) => Playlist(
             id: PlaylistID(playlist.id),
-            name: PlaylistName(playlist.name),
             image: PlaylistImage(
               playlist.image.getImageAsIntList(),
             ),
-          );
-        },
+            name: PlaylistName(playlist.name),
+          ),
       ).toList(),
       albums: searchDto.albums
         .map(
-          (element) => Album(
-            id: AlbumId(element.id),
+          (album) => Album(
+            id: AlbumId(album.id),
             image: AlbumImage(
-              element.image.getImageAsIntList(),
+              album.image.getImageAsIntList(),
             ),
+            name: AlbumName(album.name),
           ),
         ).toList(),
     );
