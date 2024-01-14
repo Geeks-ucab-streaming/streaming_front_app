@@ -1,4 +1,4 @@
-import '../../../domain/auth/entities/entities.dart';
+import '../../../domain/user_related/entities/entities.dart';
 import '../dtos/dtos.dart';
 
 class UserMapper {

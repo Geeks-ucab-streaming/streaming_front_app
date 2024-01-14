@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streaming_front_app/application/core/routes/app_router.dart';
 import 'package:streaming_front_app/domain/auth/data_presentation/data_presentation.dart';
 import 'package:streaming_front_app/domain/auth/mappers/mappers.dart';
+import 'package:streaming_front_app/domain/user_related/entities/entities.dart';
 
 import '../../../domain/auth/entities/entities.dart';
 import '../../../domain/auth/enums/enums.dart';

@@ -2,13 +2,15 @@ import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../domain/auth/entities/entities.dart';
 import '../../../domain/auth/enums/enums.dart';
 import '../../../domain/auth/errors/errors.dart';
 import '../../../domain/auth/repositories/repositories.dart';
 import '../../../domain/auth/value_objects/value_objects.dart';
+import '../../../domain/user_related/entities/entities.dart';
+import '../../../domain/user_related/repositories/i_repositories.dart';
 import '../../../infrastructure/auth/repositories/repositories.dart';
 import '../../../infrastructure/core/util/util.dart';
+import '../../../infrastructure/user_related/repositories/repositories.dart';
 import '../../core/routes/app_router.dart';
 import '../states/states.dart';
 
@@ -24,13 +26,14 @@ class LoginHelper extends _$LoginHelper {
   Future<void> login({required String phone}) async {
     // getIt instance
     GetIt getIt = GetIt.I;
-    // get the repository
-    final IAuthRepository repo = getIt<AuthRepositoryImpl>();
+    // get the repositories
+    final IAuthRepository authRepo = getIt<AuthRepositoryImpl>();
+    final IUserRepository userRepo = getIt<UserRepositoryImpl>();
     // get the logger instance
     final logger = getIt<LoggerInstance>().getLogger();
     // get the random advertisement
     final Either<BaseAuthError, JwtToken> loginResponse =
-        await repo.login(phone);
+        await authRepo.login(phone);
     logger.d('Respuesta del repositorio al login: ${loginResponse.toString()}');
     // fold the response to see the response
     await loginResponse.fold(
@@ -43,7 +46,7 @@ class LoginHelper extends _$LoginHelper {
       },
       (jwtToken) async {
         // the user exists so we need to make a call to the repository to get the user
-        final User user = await repo.getUserByToken(jwtToken);
+        final User user = await userRepo.getUserByToken(jwtToken);
         logger.d(
             'Respuesta del repositorio al get user by token: ${user.toString()}');
         // update tje state of the other

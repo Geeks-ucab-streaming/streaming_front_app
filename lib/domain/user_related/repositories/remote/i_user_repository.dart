@@ -1,5 +1,7 @@
+import '../../../auth/value_objects/value_objects.dart';
 import '../../entities/entities.dart';
 
 abstract class IUserRepository {
-  //User updateUserInformation(User user);
+  Future<User> updateUserInformation(User user);
+  Future<User> getUserByToken(JwtToken token);
 }

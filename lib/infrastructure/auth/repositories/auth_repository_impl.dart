@@ -113,27 +113,4 @@ class AuthRepositoryImpl extends IAuthRepository {
       );
     }
   }
-
-  @override
-  Future<User> getUserByToken(JwtToken token) async {
-    // getIt instance
-    GetIt getIt = GetIt.I;
-    // get dio variable from getIt to do the request
-    Dio dio = getIt<Dio>();
-    // get the logger instance
-    final logger = getIt<LoggerInstance>().getLogger();
-    // make the request
-    final response = await dio.get(
-      '/user',
-      options: Options(
-        headers: {"Authorization": "Bearer ${token.value}"},
-      ),
-    );
-    logger.d(response.toString());
-    // transforming the request to DTO
-    final userDto = UserDto.fromJson(response.data["data"]);
-    //logger.d(userDto.toString());
-    // return entity element from DTO
-    return UserMapper.fromRemoteToEntity(userDto);
-  }
 }

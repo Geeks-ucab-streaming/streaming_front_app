@@ -1,6 +1,6 @@
+import '../../user_related/entities/entities.dart';
 import '../enums/enums.dart';
 import '../value_objects/value_objects.dart';
-import 'entities.dart';
 
 class AuthUserState {
   AuthUserState({
