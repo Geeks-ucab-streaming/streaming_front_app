@@ -10,3 +10,5 @@ export './album/top_album_dto.dart';
 // song dto
 export './song/song_dto.dart';
 export './song/trending_song_dto.dart';
+// search dto
+export './search/search_dto.dart';
