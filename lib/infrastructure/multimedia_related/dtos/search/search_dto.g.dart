@@ -85,6 +85,7 @@ _$SearchPlaylistDtoImpl _$$SearchPlaylistDtoImplFromJson(
     _$SearchPlaylistDtoImpl(
       id: json['id'] as String,
       image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
+      name: json['name'] as String,
     );
 
 Map<String, dynamic> _$$SearchPlaylistDtoImplToJson(
@@ -92,12 +93,14 @@ Map<String, dynamic> _$$SearchPlaylistDtoImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'image': instance.image,
+      'name': instance.name,
     };
 
 _$SearchAlbumDtoImpl _$$SearchAlbumDtoImplFromJson(Map<String, dynamic> json) =>
     _$SearchAlbumDtoImpl(
       id: json['id'] as String,
       image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
+      name: json['name'] as String,
     );
 
 Map<String, dynamic> _$$SearchAlbumDtoImplToJson(
@@ -105,4 +108,5 @@ Map<String, dynamic> _$$SearchAlbumDtoImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'image': instance.image,
+      'name': instance.name,
     };

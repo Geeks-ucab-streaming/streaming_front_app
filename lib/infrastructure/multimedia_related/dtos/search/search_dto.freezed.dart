@@ -885,6 +885,7 @@ SearchPlaylistDto _$SearchPlaylistDtoFromJson(Map<String, dynamic> json) {
 mixin _$SearchPlaylistDto {
   String get id => throw _privateConstructorUsedError;
   ImageDto get image => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -898,7 +899,7 @@ abstract class $SearchPlaylistDtoCopyWith<$Res> {
           SearchPlaylistDto value, $Res Function(SearchPlaylistDto) then) =
       _$SearchPlaylistDtoCopyWithImpl<$Res, SearchPlaylistDto>;
   @useResult
-  $Res call({String id, ImageDto image});
+  $Res call({String id, ImageDto image, String name});
 
   $ImageDtoCopyWith<$Res> get image;
 }
@@ -918,6 +919,7 @@ class _$SearchPlaylistDtoCopyWithImpl<$Res, $Val extends SearchPlaylistDto>
   $Res call({
     Object? id = null,
     Object? image = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -928,6 +930,10 @@ class _$SearchPlaylistDtoCopyWithImpl<$Res, $Val extends SearchPlaylistDto>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -948,7 +954,7 @@ abstract class _$$SearchPlaylistDtoImplCopyWith<$Res>
       __$$SearchPlaylistDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, ImageDto image});
+  $Res call({String id, ImageDto image, String name});
 
   @override
   $ImageDtoCopyWith<$Res> get image;
@@ -967,6 +973,7 @@ class __$$SearchPlaylistDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? image = null,
+    Object? name = null,
   }) {
     return _then(_$SearchPlaylistDtoImpl(
       id: null == id
@@ -977,6 +984,10 @@ class __$$SearchPlaylistDtoImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -986,7 +997,8 @@ class __$$SearchPlaylistDtoImplCopyWithImpl<$Res>
 class _$SearchPlaylistDtoImpl
     with DiagnosticableTreeMixin
     implements _SearchPlaylistDto {
-  const _$SearchPlaylistDtoImpl({required this.id, required this.image});
+  const _$SearchPlaylistDtoImpl(
+      {required this.id, required this.image, required this.name});
 
   factory _$SearchPlaylistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchPlaylistDtoImplFromJson(json);
@@ -995,10 +1007,12 @@ class _$SearchPlaylistDtoImpl
   final String id;
   @override
   final ImageDto image;
+  @override
+  final String name;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchPlaylistDto(id: $id, image: $image)';
+    return 'SearchPlaylistDto(id: $id, image: $image, name: $name)';
   }
 
   @override
@@ -1007,7 +1021,8 @@ class _$SearchPlaylistDtoImpl
     properties
       ..add(DiagnosticsProperty('type', 'SearchPlaylistDto'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('image', image));
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('name', name));
   }
 
   @override
@@ -1016,12 +1031,13 @@ class _$SearchPlaylistDtoImpl
         (other.runtimeType == runtimeType &&
             other is _$SearchPlaylistDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, image);
+  int get hashCode => Object.hash(runtimeType, id, image, name);
 
   @JsonKey(ignore: true)
   @override
@@ -1041,7 +1057,8 @@ class _$SearchPlaylistDtoImpl
 abstract class _SearchPlaylistDto implements SearchPlaylistDto {
   const factory _SearchPlaylistDto(
       {required final String id,
-      required final ImageDto image}) = _$SearchPlaylistDtoImpl;
+      required final ImageDto image,
+      required final String name}) = _$SearchPlaylistDtoImpl;
 
   factory _SearchPlaylistDto.fromJson(Map<String, dynamic> json) =
       _$SearchPlaylistDtoImpl.fromJson;
@@ -1050,6 +1067,8 @@ abstract class _SearchPlaylistDto implements SearchPlaylistDto {
   String get id;
   @override
   ImageDto get image;
+  @override
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$$SearchPlaylistDtoImplCopyWith<_$SearchPlaylistDtoImpl> get copyWith =>
@@ -1064,6 +1083,7 @@ SearchAlbumDto _$SearchAlbumDtoFromJson(Map<String, dynamic> json) {
 mixin _$SearchAlbumDto {
   String get id => throw _privateConstructorUsedError;
   ImageDto get image => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1077,7 +1097,7 @@ abstract class $SearchAlbumDtoCopyWith<$Res> {
           SearchAlbumDto value, $Res Function(SearchAlbumDto) then) =
       _$SearchAlbumDtoCopyWithImpl<$Res, SearchAlbumDto>;
   @useResult
-  $Res call({String id, ImageDto image});
+  $Res call({String id, ImageDto image, String name});
 
   $ImageDtoCopyWith<$Res> get image;
 }
@@ -1097,6 +1117,7 @@ class _$SearchAlbumDtoCopyWithImpl<$Res, $Val extends SearchAlbumDto>
   $Res call({
     Object? id = null,
     Object? image = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -1107,6 +1128,10 @@ class _$SearchAlbumDtoCopyWithImpl<$Res, $Val extends SearchAlbumDto>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -1127,7 +1152,7 @@ abstract class _$$SearchAlbumDtoImplCopyWith<$Res>
       __$$SearchAlbumDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, ImageDto image});
+  $Res call({String id, ImageDto image, String name});
 
   @override
   $ImageDtoCopyWith<$Res> get image;
@@ -1146,6 +1171,7 @@ class __$$SearchAlbumDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? image = null,
+    Object? name = null,
   }) {
     return _then(_$SearchAlbumDtoImpl(
       id: null == id
@@ -1156,6 +1182,10 @@ class __$$SearchAlbumDtoImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDto,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1165,7 +1195,8 @@ class __$$SearchAlbumDtoImplCopyWithImpl<$Res>
 class _$SearchAlbumDtoImpl
     with DiagnosticableTreeMixin
     implements _SearchAlbumDto {
-  const _$SearchAlbumDtoImpl({required this.id, required this.image});
+  const _$SearchAlbumDtoImpl(
+      {required this.id, required this.image, required this.name});
 
   factory _$SearchAlbumDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchAlbumDtoImplFromJson(json);
@@ -1174,10 +1205,12 @@ class _$SearchAlbumDtoImpl
   final String id;
   @override
   final ImageDto image;
+  @override
+  final String name;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchAlbumDto(id: $id, image: $image)';
+    return 'SearchAlbumDto(id: $id, image: $image, name: $name)';
   }
 
   @override
@@ -1186,7 +1219,8 @@ class _$SearchAlbumDtoImpl
     properties
       ..add(DiagnosticsProperty('type', 'SearchAlbumDto'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('image', image));
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('name', name));
   }
 
   @override
@@ -1195,12 +1229,13 @@ class _$SearchAlbumDtoImpl
         (other.runtimeType == runtimeType &&
             other is _$SearchAlbumDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, image);
+  int get hashCode => Object.hash(runtimeType, id, image, name);
 
   @JsonKey(ignore: true)
   @override
@@ -1220,7 +1255,8 @@ class _$SearchAlbumDtoImpl
 abstract class _SearchAlbumDto implements SearchAlbumDto {
   const factory _SearchAlbumDto(
       {required final String id,
-      required final ImageDto image}) = _$SearchAlbumDtoImpl;
+      required final ImageDto image,
+      required final String name}) = _$SearchAlbumDtoImpl;
 
   factory _SearchAlbumDto.fromJson(Map<String, dynamic> json) =
       _$SearchAlbumDtoImpl.fromJson;
@@ -1229,6 +1265,8 @@ abstract class _SearchAlbumDto implements SearchAlbumDto {
   String get id;
   @override
   ImageDto get image;
+  @override
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$$SearchAlbumDtoImplCopyWith<_$SearchAlbumDtoImpl> get copyWith =>
