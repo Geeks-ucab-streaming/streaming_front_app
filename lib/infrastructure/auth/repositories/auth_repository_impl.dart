@@ -34,11 +34,21 @@ class AuthRepositoryImpl extends IAuthRepository {
     if (statusCode == 200) {
       // transforming the request to DTO
       final jwtTokenDto = JwtTokenDto.fromJson(response.data["data"]);
-      //logger.d(jwtTokenDto.toString());
-      // return the domain element
-      return Right(
-        JwtTokenMapper.loginJwtFromRemoteToEntity(jwtTokenDto),
+      // get the token
+      JwtToken jwtToken =
+          JwtTokenMapper.loginJwtFromRemoteToEntity(jwtTokenDto);
+      // update the token in the Dio instance
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            // Add the access token to the request header
+            options.headers['Authorization'] = 'Bearer ${jwtToken.value}';
+            return handler.next(options);
+          },
+        ),
       );
+      // return the domain element
+      return Right(jwtToken);
     } else if (statusCode == 404) {
       // return the domain error
       return Left(
@@ -84,11 +94,21 @@ class AuthRepositoryImpl extends IAuthRepository {
       if (statusCode == 200 || statusCode == 201) {
         // transforming the request to DTO
         final jwtTokenDto = JwtTokenDto.fromJson(response.data["data"]);
-        //logger.d(jwtTokenDto.toString());
-        // return the domain element
-        return Right(
-          JwtTokenMapper.loginJwtFromRemoteToEntity(jwtTokenDto),
+        // get the token
+        JwtToken jwtToken =
+            JwtTokenMapper.loginJwtFromRemoteToEntity(jwtTokenDto);
+        // update the token in the Dio instance
+        dio.interceptors.add(
+          InterceptorsWrapper(
+            onRequest: (options, handler) {
+              // Add the access token to the request header
+              options.headers['Authorization'] = 'Bearer ${jwtToken.value}';
+              return handler.next(options);
+            },
+          ),
         );
+        // return the domain element
+        return Right(jwtToken);
       } else if (statusCode == 400) {
         // return the domain error
         return Left(
