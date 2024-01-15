@@ -1,40 +1,59 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 class ArtistCoverWidget extends StatelessWidget {
-  final ImageProvider artistImage;
+  final List<int> artistImage;
   final String artistName;
+  final double widgetHeight;
+  final double imageSize;
 
-  ArtistCoverWidget({required this.artistImage, required this.artistName});
+  const ArtistCoverWidget({
+    super.key,
+    required this.artistImage,
+    required this.artistName,
+    required this.widgetHeight,
+    required this.imageSize,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(100.0),
-      ),
-      color: Colors.transparent,
-      child: Column(
-        children: [
-          ClipOval(
-            child: Image(
-              image: artistImage,
-              fit: BoxFit.cover,
-              width: 100,
-              height: 100,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              artistName,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+    return Padding(
+      padding: const EdgeInsets.only(right: 15.0),
+      child: SizedBox(
+        height: widgetHeight,
+        child: Column(
+          children: [
+            ClipOval(
+              child: Container(
+                height: imageSize,
+                width: imageSize,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: Image.memory(
+                      Uint8List.fromList(
+                        artistImage,
+                      ),
+                      fit: BoxFit.contain,
+                    ).image,
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                artistName,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

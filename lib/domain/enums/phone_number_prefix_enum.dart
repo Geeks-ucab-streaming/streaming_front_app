@@ -13,3 +13,4 @@ enum PhoneNumberPrefixEnum implements Comparable<PhoneNumberPrefixEnum> {
   @override
   int compareTo(PhoneNumberPrefixEnum other) => value - other.value;
 }
+
