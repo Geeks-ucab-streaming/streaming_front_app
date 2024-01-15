@@ -75,8 +75,7 @@ class AudioPlayerManager {
       // Vaciar y resetear el player
       await _player.stop();
       await _player.seek(Duration.zero);
-      _fragmentedAudioSource.clear(); // Asegúrate de que tu StreamAudioSource tenga un método clear
-
+      _fragmentedAudioSource.clear(); 
       // Solicitar la nueva canción al servidor
       socket.requestSongToServer(nextSongId, preview);
 
@@ -87,7 +86,26 @@ class AudioPlayerManager {
     }
   }
 
-    Future<void> previousSongSaftely() async {
+  Future<void> setNewPlaylist(List<String> newSongsList ) async {
+    try {
+      // Vaciar y resetear el player
+      await _player.stop();
+      await _player.seek(Duration.zero);
+      _fragmentedAudioSource.clear();
+      // Actualizar valores
+      songsList=newSongsList;
+      currentSongid = newSongsList.isNotEmpty ? newSongsList[0] : '';
+      // Solicitar la nueva canción al servidor
+      socket.requestSongToServer(currentSongid, preview);
+
+      // Opcional: iniciar la reproducción automáticamente
+      await _player.play();
+    } catch (e) {
+      print('Error al actualizar la lista: $e');
+    }
+  }
+
+  Future<void> previousSongSaftely() async {
     try {
       // Incrementar el índice de la canción circularmente
       String nextSongId = previousElementCircular();
