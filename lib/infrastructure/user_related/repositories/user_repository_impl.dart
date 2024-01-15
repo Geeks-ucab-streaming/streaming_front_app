@@ -28,16 +28,16 @@ class UserRepositoryImpl extends IUserRepository {
 
     Map<String, dynamic> dataToSend = {};
 
-    if (name != null) {
+    if (name != null && name != '') {
       dataToSend['name'] = name;
     }
-    if (email != null) {
+    if (email != null && email != '') {
       dataToSend['email'] = email;
     }
     if (birthdate != null) {
       dataToSend['birth_date'] = DateFormatter.formatDate(birthdate).toString();
     }
-    if (gender != null) {
+    if (gender != null && gender != '') {
       dataToSend['gender'] = gender;
     }
 

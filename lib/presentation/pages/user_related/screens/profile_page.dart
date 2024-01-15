@@ -78,6 +78,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final updateState = ref.watch(modifyUserInfoProvider);
     UserPresentation userInfo = authState.getUserInfoToShow();
     // controllers from react hooks
+    print('Gender: ' + userInfo.gender);
     final nameController = useTextEditingController(text: userInfo.name);
     final emailController = useTextEditingController(text: userInfo.email);
     final dateOfBirthController = useTextEditingController(
@@ -89,7 +90,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       child: Theme(
         data: Theme.of(context).copyWith(disabledColor: Colors.white),
         child: DropdownButtonFormField(
-          value: userInfo.gender,
+          //value: genderController.text,
+          value:
+              (genderController.text == '') ? 'Empty' : genderController.text,
           style: const TextStyle(color: Colors.white),
           dropdownColor: const Color.fromARGB(
             255,
@@ -123,12 +126,16 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               value: 'M',
               child: Text('M'),
             ),
+            DropdownMenuItem(
+              value: 'Empty',
+              child: Text('Empty'),
+            ),
           ],
-          onChanged: (_edit)
-              ? (String? value) {
-                  genderController.text = value as String;
-                }
-              : null,
+          onChanged: (String? value) {
+            if (_edit && value != 'Empty') {
+              genderController.text = value as String;
+            }
+          },
         ),
       ),
     );
