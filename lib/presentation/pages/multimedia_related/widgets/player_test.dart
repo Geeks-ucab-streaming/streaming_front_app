@@ -3,10 +3,9 @@ import 'package:streaming_front_app/presentation/pages/multimedia_related/widget
 //import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/audioPlayerHandler.dart';
 
 const List<String> itemList = [
-  
-  'c51ab77e-61d1-44a1-956f-09cd63231e48',
   'bd5b3250-f05a-49d3-8e62-890e3d8ac063',
   '1a6dcd83-7400-4af4-bd04-733c817f9924',
+  'c51ab77e-61d1-44a1-956f-09cd63231e48',
   '773a82f6-13c1-4089-9a69-e869007b3b23'
 ];
 
@@ -114,7 +113,7 @@ class _PlayerBarState extends State<PlayerBar1> {
                             icon: const Icon(Icons.skip_previous_rounded),
                             iconSize: 25,
                             onPressed: () async {
-                              //audioPlayerHandler.previousSong(); 
+                              audioPlayerHandler.previousSongSaftely(); 
                               setState(() {}); // Actualiza el estado del widget
                             },
                           ),
@@ -137,7 +136,7 @@ class _PlayerBarState extends State<PlayerBar1> {
                             icon: const Icon(Icons.skip_next_rounded),
                             iconSize: 25,
                             onPressed: () async {
-                              audioPlayerHandler.nextSongSafely(); 
+                              audioPlayerHandler.nextSongSaftely(); 
                               setState(() {}); // Actualiza el estado del widget
                             },
                           ),

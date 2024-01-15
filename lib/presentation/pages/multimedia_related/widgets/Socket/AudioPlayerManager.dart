@@ -16,10 +16,10 @@ class AudioPlayerManager {
 
   AudioPlayerManager(this.songsList, this.preview) {
     currentSongid = songsList.isNotEmpty ? songsList[0] : '';
-    StartPLayer();
+    startPlayer();
   }
 
-  void StartPLayer(){
+  void startPlayer(){
     _fragmentedAudioSource = FragmentedAudioSource();
     _player.setAudioSource(_fragmentedAudioSource);
     startListening(socket.dataStream);
@@ -67,35 +67,68 @@ class AudioPlayerManager {
     }
   }
 
-  Future<void> nextSongSafely() async {
+  Future<void> nextSongSaftely() async {
     try {
-      // Calcular el índice de la próxima canción circularmente
-      int currentIndex = songsList.indexOf(currentSongid);
-      int nextIndex = (currentIndex + 1) % songsList.length;
-      currentSongid = songsList[nextIndex];
+      // Incrementar el índice de la canción circularmente
+      String nextSongId = nextElementCircular();
 
-      // Detener la reproducción actual y limpiar el buffer
-      if (_player.playing) {
-        await _player.stop();
-      }
-
-      // Verificar la conexión del socket antes de solicitar la nueva canción
-      if (!socket.isConnected) {
-        print('El socket no está conectado. Reconectando...');
-        socket.connectSocket(); // Asumiendo que tienes un método para reconectar
-      }
+      // Vaciar y resetear el player
+      await _player.stop();
+      await _player.seek(Duration.zero);
+      _fragmentedAudioSource.clear(); // Asegúrate de que tu StreamAudioSource tenga un método clear
 
       // Solicitar la nueva canción al servidor
-      socket.requestSongToServer(currentSongid, preview);
+      socket.requestSongToServer(nextSongId, preview);
 
-      // Esperar a que la fuente de audio esté lista antes de reproducir
-      await Future.delayed(Duration(seconds: 1)); // Ajusta este tiempo según sea necesario
-
-      // Reproducir la nueva canción
+      // Opcional: iniciar la reproducción automáticamente
       await _player.play();
     } catch (e) {
-      print("Error al cambiar a la siguiente canción: $e");
+      print('Error al cambiar a la siguiente canción: $e');
     }
   }
 
+    Future<void> previousSongSaftely() async {
+    try {
+      // Incrementar el índice de la canción circularmente
+      String nextSongId = previousElementCircular();
+
+      // Vaciar y resetear el player
+      await _player.stop();
+      await _player.seek(Duration.zero);
+      _fragmentedAudioSource.clear(); // Asegúrate de que tu StreamAudioSource tenga un método clear
+
+      // Solicitar la nueva canción al servidor
+      socket.requestSongToServer(nextSongId, preview);
+
+      // Opcional: iniciar la reproducción automáticamente
+      await _player.play();
+    } catch (e) {
+      print('Error al cambiar a la siguiente canción: $e');
+    }
+  }
+
+  String nextElementCircular() {
+    if (songsList.isEmpty) {
+      throw ArgumentError("La lista songsList no puede estar vacía.");
+    }
+
+    int currentIndex = songsList.indexOf(currentSongid);
+    currentIndex = (currentIndex + 1) % songsList.length;
+    currentSongid = songsList[currentIndex];
+
+    return currentSongid;
+  }
+
+  String previousElementCircular() {
+    if (songsList.isEmpty) {
+      throw ArgumentError("La lista songsList no puede estar vacía.");
+    }
+
+    int currentIndex = songsList.indexOf(currentSongid);
+    // Asegurarse de que el índice es positivo antes de aplicar el módulo
+    currentIndex = (currentIndex - 1 + songsList.length) % songsList.length;
+    currentSongid = songsList[currentIndex];
+
+    return currentSongid;
+    }  
 }

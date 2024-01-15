@@ -3,7 +3,7 @@ import 'package:just_audio/just_audio.dart';
 import 'dart:typed_data';
 
 class FragmentedAudioSource extends StreamAudioSource {
-  final StreamController<Uint8List> _streamController = StreamController<Uint8List>.broadcast();
+  StreamController<Uint8List> _streamController = StreamController<Uint8List>.broadcast();
 
   void addChunk(Uint8List chunk) {
     _streamController.add(chunk);
@@ -15,9 +15,14 @@ class FragmentedAudioSource extends StreamAudioSource {
       sourceLength: null, // Desconocido si es un stream en vivo
       contentLength: null,
       offset: start ?? 0,
-      contentType: 'audio/mpeg', // Asegúrate de que sea el tipo correcto para tus datos
+      contentType: 'mp3/raw',
       stream: _streamController.stream,
     );
+  }
+    void clear() {
+    // Cierra el StreamController actual y crea uno nuevo
+    _streamController.close();
+    _streamController = StreamController<Uint8List>();
   }
 
   void dispose() {
