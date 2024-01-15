@@ -2,9 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
-import '../../../domain/auth/entities/entities.dart';
 import '../../../domain/auth/enums/enums.dart';
 import '../../../domain/auth/errors/errors.dart';
 import '../../../domain/auth/repositories/repositories.dart';

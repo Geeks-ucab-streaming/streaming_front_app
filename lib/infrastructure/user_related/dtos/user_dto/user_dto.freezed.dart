@@ -163,7 +163,7 @@ class __$$UserDtoImplCopyWithImpl<$Res>
 class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
   const _$UserDtoImpl(
       {required this.id,
-      required this.phone,
+      this.phone = "",
       this.name = "",
       this.email = "",
       this.birthdate = "",
@@ -175,6 +175,7 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
   @override
   final String id;
   @override
+  @JsonKey()
   final String phone;
   @override
   @JsonKey()
@@ -243,7 +244,7 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
 abstract class _UserDto implements UserDto {
   const factory _UserDto(
       {required final String id,
-      required final String phone,
+      final String phone,
       final String name,
       final String email,
       final String birthdate,

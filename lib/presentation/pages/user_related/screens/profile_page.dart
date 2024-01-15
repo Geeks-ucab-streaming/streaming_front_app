@@ -2,9 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:streaming_front_app/domain/auth/data_presentation/data_presentation.dart';
+import 'package:streaming_front_app/domain/enums/enums.dart';
 
 import '../../../../application/auth/states/states.dart';
+import '../../../../application/user_related/use_cases/uses_cases.dart';
+import '../../../../domain/auth/data_presentation/data_presentation.dart';
+import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 
 class ProfilePage extends StatefulHookConsumerWidget {
@@ -20,25 +23,29 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   // is editable
   bool _edit = false;
   // local variables
-  DateTime _selectedDate = DateTime.now();
-  String _gender = '';
+  DateTime? _selectedDate;
 
   Future<void> _selectDate(
     BuildContext context,
     TextEditingController dateOfBirthController,
   ) async {
+    // get today date
+    DateTime todayDate = DateTime.now();
     // get the date from user
     final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: _selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900, 1),
+      lastDate: DateTime(2101),
+    );
     // update the date
-    if (pickedDate != null && pickedDate != _selectedDate) {
+    if (pickedDate != null &&
+        pickedDate != _selectedDate &&
+        todayDate.isAfter(pickedDate)) {
       setState(() {
         _selectedDate = pickedDate;
       });
-      dateOfBirthController.text = pickedDate.toIso8601String();
+      dateOfBirthController.text = DateFormatter.formatDate(pickedDate);
     }
   }
 
@@ -48,10 +55,52 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     });
   }
 
+  void handleUpdateStatus(UserModifyEnum updateState) async {
+    if (updateState != UserModifyEnum.unChange) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Resultado'),
+            content: Text((updateState == UserModifyEnum.error)
+                ? 'Error no se pudo actualizar'
+                : 'Exitoso, se actualizaron sus datos'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      // if updated close the edit
+      _edit = false;
+    }
+  }
+
+  void handleClick({
+    required String? name,
+    required String? email,
+    required DateTime? birthdate,
+    required String? gender,
+  }) async {
+    // call the option from the provider
+    await ref.read(modifyUserInfoProvider.notifier).modifyUserInfo(
+          name: name,
+          email: email,
+          birthdate: birthdate,
+          gender: gender,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     // get the user
     final authState = ref.watch(authProvider.notifier);
+    final updateState = ref.watch(modifyUserInfoProvider);
     UserPresentation userInfo = authState.getUserInfoToShow();
     // controllers from react hooks
     final nameController = useTextEditingController(text: userInfo.name);
@@ -59,7 +108,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final dateOfBirthController = useTextEditingController(
       text: userInfo.birthday,
     );
-    //final genderController = useTextEditingController(text: userInfo.gender);
+    final genderController = useTextEditingController(text: userInfo.gender);
+
+    // verify the state of the update
+    //handleUpdateStatus(updateState);
 
     var genderSelector = SizedBox(
       child: DropdownButtonFormField(
@@ -72,7 +124,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         ),
         decoration: InputDecoration(
           filled: true,
-          fillColor: const Color.fromARGB(80, 151, 151, 151),
+          fillColor: const Color.fromARGB(
+            255,
+            75,
+            56,
+            109,
+          ),
           border: UnderlineInputBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
@@ -84,15 +141,19 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         ),
         items: const [
           DropdownMenuItem(
-            value: 'Femenino',
+            value: 'F',
             child: Text('F'),
           ),
           DropdownMenuItem(
-            value: 'Masculino',
+            value: 'M',
             child: Text('M'),
           ),
         ],
-        onChanged: (_edit) ? (value) => {} : null,
+        onChanged: (_edit)
+            ? (String? value) {
+                genderController.text = value as String;
+              }
+            : null,
       ),
     );
 
@@ -241,33 +302,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                                         dateOfBirthController,
                                                       );
                                                     },
-                                                  ), /*TextFormField(
-                                                    enabled: _edit,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                    ),
-                                                    decoration: InputDecoration(
-                                                      filled: true,
-                                                      fillColor:
-                                                          const Color.fromARGB(
-                                                        80,
-                                                        151,
-                                                        151,
-                                                        151,
-                                                      ),
-                                                      border:
-                                                          UnderlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15.0),
-                                                      ),
-                                                      labelText: '',
-                                                    ),
-                                                    readOnly: true,
-                                                    onTap: () async {
-                                                      _selectDate(context);
-                                                    },
-                                                  ),*/
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -286,7 +321,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                           margin:
                                               const EdgeInsets.only(bottom: 10),
                                           child: const Text(
-                                            'Genero',
+                                            'Género',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                               color: Colors.white,
@@ -304,11 +339,25 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       ),
                     ),
                   ),
-                  if (_edit)
+                  if (_edit) ...[
+                    if (updateState != UserModifyEnum.unChange) ...[
+                      const SizedBox(height: 25),
+                      const ErrorInputMessage(
+                        message: 'No se pudo actualizar los datos',
+                        iconData: Icons.error,
+                      ),
+                    ],
                     Container(
                       margin: const EdgeInsets.only(top: 40),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          handleClick(
+                            name: nameController.text,
+                            email: emailController.text,
+                            birthdate: _selectedDate,
+                            gender: genderController.text,
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50),
                           backgroundColor: Colors.lightBlueAccent,
@@ -328,6 +377,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ),
                       ),
                     ),
+                  ],
                   if (!_edit)
                     Expanded(
                       child: Column(

@@ -9,7 +9,7 @@ part 'user_dto.g.dart';
 class UserDto with _$UserDto {
   const factory UserDto({
     required String id,
-    required String phone,
+    @Default("") String phone,
     @Default("") String name,
     @Default("") String email,
     @Default("") String birthdate,

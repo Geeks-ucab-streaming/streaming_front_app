@@ -9,10 +9,10 @@ class User {
   });
   final UserPhone? phone;
   final UserId? id;
-  final UserName? name;
-  final UserEmail? email;
-  final UserBirthday? birthday;
-  final UserGender? gender;
+  UserName? name;
+  UserEmail? email;
+  UserBirthday? birthday;
+  UserGender? gender;
 
   String? getPhone() {
     return phone?.value;
@@ -36,6 +36,23 @@ class User {
 
   String? getGender() {
     return gender?.value;
+  }
+
+  // setters
+  void setName(String name) {
+    this.name = UserName(name);
+  }
+
+  void setEmail(String email) {
+    this.email = UserEmail(email);
+  }
+
+  void setBirthdate(DateTime birthday) {
+    this.birthday = UserBirthday(birthday);
+  }
+
+  void setGender(String gender) {
+    this.gender = UserGender(gender);
   }
 
   @override

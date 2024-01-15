@@ -55,6 +55,26 @@ class AuthUserState {
     state = AuthStateEnum.unauthenticated;
   }
 
+  void updateUserInfo({
+    String? name,
+    String? email,
+    DateTime? birthdate,
+    String? gender,
+  }) {
+    if (name != null) {
+      user?.setName(name);
+    }
+    if (email != null) {
+      user?.setEmail(email);
+    }
+    if (birthdate != null) {
+      user?.setBirthdate(birthdate);
+    }
+    if (gender != null) {
+      user?.setGender(gender);
+    }
+  }
+
   // overrides
   @override
   String toString() {

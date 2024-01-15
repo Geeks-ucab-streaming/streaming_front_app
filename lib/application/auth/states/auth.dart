@@ -43,5 +43,14 @@ class Auth extends _$Auth {
     );
   }
 
+  void updateUser(User user) {
+    state.updateUserInfo(
+      name: user.getName() as String,
+      email: user.getEmail() as String,
+      birthdate: user.getBirthday() as DateTime,
+      gender: user.getGender() as String,
+    );
+  }
+
   // TODO function to get user from local database through a repository
 }
