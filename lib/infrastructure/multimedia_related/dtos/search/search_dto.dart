@@ -65,6 +65,7 @@ class SearchPlaylistDto with _$SearchPlaylistDto {
   const factory SearchPlaylistDto({
     required String id,
     required ImageDto image,
+    required String name,
   }) = _SearchPlaylistDto;
 
   factory SearchPlaylistDto.fromJson(Map<String, Object?> json) =>
@@ -77,6 +78,7 @@ class SearchAlbumDto with _$SearchAlbumDto {
   const factory SearchAlbumDto({
     required String id,
     required ImageDto image,
+    required String name,
   }) = _SearchAlbumDto;
 
   factory SearchAlbumDto.fromJson(Map<String, Object?> json) =>
