@@ -26,7 +26,7 @@ class UserRepositoryImpl extends IUserRepository {
     // get the logger instance
     final logger = getIt<LoggerInstance>().getLogger();
 
-    Map<String, Object?> dataToSend = {};
+    Map<String, dynamic> dataToSend = {};
 
     if (name != null) {
       dataToSend['name'] = name;
@@ -35,7 +35,7 @@ class UserRepositoryImpl extends IUserRepository {
       dataToSend['email'] = email;
     }
     if (birthdate != null) {
-      dataToSend['birthdate'] = birthdate.toIso8601String();
+      dataToSend['birth_date'] = DateFormatter.formatDate(birthdate).toString();
     }
     if (gender != null) {
       dataToSend['gender'] = gender;
@@ -50,14 +50,14 @@ class UserRepositoryImpl extends IUserRepository {
       );
 
       // transforming the request to DTO
-      final userDto = UserDto.fromJson(response.data["data"]);
+      final updateUserDto = UpdateUserInfoDto.fromJson(response.data["data"]);
       //logger.d(userDto.toString());
       // return entity element from DTO
       return Right(
-        UserMapper.fromRemoteToEntity(userDto),
+        UpdateUserInfoMapper.fromRemoteToEntity(updateUserDto),
       );
     } on DioException catch (e) {
-      print(e);
+      logger.e(e);
 
       return const Left(
         "Error no se pudo hacer el cambio",
@@ -80,10 +80,15 @@ class UserRepositoryImpl extends IUserRepository {
         headers: {"Authorization": "Bearer ${token.value}"},
       ),
     );
-    logger.d(response.toString());
+    logger.d('Response from back: ' + response.toString());
+    logger.d(
+      'Birthdate from back: ' +
+          response.data["data"]["birthDate"].runtimeType.toString(),
+    );
+
     // transforming the request to DTO
     final userDto = UserDto.fromJson(response.data["data"]);
-    //logger.d(userDto.toString());
+    logger.d('User dto: ' + userDto.toString());
     // return entity element from DTO
     return UserMapper.fromRemoteToEntity(userDto);
   }

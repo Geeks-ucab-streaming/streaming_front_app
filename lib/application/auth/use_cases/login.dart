@@ -9,7 +9,7 @@ import '../../../domain/auth/value_objects/value_objects.dart';
 import '../../../domain/user_related/entities/entities.dart';
 import '../../../domain/user_related/repositories/i_repositories.dart';
 import '../../../infrastructure/auth/repositories/repositories.dart';
-import '../../../infrastructure/core/util/util.dart';
+//import '../../../infrastructure/core/util/util.dart';
 import '../../../infrastructure/user_related/repositories/repositories.dart';
 import '../../core/routes/app_router.dart';
 import '../states/states.dart';
@@ -30,11 +30,10 @@ class LoginHelper extends _$LoginHelper {
     final IAuthRepository authRepo = getIt<AuthRepositoryImpl>();
     final IUserRepository userRepo = getIt<UserRepositoryImpl>();
     // get the logger instance
-    final logger = getIt<LoggerInstance>().getLogger();
+    //final logger = getIt<LoggerInstance>().getLogger();
     // get the random advertisement
     final Either<BaseAuthError, JwtToken> loginResponse =
         await authRepo.login(phone);
-    logger.d('Respuesta del repositorio al login: ${loginResponse.toString()}');
     // fold the response to see the response
     await loginResponse.fold(
       (error) async {
@@ -47,19 +46,13 @@ class LoginHelper extends _$LoginHelper {
       (jwtToken) async {
         // the user exists so we need to make a call to the repository to get the user
         final User user = await userRepo.getUserByToken(jwtToken);
-        logger.d(
-            'Respuesta del repositorio al get user by token: ${user.toString()}');
         // update tje state of the other
         ref.read(authProvider.notifier).login(user: user, jwtToken: jwtToken);
-        logger.d(
-            'Valor del authState luego del login: ${ref.read(authProvider).toString()}');
         state = LoginStateEnum.pass;
         // everything good so change page
         ref.read(appRouterProvider.notifier).changeRouterBasedOnLogin();
         ref.read(appRouterProvider).goNamed('home');
       },
     );
-    logger.d(
-        'Valor del state del login helper dentro de si mismo: ${state.toString()}');
   }
 }

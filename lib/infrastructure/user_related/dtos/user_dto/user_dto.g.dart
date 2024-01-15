@@ -12,8 +12,8 @@ _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
       phone: json['phone'] as String? ?? "",
       name: json['name'] as String? ?? "",
       email: json['email'] as String? ?? "",
-      birthdate: json['birthdate'] as String? ?? "",
-      genre: json['genre'] as String? ?? "",
+      birthDate: json['birthDate'] as String? ?? "",
+      gender: json['gender'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
@@ -22,6 +22,6 @@ Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
       'phone': instance.phone,
       'name': instance.name,
       'email': instance.email,
-      'birthdate': instance.birthdate,
-      'genre': instance.genre,
+      'birthDate': instance.birthDate,
+      'gender': instance.gender,
     };

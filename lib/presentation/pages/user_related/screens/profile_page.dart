@@ -1,12 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:streaming_front_app/domain/enums/enums.dart';
 
 import '../../../../application/auth/states/states.dart';
 import '../../../../application/user_related/use_cases/uses_cases.dart';
 import '../../../../domain/auth/data_presentation/data_presentation.dart';
+import '../../../../domain/enums/enums.dart';
 import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 
@@ -55,32 +56,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     });
   }
 
-  void handleUpdateStatus(UserModifyEnum updateState) async {
-    if (updateState != UserModifyEnum.unChange) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Resultado'),
-            content: Text((updateState == UserModifyEnum.error)
-                ? 'Error no se pudo actualizar'
-                : 'Exitoso, se actualizaron sus datos'),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-      // if updated close the edit
-      _edit = false;
-    }
-  }
-
   void handleClick({
     required String? name,
     required String? email,
@@ -110,50 +85,51 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     );
     final genderController = useTextEditingController(text: userInfo.gender);
 
-    // verify the state of the update
-    //handleUpdateStatus(updateState);
-
     var genderSelector = SizedBox(
-      child: DropdownButtonFormField(
-        style: const TextStyle(color: Colors.white),
-        dropdownColor: const Color.fromARGB(
-          255,
-          13,
-          7,
-          27,
-        ),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: const Color.fromARGB(
+      child: Theme(
+        data: Theme.of(context).copyWith(disabledColor: Colors.white),
+        child: DropdownButtonFormField(
+          value: userInfo.gender,
+          style: const TextStyle(color: Colors.white),
+          dropdownColor: const Color.fromARGB(
             255,
-            75,
-            56,
-            109,
+            13,
+            7,
+            27,
           ),
-          border: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(15.0),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: const Color.fromARGB(
+              255,
+              75,
+              56,
+              109,
+            ),
+            border: UnderlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            labelText: '',
           ),
-          labelText: '',
+          icon: const Icon(
+            Icons.arrow_drop_down,
+            color: Colors.white,
+          ),
+          items: const [
+            DropdownMenuItem(
+              value: 'F',
+              child: Text('F'),
+            ),
+            DropdownMenuItem(
+              value: 'M',
+              child: Text('M'),
+            ),
+          ],
+          onChanged: (_edit)
+              ? (String? value) {
+                  genderController.text = value as String;
+                }
+              : null,
         ),
-        icon: const Icon(
-          Icons.arrow_drop_down,
-          color: Colors.white,
-        ),
-        items: const [
-          DropdownMenuItem(
-            value: 'F',
-            child: Text('F'),
-          ),
-          DropdownMenuItem(
-            value: 'M',
-            child: Text('M'),
-          ),
-        ],
-        onChanged: (_edit)
-            ? (String? value) {
-                genderController.text = value as String;
-              }
-            : null,
       ),
     );
 
@@ -167,8 +143,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
-              leading: const BackButton(
+              leading: BackButton(
                 color: Colors.white,
+                onPressed: () {
+                  setState(() {
+                    _edit = false;
+                  });
+                  context.pop();
+                  ref.read(modifyUserInfoProvider.notifier).resetState();
+                },
               ),
               actions: [
                 IconButton(
@@ -340,11 +323,18 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     ),
                   ),
                   if (_edit) ...[
-                    if (updateState != UserModifyEnum.unChange) ...[
+                    if (updateState == UserModifyEnum.error) ...[
                       const SizedBox(height: 25),
                       const ErrorInputMessage(
                         message: 'No se pudo actualizar los datos',
                         iconData: Icons.error,
+                      ),
+                    ],
+                    if (updateState == UserModifyEnum.pass) ...[
+                      const SizedBox(height: 25),
+                      const SuccessMessage(
+                        message: 'Datos actualizados',
+                        iconData: Icons.check_box,
                       ),
                     ],
                     Container(

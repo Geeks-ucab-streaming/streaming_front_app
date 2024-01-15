@@ -24,8 +24,8 @@ mixin _$UserDto {
   String get phone => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get birthdate => throw _privateConstructorUsedError;
-  String get genre => throw _privateConstructorUsedError;
+  String get birthDate => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,8 +42,8 @@ abstract class $UserDtoCopyWith<$Res> {
       String phone,
       String name,
       String email,
-      String birthdate,
-      String genre});
+      String birthDate,
+      String gender});
 }
 
 /// @nodoc
@@ -63,8 +63,8 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     Object? phone = null,
     Object? name = null,
     Object? email = null,
-    Object? birthdate = null,
-    Object? genre = null,
+    Object? birthDate = null,
+    Object? gender = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -83,13 +83,13 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      birthdate: null == birthdate
-          ? _value.birthdate
-          : birthdate // ignore: cast_nullable_to_non_nullable
+      birthDate: null == birthDate
+          ? _value.birthDate
+          : birthDate // ignore: cast_nullable_to_non_nullable
               as String,
-      genre: null == genre
-          ? _value.genre
-          : genre // ignore: cast_nullable_to_non_nullable
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -107,8 +107,8 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       String phone,
       String name,
       String email,
-      String birthdate,
-      String genre});
+      String birthDate,
+      String gender});
 }
 
 /// @nodoc
@@ -126,8 +126,8 @@ class __$$UserDtoImplCopyWithImpl<$Res>
     Object? phone = null,
     Object? name = null,
     Object? email = null,
-    Object? birthdate = null,
-    Object? genre = null,
+    Object? birthDate = null,
+    Object? gender = null,
   }) {
     return _then(_$UserDtoImpl(
       id: null == id
@@ -146,13 +146,13 @@ class __$$UserDtoImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      birthdate: null == birthdate
-          ? _value.birthdate
-          : birthdate // ignore: cast_nullable_to_non_nullable
+      birthDate: null == birthDate
+          ? _value.birthDate
+          : birthDate // ignore: cast_nullable_to_non_nullable
               as String,
-      genre: null == genre
-          ? _value.genre
-          : genre // ignore: cast_nullable_to_non_nullable
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -166,8 +166,8 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
       this.phone = "",
       this.name = "",
       this.email = "",
-      this.birthdate = "",
-      this.genre = ""});
+      this.birthDate = "",
+      this.gender = ""});
 
   factory _$UserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDtoImplFromJson(json);
@@ -185,14 +185,14 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
   final String email;
   @override
   @JsonKey()
-  final String birthdate;
+  final String birthDate;
   @override
   @JsonKey()
-  final String genre;
+  final String gender;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserDto(id: $id, phone: $phone, name: $name, email: $email, birthdate: $birthdate, genre: $genre)';
+    return 'UserDto(id: $id, phone: $phone, name: $name, email: $email, birthDate: $birthDate, gender: $gender)';
   }
 
   @override
@@ -204,8 +204,8 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
       ..add(DiagnosticsProperty('phone', phone))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('birthdate', birthdate))
-      ..add(DiagnosticsProperty('genre', genre));
+      ..add(DiagnosticsProperty('birthDate', birthDate))
+      ..add(DiagnosticsProperty('gender', gender));
   }
 
   @override
@@ -217,15 +217,15 @@ class _$UserDtoImpl with DiagnosticableTreeMixin implements _UserDto {
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.birthdate, birthdate) ||
-                other.birthdate == birthdate) &&
-            (identical(other.genre, genre) || other.genre == genre));
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate) &&
+            (identical(other.gender, gender) || other.gender == gender));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, phone, name, email, birthdate, genre);
+      Object.hash(runtimeType, id, phone, name, email, birthDate, gender);
 
   @JsonKey(ignore: true)
   @override
@@ -247,8 +247,8 @@ abstract class _UserDto implements UserDto {
       final String phone,
       final String name,
       final String email,
-      final String birthdate,
-      final String genre}) = _$UserDtoImpl;
+      final String birthDate,
+      final String gender}) = _$UserDtoImpl;
 
   factory _UserDto.fromJson(Map<String, dynamic> json) = _$UserDtoImpl.fromJson;
 
@@ -261,9 +261,9 @@ abstract class _UserDto implements UserDto {
   @override
   String get email;
   @override
-  String get birthdate;
+  String get birthDate;
   @override
-  String get genre;
+  String get gender;
   @override
   @JsonKey(ignore: true)
   _$$UserDtoImplCopyWith<_$UserDtoImpl> get copyWith =>

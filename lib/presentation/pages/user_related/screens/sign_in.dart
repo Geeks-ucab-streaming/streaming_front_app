@@ -23,15 +23,12 @@ class _SignInState extends ConsumerState<SignIn> {
     required String phone,
   }) async {
     await ref.read(loginHelperProvider.notifier).login(phone: phone);
-
-    print("Valor del estado del Login helper: ${loginProvider.toString()}");
   }
 
   void handleLoginResponse({
     required WidgetRef ref,
     required LoginStateEnum loginProvider,
   }) {
-    print("Valor del estado en changePage: ${loginProvider.toString()}");
 //pass, wrongValues, error, unChange
     switch (loginProvider) {
       case LoginStateEnum.pass:

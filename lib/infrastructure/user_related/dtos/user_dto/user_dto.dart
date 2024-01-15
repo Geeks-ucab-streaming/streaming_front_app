@@ -12,8 +12,8 @@ class UserDto with _$UserDto {
     @Default("") String phone,
     @Default("") String name,
     @Default("") String email,
-    @Default("") String birthdate,
-    @Default("") String genre,
+    @Default("") String birthDate,
+    @Default("") String gender,
   }) = _UserDto;
 
   factory UserDto.fromJson(Map<String, Object?> json) =>

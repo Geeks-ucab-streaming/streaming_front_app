@@ -45,10 +45,10 @@ class Auth extends _$Auth {
 
   void updateUser(User user) {
     state.updateUserInfo(
-      name: user.getName() as String,
-      email: user.getEmail() as String,
-      birthdate: user.getBirthday() as DateTime,
-      gender: user.getGender() as String,
+      name: user.getName(),
+      email: user.getEmail(),
+      birthdate: user.getBirthday(),
+      gender: user.getGender(),
     );
   }
 

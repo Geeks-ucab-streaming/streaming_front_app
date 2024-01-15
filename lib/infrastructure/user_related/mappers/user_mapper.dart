@@ -6,7 +6,8 @@ class UserMapper {
     UserBirthday? userBirthDate;
     try {
       userBirthDate = UserBirthday(
-        DateTime.parse(userDto.birthdate),
+        DateTime.parse(userDto.birthDate),
+        //DateTime(userDto.birthdate) as DateTime,
       );
     } catch (error) {
       userBirthDate = null;
@@ -18,6 +19,6 @@ class UserMapper {
         name: UserName(userDto.name),
         email: UserEmail(userDto.email),
         birthday: userBirthDate,
-        gender: UserGender(userDto.genre));
+        gender: UserGender(userDto.gender));
   }
 }

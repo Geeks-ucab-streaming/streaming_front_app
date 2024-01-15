@@ -9,7 +9,7 @@ import '../../../domain/auth/value_objects/value_objects.dart';
 import '../../../domain/user_related/entities/entities.dart';
 import '../../../domain/user_related/repositories/i_repositories.dart';
 import '../../../infrastructure/auth/repositories/repositories.dart';
-import '../../../infrastructure/core/util/util.dart';
+//import '../../../infrastructure/core/util/util.dart';
 import '../../../infrastructure/user_related/repositories/repositories.dart';
 import '../../core/routes/app_router.dart';
 import '../states/states.dart';
@@ -33,16 +33,14 @@ class SignInHelper extends _$SignInHelper {
     final IAuthRepository authRepo = getIt<AuthRepositoryImpl>();
     final IUserRepository userRepo = getIt<UserRepositoryImpl>();
     // get the logger instance
-    final logger = getIt<LoggerInstance>().getLogger();
+    //final logger = getIt<LoggerInstance>().getLogger();
     // try to sign in the cellphone number
     final Either<BaseAuthError, JwtToken> signInResponse =
         await authRepo.signIn(
       phone,
       cellphoneOperator,
     );
-    logger.d(
-      'Respuesta del repositorio al registro: ${signInResponse.toString()}',
-    );
+
     // fold the response to see the response
     await signInResponse.fold(
       (error) async {
@@ -51,14 +49,10 @@ class SignInHelper extends _$SignInHelper {
       (jwtToken) async {
         // the user now exists so we get it
         final User user = await userRepo.getUserByToken(jwtToken);
-        logger.d(
-          'Respuesta del repositorio al get user by token: ${user.toString()}',
-        );
+
         // update the state of auth
         ref.read(authProvider.notifier).login(user: user, jwtToken: jwtToken);
-        logger.d(
-          'Valor del authState luego del sign-in: ${ref.read(authProvider).toString()}',
-        );
+
         // update own state
         state = null;
         // everything good so change page
@@ -66,7 +60,5 @@ class SignInHelper extends _$SignInHelper {
         ref.read(appRouterProvider).goNamed('home');
       },
     );
-    logger.d(
-        'Valor del state del login helper dentro de si mismo: ${state.toString()}');
   }
 }
