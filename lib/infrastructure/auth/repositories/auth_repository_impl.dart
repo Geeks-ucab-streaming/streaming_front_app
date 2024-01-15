@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:streaming_front_app/infrastructure/core/services/firebase_api.dart';
 import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
 import '../../../domain/auth/enums/enums.dart';
@@ -22,12 +23,17 @@ class AuthRepositoryImpl extends IAuthRepository {
     // get the logger instance
     final logger = getIt<LoggerInstance>().getLogger();
     try {
+      // get the firebase token
+      String? firebaseToken = await getIt<FireBaseAPI>().getAppToken();
       // make the request
       final response = await dio.post(
         '/auth/log-in',
         data: {
           'phone': phone,
         },
+        options: Options(
+          headers: {"token": firebaseToken},
+        ),
       );
       logger.d('Log-in-in response data: ${response.data}');
       // transforming the request to DTO
@@ -79,9 +85,14 @@ class AuthRepositoryImpl extends IAuthRepository {
     // get the logger instance
     final logger = getIt<LoggerInstance>().getLogger();
     try {
+      // get the firebase token
+      String? firebaseToken = await getIt<FireBaseAPI>().getAppToken();
       // make the request
       final response = await dio.post(
         '/auth/log-in/guest',
+        options: Options(
+          headers: {"token": firebaseToken},
+        ),
       );
       logger.d('Guest-log-in response data: ${response.data}');
       // transforming the request to DTO
@@ -138,11 +149,17 @@ class AuthRepositoryImpl extends IAuthRepository {
     final logger = getIt<LoggerInstance>().getLogger();
     // make the request
     try {
+      // get the firebase token
+      String? firebaseToken = await getIt<FireBaseAPI>().getAppToken();
+      // make the request
       final response = await dio.post(
         apiEndpoint,
         data: {
           'phone': phone,
         },
+        options: Options(
+          headers: {"token": firebaseToken},
+        ),
       );
       logger.d('Sign-in response data: ${response.data}');
       // transforming the request to DTO
