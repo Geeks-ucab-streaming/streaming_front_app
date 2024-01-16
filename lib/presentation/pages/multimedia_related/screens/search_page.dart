@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -18,8 +19,6 @@ class SearchPage extends StatefulHookConsumerWidget {
 }
 
 class _SearchPageState extends ConsumerState<SearchPage> {
-  final List<String> _recentSearches = [];
-
   @override
   void dispose() {
     super.dispose();
@@ -232,8 +231,23 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             const SizedBox(height: 25),
           ],
         ),
-      AsyncError(:final error) => ErrorImage(
-          error: error,
+      AsyncError(:final error) => Column(
+          children: [
+            if (error is DioException && searchQueryController.text != '') ...[
+              ErrorMessage(
+                error: error,
+                message:
+                    'No se ha encontrado ningún resultado para "${searchQueryController.text}" \n\n ',
+                secondMessage:
+                    'Asegúrate de que las palabras estén escritas correctamente o prueba con menos palabras clave o con otras distintas.',
+              )
+            ],
+            if (error is DioException && searchQueryController.text == '') ...[
+              const SearchMessage(
+                message: 'Explora todo lo que tenemos',
+              ),
+            ]
+          ],
         ),
       _ => const Loading()
     };
@@ -248,7 +262,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     child: AppBar(
                       backgroundColor: Colors.transparent,
                       elevation: 0,
@@ -268,8 +282,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   const SizedBox(height: 20),
                   Center(
                     child: Container(
-                      width: 380,
-                      height: 70,
+                      width: MediaQuery.of(context).size.width - 40,
+                      height: 60,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 63, 40, 103)
                             .withOpacity(0.9),
@@ -295,10 +309,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                               ),
                               onPressed: () {
                                 searchQueryController.clear();
-                                setState(() {
-                                  _recentSearches
-                                      .add(searchQueryController.text);
-                                });
                               },
                             ),
                           ),
@@ -307,8 +317,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                               height: 1.5),
                           textAlign: TextAlign.left,
                           onChanged: (value) {
-                            print('Controller value: ' +
-                                searchQueryController.text);
                             // call the provider to update return value
                             ref.read(
                               getSearchInfoProvider(searchQueryController.text),
