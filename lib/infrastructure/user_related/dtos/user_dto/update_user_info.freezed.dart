@@ -21,7 +21,8 @@ UpdateUserInfoDto _$UpdateUserInfoDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UpdateUserInfoDto {
   String? get name => throw _privateConstructorUsedError;
-  String? get email => throw _privateConstructorUsedError;
+  String? get email =>
+      throw _privateConstructorUsedError; // ignore: non_constant_identifier_names
   String? get birth_date => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
 
@@ -142,6 +143,7 @@ class _$UpdateUserInfoDtoImpl
   final String? name;
   @override
   final String? email;
+// ignore: non_constant_identifier_names
   @override
   final String? birth_date;
   @override
@@ -208,7 +210,7 @@ abstract class _UpdateUserInfoDto implements UpdateUserInfoDto {
   String? get name;
   @override
   String? get email;
-  @override
+  @override // ignore: non_constant_identifier_names
   String? get birth_date;
   @override
   String? get gender;

@@ -49,6 +49,8 @@ class LoginHelper extends _$LoginHelper {
         // update tje state of the other
         ref.read(authProvider.notifier).login(user: user, jwtToken: jwtToken);
         state = LoginStateEnum.pass;
+        // save the token in the local storage
+
         // everything good so change page
         ref.read(appRouterProvider.notifier).changeRouterBasedOnLogin();
         ref.read(appRouterProvider).goNamed('home');
@@ -83,6 +85,39 @@ class LoginHelper extends _$LoginHelper {
         ref.read(authProvider.notifier).loginGuest(jwtToken: jwtToken);
         state = LoginStateEnum.pass;
         // everything good so change page
+        ref.read(appRouterProvider).goNamed('home');
+      },
+    );
+  }
+
+  Future<void> loginFromLocalSession() async {
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // get the repositories
+    final IAuthRepository authRepo = getIt<AuthRepositoryImpl>();
+    final IUserRepository userRepo = getIt<UserRepositoryImpl>();
+    // get the logger instance
+    final logger = getIt<LoggerInstance>().getLogger();
+    // get the random advertisement
+    final Either<BaseAuthError, JwtToken> loginResponse =
+        await authRepo.loginFromLocalSession();
+    // fold the response to see the response
+    await loginResponse.fold(
+      (error) async {
+        // print the error
+        logger.e(error);
+        // state does not have to be changed
+      },
+      (jwtToken) async {
+        // print the token
+        logger.d('Token from local storage: $jwtToken');
+        // the user exists so we need to make a call to the repository to get the user
+        final User user = await userRepo.getUserByToken(jwtToken);
+        // update tje state of the other
+        ref.read(authProvider.notifier).login(user: user, jwtToken: jwtToken);
+        state = LoginStateEnum.pass;
+        // everything good so change page
+        ref.read(appRouterProvider.notifier).changeRouterBasedOnLogin();
         ref.read(appRouterProvider).goNamed('home');
       },
     );

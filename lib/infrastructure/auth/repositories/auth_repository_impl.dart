@@ -42,15 +42,12 @@ class AuthRepositoryImpl extends IAuthRepository {
       JwtToken jwtToken =
           JwtTokenMapper.loginJwtFromRemoteToEntity(jwtTokenDto);
       // update the token in the Dio instance
-      dio.interceptors.add(
-        InterceptorsWrapper(
-          onRequest: (options, handler) {
-            // Add the access token to the request header
-            options.headers['Authorization'] = 'Bearer ${jwtToken.value}';
-            return handler.next(options);
-          },
-        ),
+      _addDioAuthorizationInterceptor(
+        dioInstance: dio,
+        jwtToken: jwtToken,
       );
+      // save the token to local storage
+      await _saveTokenToLocalStorage(jwtToken: jwtToken);
       // return the domain element
       return Right(jwtToken);
     } on DioException catch (error) {
@@ -105,6 +102,8 @@ class AuthRepositoryImpl extends IAuthRepository {
         dioInstance: dio,
         jwtToken: jwtToken,
       );
+      // save the token to local storage
+      await _saveGuestTokenToLocalStorage(jwtToken: jwtToken);
       // return the domain element
       return Right(jwtToken);
     } on DioException catch (error) {
@@ -128,6 +127,41 @@ class AuthRepositoryImpl extends IAuthRepository {
     return Left(
       ServerError(message: "Server error"),
     );
+  }
+
+  @override
+  Future<Either<BaseAuthError, JwtToken>> loginFromLocalSession() async {
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // get dio variable from getIt to do the request
+    Dio dio = getIt<Dio>();
+    // get the logger instance
+    final logger = getIt<LoggerInstance>().getLogger();
+    // get the local storage instance
+    final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
+    try {
+      // await for the local storage to be ready
+      await localStorage.ready;
+      // verify if a token exists in local storage
+      String token = await localStorage.getItem('token') as String;
+      logger.d('Token in local storage: $token');
+      // create a token instance
+      JwtToken jwtToken = JwtToken(token);
+      // update the jwt token in the Dio instance
+      _addDioAuthorizationInterceptor(
+        dioInstance: dio,
+        jwtToken: jwtToken,
+      );
+      // return the domain element
+      return Right(jwtToken);
+    } catch (error) {
+      // log the error
+      logger.e(error);
+      // return the error
+      return Left(
+        NoLocalToken(message: "No token from local storage"),
+      );
+    }
   }
 
   @override
@@ -172,6 +206,8 @@ class AuthRepositoryImpl extends IAuthRepository {
         dioInstance: dio,
         jwtToken: jwtToken,
       );
+      // save the token to local storage
+      await _saveTokenToLocalStorage(jwtToken: jwtToken);
       // return the domain element
       return Right(jwtToken);
     } on DioException catch (error) {
@@ -201,6 +237,22 @@ class AuthRepositoryImpl extends IAuthRepository {
     );
   }
 
+  @override
+  Future<void> clearLoggingInfo() async {
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // get the logger instance
+    final logger = getIt<LoggerInstance>().getLogger();
+    // get the local storage instance
+    final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
+    // await for the local storage to be ready
+    await localStorage.ready;
+    // clear the local storage
+    await localStorage.clear();
+    // log the local storage
+    logger.d(localStorage);
+  }
+
   void _addDioAuthorizationInterceptor({
     required Dio dioInstance,
     required JwtToken jwtToken,
@@ -214,5 +266,31 @@ class AuthRepositoryImpl extends IAuthRepository {
         },
       ),
     );
+  }
+
+  Future<void> _saveTokenToLocalStorage({
+    required JwtToken jwtToken,
+  }) async {
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // get the local storage instance
+    final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
+    // await for the local storage to be ready
+    await localStorage.ready;
+    // save the token to local storage
+    await localStorage.setItem('token', jwtToken.value);
+  }
+
+  Future<void> _saveGuestTokenToLocalStorage({
+    required JwtToken jwtToken,
+  }) async {
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // get the local storage instance
+    final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
+    // await for the local storage to be ready
+    await localStorage.ready;
+    // save the token to local storage
+    await localStorage.setItem('lastGuestToken', jwtToken.value);
   }
 }

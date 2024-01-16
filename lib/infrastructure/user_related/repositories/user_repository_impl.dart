@@ -81,10 +81,6 @@ class UserRepositoryImpl extends IUserRepository {
       ),
     );
     logger.d('Response from back: ${response.toString()}');
-    logger.d(
-      'Birthdate from back: ${response.data["data"]["birthDate"].runtimeType.toString()}',
-    );
-
     // transforming the request to DTO
     final userDto = UserDto.fromJson(response.data["data"]);
     logger.d('User dto: ${userDto.toString()}');

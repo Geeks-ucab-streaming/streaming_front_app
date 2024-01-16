@@ -7,8 +7,10 @@ import '../value_objects/value_objects.dart';
 abstract class IAuthRepository {
   Future<Either<BaseAuthError, JwtToken>> login(String phone);
   Future<Either<BaseAuthError, JwtToken>> guestLogin();
+  Future<Either<BaseAuthError, JwtToken>> loginFromLocalSession();
   Future<Either<BaseAuthError, JwtToken>> signIn(
     String phone,
     AvailableOperators cellphoneOperator,
   );
+  Future<void> clearLoggingInfo();
 }

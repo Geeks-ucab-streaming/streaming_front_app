@@ -1,9 +1,12 @@
 //import 'package:get_it/get_it.dart'; it will be needed for repositories
+import 'package:get_it/get_it.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:streaming_front_app/application/core/routes/app_router.dart';
 import 'package:streaming_front_app/domain/auth/data_presentation/data_presentation.dart';
 import 'package:streaming_front_app/domain/auth/mappers/mappers.dart';
+import 'package:streaming_front_app/domain/auth/repositories/repositories.dart';
 import 'package:streaming_front_app/domain/user_related/entities/entities.dart';
+import 'package:streaming_front_app/infrastructure/auth/repositories/repositories.dart';
 
 import '../../../domain/auth/entities/entities.dart';
 import '../../../domain/auth/enums/enums.dart';
@@ -15,7 +18,6 @@ part 'auth.g.dart';
 class Auth extends _$Auth {
   @override
   AuthUserState build() {
-    // TODO FIND USER FROM DATABASE
     return AuthUserState(state: AuthStateEnum.unauthenticated);
   }
 
@@ -37,7 +39,12 @@ class Auth extends _$Auth {
 
   void logout() {
     state.logout();
-    // should save changes to DB
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // get the repository
+    final IAuthRepository authRepo = getIt<AuthRepositoryImpl>();
+    // clear the info
+    authRepo.clearLoggingInfo();
     // update router and go to landing page
     ref.read(appRouterProvider.notifier).changeRouterBasedOnLogout();
     ref.read(appRouterProvider).goNamed('landing');
@@ -57,6 +64,4 @@ class Auth extends _$Auth {
       gender: user.getGender(),
     );
   }
-
-  // TODO function to get user from local database through a repository
 }

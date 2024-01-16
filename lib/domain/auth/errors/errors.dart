@@ -22,3 +22,7 @@ class PhoneNotRegistered extends BaseAuthError {
 class ServerError extends BaseAuthError {
   ServerError({required super.message});
 }
+
+class NoLocalToken extends BaseAuthError {
+  NoLocalToken({required super.message});
+}
