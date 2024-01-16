@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'package:get_it/get_it.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:streaming_front_app/infrastructure/core/util/local_storage_instance.dart';
 
 
 class SocketManager {
   IO.Socket? socket;
   final _streamController = StreamController<Uint8List>.broadcast();
-
+  
   // Buffers & Song related
   bool isProcessingQueue = false;
   bool isUpdating=false;
@@ -20,19 +22,32 @@ class SocketManager {
 
   late Completer<void> _socketConnectedCompleter;
 
-  void connectSocket() {
+  void connectSocket() async {
       _socketConnectedCompleter = Completer<void>();
+      String? token = await getToken();
       try {
-        socket = IO.io('http://streaming-api.eastus.azurecontainer.io:3000', <String, dynamic>{
-          'transports': ['websocket'],
-        });
+        socket = IO.io(
+          IO.OptionBuilder()
+          .setTransports(['websocket'])
+          .setAuth({'token': token})
+          .setPath('/socket.io')
+          .build());
         addlisteners();
       } catch (e) {
           print('Error al conectar el socket: $e');
       }
   }
 
-  Future<void> requestSongToServer(String currentSongid, bool preview) async {
+  Future<String?> getToken () async {
+    GetIt getIt = GetIt.I;
+    final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
+    String? token = await localStorage.getItem('token');
+    String? guestToken = await localStorage.getItem('lastGuestToken');
+    // donde tengas que poner el tokem 
+    return (token != null) ? token  : guestToken as String;
+  }
+
+  Future<void> requestSongToServer(String currentSongid) async {
       // Espera a que el socket se conecte
       await _socketConnectedCompleter.future;
 
@@ -41,11 +56,10 @@ class SocketManager {
           try {
               // Envía la solicitud al servidor con los parámetros dados
               socket?.emit('message-from-client', {
-                'preview': preview,
                 'songId': currentSongid,
                 'second': 0,
               });
-              print('Mensaje enviado al servidor con preview: $preview y songId: $currentSongid');
+              print('Mensaje enviado al servidorc con songId: $currentSongid');
           } catch (e) {
               print('Error al enviar el mensaje al servidor: $e');
           }
@@ -112,9 +126,4 @@ class SocketManager {
       print("Feeding fail: $e");
     }
   }
-  void imprimirLista(List<int> lista) {
-  for (int numero in lista) {
-    print(numero);
-  }
-}
 }
