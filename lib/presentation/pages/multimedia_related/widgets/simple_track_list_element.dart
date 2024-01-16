@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:streaming_front_app/application/core/music_player/music_player.dart';
 
-class SimpleTrackListElement extends StatelessWidget {
+class SimpleTrackListElement extends ConsumerWidget {
   const SimpleTrackListElement({super.key,
+  required this.songId,
   required this.songName,
   required this.songDuration, 
   });
 
+  final String songId;
   final String songName;
   final String songDuration;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(musicPlayerProvider.notifier);
+
     return Container(
       decoration: const BoxDecoration(
         color: Color.fromARGB(80, 151, 151, 151),
       ),
       child: ListTile(
-        leading: const Icon(
-          Icons.play_arrow,
-          color: Colors.blueAccent,
+        leading: InkWell(
+          onTap: () async {
+            await ref.read(musicPlayerProvider).setPlaylist(
+              [songId],
+              false,
+            );
+            ref.read(musicPlayerProvider).playSong();
+          },
+          child: const Icon(
+            Icons.play_arrow,
+            color: Colors.blueAccent,
+          ),
         ),
         title: Text(
           songName,

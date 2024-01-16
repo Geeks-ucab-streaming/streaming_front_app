@@ -194,6 +194,7 @@ class AlbumView extends ConsumerWidget {
                           children: [
                              for (var song in value.songs)
                               SimpleTrackListElement(
+                                songId: song.id,
                                 songName: song.name,
                                 songDuration: song.duration,
                               ),
