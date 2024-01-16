@@ -68,9 +68,6 @@ class ArtistView extends ConsumerWidget {
                       backgroundColor: Colors.transparent,
                       appBar: AppBar(
                         backgroundColor: Colors.transparent,
-                        leading: const BackButton(
-                          color: Colors.white,
-                        ),
                       ),
                     ),
                   ),
