@@ -33,6 +33,7 @@ class ComplexTrackListElement extends ConsumerWidget {
       ),
       margin: const EdgeInsets.symmetric(vertical: 5),
       height: 70,
+      width: MediaQuery.of(context).size.width - 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -62,7 +63,7 @@ class ComplexTrackListElement extends ConsumerWidget {
                 width: 20,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: MediaQuery.of(context).size.width * 0.3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,

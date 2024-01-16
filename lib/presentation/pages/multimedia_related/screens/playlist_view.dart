@@ -30,32 +30,32 @@ class PlaylistView extends ConsumerWidget {
 
     final widgetBody = switch (playlistInfo) {
       AsyncData(:final value) => Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          children: [
-            const DefaultBackground(),
-            Container(
-              height: MediaQuery.of(context).size.height / 2,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                      Color.fromARGB(1, 42, 25, 94),
-                      Color.fromARGB(1, 13, 7, 27),
-                      Color.fromARGB(1, 42, 25, 94),
-                  ],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                ),
-              ),
-            ),
-            Positioned.fill(
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: RadialGradient(
-                      center: Alignment.topRight,
-                      radius: 1.5,
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                const DefaultBackground(),
+                Container(
+                  height: MediaQuery.of(context).size.height / 2,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
                       colors: [
+                        Color.fromARGB(1, 42, 25, 94),
+                        Color.fromARGB(1, 13, 7, 27),
+                        Color.fromARGB(1, 42, 25, 94),
+                      ],
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: RadialGradient(
+                        center: Alignment.topRight,
+                        radius: 1.5,
+                        colors: [
                           Color.fromARGB(
                             180,
                             63,
@@ -65,84 +65,83 @@ class PlaylistView extends ConsumerWidget {
                           Colors.transparent, // Transición a transparente
                         ],
                       ),
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  AppBar(
-                    backgroundColor: Colors.transparent,
-                    leading: const BackButton(
-                      color: Colors.white,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 20, right: 20),
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        height: MediaQuery.of(context).size.width * 0.5,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black45,
-                              blurRadius: 10,
-                              spreadRadius: 0,
-                              offset: Offset(0, 5),
+                ),
+                SingleChildScrollView(
+                  child: Column(children: <Widget>[
+                    AppBar(
+                      backgroundColor: Colors.transparent,
+                      leading: const BackButton(
+                        color: Colors.white,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 20, right: 20),
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10.0),
                             ),
-                          ],
-                          image: DecorationImage(
-                            image: Image.memory(
-                              Uint8List.fromList(
-                                value.playlist.image,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black45,
+                                blurRadius: 10,
+                                spreadRadius: 0,
+                                offset: Offset(0, 5),
                               ),
-                              fit: BoxFit.contain,
-                            ).image,
-                            fit: BoxFit.fill,
+                            ],
+                            image: DecorationImage(
+                              image: Image.memory(
+                                Uint8List.fromList(
+                                  value.playlist.image,
+                                ),
+                                fit: BoxFit.contain,
+                              ).image,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                value.playlist.name,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                  color: Colors.white,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  value.playlist.name,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '${value.songs.length.toString()} canciones' ,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white,
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                child: Row(
-                                  children: [
+                                Text(
+                                  '${value.songs.length.toString()} canciones',
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5.0),
+                                  child: Row(children: [
                                     Icon(
                                       size: 15.0,
                                       Icons.access_time_rounded,
@@ -156,43 +155,41 @@ class PlaylistView extends ConsumerWidget {
                                         color: Colors.white,
                                       ),
                                     )
-                                  ]
+                                  ]),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 150.0,
+                      child: PlaylistPlayer(),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          for (var song in value.songs)
+                            SimpleTrackListElement(
+                              songId: song.id,
+                              songName: song.name,
+                              songDuration: song.duration,
+                            ),
+                        ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 150.0,
-                    child: PlaylistPlayer(),
-                  ),
-                  Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: [
-                             for (var song in value.songs)
-                              SimpleTrackListElement(
-                                songId: song.id,
-                                songName: song.name,
-                                songDuration: song.duration,
-                              ),
-                          ],
-                        ),
-                      ),
-                ]
-              ),
+                    ),
+                  ]),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    ),
-    AsyncError(:final Error error) => Scaffold(
+      AsyncError(:final Error error) => Scaffold(
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(

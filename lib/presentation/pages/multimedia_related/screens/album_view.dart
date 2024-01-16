@@ -261,7 +261,6 @@ class AlbumView extends ConsumerWidget {
             ),
           ),
         ),
-
     };
     return widgetBody;
   }
