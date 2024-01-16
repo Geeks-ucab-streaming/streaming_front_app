@@ -25,7 +25,7 @@ class SimpleTrackListElement extends ConsumerWidget {
             width: 0.5,
           ),
         ),
-        color: Color.fromARGB(50, 151, 151, 151),
+        color: Color.fromARGB(30, 151, 151, 151),
       ),
       child: ListTile(
         leading: InkWell(
@@ -46,11 +46,23 @@ class SimpleTrackListElement extends ConsumerWidget {
           style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
         trailing: Text(
-          songDuration,
+          durationFormatted(songDuration),
           style: const TextStyle(
               color: Color.fromARGB(213, 180, 180, 180), fontSize: 18),
         ),
       ),
     );
   }
+}
+
+String durationFormatted(String duration){
+  String formattedDuration = '';
+
+  if (duration.substring(1, 2) == '0') {
+    formattedDuration = duration.substring(3);
+  } else {
+    formattedDuration = duration.substring(1);
+  }
+
+  return formattedDuration;
 }

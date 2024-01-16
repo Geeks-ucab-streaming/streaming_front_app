@@ -22,6 +22,18 @@ class AlbumView extends ConsumerWidget {
     viewportFraction: 0.5,
   );
 
+  String durationMinutesFormatted(String duration){
+    String formattedDuration = '';
+
+    if (duration.substring(3,4)=='0'){
+      formattedDuration = duration.substring(4,5);
+    } else {
+      formattedDuration = duration.substring(3,5);
+    }
+
+    return formattedDuration;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
@@ -37,35 +49,14 @@ class AlbumView extends ConsumerWidget {
             Container(
               height: MediaQuery.of(context).size.height / 2,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: Image.memory(
-                    Uint8List.fromList(
-                      value.album.image,
-                    ),
-                    fit: BoxFit.contain,
-                  ).image,
-                  fit: BoxFit.fill,
-                ),
                 gradient: const LinearGradient(
                   colors: [
-                      Color.fromARGB(255, 42, 25, 94),
-                      Color.fromARGB(255, 13, 7, 27),
-                      Color.fromARGB(255, 42, 25, 94),
+                      Color.fromARGB(1, 42, 25, 94),
+                      Color.fromARGB(1, 13, 7, 27),
+                      Color.fromARGB(1, 42, 25, 94),
                   ],
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                ),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 30),
-                child: Scaffold(
-                  backgroundColor: Colors.transparent,
-                  appBar: AppBar(
-                    backgroundColor: Colors.transparent,
-                    leading: const BackButton(
-                      color: Colors.white,
-                    ),
-                  ),
                 ),
               ),
             ),
@@ -106,8 +97,8 @@ class AlbumView extends ConsumerWidget {
                             Container(
                               margin:
                                   const EdgeInsets.only(left: 20, right: 20),
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: MediaQuery.of(context).size.width * 0.4,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              height: MediaQuery.of(context).size.width * 0.5,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(10.0),
@@ -131,9 +122,9 @@ class AlbumView extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 10, left: 10),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -148,12 +139,10 @@ class AlbumView extends ConsumerWidget {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
                                     Text(
                                       value.album.artist,
-                                      textAlign: TextAlign.left,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -163,19 +152,31 @@ class AlbumView extends ConsumerWidget {
                                       height: 10,
                                     ),
                                     Text(
-                                      value.album.totalSongs,
+                                      '${value.album.totalSongs} ' ,
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
                                       ),
                                     ),
-                                    Text(
-                                      value.album.duration,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.white,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                      child: Row(
+                                          children: [
+                                            Icon(
+                                              size: 15.0,
+                                              Icons.access_time_rounded,
+                                              color: Colors.white,
+                                            ),
+                                            Text(
+                                              ' ${durationMinutesFormatted(value.album.duration)} minutos',
+                                              textAlign: TextAlign.left,
+                                              style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          ]
                                       ),
                                     ),
                                   ],
