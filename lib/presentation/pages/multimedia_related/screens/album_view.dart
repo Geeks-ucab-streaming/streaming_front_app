@@ -22,6 +22,18 @@ class AlbumView extends ConsumerWidget {
     viewportFraction: 0.5,
   );
 
+  String durationMinutesFormatted(String duration){
+    String formattedDuration = '';
+
+    if (duration.substring(3,4)=='0'){
+      formattedDuration = duration.substring(4,5);
+    } else {
+      formattedDuration = duration.substring(3,5);
+    }
+
+    return formattedDuration;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
@@ -29,50 +41,32 @@ class AlbumView extends ConsumerWidget {
 
     final widgetBody = switch (albumInfo) {
       AsyncData(:final value) => Scaffold(
-          body: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Stack(
-              children: [
-                const DefaultBackground(),
-                Container(
-                  height: MediaQuery.of(context).size.height / 2,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: Image.memory(
-                        Uint8List.fromList(
-                          value.album.image,
-                        ),
-                        fit: BoxFit.contain,
-                      ).image,
-                      fit: BoxFit.fill,
-                    ),
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 42, 25, 94),
-                        Color.fromARGB(255, 13, 7, 27),
-                        Color.fromARGB(255, 42, 25, 94),
-                      ],
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                    ),
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 30),
-                    child: Scaffold(
-                      backgroundColor: Colors.transparent,
-                      appBar: AppBar(
-                        backgroundColor: Colors.transparent,
-                      ),
-                    ),
-                  ),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: [
+            const DefaultBackground(),
+            Container(
+              height: MediaQuery.of(context).size.height / 2,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [
+                      Color.fromARGB(1, 42, 25, 94),
+                      Color.fromARGB(1, 13, 7, 27),
+                      Color.fromARGB(1, 42, 25, 94),
+                  ],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
                 ),
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: RadialGradient(
-                        center: Alignment.topRight,
-                        radius: 1.5,
-                        colors: [
+              ),
+            ),
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: RadialGradient(
+                      center: Alignment.topRight,
+                      radius: 1.5,
+                      colors: [
                           Color.fromARGB(
                             180,
                             63,
@@ -82,128 +76,140 @@ class AlbumView extends ConsumerWidget {
                           Colors.transparent, // Transición a transparente
                         ],
                       ),
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  AppBar(
+                    backgroundColor: Colors.transparent,
+                    leading: const BackButton(
+                      color: Colors.white,
                     ),
                   ),
-                ),
-                SingleChildScrollView(
-                  child: Column(children: <Widget>[
-                    AppBar(
-                      backgroundColor: Colors.transparent,
-                      leading: const BackButton(
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.width * 0.8,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 20, right: 20),
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: MediaQuery.of(context).size.width * 0.4,
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10.0),
-                              ),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black45,
-                                  blurRadius: 10,
-                                  spreadRadius: 0,
-                                  offset: Offset(0, 5),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width *0.8,
+                    child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              height: MediaQuery.of(context).size.width * 0.5,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10.0),
                                 ),
-                              ],
-                              image: DecorationImage(
-                                image: Image.memory(
-                                  Uint8List.fromList(
-                                    value.album.image,
-                                  ),
-                                  fit: BoxFit.contain,
-                                ).image,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 10, left: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    value.album.name,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    value.album.artist,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    value.album.totalSongs,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    value.album.duration,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                    ),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black45,
+                                    blurRadius: 10,
+                                    spreadRadius: 0,
+                                    offset: Offset(0, 5),
                                   ),
                                 ],
+                                image: DecorationImage(
+                                  image: Image.memory(
+                                    Uint8List.fromList(
+                                      value.album.image,
+                                    ),
+                                    fit: BoxFit.contain,
+                                  ).image,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          for (var song in value.songs)
-                            SimpleTrackListElement(
-                              songId: song.id,
-                              songName: song.name,
-                              songDuration: song.duration,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      value.album.name,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      value.album.artist,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      '${value.album.totalSongs} ' ,
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                      child: Row(
+                                          children: [
+                                            Icon(
+                                              size: 15.0,
+                                              Icons.access_time_rounded,
+                                              color: Colors.white,
+                                            ),
+                                            Text(
+                                              ' ${durationMinutesFormatted(value.album.duration)} minutos',
+                                              textAlign: TextAlign.left,
+                                              style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          ]
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                        ],
+                          ],
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          children: [
+                             for (var song in value.songs)
+                              SimpleTrackListElement(
+                                songId: song.id,
+                                songName: song.name,
+                                songDuration: song.duration,
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ]),
-                ),
-              ],
+                ]
+              ),
             ),
-          ),
+          ],
         ),
-      AsyncError(:final Error error) => Scaffold(
+      ),
+    ),
+    AsyncError(:final Error error) => Scaffold(
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(

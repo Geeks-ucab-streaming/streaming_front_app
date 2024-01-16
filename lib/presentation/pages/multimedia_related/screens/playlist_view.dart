@@ -148,7 +148,7 @@ class PlaylistView extends ConsumerWidget {
                                       color: Colors.white,
                                     ),
                                     Text(
-                                      ' ${value.playlist.duration.substring(4, 5)} minutos',
+                                      ' ${value.playlist.duration.substring(3,5)} minutos',
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 15,
