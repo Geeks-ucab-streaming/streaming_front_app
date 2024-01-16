@@ -68,17 +68,23 @@ class SocketManager {
       });
       
       socket?.on('message-from-server', (payload) async {
-        // Recibir y procesar el payload 
         if (payload is Map && payload.containsKey('chunk')) {
-          Uint8List chunkData = payload['chunk'] as Uint8List;
-          bufferQueue.add(chunkData);
-        
-          if (!isProcessingQueue) {
-            isProcessingQueue = true;
-            processBuffers();
+          var chunkData = payload['chunk'];
+
+          if (chunkData is Uint8List) {
+            // Si chunkData es de tipo Uint8List, procesa los datos
+            bufferQueue.add(chunkData);
+          
+            if (!isProcessingQueue) {
+              isProcessingQueue = true;
+              processBuffers();
+            }
+          } else {
+            print('El chunk recibido no es de tipo Uint8List o está vacío');
+            // Manejo de casos donde chunkData no es Uint8List o está vacío
           }
         } else {
-          print('Payload error');
+          print('Payload error o falta el campo "chunk"');
         }
       }
     );
