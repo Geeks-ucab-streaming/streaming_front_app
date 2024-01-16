@@ -1,23 +1,29 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:streaming_front_app/application/core/music_player/music_player.dart';
 
-class ComplexTrackListElement extends StatelessWidget {
+class ComplexTrackListElement extends ConsumerWidget {
   const ComplexTrackListElement({
     super.key,
+    required this.songId,
     required this.songImage,
     required this.songName,
     required this.songComposer,
     required this.songDuration,
   });
 
+  final String songId;
   final List<int> songImage;
   final String songName;
   final String songComposer;
   final String songDuration;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(musicPlayerProvider.notifier);
+
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -27,6 +33,7 @@ class ComplexTrackListElement extends StatelessWidget {
       ),
       margin: const EdgeInsets.symmetric(vertical: 5),
       height: 70,
+      width: MediaQuery.of(context).size.width - 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -56,7 +63,7 @@ class ComplexTrackListElement extends StatelessWidget {
                 width: 20,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: MediaQuery.of(context).size.width * 0.3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -98,9 +105,18 @@ class ComplexTrackListElement extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Icon(
-                  Icons.play_arrow,
-                  color: Color.fromARGB(255, 0, 204, 255),
+                InkWell(
+                  onTap: () async {
+                    await ref.read(musicPlayerProvider).setPlaylist(
+                      [songId],
+                      false,
+                    );
+                    ref.read(musicPlayerProvider).playSong();
+                  },
+                  child: const Icon(
+                    Icons.play_arrow,
+                    color: Color.fromARGB(255, 0, 204, 255),
+                  ),
                 ),
                 const SizedBox(
                   width: 10,

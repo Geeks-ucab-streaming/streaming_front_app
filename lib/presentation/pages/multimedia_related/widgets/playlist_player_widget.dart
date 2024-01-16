@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 
-class PlaylistPlayer extends StatefulWidget{
-
+class PlaylistPlayer extends StatefulWidget {
   const PlaylistPlayer({
     Key? key,
   }) : super(key: key);
 
   @override
-  _PlaylistPlayerState createState() => _PlaylistPlayerState();
+  PlaylistPlayerState createState() => PlaylistPlayerState();
 }
 
-class _PlaylistPlayerState extends State<PlaylistPlayer> {
+class PlaylistPlayerState extends State<PlaylistPlayer> {
   bool isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(1, 54, 52, 52),
-      padding: EdgeInsets.all(20),
+      color: const Color.fromARGB(1, 54, 52, 52),
+      padding: const EdgeInsets.all(20),
       child: Row(
         children: [
           Container(
@@ -78,30 +77,11 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
                     },
                   ),
                   const ShuffleButton(),
-                  Container(
-                    height: 30.0,
-                    width: 30.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 3,
-                      ),
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                    child: Text(
-                      '1',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
                   IconButton(
                     icon: Icon(Icons.volume_up_rounded),
                     iconSize: 30,
                     color: Colors.white,
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                   )
                 ],
               ),
@@ -114,7 +94,6 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
 }
 
 class ShuffleButton extends StatefulWidget {
-
   const ShuffleButton({
     Key? key,
   }) : super(key: key);
@@ -129,13 +108,11 @@ class _ShuffleButtonState extends State<ShuffleButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(
-        isShuffle ? Icons.shuffle_on_outlined : Icons.shuffle
-      ),
+      icon: Icon(isShuffle ? Icons.shuffle_on_outlined : Icons.shuffle),
       iconSize: 30,
       color: Colors.white,
       onPressed: () {
-        setState((){
+        setState(() {
           isShuffle = !isShuffle;
         });
       },

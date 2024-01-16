@@ -4,8 +4,12 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../application/auth/states/states.dart';
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
+import '../../../../domain/auth/enums/enums.dart';
+import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -25,8 +29,9 @@ class ArtistView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // provider to listen
+    // providers to watch
     final artistInfo = ref.watch(getArtistInfoProvider(artistId));
+    final authState = ref.watch(authProvider);
 
     final widgetBody = switch (artistInfo) {
       AsyncData(:final value) => Scaffold(
@@ -63,9 +68,6 @@ class ArtistView extends ConsumerWidget {
                       backgroundColor: Colors.transparent,
                       appBar: AppBar(
                         backgroundColor: Colors.transparent,
-                        leading: const BackButton(
-                          color: Colors.white,
-                        ),
                       ),
                     ),
                   ),
@@ -206,19 +208,23 @@ class ArtistView extends ConsumerWidget {
                           items: value.albums.map((album) {
                             return Builder(
                               builder: (BuildContext context) {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      image: DecorationImage(
-                                        image: Image.memory(
-                                          Uint8List.fromList(
-                                            album.image,
-                                          ),
-                                          fit: BoxFit.contain,
-                                        ).image,
-                                        fit: BoxFit.fill,
+                                return GestureDetector(
+                                  onTap: () => context.goNamed('album',
+                                      pathParameters: {'albumId': album.id}),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        image: DecorationImage(
+                                          image: Image.memory(
+                                            Uint8List.fromList(
+                                              album.image,
+                                            ),
+                                            fit: BoxFit.contain,
+                                          ).image,
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -231,12 +237,45 @@ class ArtistView extends ConsumerWidget {
                       const SizedBox(
                         height: 40,
                       ),
+                      switch (authState.state) {
+                        AuthStateEnum.initialize => Container(),
+                        AuthStateEnum.authenticated => Container(),
+                        AuthStateEnum.unauthenticated => InkWell(
+                            onTap: () {
+                              context.push('/sign-in');
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 0,
+                              ),
+                              margin: const EdgeInsets.only(top: 0, bottom: 40),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        HomeRandomSubscriptionGetter
+                                            .getRandomImageAsset(),
+                                      ),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                  height: 120,
+                                ),
+                              ),
+                            ),
+                          ),
+                      },
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: [
                             for (var song in value.songs)
                               ComplexTrackListElement(
+                                songId: song.id,
                                 songName: song.name,
                                 songImage: song.image,
                                 songComposer: song.composer,
@@ -245,6 +284,9 @@ class ArtistView extends ConsumerWidget {
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 40,
+                      ),
                     ],
                   ),
                 ),
@@ -252,7 +294,7 @@ class ArtistView extends ConsumerWidget {
             ),
           ),
         ),
-      AsyncError(:final Error error) => Scaffold(
+      AsyncError(:final error) => Scaffold(
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(

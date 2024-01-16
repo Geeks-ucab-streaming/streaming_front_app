@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../application/auth/states/states.dart';
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
-//import 'package:overlapped_carousel/overlapped_carousel.dart';
+import '../../../../domain/auth/enums/enums.dart';
 import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
@@ -46,26 +47,11 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  void handleClick(int item, BuildContext context) {
-    switch (item) {
-      case 0:
-        context.goNamed('profile');
-        break;
-      case 1:
-        UrlLauncher.launchUrlUtil(
-          Uri.parse('https://aqustico.com/terminos-y-condiciones/'),
-        );
-        break;
-      case 2:
-        context.goNamed('landing');
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
     final homeInfo = ref.watch(getHomeInfoProvider);
+    final authState = ref.watch(authProvider);
 
     final homeBodyWidget = switch (homeInfo) {
       AsyncData(:final value) => Column(
@@ -94,6 +80,36 @@ class HomePage extends ConsumerWidget {
                 ),
               ),
             ),
+            switch (authState.state) {
+              AuthStateEnum.initialize => Container(),
+              AuthStateEnum.authenticated => Container(),
+              AuthStateEnum.unauthenticated => InkWell(
+                  onTap: () {
+                    context.push('/sign-in');
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    margin: const EdgeInsets.only(top: 25, bottom: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              HomeRandomSubscriptionGetter
+                                  .getRandomImageAsset(),
+                            ),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        height: 120,
+                      ),
+                    ),
+                  ),
+                ),
+            },
             nameRow('Playlist'),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -110,7 +126,7 @@ class HomePage extends ConsumerWidget {
                   for (var playlist in value.playlists)
                     GestureDetector(
                       onTap: () => context.goNamed('playlist',
-                          pathParameters: {'playlistId': playlist.id}), 
+                          pathParameters: {'playlistId': playlist.id}),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
@@ -130,7 +146,7 @@ class HomePage extends ConsumerWidget {
               ),
             ),
             nameRow('Aqustico Experience'),
-            Container(
+            SizedBox(
               child: CarouselSlider(
                 options: CarouselOptions(
                   height: 200,
@@ -149,8 +165,8 @@ class HomePage extends ConsumerWidget {
                   return Builder(
                     builder: (BuildContext context) {
                       return GestureDetector(
-                         onTap: () => context.goNamed('album',
-                          pathParameters: {'albumId': album.id}), 
+                        onTap: () => context.goNamed('album',
+                            pathParameters: {'albumId': album.id}),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Container(
@@ -174,46 +190,6 @@ class HomePage extends ConsumerWidget {
                 }).toList(),
               ),
             ),
-            /*
-            ////////////////////// NEW CAROUSEL TEST ///////////////////////////
-          SizedBox(
-            height: 200,
-            child: OverlappedCarousel(
-              widgets: value.albums.map((album) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          image: DecorationImage(
-                            image: Image.memory(
-                              Uint8List.fromList(
-                                album.image,
-                              ),
-                              fit: BoxFit.contain,
-                            ).image,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        height: 300,
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-              //List of widgets
-              currentIndex: 2,
-              onClicked: (index) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("You clicked at $index"),
-                  ),
-                );
-              },
-            ),
-          ),*/
             nameRow('Artistas Trending'),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -223,8 +199,10 @@ class HomePage extends ConsumerWidget {
                 children: [
                   for (var artist in value.artists)
                     InkWell(
-                      onTap: () => context.goNamed('artist',
-                          pathParameters: {'artistId': artist.id}),
+                      onTap: () => context.goNamed(
+                        'artist',
+                        pathParameters: {'artistId': artist.id},
+                      ),
                       child: ArtistCoverWidget(
                         artistImage: artist.image,
                         artistName: artist.name,
@@ -242,6 +220,7 @@ class HomePage extends ConsumerWidget {
                 children: [
                   for (var song in value.trackList)
                     ComplexTrackListElement(
+                      songId: song.id,
                       songName: song.name,
                       songImage: song.image,
                       songComposer: song.composer,
@@ -257,7 +236,7 @@ class HomePage extends ConsumerWidget {
             ),
           ],
         ),
-      AsyncError(:final Error error) => ErrorImage(
+      AsyncError(:final error) => ErrorImage(
           error: error,
         ),
       _ => const Loading()
@@ -276,9 +255,7 @@ class HomePage extends ConsumerWidget {
                 children: [
                   AppBar(
                     backgroundColor: Colors.transparent,
-                    leading: const BackButton(
-                      color: Colors.white,
-                    ),
+                    iconTheme: const IconThemeData(color: Colors.white),
                     actions: [
                       IconButton(
                         icon: const Icon(Icons.search),
@@ -288,7 +265,11 @@ class HomePage extends ConsumerWidget {
                         },
                       ),
                       PopupMenuButton<int>(
-                        onSelected: (item) => handleClick(item, context),
+                        onSelected: (item) =>
+                            ThreeDotsMenuGetter.getMenuHandler(ref: ref)(
+                          context: context,
+                          item: item,
+                        ),
                         child: const Padding(
                           padding: EdgeInsets.only(right: 20),
                           child: Icon(
@@ -296,20 +277,8 @@ class HomePage extends ConsumerWidget {
                             color: Colors.white,
                           ),
                         ),
-                        itemBuilder: (context) => [
-                          const PopupMenuItem<int>(
-                            value: 0,
-                            child: Text('Perfil'),
-                          ),
-                          const PopupMenuItem<int>(
-                            value: 1,
-                            child: Text('Términos y condiciones'),
-                          ),
-                          const PopupMenuItem<int>(
-                            value: 2,
-                            child: Text('Cerrar Sesión'),
-                          ),
-                        ],
+                        itemBuilder: (context) =>
+                            ThreeDotsMenuGetter.getMenu(ref: ref),
                       ),
                     ],
                   ),

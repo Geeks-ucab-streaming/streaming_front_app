@@ -1,34 +1,52 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ProfilePage extends StatefulWidget {
+import '../../../../application/auth/states/states.dart';
+import '../../../../application/user_related/use_cases/uses_cases.dart';
+import '../../../../domain/auth/data_presentation/data_presentation.dart';
+import '../../../../domain/enums/enums.dart';
+import '../../../../infrastructure/core/util/util.dart';
+import '../../core/widgets/widgets.dart';
+
+class ProfilePage extends StatefulHookConsumerWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  bool _edit = false;
-
-  String nameAndLastName = '';
-  String email = '';
-  DateTime? dateOfBirth;
-  String gender = '';
+class _ProfilePageState extends ConsumerState<ProfilePage> {
+  // form key
   final _formKey = GlobalKey<FormState>();
-  DateTime selectedDate = DateTime.now();
+  // is editable
+  bool _edit = false;
+  // local variables
+  DateTime? _selectedDate;
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
+  Future<void> _selectDate(
+    BuildContext context,
+    TextEditingController dateOfBirthController,
+  ) async {
+    // get today date
+    DateTime todayDate = DateTime.now();
+    // get the date from user
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900, 1),
+      lastDate: DateTime(2101),
+    );
+    // update the date
+    if (pickedDate != null &&
+        pickedDate != _selectedDate &&
+        todayDate.isAfter(pickedDate)) {
       setState(() {
-        selectedDate = picked;
+        _selectedDate = pickedDate;
       });
+      dateOfBirthController.text = DateFormatter.formatDate(pickedDate);
     }
   }
 
@@ -38,8 +56,90 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  void handleClick({
+    required String? name,
+    required String? email,
+    required DateTime? birthdate,
+    required String? gender,
+  }) async {
+    // call the option from the provider
+    await ref.read(modifyUserInfoProvider.notifier).modifyUserInfo(
+          name: name,
+          email: email,
+          birthdate: birthdate,
+          gender: gender,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
+    // get the user
+    final authState = ref.watch(authProvider.notifier);
+    final updateState = ref.watch(modifyUserInfoProvider);
+    UserPresentation userInfo = authState.getUserInfoToShow();
+    // controllers from react hooks
+    print('Gender: ' + userInfo.gender);
+    final nameController = useTextEditingController(text: userInfo.name);
+    final emailController = useTextEditingController(text: userInfo.email);
+    final dateOfBirthController = useTextEditingController(
+      text: userInfo.birthday,
+    );
+    final genderController = useTextEditingController(text: userInfo.gender);
+
+    var genderSelector = SizedBox(
+      child: Theme(
+        data: Theme.of(context).copyWith(disabledColor: Colors.white),
+        child: DropdownButtonFormField(
+          //value: genderController.text,
+          value:
+              (genderController.text == '') ? 'Empty' : genderController.text,
+          style: const TextStyle(color: Colors.white),
+          dropdownColor: const Color.fromARGB(
+            255,
+            13,
+            7,
+            27,
+          ),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: const Color.fromARGB(
+              255,
+              75,
+              56,
+              109,
+            ),
+            border: UnderlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            labelText: '',
+          ),
+          icon: const Icon(
+            Icons.arrow_drop_down,
+            color: Colors.white,
+          ),
+          items: const [
+            DropdownMenuItem(
+              value: 'F',
+              child: Text('F'),
+            ),
+            DropdownMenuItem(
+              value: 'M',
+              child: Text('M'),
+            ),
+            DropdownMenuItem(
+              value: 'Empty',
+              child: Text('Empty'),
+            ),
+          ],
+          onChanged: (String? value) {
+            if (_edit && value != 'Empty') {
+              genderController.text = value as String;
+            }
+          },
+        ),
+      ),
+    );
+
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Stack(
@@ -50,16 +150,21 @@ class _ProfilePageState extends State<ProfilePage> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
-              leading: const BackButton(
+              leading: BackButton(
                 color: Colors.white,
+                onPressed: () {
+                  setState(() {
+                    _edit = false;
+                  });
+                  context.pop();
+                  ref.read(modifyUserInfoProvider.notifier).resetState();
+                },
               ),
               actions: [
                 IconButton(
                   icon: const Icon(Icons.more_vert),
                   color: Colors.white,
-                  onPressed: () {
-                    setState(() {});
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),
@@ -67,12 +172,12 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     child: Form(
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             height: 100,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,10 +186,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   'Perfil',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 30),
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                  ),
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.edit_square),
+                                  icon: (_edit)
+                                      ? const Icon(Icons.edit_square)
+                                      : const Icon(Icons.edit),
                                   color: Colors.white,
                                   onPressed: () {
                                     setState(() {
@@ -110,19 +219,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: Colors.white, fontSize: 18),
                                   ),
                                 ),
-                                TextFormField(
-                                  enabled: _edit,
-                                  style: const TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor:
-                                        Color.fromARGB(80, 151, 151, 151),
-                                    border: UnderlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0)),
-                                    labelText: '',
-                                  ),
-                                ),
+                                CustomTextFormField(
+                                  hintText: 'Your name is empty',
+                                  controller: nameController,
+                                  isEnable: _edit,
+                                )
                               ],
                             ),
                           ),
@@ -141,18 +242,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: Colors.white, fontSize: 18),
                                   ),
                                 ),
-                                TextFormField(
-                                  enabled: _edit,
-                                  style: const TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor:
-                                        const Color.fromARGB(80, 151, 151, 151),
-                                    border: UnderlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0)),
-                                    labelText: '',
-                                  ),
+                                CustomTextFormField(
+                                  hintText: 'Your email is empty',
+                                  controller: emailController,
+                                  isEnable: _edit,
                                 ),
                               ],
                             ),
@@ -181,33 +274,23 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   fontSize: 18),
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             child: Row(
                                               children: [
                                                 Expanded(
-                                                  child: TextFormField(
-                                                    enabled: _edit,
-                                                    style: const TextStyle(
-                                                        color: Colors.white),
-                                                    decoration: InputDecoration(
-                                                      filled: true,
-                                                      fillColor:
-                                                          const Color.fromARGB(
-                                                              80,
-                                                              151,
-                                                              151,
-                                                              151),
-                                                      border:
-                                                          UnderlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15.0)),
-                                                      labelText: '',
-                                                    ),
-                                                    readOnly: true,
-                                                    onTap: () async {
-                                                      _selectDate(context);
+                                                  child: CustomTextFormField(
+                                                    hintText: 'Empty',
+                                                    controller:
+                                                        dateOfBirthController,
+                                                    iconSuffixData:
+                                                        Icons.arrow_drop_down,
+                                                    isEnable: _edit,
+                                                    isReadOnly: true,
+                                                    actionToDo: () async {
+                                                      _selectDate(
+                                                        context,
+                                                        dateOfBirthController,
+                                                      );
                                                     },
                                                   ),
                                                 ),
@@ -228,51 +311,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                           margin:
                                               const EdgeInsets.only(bottom: 10),
                                           child: const Text(
-                                            'Genero',
+                                            'Género',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18),
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                            ),
                                           ),
                                         ),
-                                        Container(
-                                          child: DropdownButtonFormField(
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                            dropdownColor: const Color.fromARGB(
-                                                255, 13, 7, 27),
-                                            decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: const Color.fromARGB(
-                                                  80, 151, 151, 151),
-                                              border: UnderlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15.0)),
-                                              labelText: '',
-                                            ),
-                                            icon: const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.white,
-                                            ),
-                                            items: const [
-                                              DropdownMenuItem(
-                                                value: 'Femenino',
-                                                child: Text('F'),
-                                              ),
-                                              DropdownMenuItem(
-                                                value: 'Masculino',
-                                                child: Text('M'),
-                                              ),
-                                              DropdownMenuItem(
-                                                value: 'Otro',
-                                                child: Text('O'),
-                                              ),
-                                            ],
-                                            onChanged:
-                                                (_edit) ? (value) => {} : null,
-                                          ),
-                                        )
+                                        genderSelector
                                       ],
                                     ),
                                   )
@@ -282,11 +329,32 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  if (_edit)
+                  if (_edit) ...[
+                    if (updateState == UserModifyEnum.error) ...[
+                      const SizedBox(height: 25),
+                      const ErrorInputMessage(
+                        message: 'No se pudo actualizar los datos',
+                        iconData: Icons.error,
+                      ),
+                    ],
+                    if (updateState == UserModifyEnum.pass) ...[
+                      const SizedBox(height: 25),
+                      const SuccessMessage(
+                        message: 'Datos actualizados',
+                        iconData: Icons.check_box,
+                      ),
+                    ],
                     Container(
                       margin: const EdgeInsets.only(top: 40),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          handleClick(
+                            name: nameController.text,
+                            email: emailController.text,
+                            birthdate: _selectedDate,
+                            gender: genderController.text,
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50),
                           backgroundColor: Colors.lightBlueAccent,
@@ -306,6 +374,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
+                  ],
                   if (!_edit)
                     Expanded(
                       child: Column(
@@ -328,8 +397,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               text: TextSpan(
                                 text: 'Haz Click Aquí',
                                 style: const TextStyle(
-                                    color: Colors.lightBlueAccent,
-                                    fontSize: 16),
+                                  color: Colors.lightBlueAccent,
+                                  fontSize: 16,
+                                ),
                                 //style: linkStyle,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {

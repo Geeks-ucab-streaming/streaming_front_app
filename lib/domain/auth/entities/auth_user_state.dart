@@ -1,6 +1,6 @@
+import '../../user_related/entities/entities.dart';
 import '../enums/enums.dart';
 import '../value_objects/value_objects.dart';
-import 'entities.dart';
 
 class AuthUserState {
   AuthUserState({
@@ -47,6 +47,39 @@ class AuthUserState {
     this.user = user;
     userToken = jwtToken;
     state = AuthStateEnum.authenticated;
+  }
+
+  void loginGuest({
+    required JwtToken jwtToken,
+  }) {
+    userToken = jwtToken;
+    state = AuthStateEnum.unauthenticated;
+  }
+
+  void logout() {
+    user = null;
+    userToken = null;
+    state = AuthStateEnum.unauthenticated;
+  }
+
+  void updateUserInfo({
+    String? name,
+    String? email,
+    DateTime? birthdate,
+    String? gender,
+  }) {
+    if (name != null) {
+      user?.setName(name);
+    }
+    if (email != null) {
+      user?.setEmail(email);
+    }
+    if (birthdate != null) {
+      user?.setBirthdate(birthdate);
+    }
+    if (gender != null) {
+      user?.setGender(gender);
+    }
   }
 
   // overrides
