@@ -3,6 +3,10 @@ abstract class BaseAuthError {
   String message;
 }
 
+class Unauthorized extends BaseAuthError {
+  Unauthorized({required super.message});
+}
+
 class PhoneNotValidForSignIn extends BaseAuthError {
   PhoneNotValidForSignIn({required super.message});
 }
