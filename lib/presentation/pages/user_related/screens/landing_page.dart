@@ -50,7 +50,7 @@ class LandingPage extends ConsumerWidget {
           ),
         ),
       AsyncError(:final error) => SizedBox(
-          height: 400,
+          height: 350,
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: EdgeInsets.all(
@@ -60,7 +60,7 @@ class LandingPage extends ConsumerWidget {
           ),
         ),
       _ => SizedBox(
-          height: 400,
+          height: 350,
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: EdgeInsets.all(
