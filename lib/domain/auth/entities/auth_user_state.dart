@@ -53,7 +53,7 @@ class AuthUserState {
     required JwtToken jwtToken,
   }) {
     userToken = jwtToken;
-    state = AuthStateEnum.authenticated;
+    state = AuthStateEnum.unauthenticated;
   }
 
   void logout() {

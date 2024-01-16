@@ -3,8 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/widgets/widgets.dart';
+
+import '../../../../application/auth/use_cases/use_cases.dart';
 import '../../../../application/core/use_cases/use_cases.dart';
+import '../../core/widgets/widgets.dart';
 
 class LandingPage extends ConsumerWidget {
   const LandingPage({super.key});
@@ -13,6 +15,13 @@ class LandingPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // provider to listen
     final advertisement = ref.watch(getRandomAdvertisementProvider);
+    // login state
+    ref.watch(loginHelperProvider);
+
+    void handleLoginGuest() async {
+      // login state
+      await ref.read(loginHelperProvider.notifier).loginGuest();
+    }
 
     final advertisementWidget = switch (advertisement) {
       AsyncData(:final value) => ShaderMask(
@@ -118,7 +127,7 @@ class LandingPage extends ConsumerWidget {
                                   text: 'Invitado',
                                   color: Colors.lightBlueAccent,
                                   onTap: () {
-                                    context.go('/home');
+                                    handleLoginGuest();
                                   }),
                             ],
                           ),

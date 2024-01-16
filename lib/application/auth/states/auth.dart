@@ -32,7 +32,7 @@ class Auth extends _$Auth {
   void loginGuest({
     required JwtToken jwtToken,
   }) {
-    loginGuest(jwtToken: jwtToken);
+    state.loginGuest(jwtToken: jwtToken);
   }
 
   void logout() {

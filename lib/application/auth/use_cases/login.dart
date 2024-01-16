@@ -9,7 +9,7 @@ import '../../../domain/auth/value_objects/value_objects.dart';
 import '../../../domain/user_related/entities/entities.dart';
 import '../../../domain/user_related/repositories/i_repositories.dart';
 import '../../../infrastructure/auth/repositories/repositories.dart';
-//import '../../../infrastructure/core/util/util.dart';
+import '../../../infrastructure/core/util/util.dart';
 import '../../../infrastructure/user_related/repositories/repositories.dart';
 import '../../core/routes/app_router.dart';
 import '../states/states.dart';
@@ -51,6 +51,38 @@ class LoginHelper extends _$LoginHelper {
         state = LoginStateEnum.pass;
         // everything good so change page
         ref.read(appRouterProvider.notifier).changeRouterBasedOnLogin();
+        ref.read(appRouterProvider).goNamed('home');
+      },
+    );
+  }
+
+  Future<void> loginGuest() async {
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // get the repository
+    final IAuthRepository authRepo = getIt<AuthRepositoryImpl>();
+    // get the logger instance
+    final logger = getIt<LoggerInstance>().getLogger();
+    // get the random advertisement
+    final Either<BaseAuthError, JwtToken> loginResponse =
+        await authRepo.guestLogin();
+    // fold the response to see the response
+    await loginResponse.fold(
+      (error) async {
+        // print the error
+        logger.e(error);
+        // return error
+        if (error is ServerError) {
+          state = LoginStateEnum.error;
+        }
+      },
+      (jwtToken) async {
+        // print the token
+        logger.d(jwtToken);
+        // update the state of the auth provider
+        ref.read(authProvider.notifier).loginGuest(jwtToken: jwtToken);
+        state = LoginStateEnum.pass;
+        // everything good so change page
         ref.read(appRouterProvider).goNamed('home');
       },
     );
