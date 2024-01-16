@@ -146,7 +146,7 @@ class HomePage extends ConsumerWidget {
               ),
             ),
             nameRow('Aqustico Experience'),
-            Container(
+            SizedBox(
               child: CarouselSlider(
                 options: CarouselOptions(
                   height: 200,

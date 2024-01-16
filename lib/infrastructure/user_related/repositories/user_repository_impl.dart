@@ -80,15 +80,14 @@ class UserRepositoryImpl extends IUserRepository {
         headers: {"Authorization": "Bearer ${token.value}"},
       ),
     );
-    logger.d('Response from back: ' + response.toString());
+    logger.d('Response from back: ${response.toString()}');
     logger.d(
-      'Birthdate from back: ' +
-          response.data["data"]["birthDate"].runtimeType.toString(),
+      'Birthdate from back: ${response.data["data"]["birthDate"].runtimeType.toString()}',
     );
 
     // transforming the request to DTO
     final userDto = UserDto.fromJson(response.data["data"]);
-    logger.d('User dto: ' + userDto.toString());
+    logger.d('User dto: ${userDto.toString()}');
     // return entity element from DTO
     return UserMapper.fromRemoteToEntity(userDto);
   }

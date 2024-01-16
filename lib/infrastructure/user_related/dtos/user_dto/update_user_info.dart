@@ -10,6 +10,7 @@ class UpdateUserInfoDto with _$UpdateUserInfoDto {
   const factory UpdateUserInfoDto({
     String? name,
     String? email,
+    // ignore: non_constant_identifier_names
     String? birth_date,
     String? gender,
   }) = _UpdateUserInfoDto;
