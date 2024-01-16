@@ -11,7 +11,7 @@ part 'search_dto.g.dart';
 class SearchDto with _$SearchDto {
   const factory SearchDto({
     required List<SearchSongDto> songs,
-    required List<SearchArtistDto> artist,
+    required List<SearchArtistDto> artists,
     required List<SearchPlaylistDto> playlists,
     required List<SearchAlbumDto> albums,
   }) = _SearchDto;

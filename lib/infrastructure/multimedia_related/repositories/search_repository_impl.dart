@@ -21,14 +21,16 @@ class SearchRepositoryImpl extends ISearchRepository {
     try {
       // make the request api/search/info?limit=20&offset=1
       final response = await dio.get(
-        '/api/search/info/$query',
+        '/search/$query',
+        /*
         queryParameters: {
           'limit': 10,
           'offset': 1,
         },
+        */
       );
       // print info
-      logger.i(response.data.toString());
+      logger.d('Response from back: ${response.data["data"]}');
       // transforming the request to DTO
       final SearchDto searchDto = SearchDto.fromJson(response.data["data"]);
       // print to log to verify

@@ -21,7 +21,7 @@ SearchDto _$SearchDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SearchDto {
   List<SearchSongDto> get songs => throw _privateConstructorUsedError;
-  List<SearchArtistDto> get artist => throw _privateConstructorUsedError;
+  List<SearchArtistDto> get artists => throw _privateConstructorUsedError;
   List<SearchPlaylistDto> get playlists => throw _privateConstructorUsedError;
   List<SearchAlbumDto> get albums => throw _privateConstructorUsedError;
 
@@ -38,7 +38,7 @@ abstract class $SearchDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {List<SearchSongDto> songs,
-      List<SearchArtistDto> artist,
+      List<SearchArtistDto> artists,
       List<SearchPlaylistDto> playlists,
       List<SearchAlbumDto> albums});
 }
@@ -57,7 +57,7 @@ class _$SearchDtoCopyWithImpl<$Res, $Val extends SearchDto>
   @override
   $Res call({
     Object? songs = null,
-    Object? artist = null,
+    Object? artists = null,
     Object? playlists = null,
     Object? albums = null,
   }) {
@@ -66,9 +66,9 @@ class _$SearchDtoCopyWithImpl<$Res, $Val extends SearchDto>
           ? _value.songs
           : songs // ignore: cast_nullable_to_non_nullable
               as List<SearchSongDto>,
-      artist: null == artist
-          ? _value.artist
-          : artist // ignore: cast_nullable_to_non_nullable
+      artists: null == artists
+          ? _value.artists
+          : artists // ignore: cast_nullable_to_non_nullable
               as List<SearchArtistDto>,
       playlists: null == playlists
           ? _value.playlists
@@ -92,7 +92,7 @@ abstract class _$$SearchDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<SearchSongDto> songs,
-      List<SearchArtistDto> artist,
+      List<SearchArtistDto> artists,
       List<SearchPlaylistDto> playlists,
       List<SearchAlbumDto> albums});
 }
@@ -109,7 +109,7 @@ class __$$SearchDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? songs = null,
-    Object? artist = null,
+    Object? artists = null,
     Object? playlists = null,
     Object? albums = null,
   }) {
@@ -118,9 +118,9 @@ class __$$SearchDtoImplCopyWithImpl<$Res>
           ? _value._songs
           : songs // ignore: cast_nullable_to_non_nullable
               as List<SearchSongDto>,
-      artist: null == artist
-          ? _value._artist
-          : artist // ignore: cast_nullable_to_non_nullable
+      artists: null == artists
+          ? _value._artists
+          : artists // ignore: cast_nullable_to_non_nullable
               as List<SearchArtistDto>,
       playlists: null == playlists
           ? _value._playlists
@@ -139,11 +139,11 @@ class __$$SearchDtoImplCopyWithImpl<$Res>
 class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
   const _$SearchDtoImpl(
       {required final List<SearchSongDto> songs,
-      required final List<SearchArtistDto> artist,
+      required final List<SearchArtistDto> artists,
       required final List<SearchPlaylistDto> playlists,
       required final List<SearchAlbumDto> albums})
       : _songs = songs,
-        _artist = artist,
+        _artists = artists,
         _playlists = playlists,
         _albums = albums;
 
@@ -158,12 +158,12 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
     return EqualUnmodifiableListView(_songs);
   }
 
-  final List<SearchArtistDto> _artist;
+  final List<SearchArtistDto> _artists;
   @override
-  List<SearchArtistDto> get artist {
-    if (_artist is EqualUnmodifiableListView) return _artist;
+  List<SearchArtistDto> get artists {
+    if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_artist);
+    return EqualUnmodifiableListView(_artists);
   }
 
   final List<SearchPlaylistDto> _playlists;
@@ -184,7 +184,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchDto(songs: $songs, artist: $artist, playlists: $playlists, albums: $albums)';
+    return 'SearchDto(songs: $songs, artists: $artists, playlists: $playlists, albums: $albums)';
   }
 
   @override
@@ -193,7 +193,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
     properties
       ..add(DiagnosticsProperty('type', 'SearchDto'))
       ..add(DiagnosticsProperty('songs', songs))
-      ..add(DiagnosticsProperty('artist', artist))
+      ..add(DiagnosticsProperty('artists', artists))
       ..add(DiagnosticsProperty('playlists', playlists))
       ..add(DiagnosticsProperty('albums', albums));
   }
@@ -204,7 +204,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
         (other.runtimeType == runtimeType &&
             other is _$SearchDtoImpl &&
             const DeepCollectionEquality().equals(other._songs, _songs) &&
-            const DeepCollectionEquality().equals(other._artist, _artist) &&
+            const DeepCollectionEquality().equals(other._artists, _artists) &&
             const DeepCollectionEquality()
                 .equals(other._playlists, _playlists) &&
             const DeepCollectionEquality().equals(other._albums, _albums));
@@ -215,7 +215,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_songs),
-      const DeepCollectionEquality().hash(_artist),
+      const DeepCollectionEquality().hash(_artists),
       const DeepCollectionEquality().hash(_playlists),
       const DeepCollectionEquality().hash(_albums));
 
@@ -236,7 +236,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
 abstract class _SearchDto implements SearchDto {
   const factory _SearchDto(
       {required final List<SearchSongDto> songs,
-      required final List<SearchArtistDto> artist,
+      required final List<SearchArtistDto> artists,
       required final List<SearchPlaylistDto> playlists,
       required final List<SearchAlbumDto> albums}) = _$SearchDtoImpl;
 
@@ -246,7 +246,7 @@ abstract class _SearchDto implements SearchDto {
   @override
   List<SearchSongDto> get songs;
   @override
-  List<SearchArtistDto> get artist;
+  List<SearchArtistDto> get artists;
   @override
   List<SearchPlaylistDto> get playlists;
   @override

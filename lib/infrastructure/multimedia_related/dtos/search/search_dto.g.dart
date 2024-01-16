@@ -11,7 +11,7 @@ _$SearchDtoImpl _$$SearchDtoImplFromJson(Map<String, dynamic> json) =>
       songs: (json['songs'] as List<dynamic>)
           .map((e) => SearchSongDto.fromJson(e as Map<String, dynamic>))
           .toList(),
-      artist: (json['artist'] as List<dynamic>)
+      artists: (json['artists'] as List<dynamic>)
           .map((e) => SearchArtistDto.fromJson(e as Map<String, dynamic>))
           .toList(),
       playlists: (json['playlists'] as List<dynamic>)
@@ -25,7 +25,7 @@ _$SearchDtoImpl _$$SearchDtoImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$SearchDtoImplToJson(_$SearchDtoImpl instance) =>
     <String, dynamic>{
       'songs': instance.songs,
-      'artist': instance.artist,
+      'artists': instance.artists,
       'playlists': instance.playlists,
       'albums': instance.albums,
     };

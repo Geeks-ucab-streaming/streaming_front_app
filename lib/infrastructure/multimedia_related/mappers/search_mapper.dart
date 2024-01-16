@@ -17,7 +17,7 @@ class SearchMapper {
                 ),
               ))
           .toList(),
-      artists: searchDto.artist.map(
+      artists: searchDto.artists.map(
         (artist) {
           return Artist(
             id: ArtistId(artist.id),
