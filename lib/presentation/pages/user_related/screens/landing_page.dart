@@ -46,7 +46,7 @@ class LandingPage extends ConsumerWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            height: 400,
+            height: 350,
           ),
         ),
       AsyncError(:final error) => SizedBox(
@@ -73,78 +73,83 @@ class LandingPage extends ConsumerWidget {
     };
 
     return Scaffold(
-      body: Stack(
-        children: [
-          const DefaultBackground(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              advertisementWidget,
-              Expanded(
-                child: Container(
-                  //decoration: const BoxDecoration(
-                  //color: Color.fromARGB(255, 42, 25, 94)),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
-                  child: IntrinsicWidth(
-                    child: Column(
-                      children: [
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: GenericText(
-                            text:
-                                'Te brindamos la experiencia de estar en Aqustico 7 días gratis.',
-                            fontSize: 18,
-                            isBold: true,
-                          ),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: [
+            const DefaultBackground(),
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  advertisementWidget,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.55,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 30),
+                      child: IntrinsicWidth(
+                        child: Column(
+                          children: [
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: GenericText(
+                                text:
+                                    'Te brindamos la experiencia de estar en Aqustico 7 días gratis.',
+                                fontSize: 18,
+                                isBold: true,
+                              ),
+                            ),
+                            const SizedBox(height: 30),
+                            createButton(
+                              actionToDo: () => context.go('/sign-in'),
+                              buttonText: 'REGISTRATE AQUI',
+                            ),
+                            const SizedBox(height: 30),
+                            RichText(
+                              text: TextSpan(
+                                children: <TextSpan>[
+                                  GenericText(text: '¿Tienes una cuenta?'),
+                                  GenericText(
+                                      text: ' Inicia sesión',
+                                      color: Colors.lightBlueAccent,
+                                      onTap: () {
+                                        context.go('/sign-in');
+                                      })
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            RichText(
+                              text: TextSpan(
+                                //style: defaultStyle,
+                                children: <TextSpan>[
+                                  GenericText(text: 'O ingresa como '),
+                                  GenericText(
+                                      text: 'Invitado',
+                                      color: Colors.lightBlueAccent,
+                                      onTap: () {
+                                        handleLoginGuest();
+                                      }),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 50),
+                            const Image(
+                              height: 130,
+                              image: AssetImage('assets/images/conectium.png'),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 30),
-                        createButton(
-                          actionToDo: () => context.go('/sign-in'),
-                          buttonText: 'REGISTRATE AQUI',
-                        ),
-                        const SizedBox(height: 30),
-                        RichText(
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              GenericText(text: '¿Tienes una cuenta?'),
-                              GenericText(
-                                  text: ' Inicia sesión',
-                                  color: Colors.lightBlueAccent,
-                                  onTap: () {
-                                    context.go('/login');
-                                  })
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        RichText(
-                          text: TextSpan(
-                            //style: defaultStyle,
-                            children: <TextSpan>[
-                              GenericText(text: 'O ingresa como '),
-                              GenericText(
-                                  text: 'Invitado',
-                                  color: Colors.lightBlueAccent,
-                                  onTap: () {
-                                    handleLoginGuest();
-                                  }),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 50),
-                        const Image(
-                          height: 130,
-                          image: AssetImage('assets/images/conectium.png'),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
