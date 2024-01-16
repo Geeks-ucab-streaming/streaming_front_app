@@ -1,29 +1,35 @@
 import 'dart:typed_data';
-
 import 'package:just_audio/just_audio.dart';
 import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/Socket/SocketManager.dart';
 import 'package:streaming_front_app/presentation/pages/multimedia_related/widgets/Socket/FragmentedAudioSource.dart';
 
 class AudioPlayerManager {
-  AudioPlayer _player = AudioPlayer();
-  late SocketManager socket  = SocketManager();
+  // Audio related
+  final AudioPlayer _player = AudioPlayer();
+  final SocketManager socket = SocketManager();
   late FragmentedAudioSource _fragmentedAudioSource;
-  
-  // InfoProvided related
-  List<String> songsList;
-  late String currentSongid;
-  bool preview;
+  // SongData related
+  List<String> songsList = [];
+  String currentSongid = '';
+  bool preview = false;
 
-  AudioPlayerManager(this.songsList, this.preview) {
-    currentSongid = songsList.isNotEmpty ? songsList[0] : '';
+  AudioPlayerManager() {
     startPlayer();
   }
 
-  void startPlayer(){
+  void startPlayer() {
     _fragmentedAudioSource = FragmentedAudioSource();
     _player.setAudioSource(_fragmentedAudioSource);
     startListening(socket.dataStream);
-    socket.requestSongToServer(currentSongid, preview);
+    startListenerNextSong();
+  }
+
+  void startListenerNextSong () {
+    _player.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.completed) {
+        nextSongSaftely();
+      }
+    });
   }
 
   void startListening(Stream<Uint8List> stream) {
@@ -35,105 +41,75 @@ class AudioPlayerManager {
     );
   }
 
-  void playSong() async {
+  //Funciones basicas 
+
+  Future<void> playerOperation(Future<void> Function() operation) async {
     try {
-        await _player.play();
+      await operation();
     } on Exception catch (e) {
       print("Fail: $e");
     }
   }
 
-  void pauseSong() async {
-      try {
-        await _player.pause();
-    } on Exception catch (e) {
-      print("Fail: $e");
-    }
-  }
+  Future<void> playSong() => playerOperation(_player.play);
+  Future<void> pauseSong() => playerOperation(_player.pause);
+  Future<void> stopSong() => playerOperation(_player.stop);
+  Future<void> dispose() => playerOperation(_player.dispose);
 
-  Future<void> stopSong() async {
-      try {
+  //Funciones de cambio de canción
+
+  Future<void> changeSong(String Function() getNextSongId) async {
+    try {
+      String nextSongId = getNextSongId();
+      await playerOperation(() async {
         await _player.stop();
-    } on Exception catch (e) {
-      print("Fail: $e");
-    }
-  }
-
-  Future<void> dispose() async {
-      try {
-        await _player.dispose();
-    } on Exception catch (e) {
-      print("Fail: $e");
-    }
-  }
-
-  Future<void> nextSongSaftely() async {
-    try {
-      // Incrementar el índice de la canción circularmente
-      String nextSongId = nextElementCircular();
-
-      // Vaciar y resetear el player
-      await _player.stop();
-      await _player.seek(Duration.zero);
-      _fragmentedAudioSource.clear(); 
-      // Solicitar la nueva canción al servidor
-      socket.requestSongToServer(nextSongId, preview);
-
-      // Opcional: iniciar la reproducción automáticamente
-      await _player.play();
+        await _player.seek(Duration.zero);
+        _fragmentedAudioSource.clear();
+      });
+      socket.requestSongToServer(nextSongId,preview);
+      await playerOperation(_player.play);
     } catch (e) {
-      print('Error al cambiar a la siguiente canción: $e');
+      print('Error al cambiar la canción: $e');
     }
   }
 
-  Future<void> setNewPlaylist(List<String> newSongsList ) async {
-    try {
-      // Vaciar y resetear el player
-      await _player.stop();
-      await _player.seek(Duration.zero);
-      _fragmentedAudioSource.clear();
-      // Actualizar valores
-      songsList=newSongsList;
-      currentSongid = newSongsList.isNotEmpty ? newSongsList[0] : '';
-      // Solicitar la nueva canción al servidor
-      socket.requestSongToServer(currentSongid, preview);
+  Future<void> nextSongSaftely() async => changeSong(nextElementCircular);
+  Future<void> previousSongSaftely() async => changeSong(previousElementCircular);
 
-      // Opcional: iniciar la reproducción automáticamente
-      await _player.play();
-    } catch (e) {
-      print('Error al actualizar la lista: $e');
+  //Funciones para setear 
+
+  Future<void> setPlaylist(List<String> newSongsList, bool newPreview) async {
+    songsList = newSongsList;
+    preview = newPreview;
+    currentSongid = newSongsList.isNotEmpty ? newSongsList[0] : '';
+    if (isPlaying()) {
+      _player.stop();
     }
+    _player.seek(Duration.zero);
+    _fragmentedAudioSource.clear();
+    socket.requestSongToServer(currentSongid,preview);
   }
 
-  Future<void> previousSongSaftely() async {
-    try {
-      // Incrementar el índice de la canción circularmente
-      String nextSongId = previousElementCircular();
-
-      // Vaciar y resetear el player
-      await _player.stop();
-      await _player.seek(Duration.zero);
-      _fragmentedAudioSource.clear(); // Asegúrate de que tu StreamAudioSource tenga un método clear
-
-      // Solicitar la nueva canción al servidor
-      socket.requestSongToServer(nextSongId, preview);
-
-      // Opcional: iniciar la reproducción automáticamente
-      await _player.play();
-    } catch (e) {
-      print('Error al cambiar a la siguiente canción: $e');
-    }
+  bool isPlaying() {
+    return _player.playing;
   }
 
-  String nextElementCircular() {
+  bool hasSongsLoaded() {
+    return songsList.isNotEmpty;
+  }
+
+  void clearSongList() {
+    songsList.clear();
+    currentSongid = '';
+  }
+
+    String nextElementCircular() {
     if (songsList.isEmpty) {
       throw ArgumentError("La lista songsList no puede estar vacía.");
     }
-
     int currentIndex = songsList.indexOf(currentSongid);
     currentIndex = (currentIndex + 1) % songsList.length;
     currentSongid = songsList[currentIndex];
-
     return currentSongid;
   }
 
@@ -141,12 +117,10 @@ class AudioPlayerManager {
     if (songsList.isEmpty) {
       throw ArgumentError("La lista songsList no puede estar vacía.");
     }
-
     int currentIndex = songsList.indexOf(currentSongid);
-    // Asegurarse de que el índice es positivo antes de aplicar el módulo
     currentIndex = (currentIndex - 1 + songsList.length) % songsList.length;
     currentSongid = songsList[currentIndex];
-
     return currentSongid;
-    }  
+  }
+
 }

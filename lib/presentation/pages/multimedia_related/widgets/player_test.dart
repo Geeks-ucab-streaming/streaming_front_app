@@ -24,14 +24,17 @@ class PlayerBar1 extends StatefulWidget {
 }
 
 class _PlayerBarState extends State<PlayerBar1> {
-  final AudioPlayerManager audioPlayerHandler = AudioPlayerManager(itemList, false);
+  final AudioPlayerManager audioPlayerHandler = AudioPlayerManager();
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   bool isLoaded = false;
 
+
+
   @override
   Widget build(BuildContext context) {
+    audioPlayerHandler.setPlaylist(itemList,false);
     return Column(
       children: [
         Container(

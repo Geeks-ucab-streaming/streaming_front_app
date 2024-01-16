@@ -2,99 +2,110 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-
 class SocketManager {
+  // Socket related
   IO.Socket? socket;
-  final _streamController = StreamController<Uint8List>.broadcast();
+  late Completer<void> _socketConnectedCompleter;
+
+  // Stream related
+  final StreamController<Uint8List> _streamController = StreamController<Uint8List>.broadcast();
+  Stream<Uint8List> get dataStream => _streamController.stream;
 
   // Buffers & Song related
   bool isProcessingQueue = false;
-  bool isUpdating=false;
-  List<Uint8List> bufferQueue = [];
-  bool isConnected=false;
-  Stream<Uint8List> get dataStream => _streamController.stream;
+  bool isUpdating = false;
+  final List<Uint8List> bufferQueue = [];
+  bool isConnected = false;
 
   SocketManager() {
     connectSocket();
   }
 
-  late Completer<void> _socketConnectedCompleter;
-
-  void connectSocket() {
-      _socketConnectedCompleter = Completer<void>();
-      try {
-        socket = IO.io('http://streaming-api.eastus.azurecontainer.io:3000', <String, dynamic>{
+  Future<void> connectSocket() async {
+    _socketConnectedCompleter = Completer<void>();
+    try {
+      socket = IO.io(
+        'http://streaming-api.eastus.azurecontainer.io:3000',
+        <String, dynamic>{
           'transports': ['websocket'],
-        });
-        addlisteners();
-      } catch (e) {
-          print('Error al conectar el socket: $e');
-      }
+        },
+      );
+      _initializeListeners();
+    } catch (e) {
+      print('Error al conectar el socket: $e');
+    }
   }
 
   Future<void> requestSongToServer(String currentSongid, bool preview) async {
-      // Espera a que el socket se conecte
-      await _socketConnectedCompleter.future;
+    await _waitForSocketConnection();
+    _sendMessageToServer(currentSongid, preview);
+  }
 
-      // Verifica si el socket está conectado antes de enviar la solicitud
-      if (socket?.connected ?? false) {
-          try {
-              // Envía la solicitud al servidor con los parámetros dados
-              socket?.emit('message-from-client', {
-                'preview': preview,
-                'songId': currentSongid,
-                'second': 0,
-              });
-              print('Mensaje enviado al servidor con preview: $preview y songId: $currentSongid');
-          } catch (e) {
-              print('Error al enviar el mensaje al servidor: $e');
-          }
+  Future<void> _waitForSocketConnection() async {
+    await _socketConnectedCompleter.future;
+  }
+
+  void _sendMessageToServer(String currentSongid, bool preview) {
+    if (socket?.connected ?? false) {
+      try {
+        socket?.emit('message-from-client', {
+          'preview': preview,
+          'songId': currentSongid,
+          'second': 0,
+        });
+        print('Mensaje enviado al servidor con preview: $preview y songId: $currentSongid');
+      } catch (e) {
+        print('Error al enviar el mensaje al servidor: $e');
+      }
+    } else {
+      print('El socket no está conectado');
+    }
+  }
+
+  void _initializeListeners() {
+    socket?.onConnect((_) {
+      print('Conectado al servidor del Socket de manera exitosa.');
+      isConnected = true;
+      _socketConnectedCompleter.complete();
+    });
+
+    socket?.onDisconnect((_) {
+      isConnected = false;
+    });
+
+    socket?.on('message-from-server', (payload) async {
+      _processServerMessage(payload);
+    });
+  }
+
+  void _processServerMessage(dynamic payload) {
+    if (payload is Map && payload.containsKey('chunk')) {
+      var chunkData = payload['chunk'];
+      if (chunkData is Uint8List) {
+        bufferQueue.add(chunkData);
+        if (!isProcessingQueue) {
+          isProcessingQueue = true;
+          processBuffers();
+        }
       } else {
-          print('El socket no está conectado');
+        print('El chunk recibido no es de tipo Uint8List o está vacío');
       }
+    } else {
+      print('Payload error o falta el campo "chunk"');
+    }
   }
-  
-  void addlisteners() {
-    
-      socket?.onConnect((_) {
-          print('Conectado al servidor del Socket de manera exitosa.');
-          isConnected = true;
-          _socketConnectedCompleter.complete();
-      });
 
-      socket?.onDisconnect((_) {
-          print('Desconectado del servidor del Socket.');
-          isConnected = false;
-      });
-      
-      socket?.on('message-from-server', (payload) async {
-        // Recibir y procesar el payload 
-        if (payload is Map && payload.containsKey('chunk')) {
-          Uint8List chunkData = payload['chunk'] as Uint8List;
-          bufferQueue.add(chunkData);
-        
-          if (!isProcessingQueue) {
-            isProcessingQueue = true;
-            processBuffers();
-          }
-        } else {
-          print('Payload error');
-        }
-      }
-    );
-  }
-  
   void processBuffers() async {
-      while (bufferQueue.isNotEmpty) {
-        Uint8List buffer = bufferQueue.removeAt(0);
-        if (!isUpdating) {
-          isUpdating = true;
-          await feedSource(buffer);
-        }
+    while (bufferQueue.isNotEmpty) {
+      Uint8List buffer = bufferQueue.removeAt(0);
+      if (!isUpdating) {
+        isUpdating = true;
+        await feedSource(buffer);
+      }
     }
     isProcessingQueue = false;
   }
-  
+
   Future<void> feedSource(Uint8List buffer) async {
     try {
       if (isUpdating) {
@@ -106,9 +117,4 @@ class SocketManager {
       print("Feeding fail: $e");
     }
   }
-  void imprimirLista(List<int> lista) {
-  for (int numero in lista) {
-    print(numero);
-  }
-}
 }
