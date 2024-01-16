@@ -78,24 +78,6 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
                     },
                   ),
                   const ShuffleButton(),
-                  Container(
-                    height: 30.0,
-                    width: 30.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 3,
-                      ),
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                    child: Text(
-                      '1',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
                   IconButton(
                     icon: Icon(Icons.volume_up_rounded),
                     iconSize: 30,

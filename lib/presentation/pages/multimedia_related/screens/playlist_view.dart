@@ -38,32 +38,14 @@ class PlaylistView extends ConsumerWidget {
                 Container(
                   height: MediaQuery.of(context).size.height / 2,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: Image.memory(
-                        Uint8List.fromList(
-                          value.playlist.image,
-                        ),
-                        fit: BoxFit.contain,
-                      ).image,
-                      fit: BoxFit.fill,
-                    ),
                     gradient: const LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 42, 25, 94),
-                        Color.fromARGB(255, 13, 7, 27),
-                        Color.fromARGB(255, 42, 25, 94),
+                        Color.fromARGB(1, 42, 25, 94),
+                        Color.fromARGB(1, 13, 7, 27),
+                        Color.fromARGB(1, 42, 25, 94),
                       ],
                       begin: Alignment.topRight,
                       end: Alignment.bottomLeft,
-                    ),
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 30),
-                    child: Scaffold(
-                      backgroundColor: Colors.transparent,
-                      appBar: AppBar(
-                        backgroundColor: Colors.transparent,
-                      ),
                     ),
                   ),
                 ),
@@ -94,82 +76,92 @@ class PlaylistView extends ConsumerWidget {
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.width * 0.7,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 20, right: 20),
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: MediaQuery.of(context).size.width * 0.4,
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10.0),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 20, right: 20),
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black45,
+                                blurRadius: 10,
+                                spreadRadius: 0,
+                                offset: Offset(0, 5),
                               ),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black45,
-                                  blurRadius: 10,
-                                  spreadRadius: 0,
-                                  offset: Offset(0, 5),
+                            ],
+                            image: DecorationImage(
+                              image: Image.memory(
+                                Uint8List.fromList(
+                                  value.playlist.image,
+                                ),
+                                fit: BoxFit.contain,
+                              ).image,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  value.playlist.name,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  '${value.songs.length.toString()} canciones',
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5.0),
+                                  child: Row(children: [
+                                    Icon(
+                                      size: 15.0,
+                                      Icons.access_time_rounded,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      ' ${value.playlist.duration.substring(4, 5)} minutos',
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ]),
                                 ),
                               ],
-                              image: DecorationImage(
-                                image: Image.memory(
-                                  Uint8List.fromList(
-                                    value.playlist.image,
-                                  ),
-                                  fit: BoxFit.contain,
-                                ).image,
-                                fit: BoxFit.fill,
-                              ),
                             ),
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 10, left: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    value.playlist.name,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    'Duración: ${value.playlist.duration}',
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Reproducciones: ${value.playlist.totalPlays}',
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 10,
