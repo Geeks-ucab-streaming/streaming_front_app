@@ -10,11 +10,11 @@ class AudioPlayerManager {
   late FragmentedAudioSource _fragmentedAudioSource;
   
   // InfoProvided related
-  List<String> songsList;
+  late List<String> songsList;
   late String currentSongid;
-  bool preview;
+  late bool preview;
 
-  AudioPlayerManager(this.songsList, this.preview) {
+  AudioPlayerManager() {
     currentSongid = songsList.isNotEmpty ? songsList[0] : '';
     startPlayer();
   }
@@ -23,7 +23,6 @@ class AudioPlayerManager {
     _fragmentedAudioSource = FragmentedAudioSource();
     _player.setAudioSource(_fragmentedAudioSource);
     startListening(socket.dataStream);
-    socket.requestSongToServer(currentSongid, preview);
   }
 
   void startListening(Stream<Uint8List> stream) {
@@ -86,7 +85,7 @@ class AudioPlayerManager {
     }
   }
 
-  Future<void> setNewPlaylist(List<String> newSongsList ) async {
+  Future<void> setPlaylist(List<String> newSongsList,bool preview) async {
     try {
       // Vaciar y resetear el player
       await _player.stop();
@@ -98,8 +97,6 @@ class AudioPlayerManager {
       // Solicitar la nueva canción al servidor
       socket.requestSongToServer(currentSongid, preview);
 
-      // Opcional: iniciar la reproducción automáticamente
-      await _player.play();
     } catch (e) {
       print('Error al actualizar la lista: $e');
     }
