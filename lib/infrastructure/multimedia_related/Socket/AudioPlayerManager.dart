@@ -6,20 +6,19 @@ import 'FragmentedAudioSource.dart';
 
 class AudioPlayerManager {
   AudioPlayer _player = AudioPlayer();
-  late SocketManager socket  = SocketManager();
+  late SocketManager socket = SocketManager();
   late FragmentedAudioSource _fragmentedAudioSource;
-  
+
   // InfoProvided related
   late List<String> songsList;
   late String currentSongid;
   late bool preview;
 
   AudioPlayerManager() {
-    currentSongid = songsList.isNotEmpty ? songsList[0] : '';
     startPlayer();
   }
 
-  void startPlayer(){
+  void startPlayer() {
     _fragmentedAudioSource = FragmentedAudioSource();
     _player.setAudioSource(_fragmentedAudioSource);
     startListening(socket.dataStream);
@@ -36,31 +35,31 @@ class AudioPlayerManager {
 
   void playSong() async {
     try {
-        await _player.play();
+      await _player.play();
     } on Exception catch (e) {
       print("Fail: $e");
     }
   }
 
   void pauseSong() async {
-      try {
-        await _player.pause();
+    try {
+      await _player.pause();
     } on Exception catch (e) {
       print("Fail: $e");
     }
   }
 
   Future<void> stopSong() async {
-      try {
-        await _player.stop();
+    try {
+      await _player.stop();
     } on Exception catch (e) {
       print("Fail: $e");
     }
   }
 
   Future<void> dispose() async {
-      try {
-        await _player.dispose();
+    try {
+      await _player.dispose();
     } on Exception catch (e) {
       print("Fail: $e");
     }
@@ -74,7 +73,7 @@ class AudioPlayerManager {
       // Vaciar y resetear el player
       await _player.stop();
       await _player.seek(Duration.zero);
-      _fragmentedAudioSource.clear(); 
+      _fragmentedAudioSource.clear();
       // Solicitar la nueva canción al servidor
       socket.requestSongToServer(nextSongId, preview);
 
@@ -85,18 +84,17 @@ class AudioPlayerManager {
     }
   }
 
-  Future<void> setPlaylist(List<String> newSongsList,bool preview) async {
+  Future<void> setPlaylist(List<String> newSongsList, bool preview) async {
     try {
       // Vaciar y resetear el player
       await _player.stop();
       await _player.seek(Duration.zero);
       _fragmentedAudioSource.clear();
       // Actualizar valores
-      songsList=newSongsList;
+      songsList = newSongsList;
       currentSongid = newSongsList.isNotEmpty ? newSongsList[0] : '';
       // Solicitar la nueva canción al servidor
       socket.requestSongToServer(currentSongid, preview);
-
     } catch (e) {
       print('Error al actualizar la lista: $e');
     }
@@ -110,7 +108,8 @@ class AudioPlayerManager {
       // Vaciar y resetear el player
       await _player.stop();
       await _player.seek(Duration.zero);
-      _fragmentedAudioSource.clear(); // Asegúrate de que tu StreamAudioSource tenga un método clear
+      _fragmentedAudioSource
+          .clear(); // Asegúrate de que tu StreamAudioSource tenga un método clear
 
       // Solicitar la nueva canción al servidor
       socket.requestSongToServer(nextSongId, preview);
@@ -145,5 +144,5 @@ class AudioPlayerManager {
     currentSongid = songsList[currentIndex];
 
     return currentSongid;
-    }  
+  }
 }

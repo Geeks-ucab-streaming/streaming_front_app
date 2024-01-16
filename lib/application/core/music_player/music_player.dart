@@ -6,15 +6,14 @@ part 'music_player.g.dart';
 @Riverpod(keepAlive: true)
 class MusicPlayer extends _$MusicPlayer {
   @override
-  AudioPlayerManager? build() {
-    return null;
+  AudioPlayerManager build() {
+    return AudioPlayerManager();
   }
 
   void createNewPlayer({
     required List<String> songsList,
   }) {
     // TODO HERE THE USER STATE CAN BE READED
-    bool preview = false;
-    state = AudioPlayerManager(songsList, preview);
+    state = AudioPlayerManager();
   }
 }

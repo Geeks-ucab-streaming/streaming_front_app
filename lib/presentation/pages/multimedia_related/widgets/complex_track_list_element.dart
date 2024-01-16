@@ -22,6 +22,8 @@ class ComplexTrackListElement extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(musicPlayerProvider.notifier);
+
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -103,10 +105,12 @@ class ComplexTrackListElement extends ConsumerWidget {
                   width: 10,
                 ),
                 InkWell(
-                  onTap: () {
-                    ref.read(musicPlayerProvider.notifier).createNewPlayer(
-                      songsList: [songId],
+                  onTap: () async {
+                    await ref.read(musicPlayerProvider).setPlaylist(
+                      [songId],
+                      false,
                     );
+                    ref.read(musicPlayerProvider).playSong();
                   },
                   child: const Icon(
                     Icons.play_arrow,
