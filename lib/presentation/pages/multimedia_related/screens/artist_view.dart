@@ -213,7 +213,7 @@ class ArtistView extends ConsumerWidget {
                               builder: (BuildContext context) {
                                 return GestureDetector(
                                   onTap: () => context.goNamed('album',
-                                    pathParameters: {'albumId': album.id}),
+                                      pathParameters: {'albumId': album.id}),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Container(
@@ -278,6 +278,7 @@ class ArtistView extends ConsumerWidget {
                           children: [
                             for (var song in value.songs)
                               ComplexTrackListElement(
+                                songId: song.id,
                                 songName: song.name,
                                 songImage: song.image,
                                 songComposer: song.composer,

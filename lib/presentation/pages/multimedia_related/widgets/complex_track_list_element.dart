@@ -1,23 +1,27 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:streaming_front_app/application/core/music_player/music_player.dart';
 
-class ComplexTrackListElement extends StatelessWidget {
+class ComplexTrackListElement extends ConsumerWidget {
   const ComplexTrackListElement({
     super.key,
+    required this.songId,
     required this.songImage,
     required this.songName,
     required this.songComposer,
     required this.songDuration,
   });
 
+  final String songId;
   final List<int> songImage;
   final String songName;
   final String songComposer;
   final String songDuration;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -98,9 +102,16 @@ class ComplexTrackListElement extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Icon(
-                  Icons.play_arrow,
-                  color: Color.fromARGB(255, 0, 204, 255),
+                InkWell(
+                  onTap: () {
+                    ref.read(musicPlayerProvider.notifier).createNewPlayer(
+                      songsList: [songId],
+                    );
+                  },
+                  child: const Icon(
+                    Icons.play_arrow,
+                    color: Color.fromARGB(255, 0, 204, 255),
+                  ),
                 ),
                 const SizedBox(
                   width: 10,

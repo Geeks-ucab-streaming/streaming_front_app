@@ -219,6 +219,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   children: [
                     for (var song in value.trackList)
                       ComplexTrackListElement(
+                        songId: song.id,
                         songName: song.name,
                         songImage: song.image,
                         songComposer: song.composer,

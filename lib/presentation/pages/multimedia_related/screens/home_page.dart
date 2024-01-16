@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../application/auth/states/states.dart';
 import '../../../../application/multimedia_related/use_cases/use_cases.dart';
 import '../../../../domain/auth/enums/enums.dart';
-//import 'package:overlapped_carousel/overlapped_carousel.dart';
 import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
@@ -191,46 +190,6 @@ class HomePage extends ConsumerWidget {
                 }).toList(),
               ),
             ),
-            /*
-            ////////////////////// NEW CAROUSEL TEST ///////////////////////////
-          SizedBox(
-            height: 200,
-            child: OverlappedCarousel(
-              widgets: value.albums.map((album) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          image: DecorationImage(
-                            image: Image.memory(
-                              Uint8List.fromList(
-                                album.image,
-                              ),
-                              fit: BoxFit.contain,
-                            ).image,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        height: 300,
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-              //List of widgets
-              currentIndex: 2,
-              onClicked: (index) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("You clicked at $index"),
-                  ),
-                );
-              },
-            ),
-          ),*/
             nameRow('Artistas Trending'),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -240,8 +199,10 @@ class HomePage extends ConsumerWidget {
                 children: [
                   for (var artist in value.artists)
                     InkWell(
-                      onTap: () => context.goNamed('artist',
-                          pathParameters: {'artistId': artist.id}),
+                      onTap: () => context.goNamed(
+                        'artist',
+                        pathParameters: {'artistId': artist.id},
+                      ),
                       child: ArtistCoverWidget(
                         artistImage: artist.image,
                         artistName: artist.name,
@@ -259,6 +220,7 @@ class HomePage extends ConsumerWidget {
                 children: [
                   for (var song in value.trackList)
                     ComplexTrackListElement(
+                      songId: song.id,
                       songName: song.name,
                       songImage: song.image,
                       songComposer: song.composer,
