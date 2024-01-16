@@ -19,7 +19,13 @@ class SimpleTrackListElement extends ConsumerWidget {
 
     return Container(
       decoration: const BoxDecoration(
-        color: Color.fromARGB(80, 151, 151, 151),
+        border: Border(
+          bottom: BorderSide(
+            color: Color.fromARGB(255, 151, 151, 151),
+            width: 0.5,
+          ),
+        ),
+        color: Color.fromARGB(50, 151, 151, 151),
       ),
       child: ListTile(
         leading: InkWell(
@@ -32,7 +38,7 @@ class SimpleTrackListElement extends ConsumerWidget {
           },
           child: const Icon(
             Icons.play_arrow,
-            color: Colors.blueAccent,
+            color: Color.fromARGB(255, 0, 230, 240),
           ),
         ),
         title: Text(
