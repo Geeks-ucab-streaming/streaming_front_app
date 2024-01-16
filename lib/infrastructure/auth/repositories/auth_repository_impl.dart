@@ -62,11 +62,11 @@ class AuthRepositoryImpl extends IAuthRepository {
         );
       } else if (errorResponse['statusCode'] == 401) {
         return Left(
-          ServerError(message: "Unauthorized"),
+          Unauthorized(message: "Unauthorized"),
         );
       } else if (errorResponse['statusCode'] == 404) {
         return Left(
-          ServerError(message: "Phone not registered"),
+          PhoneNotRegistered(message: "Phone not registered"),
         );
       }
     }
@@ -116,11 +116,11 @@ class AuthRepositoryImpl extends IAuthRepository {
         );
       } else if (errorResponse['statusCode'] == 401) {
         return Left(
-          ServerError(message: "Unauthorized"),
+          Unauthorized(message: "Unauthorized"),
         );
       } else if (errorResponse['statusCode'] == 404) {
         return Left(
-          ServerError(message: "Phone not registered"),
+          PhoneNotRegistered(message: "Phone not registered"),
         );
       }
     }
@@ -183,15 +183,15 @@ class AuthRepositoryImpl extends IAuthRepository {
         );
       } else if (errorResponse['statusCode'] == 400) {
         return Left(
-          ServerError(message: "Phone is not valid for register"),
+          PhoneNotValidForSignIn(message: "Phone is not valid for register"),
         );
       } else if (errorResponse['statusCode'] == 401) {
         return Left(
-          ServerError(message: "Unauthorized"),
+          Unauthorized(message: "Unauthorized"),
         );
       } else if (errorResponse['statusCode'] == 404) {
         return Left(
-          ServerError(message: "Phone already exist"),
+          PhoneAlreadyExist(message: "Phone already exist"),
         );
       }
     }

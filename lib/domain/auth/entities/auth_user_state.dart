@@ -49,6 +49,13 @@ class AuthUserState {
     state = AuthStateEnum.authenticated;
   }
 
+  void loginGuest({
+    required JwtToken jwtToken,
+  }) {
+    userToken = jwtToken;
+    state = AuthStateEnum.authenticated;
+  }
+
   void logout() {
     user = null;
     userToken = null;

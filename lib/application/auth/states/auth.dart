@@ -29,6 +29,12 @@ class Auth extends _$Auth {
     );
   }
 
+  void loginGuest({
+    required JwtToken jwtToken,
+  }) {
+    loginGuest(jwtToken: jwtToken);
+  }
+
   void logout() {
     state.logout();
     // should save changes to DB

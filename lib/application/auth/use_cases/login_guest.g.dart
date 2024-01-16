@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'music_player.dart';
+part of 'login_guest.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$musicPlayerHash() => r'e40b454f65633050aaee6ec9c1d3d519f62873d4';
+String _$loginHelperHash() => r'02484144ee29db6ff049debf465a4a4219b05f9a';
 
-/// See also [MusicPlayer].
-@ProviderFor(MusicPlayer)
-final musicPlayerProvider =
-    NotifierProvider<MusicPlayer, AudioPlayerManager?>.internal(
-  MusicPlayer.new,
-  name: r'musicPlayerProvider',
+/// See also [LoginHelper].
+@ProviderFor(LoginHelper)
+final loginHelperProvider =
+    NotifierProvider<LoginHelper, LoginStateEnum>.internal(
+  LoginHelper.new,
+  name: r'loginHelperProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$musicPlayerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$loginHelperHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$MusicPlayer = Notifier<AudioPlayerManager?>;
+typedef _$LoginHelper = Notifier<LoginStateEnum>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
