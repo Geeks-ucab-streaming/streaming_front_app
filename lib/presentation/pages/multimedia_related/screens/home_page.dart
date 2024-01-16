@@ -85,7 +85,7 @@ class HomePage extends ConsumerWidget {
               AuthStateEnum.authenticated => Container(),
               AuthStateEnum.unauthenticated => InkWell(
                   onTap: () {
-                    context.push('/login');
+                    context.push('/sign-in');
                   },
                   child: Container(
                     padding:
