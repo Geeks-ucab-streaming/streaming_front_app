@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streaming_front_app/application/core/music_player/music_player.dart';
 
 class SimpleTrackListElement extends ConsumerWidget {
-  const SimpleTrackListElement({super.key,
-  required this.songId,
-  required this.songName,
-  required this.songDuration, 
+  const SimpleTrackListElement({
+    super.key,
+    required this.songId,
+    required this.songName,
+    required this.songDuration,
   });
 
   final String songId;
@@ -21,7 +22,7 @@ class SimpleTrackListElement extends ConsumerWidget {
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Color.fromARGB(255, 151, 151, 151),
+            color: Color.fromARGB(69, 253, 253, 253),
             width: 0.5,
           ),
         ),
@@ -55,7 +56,7 @@ class SimpleTrackListElement extends ConsumerWidget {
   }
 }
 
-String durationFormatted(String duration){
+String durationFormatted(String duration) {
   String formattedDuration = '';
 
   if (duration.substring(1, 2) == '0') {
