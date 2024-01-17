@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 
 class PlayerBar extends StatefulWidget {
-  final String songName;
-  final String artistName;
+  //final String songName;
+  //final String artistName;
 
   const PlayerBar({
     Key? key,
-    required this.songName,
-    required this.artistName,
+    //required this.songName,
+    //required this.artistName,
   }) : super(key: key);
 
   @override
-  _PlayerBarState createState() => _PlayerBarState();
+  State<PlayerBar> createState() => _PlayerBarState();
 }
 
 class _PlayerBarState extends State<PlayerBar> {
   bool isPlaying = false;
   String currentTime = '00:00';
+
+// provider to listen
+  // final authState = ref.watch(authProvider);
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +29,10 @@ class _PlayerBarState extends State<PlayerBar> {
       child: Row(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color.fromARGB(
-                  255, 33, 212, 243), // Color de fondo circular
+              color:
+                  Color.fromARGB(255, 33, 212, 243), // Color de fondo circular
             ),
             child: IconButton(
               icon: Icon(
@@ -49,36 +52,36 @@ class _PlayerBarState extends State<PlayerBar> {
               },
             ),
           ),
-          SizedBox(width: 8),
-          Column(
+          const SizedBox(width: 8),
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.songName,
+                'Song name',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                widget.artistName,
+                'Artist name',
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           TimeText(currentTime: currentTime),
           IconButton(
-            icon: Icon(Icons.skip_previous),
+            icon: const Icon(Icons.skip_previous),
             color: Colors.white,
             onPressed: () {
               // Handle previous song logic
             },
           ),
           IconButton(
-            icon: Icon(Icons.skip_next),
+            icon: const Icon(Icons.skip_next),
             color: Colors.white,
             onPressed: () {
               // Handle next song logic
@@ -107,7 +110,7 @@ class _TimeTextState extends State<TimeText> {
   Widget build(BuildContext context) {
     return Text(
       widget.currentTime,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
       ),
     );

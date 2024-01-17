@@ -10,8 +10,8 @@ class AudioPlayerManager {
   late FragmentedAudioSource _fragmentedAudioSource;
 
   // InfoProvided related
-  late List<String> songsList;
-  late String currentSongid;
+  late List<String> songsList = [];
+  late String currentSongid = '';
   late bool preview;
 
   AudioPlayerManager() {
@@ -22,7 +22,7 @@ class AudioPlayerManager {
     _fragmentedAudioSource = FragmentedAudioSource();
     _player.setAudioSource(_fragmentedAudioSource);
     startListening(socket.dataStream);
-    //startListenerNextSong();
+    startListenerNextSong();
   }
 
   void startListening(Stream<Uint8List> stream) {
@@ -34,7 +34,7 @@ class AudioPlayerManager {
     );
   }
 
-  void startListenerNextSong () {
+  void startListenerNextSong() {
     _player.playerStateStream.listen((state) {
       if (state.processingState == ProcessingState.completed) {
         nextSongSaftely();
@@ -42,7 +42,7 @@ class AudioPlayerManager {
     });
   }
 
-  //Funciones basicas 
+  //Funciones basicas
 
   Future<void> playerOperation(Future<void> Function() operation) async {
     try {
@@ -67,7 +67,7 @@ class AudioPlayerManager {
         await _player.seek(Duration.zero);
         _fragmentedAudioSource.clear();
       });
-      socket.requestSongToServer(nextSongId,preview);
+      socket.requestSongToServer(nextSongId, preview);
       await playerOperation(_player.play);
     } catch (e) {
       print('Error al cambiar la canción: $e');
@@ -75,7 +75,8 @@ class AudioPlayerManager {
   }
 
   Future<void> nextSongSaftely() async => changeSong(nextElementCircular);
-  Future<void> previousSongSaftely() async => changeSong(previousElementCircular);
+  Future<void> previousSongSaftely() async =>
+      changeSong(previousElementCircular);
 
   Future<void> setPlaylist(List<String> newSongsList, bool preview) async {
     try {

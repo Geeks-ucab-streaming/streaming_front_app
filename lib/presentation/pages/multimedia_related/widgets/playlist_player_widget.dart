@@ -3,17 +3,22 @@ import 'package:flutter/material.dart';
 class PlaylistPlayer extends StatefulWidget {
   const PlaylistPlayer({
     Key? key,
+    required this.songsToPlayIds,
   }) : super(key: key);
 
+  final List<String> songsToPlayIds;
+
   @override
-  PlaylistPlayerState createState() => PlaylistPlayerState();
+  State<PlaylistPlayer> createState() => _PlaylistPlayerState();
 }
 
-class PlaylistPlayerState extends State<PlaylistPlayer> {
+class _PlaylistPlayerState extends State<PlaylistPlayer> {
   bool isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
+    widget;
+
     return Container(
       color: const Color.fromARGB(1, 54, 52, 52),
       padding: const EdgeInsets.all(20),
