@@ -141,11 +141,15 @@ class _ComplexTrackListElementState
                     ref.read(musicPlayerProvider.notifier).playOnlySong(
                           songId: widget.songId,
                         );
+                    print(
+                        '/////////////////// Valor antes de actualizar: ${iconToDisplay.value}');
                     iconToDisplay.value = ref
                         .read(musicPlayerProvider.notifier)
                         .getIconForSingleSong(
                           songId: widget.songId,
                         );
+                    print(
+                        '/////////////////// Valor despu de actualizar: ${iconToDisplay.value}');
                   },
                   icon: Icon(
                     iconToDisplay.value,

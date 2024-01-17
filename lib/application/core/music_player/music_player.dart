@@ -22,6 +22,10 @@ class MusicPlayer extends _$MusicPlayer {
   Future<void> playOnlySong({
     required String songId,
   }) async {
+    // verify if the socket is loading
+    if (state.socket.isUpdating) {
+      return;
+    }
     if (state.isPlaying() && state.currentSongid == songId) {
       // song playing is the same of the player and it is playing so pause it
       await state.pauseSong();
@@ -82,9 +86,8 @@ class MusicPlayer extends _$MusicPlayer {
   }) {
     if (state.isPlaying() && state.currentSongid == songId) {
       return Icons.pause;
-    } else if (state.isPlaying() &&
-        state.currentSongid == songId &&
-        state.socket.isProcessingQueue) {
+    } else if (state.socket.bufferQueue.isNotEmpty &&
+        state.currentSongid == songId) {
       return Icons.pause;
     } else if (!state.isPlaying() && state.currentSongid == songId) {
       return Icons.play_arrow;
