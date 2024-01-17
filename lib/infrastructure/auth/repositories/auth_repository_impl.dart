@@ -143,8 +143,13 @@ class AuthRepositoryImpl extends IAuthRepository {
       // await for the local storage to be ready
       await localStorage.ready;
       // verify if a token exists in local storage
-      String token = await localStorage.getItem('token') as String;
+      String? token = await localStorage.getItem('token');
       logger.d('Token in local storage: $token');
+      if (token == null) {
+        return Left(
+          NoLocalToken(message: "No token from local storage"),
+        );
+      }
       // create a token instance
       JwtToken jwtToken = JwtToken(token);
       // update the jwt token in the Dio instance
@@ -159,7 +164,9 @@ class AuthRepositoryImpl extends IAuthRepository {
       logger.e(error);
       // return the error
       return Left(
-        NoLocalToken(message: "No token from local storage"),
+        NoLocalToken(
+          message: "Error while trying to read token from local storage",
+        ),
       );
     }
   }
