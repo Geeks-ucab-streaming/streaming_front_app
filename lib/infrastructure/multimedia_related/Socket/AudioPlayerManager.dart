@@ -121,6 +121,6 @@ class AudioPlayerManager {
   }
 
   bool isProcessingQueue() {
-    return socket.isProcessingQueue;
+    return socket.bufferQueue.isNotEmpty;
   }
 }
