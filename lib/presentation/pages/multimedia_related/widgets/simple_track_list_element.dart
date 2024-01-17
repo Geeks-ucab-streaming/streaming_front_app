@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streaming_front_app/application/core/music_player/music_player.dart';
+import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
 class SimpleTrackListElement extends ConsumerWidget {
   const SimpleTrackListElement({
@@ -16,7 +17,13 @@ class SimpleTrackListElement extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(musicPlayerProvider.notifier);
+    Future<void> handleClick() async {
+      ref.read(musicPlayerProvider.notifier).playOnlySong(
+            songId: songId,
+          );
+      print('En Handle click');
+      //updateIcon();
+    }
 
     return Container(
       decoration: const BoxDecoration(
@@ -31,9 +38,7 @@ class SimpleTrackListElement extends ConsumerWidget {
       child: ListTile(
         leading: InkWell(
           onTap: () async {
-            await ref.read(musicPlayerProvider.notifier).playOnlySong(
-                  songId: songId,
-                );
+            await handleClick();
           },
           child: const Icon(
             Icons.play_arrow,
@@ -45,23 +50,11 @@ class SimpleTrackListElement extends ConsumerWidget {
           style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
         trailing: Text(
-          durationFormatted(songDuration),
+          SongDurationFormatter.format(songDuration),
           style: const TextStyle(
               color: Color.fromARGB(213, 180, 180, 180), fontSize: 18),
         ),
       ),
     );
   }
-}
-
-String durationFormatted(String duration) {
-  String formattedDuration = '';
-
-  if (duration.substring(1, 2) == '0') {
-    formattedDuration = duration.substring(3);
-  } else {
-    formattedDuration = duration.substring(1);
-  }
-
-  return formattedDuration;
 }

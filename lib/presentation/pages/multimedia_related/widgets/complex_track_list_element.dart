@@ -1,10 +1,13 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:streaming_front_app/application/core/music_player/music_player.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:streaming_front_app/application/core/music_player/current_song_on_player.dart';
 
-class ComplexTrackListElement extends ConsumerStatefulWidget {
+import '../../../../application/core/music_player/music_player.dart';
+
+class ComplexTrackListElement extends StatefulHookConsumerWidget {
   const ComplexTrackListElement({
     super.key,
     required this.songId,
@@ -29,11 +32,22 @@ class _ComplexTrackListElementState
     extends ConsumerState<ComplexTrackListElement> {
   @override
   Widget build(BuildContext context) {
+    // provider to watch
+    final CurrentSong currentSongOnPlayer =
+        ref.watch(currentSongOnPlayerProvider);
     // icon to show based on the player
-    IconData iconToDisplay =
-        ref.read(musicPlayerProvider.notifier).getIconForSingleSong(
-              songId: widget.songId,
-            );
+    ValueNotifier<IconData> iconToDisplay = useState(
+      ref.read(musicPlayerProvider.notifier).getIconForSingleSong(
+            songId: widget.songId,
+          ),
+    );
+    // update the icon if the song is not the same
+    if (currentSongOnPlayer.id != widget.songId) {
+      iconToDisplay.value = Icons.play_arrow;
+    }
+
+    print(
+        '/////////////////////// Value of the id of the song: ${currentSongOnPlayer.id}');
 
     return Container(
       decoration: const BoxDecoration(
@@ -122,26 +136,24 @@ class _ComplexTrackListElementState
                 const SizedBox(
                   width: 10,
                 ),
-                InkWell(
-                  onTap: () async {
-                    await ref.read(musicPlayerProvider.notifier).playOnlySong(
+                IconButton(
+                  onPressed: () {
+                    ref.read(musicPlayerProvider.notifier).playOnlySong(
                           songId: widget.songId,
                         );
-                    setState(() {
-                      iconToDisplay = ref
-                          .read(musicPlayerProvider.notifier)
-                          .getIconForSingleSong(
-                            songId: widget.songId,
-                          );
-                    });
+                    iconToDisplay.value = ref
+                        .read(musicPlayerProvider.notifier)
+                        .getIconForSingleSong(
+                          songId: widget.songId,
+                        );
                   },
-                  child: Icon(
-                    iconToDisplay,
+                  icon: Icon(
+                    iconToDisplay.value,
                     color: const Color.fromARGB(255, 0, 204, 255),
                   ),
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
               ],
             ),
