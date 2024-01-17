@@ -41,24 +41,31 @@ class AudioPlayerManager {
 
   //Funciones basicas
 
-  Future<void> playerOperation(Future<void> Function() operation, AudioPlayerState state) async {
+  Future<void> playerOperation(
+      Future<void> Function() operation, AudioPlayerState state) async {
     try {
       await operation();
-      _stateController.add(state); // Actualiza el estado después de la operación
+      _stateController
+          .add(state); // Actualiza el estado después de la operación
     } on Exception catch (e) {
       print("Fail: $e");
-      _stateController.add(AudioPlayerState.error); // Actualiza el estado en caso de error
+      _stateController
+          .add(AudioPlayerState.error); // Actualiza el estado en caso de error
     }
   }
 
-  Future<void> playSong() => playerOperation(_player.play, AudioPlayerState.playing);
-  Future<void> pauseSong() => playerOperation(_player.pause, AudioPlayerState.paused);
-  Future<void> stopSong() => playerOperation(_player.stop, AudioPlayerState.stopped);
-  Future<void> dispose() => playerOperation(_player.dispose, AudioPlayerState.dispose);
+  Future<void> playSong() =>
+      playerOperation(_player.play, AudioPlayerState.playing);
+  Future<void> pauseSong() =>
+      playerOperation(_player.pause, AudioPlayerState.paused);
+  Future<void> stopSong() =>
+      playerOperation(_player.stop, AudioPlayerState.stopped);
+  Future<void> dispose() =>
+      playerOperation(_player.dispose, AudioPlayerState.dispose);
 
   //Funciones de cambio de canción
 
-   Future<void> changeSong(String Function() getNextSongId) async {
+  Future<void> changeSong(String Function() getNextSongId) async {
     try {
       String nextSongId = getNextSongId();
 
@@ -82,7 +89,8 @@ class AudioPlayerManager {
   }
 
   Future<void> nextSongSaftely() async => changeSong(nextElementCircular);
-  Future<void> previousSongSaftely() async =>changeSong(previousElementCircular);
+  Future<void> previousSongSaftely() async =>
+      changeSong(previousElementCircular);
 
   //Funciones de la lista de canciones
 
@@ -98,7 +106,7 @@ class AudioPlayerManager {
       currentSongid = newSongsList.isNotEmpty ? newSongsList[0] : '';
       // Solicitar la nueva canción al servidor
       socket.requestSongToServer(currentSongid);
-       _stateController.add(AudioPlayerState.paused);
+      _stateController.add(AudioPlayerState.paused);
     } catch (e) {
       print('Error al actualizar la lista: $e');
       _stateController.add(AudioPlayerState.error); // Emitir estado de error
@@ -151,5 +159,5 @@ class AudioPlayerManager {
     _player.dispose();
     socket.dispose();
     _fragmentedAudioSource.dispose();
-  } 
+  }
 }

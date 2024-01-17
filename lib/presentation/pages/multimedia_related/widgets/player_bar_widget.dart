@@ -20,6 +20,8 @@ class _PlayerBarState extends ConsumerState<PlayerBar> {
     // provider to watch
     final CurrentSong currentSongOnPlayer =
         ref.watch(currentSongOnPlayerProvider);
+    // listen to player state
+    ref.watch(musicPlayerProvider);
     // is playing value
     //ValueNotifier<bool> isPlaying = useState(false);
 

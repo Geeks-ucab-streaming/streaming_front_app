@@ -36,12 +36,12 @@ class _ComplexTrackListElementState
     final CurrentSong currentSongOnPlayer =
         ref.watch(currentSongOnPlayerProvider);
     // listen to player state
-    ref.watch(musicPlayerProvider.notifier);
+    ref.watch(musicPlayerProvider);
     // icon to show based on the player
     ValueNotifier<IconData> iconToDisplay = useState(
-      ref.read(musicPlayerProvider.notifier).getIconForSingleSong(
-            songId: widget.songId,
-          ),
+      ref
+          .read(musicPlayerProvider.notifier)
+          .getIconForSingleSongTest(songId: widget.songId),
     );
     // update the icon if the song is not the same
     if (currentSongOnPlayer.id != widget.songId) {
@@ -57,6 +57,9 @@ class _ComplexTrackListElementState
             artists: widget.songComposer,
           )
           .then((value) {
+        iconToDisplay.value = ref
+            .read(musicPlayerProvider.notifier)
+            .getIconForSingleSong(songId: widget.songId);
         print('////////////////////// Finalizo el play');
       });
     }
@@ -149,12 +152,8 @@ class _ComplexTrackListElementState
                   width: 10,
                 ),
                 IconButton(
-                  onPressed: () async {
-                    await ref.read(musicPlayerProvider.notifier).playOnlySong(
-                          songId: widget.songId,
-                          name: widget.songName,
-                          artists: widget.songComposer,
-                        );
+                  onPressed: () {
+                    handlePlay();
                   },
                   icon: Icon(
                     iconToDisplay.value,

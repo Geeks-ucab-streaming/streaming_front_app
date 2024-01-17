@@ -1,23 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:streaming_front_app/application/core/music_player/current_song_on_player.dart';
+import 'package:streaming_front_app/application/core/music_player/music_player.dart';
+import 'package:streaming_front_app/domain/multimedia_related/data_presentation/data_presentation.dart';
 
-class PlaylistPlayer extends StatefulWidget {
+class PlaylistPlayer extends StatefulHookConsumerWidget {
   const PlaylistPlayer({
     Key? key,
-    required this.songsToPlayIds,
+    required this.playListSongs,
   }) : super(key: key);
 
-  final List<String> songsToPlayIds;
+  final List<PlaylistSongPresentation> playListSongs;
 
   @override
-  State<PlaylistPlayer> createState() => _PlaylistPlayerState();
+  ConsumerState<PlaylistPlayer> createState() => _PlaylistPlayerState();
 }
 
-class _PlaylistPlayerState extends State<PlaylistPlayer> {
+class _PlaylistPlayerState extends ConsumerState<PlaylistPlayer> {
   bool isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
-    widget;
+    // provider to watch
+    final CurrentSong currentSongOnPlayer =
+        ref.watch(currentSongOnPlayerProvider);
+    // listen to player state
+    ref.watch(musicPlayerProvider);
+
+    void handlePlay() async {
+      await ref
+          .read(musicPlayerProvider.notifier)
+          .playPlaylist(
+            songsIds: widget.playListSongs.map((e) => e.id).toList(),
+            currentSongId: widget.playListSongs.map((e) => e.id).toList()[0],
+            name: widget.playListSongs[0].name,
+            artists: '',
+          )
+          .then((value) {
+        print('////////////////////// Finalizo el play');
+      });
+    }
 
     return Container(
       color: const Color.fromARGB(1, 54, 52, 52),
@@ -43,30 +65,22 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
               iconSize: 25,
               color: Colors.white,
               onPressed: () {
-                setState(() {
-                  isPlaying = !isPlaying;
-                  if (isPlaying) {
-                    // Start playing
-                    // You can update the currentTime here
-                  } else {
-                    // Pause playing
-                  }
-                });
+                handlePlay();
               },
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Placeholder(
+              const Placeholder(
                 fallbackHeight: 50,
                 fallbackWidth: 250,
               ),
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.replay_10_rounded),
+                    icon: const Icon(Icons.replay_10_rounded),
                     iconSize: 30,
                     color: Colors.white,
                     onPressed: () {
@@ -74,7 +88,7 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.forward_30_rounded),
+                    icon: const Icon(Icons.forward_30_rounded),
                     iconSize: 30,
                     color: Colors.white,
                     onPressed: () {
@@ -83,7 +97,7 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
                   ),
                   const ShuffleButton(),
                   IconButton(
-                    icon: Icon(Icons.volume_up_rounded),
+                    icon: const Icon(Icons.volume_up_rounded),
                     iconSize: 30,
                     color: Colors.white,
                     onPressed: () {},

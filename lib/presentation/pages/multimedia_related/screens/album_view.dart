@@ -141,9 +141,9 @@ class AlbumView extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    PlaylistPlayer(
-                      songsToPlayIds: value.songs.map((e) => e.id).toList(),
-                    ),
+                    //PlaylistPlayer(
+                    //playListSongs: value.songs,
+                    //),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
