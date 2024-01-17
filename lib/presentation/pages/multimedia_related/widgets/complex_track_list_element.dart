@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:streaming_front_app/application/core/music_player/music_player.dart';
 
-class ComplexTrackListElement extends ConsumerWidget {
+class ComplexTrackListElement extends ConsumerStatefulWidget {
   const ComplexTrackListElement({
     super.key,
     required this.songId,
@@ -21,8 +21,19 @@ class ComplexTrackListElement extends ConsumerWidget {
   final String songDuration;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(musicPlayerProvider.notifier);
+  ConsumerState<ComplexTrackListElement> createState() =>
+      _ComplexTrackListElementState();
+}
+
+class _ComplexTrackListElementState
+    extends ConsumerState<ComplexTrackListElement> {
+  @override
+  Widget build(BuildContext context) {
+    // icon to show based on the player
+    IconData iconToDisplay =
+        ref.read(musicPlayerProvider.notifier).getIconForSingleSong(
+              songId: widget.songId,
+            );
 
     return Container(
       decoration: const BoxDecoration(
@@ -49,7 +60,7 @@ class ComplexTrackListElement extends ConsumerWidget {
                       image: DecorationImage(
                         image: Image.memory(
                           Uint8List.fromList(
-                            songImage,
+                            widget.songImage,
                           ),
                           fit: BoxFit.contain,
                         ).image,
@@ -69,14 +80,14 @@ class ComplexTrackListElement extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      songName,
+                      widget.songName,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
                     ),
                     Text(
-                      songComposer,
+                      widget.songComposer,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: Color.fromARGB(145, 255, 255, 255),
@@ -97,7 +108,7 @@ class ComplexTrackListElement extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  songDuration,
+                  widget.songDuration,
                   style: const TextStyle(
                     color: Color.fromARGB(213, 180, 180, 180),
                   ),
@@ -107,15 +118,20 @@ class ComplexTrackListElement extends ConsumerWidget {
                 ),
                 InkWell(
                   onTap: () async {
-                    await ref.read(musicPlayerProvider).setPlaylist(
-                      [songId],
-                      false,
-                    );
-                    ref.read(musicPlayerProvider).playSong();
+                    await ref.read(musicPlayerProvider.notifier).playOnlySong(
+                          songId: widget.songId,
+                        );
+                    setState(() {
+                      iconToDisplay = ref
+                          .read(musicPlayerProvider.notifier)
+                          .getIconForSingleSong(
+                            songId: widget.songId,
+                          );
+                    });
                   },
-                  child: const Icon(
-                    Icons.play_arrow,
-                    color: Color.fromARGB(255, 0, 204, 255),
+                  child: Icon(
+                    iconToDisplay,
+                    color: const Color.fromARGB(255, 0, 204, 255),
                   ),
                 ),
                 const SizedBox(

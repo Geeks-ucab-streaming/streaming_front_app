@@ -230,10 +230,7 @@ class HomePage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 25),
-            const PlayerBar(
-              songName: 'Song 1',
-              artistName: 'Artist 1',
-            ),
+            const PlayerBar(),
           ],
         ),
       AsyncError(:final error) => ErrorImage(

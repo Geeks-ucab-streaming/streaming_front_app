@@ -123,7 +123,9 @@ class PlaylistView extends ConsumerWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const PlaylistPlayer(),
+                      PlaylistPlayer(
+                        songsToPlayIds: value.songs.map((e) => e.id).toList(),
+                      ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(

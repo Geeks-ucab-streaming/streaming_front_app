@@ -31,11 +31,9 @@ class SimpleTrackListElement extends ConsumerWidget {
       child: ListTile(
         leading: InkWell(
           onTap: () async {
-            await ref.read(musicPlayerProvider).setPlaylist(
-              [songId],
-              false,
-            );
-            ref.read(musicPlayerProvider).playSong();
+            await ref.read(musicPlayerProvider.notifier).playOnlySong(
+                  songId: songId,
+                );
           },
           child: const Icon(
             Icons.play_arrow,

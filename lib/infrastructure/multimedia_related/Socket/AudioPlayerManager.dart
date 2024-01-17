@@ -8,9 +8,8 @@ class AudioPlayerManager {
   late FragmentedAudioSource _fragmentedAudioSource;
 
   // InfoProvided related
-  late List<String> songsList;
-  late String currentSongid;
-
+  late List<String> songsList = [];
+  late String currentSongid = '';
 
   AudioPlayerManager() {
     startPlayer();
@@ -23,7 +22,7 @@ class AudioPlayerManager {
     startListenerNextSong();
   }
 
-  void startListenerNextSong () {
+  void startListenerNextSong() {
     _player.playerStateStream.listen((state) {
       if (state.processingState == ProcessingState.completed) {
         nextSongSaftely();
@@ -31,7 +30,7 @@ class AudioPlayerManager {
     });
   }
 
-  //Funciones basicas 
+  //Funciones basicas
 
   Future<void> playerOperation(Future<void> Function() operation) async {
     try {
@@ -64,7 +63,8 @@ class AudioPlayerManager {
   }
 
   Future<void> nextSongSaftely() async => changeSong(nextElementCircular);
-  Future<void> previousSongSaftely() async => changeSong(previousElementCircular);
+  Future<void> previousSongSaftely() async =>
+      changeSong(previousElementCircular);
 
   Future<void> setPlaylist(List<String> newSongsList) async {
     try {
