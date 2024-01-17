@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:streaming_front_app/application/user_related/use_cases/delete_subscription/delete_subscription.dart';
 
 import '../../../../application/auth/states/states.dart';
 import '../../../../application/user_related/use_cases/uses_cases.dart';
@@ -402,8 +403,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                 ),
                                 //style: linkStyle,
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    print('Invitado"');
+                                  ..onTap = () async {
+                                    await ref
+                                        .read(
+                                            deleteSubscriptionProvider.notifier)
+                                        .deleteSubscription();
+                                    ;
                                   },
                               ),
                             ),

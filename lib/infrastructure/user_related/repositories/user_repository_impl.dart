@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:streaming_front_app/domain/user_related/errors/errors.dart';
 
 import '../../../domain/auth/value_objects/value_objects.dart';
 import '../../../domain/user_related/entities/entities.dart';
@@ -73,6 +74,8 @@ class UserRepositoryImpl extends IUserRepository {
     Dio dio = getIt<Dio>();
     // get the logger instance
     final logger = getIt<LoggerInstance>().getLogger();
+    // TODO TRY AND CATCH
+    //try {
     // make the request
     final response = await dio.get(
       '/user',
@@ -86,5 +89,47 @@ class UserRepositoryImpl extends IUserRepository {
     logger.d('User dto: ${userDto.toString()}');
     // return entity element from DTO
     return UserMapper.fromRemoteToEntity(userDto);
+    //} catch (e) {
+  }
+
+  @override
+  Future<Either<BaseUserError, String>> terminateSubscription() async {
+    // getIt instance
+    GetIt getIt = GetIt.I;
+    // get dio variable from getIt to do the request
+    Dio dio = getIt<Dio>();
+    // get the logger instance
+    final logger = getIt<LoggerInstance>().getLogger();
+    try {
+      // make the request
+      final response = await dio.post(
+        '/subscription/cancel',
+      );
+      logger.d('Log-in-in response data: ${response.data}');
+      // transforming the request to message
+      final message = response.data["data"];
+      // return the domain element
+      return Right(message as String);
+    } on DioException catch (error) {
+      logger.e('Error deleting subscription: $error');
+      final errorResponse = error.response?.data;
+      if (errorResponse['statusCode'] == 500) {
+        return Left(
+          ServerError(message: "Server error"),
+        );
+      } else if (errorResponse['statusCode'] == 401) {
+        return Left(
+          Unauthorized(message: "Unauthorized"),
+        );
+      } else if (errorResponse['statusCode'] == 404) {
+        return Left(
+          CouldNotFind(message: "Error 404"),
+        );
+      }
+    }
+    // if we got here some error ocurred before and did not get catch
+    return Left(
+      ServerError(message: "Server error"),
+    );
   }
 }
