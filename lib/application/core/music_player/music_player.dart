@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:streaming_front_app/infrastructure/multimedia_related/Socket/AudioPlayerManager.dart';
+
+import '../../../infrastructure/multimedia_related/Socket/AudioPlayerManager.dart';
+import 'current_song_on_player.dart';
 
 part 'music_player.g.dart';
 
@@ -31,15 +33,39 @@ class MusicPlayer extends _$MusicPlayer {
       await state.stopSong();
       await state.setPlaylist([songId]);
       await state.playSong();
+      // set the state of the global current song
+      _updateCurrentSongOnPlayerState(
+        id: songId,
+        name: '',
+        artists: [],
+      );
+    } else if (!state.isPlaying() && state.currentSongid != songId) {
+      // song playing is different from the one of the player
+      await state.stopSong();
+      await state.setPlaylist([songId]);
+      await state.playSong();
+      // set the state of the global current song
+      _updateCurrentSongOnPlayerState(
+        id: songId,
+        name: '',
+        artists: [],
+      );
     } else if (!state.hasSongsLoaded()) {
       // player is empty
       await state.setPlaylist([songId]);
       await state.playSong();
+      // set the state of the global current song
+      _updateCurrentSongOnPlayerState(
+        id: songId,
+        name: '',
+        artists: [],
+      );
     }
   }
 
   Future<void> playPlaylist({
     required List<String> songIds,
+    required String playlistId,
   }) async {
     // TODO manage the stop method
 
@@ -56,8 +82,28 @@ class MusicPlayer extends _$MusicPlayer {
   }) {
     if (state.isPlaying() && state.currentSongid == songId) {
       return Icons.pause;
+    } else if (state.isPlaying() &&
+        state.currentSongid == songId &&
+        state.socket.isProcessingQueue) {
+      return Icons.pause;
+    } else if (!state.isPlaying() && state.currentSongid == songId) {
+      return Icons.play_arrow;
     } else {
       return Icons.play_arrow;
     }
+  }
+
+  _updateCurrentSongOnPlayerState({
+    required String id,
+    required String name,
+    required List<String> artists,
+  }) {
+// set the state of the global current song
+    ref.read(currentSongOnPlayerProvider.notifier).clearState();
+    ref.read(currentSongOnPlayerProvider.notifier).setState(
+      id: id,
+      name: '',
+      artists: [],
+    );
   }
 }
