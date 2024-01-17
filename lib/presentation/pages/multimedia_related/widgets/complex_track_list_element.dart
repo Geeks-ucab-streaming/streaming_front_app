@@ -51,24 +51,30 @@ class _ComplexTrackListElementState
           Row(
             children: [
               SizedBox(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Container(
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: Image.memory(
-                          Uint8List.fromList(
-                            widget.songImage,
+                child: (widget.songImage.isNotEmpty)
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Container(
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: Image.memory(
+                                Uint8List.fromList(
+                                  widget.songImage,
+                                ),
+                                fit: BoxFit.contain,
+                              ).image,
+                              fit: BoxFit.fill,
+                            ),
                           ),
-                          fit: BoxFit.contain,
-                        ).image,
-                        fit: BoxFit.fill,
+                        ),
+                      )
+                    : const Icon(
+                        Icons.music_note,
+                        size: 60,
+                        color: Colors.white,
                       ),
-                    ),
-                  ),
-                ),
               ),
               const SizedBox(
                 width: 20,

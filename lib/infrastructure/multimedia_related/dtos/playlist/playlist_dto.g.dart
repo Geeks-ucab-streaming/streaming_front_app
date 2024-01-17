@@ -12,10 +12,12 @@ _$PlaylistDtoImpl _$$PlaylistDtoImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       duration: json['duration'] as String,
       image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
-      streams: json['streams'] as int,
-      creators: (json['creators'] as List<dynamic>)
-          .map((e) => PlaylistCreatorDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      streams: json['streams'] as int? ?? 0,
+      creators: (json['creators'] as List<dynamic>?)
+              ?.map(
+                  (e) => PlaylistCreatorDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       songs: (json['songs'] as List<dynamic>)
           .map((e) => PlaylistSongDto.fromJson(e as Map<String, dynamic>))
           .toList(),

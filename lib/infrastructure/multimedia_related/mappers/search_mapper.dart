@@ -11,7 +11,11 @@ class SearchMapper {
                 duration: SongDuration(
                   searchSongDto.duration,
                 ),
-                artists: [searchSongDto.artists.first.name],
+                artists: [
+                  (searchSongDto.artists.isEmpty)
+                      ? ''
+                      : searchSongDto.artists.first.name
+                ],
                 image: SongImage(
                   searchSongDto.image.getImageAsIntList(),
                 ),

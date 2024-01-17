@@ -194,7 +194,7 @@ class _$AlbumDtoImpl with DiagnosticableTreeMixin implements _AlbumDto {
       required this.name,
       required this.duration,
       required this.image,
-      required this.streams,
+      this.streams = 0,
       required final List<AlbumSongDto> songs,
       required final List<AlbumCreatorDto> creators})
       : _songs = songs,
@@ -212,6 +212,7 @@ class _$AlbumDtoImpl with DiagnosticableTreeMixin implements _AlbumDto {
   @override
   final ImageDto image;
   @override
+  @JsonKey()
   final int streams;
   final List<AlbumSongDto> _songs;
   @override
@@ -295,7 +296,7 @@ abstract class _AlbumDto implements AlbumDto {
       required final String name,
       required final String duration,
       required final ImageDto image,
-      required final int streams,
+      final int streams,
       required final List<AlbumSongDto> songs,
       required final List<AlbumCreatorDto> creators}) = _$AlbumDtoImpl;
 

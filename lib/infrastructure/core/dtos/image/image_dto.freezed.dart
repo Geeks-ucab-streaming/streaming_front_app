@@ -96,7 +96,7 @@ class __$$ImageDtoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ImageDtoImpl extends _ImageDto with DiagnosticableTreeMixin {
+class _$ImageDtoImpl extends _ImageDto {
   const _$ImageDtoImpl({required final List<dynamic> data})
       : _data = data,
         super._();
@@ -112,19 +112,6 @@ class _$ImageDtoImpl extends _ImageDto with DiagnosticableTreeMixin {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_data);
-  }
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ImageDto(data: $data)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ImageDto'))
-      ..add(DiagnosticsProperty('data', data));
   }
 
   @override

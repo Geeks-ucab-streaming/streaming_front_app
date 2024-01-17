@@ -14,7 +14,7 @@ class AlbumDto with _$AlbumDto {
     required String name,
     required String duration,
     required ImageDto image,
-    required int streams,
+    @Default(0) int streams,
     required List<AlbumSongDto> songs,
     required List<AlbumCreatorDto> creators,
   }) = _AlbumDto;

@@ -195,8 +195,8 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
       required this.name,
       required this.duration,
       required this.image,
-      required this.streams,
-      required final List<PlaylistCreatorDto> creators,
+      this.streams = 0,
+      final List<PlaylistCreatorDto> creators = const [],
       required final List<PlaylistSongDto> songs})
       : _creators = creators,
         _songs = songs;
@@ -213,9 +213,11 @@ class _$PlaylistDtoImpl with DiagnosticableTreeMixin implements _PlaylistDto {
   @override
   final ImageDto image;
   @override
+  @JsonKey()
   final int streams;
   final List<PlaylistCreatorDto> _creators;
   @override
+  @JsonKey()
   List<PlaylistCreatorDto> get creators {
     if (_creators is EqualUnmodifiableListView) return _creators;
     // ignore: implicit_dynamic_type
@@ -296,8 +298,8 @@ abstract class _PlaylistDto implements PlaylistDto {
       required final String name,
       required final String duration,
       required final ImageDto image,
-      required final int streams,
-      required final List<PlaylistCreatorDto> creators,
+      final int streams,
+      final List<PlaylistCreatorDto> creators,
       required final List<PlaylistSongDto> songs}) = _$PlaylistDtoImpl;
 
   factory _PlaylistDto.fromJson(Map<String, dynamic> json) =

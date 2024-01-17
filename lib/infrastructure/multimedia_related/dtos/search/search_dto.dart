@@ -10,10 +10,10 @@ part 'search_dto.g.dart';
 @freezed
 class SearchDto with _$SearchDto {
   const factory SearchDto({
-    required List<SearchSongDto> songs,
-    required List<SearchArtistDto> artists,
-    required List<SearchPlaylistDto> playlists,
-    required List<SearchAlbumDto> albums,
+    @Default([]) List<SearchSongDto> songs,
+    @Default([]) List<SearchArtistDto> artists,
+    @Default([]) List<SearchPlaylistDto> playlists,
+    @Default([]) List<SearchAlbumDto> albums,
   }) = _SearchDto;
 
   factory SearchDto.fromJson(Map<String, Object?> json) =>
@@ -27,8 +27,8 @@ class SearchSongDto with _$SearchSongDto {
     required String id,
     required String name,
     required String duration,
-    required List<SearchSongArtistDto> artists,
-    required ImageDto image,
+    @Default([]) List<SearchSongArtistDto> artists,
+    @Default(ImageDto(data: [])) ImageDto image,
   }) = _SearchSongDto;
 
   factory SearchSongDto.fromJson(Map<String, Object?> json) =>
@@ -52,7 +52,7 @@ class SearchArtistDto with _$SearchArtistDto {
   const factory SearchArtistDto({
     required String id,
     required String name,
-    required ImageDto image,
+    @Default(ImageDto(data: [])) ImageDto image,
   }) = _SearchArtistDto;
 
   factory SearchArtistDto.fromJson(Map<String, Object?> json) =>
@@ -64,7 +64,7 @@ class SearchArtistDto with _$SearchArtistDto {
 class SearchPlaylistDto with _$SearchPlaylistDto {
   const factory SearchPlaylistDto({
     required String id,
-    required ImageDto image,
+    @Default(ImageDto(data: [])) ImageDto image,
     required String name,
   }) = _SearchPlaylistDto;
 
@@ -77,7 +77,7 @@ class SearchPlaylistDto with _$SearchPlaylistDto {
 class SearchAlbumDto with _$SearchAlbumDto {
   const factory SearchAlbumDto({
     required String id,
-    required ImageDto image,
+    @Default(ImageDto(data: [])) ImageDto image,
     required String name,
   }) = _SearchAlbumDto;
 

@@ -12,7 +12,7 @@ _$AlbumDtoImpl _$$AlbumDtoImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       duration: json['duration'] as String,
       image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
-      streams: json['streams'] as int,
+      streams: json['streams'] as int? ?? 0,
       songs: (json['songs'] as List<dynamic>)
           .map((e) => AlbumSongDto.fromJson(e as Map<String, dynamic>))
           .toList(),

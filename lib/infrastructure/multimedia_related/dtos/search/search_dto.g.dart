@@ -8,18 +8,23 @@ part of 'search_dto.dart';
 
 _$SearchDtoImpl _$$SearchDtoImplFromJson(Map<String, dynamic> json) =>
     _$SearchDtoImpl(
-      songs: (json['songs'] as List<dynamic>)
-          .map((e) => SearchSongDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      artists: (json['artists'] as List<dynamic>)
-          .map((e) => SearchArtistDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      playlists: (json['playlists'] as List<dynamic>)
-          .map((e) => SearchPlaylistDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      albums: (json['albums'] as List<dynamic>)
-          .map((e) => SearchAlbumDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      songs: (json['songs'] as List<dynamic>?)
+              ?.map((e) => SearchSongDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      artists: (json['artists'] as List<dynamic>?)
+              ?.map((e) => SearchArtistDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      playlists: (json['playlists'] as List<dynamic>?)
+              ?.map(
+                  (e) => SearchPlaylistDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      albums: (json['albums'] as List<dynamic>?)
+              ?.map((e) => SearchAlbumDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$SearchDtoImplToJson(_$SearchDtoImpl instance) =>
@@ -35,10 +40,14 @@ _$SearchSongDtoImpl _$$SearchSongDtoImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       name: json['name'] as String,
       duration: json['duration'] as String,
-      artists: (json['artists'] as List<dynamic>)
-          .map((e) => SearchSongArtistDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
+      artists: (json['artists'] as List<dynamic>?)
+              ?.map((e) =>
+                  SearchSongArtistDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      image: json['image'] == null
+          ? const ImageDto(data: [])
+          : ImageDto.fromJson(json['image'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SearchSongDtoImplToJson(_$SearchSongDtoImpl instance) =>
@@ -69,7 +78,9 @@ _$SearchArtistDtoImpl _$$SearchArtistDtoImplFromJson(
     _$SearchArtistDtoImpl(
       id: json['id'] as String,
       name: json['name'] as String,
-      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
+      image: json['image'] == null
+          ? const ImageDto(data: [])
+          : ImageDto.fromJson(json['image'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SearchArtistDtoImplToJson(
@@ -84,7 +95,9 @@ _$SearchPlaylistDtoImpl _$$SearchPlaylistDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$SearchPlaylistDtoImpl(
       id: json['id'] as String,
-      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
+      image: json['image'] == null
+          ? const ImageDto(data: [])
+          : ImageDto.fromJson(json['image'] as Map<String, dynamic>),
       name: json['name'] as String,
     );
 
@@ -99,7 +112,9 @@ Map<String, dynamic> _$$SearchPlaylistDtoImplToJson(
 _$SearchAlbumDtoImpl _$$SearchAlbumDtoImplFromJson(Map<String, dynamic> json) =>
     _$SearchAlbumDtoImpl(
       id: json['id'] as String,
-      image: ImageDto.fromJson(json['image'] as Map<String, dynamic>),
+      image: json['image'] == null
+          ? const ImageDto(data: [])
+          : ImageDto.fromJson(json['image'] as Map<String, dynamic>),
       name: json['name'] as String,
     );
 

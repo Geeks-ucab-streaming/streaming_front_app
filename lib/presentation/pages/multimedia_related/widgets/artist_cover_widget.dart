@@ -24,23 +24,29 @@ class ArtistCoverWidget extends StatelessWidget {
         height: widgetHeight,
         child: Column(
           children: [
-            ClipOval(
-              child: Container(
-                height: imageSize,
-                width: imageSize,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: Image.memory(
-                      Uint8List.fromList(
-                        artistImage,
+            (artistImage.isNotEmpty)
+                ? ClipOval(
+                    child: Container(
+                      height: imageSize,
+                      width: imageSize,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: Image.memory(
+                            Uint8List.fromList(
+                              artistImage,
+                            ),
+                            fit: BoxFit.contain,
+                          ).image,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                      fit: BoxFit.contain,
-                    ).image,
-                    fit: BoxFit.fill,
+                    ),
+                  )
+                : const Icon(
+                    Icons.music_video,
+                    size: 110,
+                    color: Colors.white,
                   ),
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(

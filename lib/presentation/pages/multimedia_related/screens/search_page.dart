@@ -91,23 +91,41 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                         return GestureDetector(
                           onTap: () => context.goNamed('playlist',
                               pathParameters: {'playlistId': playlist.id}),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                image: DecorationImage(
-                                  image: Image.memory(
-                                    Uint8List.fromList(
-                                      playlist.image,
+                          child: (playlist.image.isNotEmpty)
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      image: DecorationImage(
+                                        image: Image.memory(
+                                          Uint8List.fromList(
+                                            playlist.image,
+                                          ),
+                                          fit: BoxFit.contain,
+                                        ).image,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
-                                    fit: BoxFit.contain,
-                                  ).image,
-                                  fit: BoxFit.fill,
+                                  ),
+                                )
+                              : Column(
+                                  children: [
+                                    const Icon(
+                                      Icons.supervised_user_circle,
+                                      size: 90,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      playlist.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ),
                         );
                       },
                     );
@@ -145,23 +163,41 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                         return GestureDetector(
                           onTap: () => context.goNamed('album',
                               pathParameters: {'albumId': album.id}),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                image: DecorationImage(
-                                  image: Image.memory(
-                                    Uint8List.fromList(
-                                      album.image,
+                          child: (album.image.isNotEmpty)
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      image: DecorationImage(
+                                        image: Image.memory(
+                                          Uint8List.fromList(
+                                            album.image,
+                                          ),
+                                          fit: BoxFit.contain,
+                                        ).image,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
-                                    fit: BoxFit.contain,
-                                  ).image,
-                                  fit: BoxFit.fill,
+                                  ),
+                                )
+                              : Column(
+                                  children: [
+                                    const Icon(
+                                      Icons.music_video,
+                                      size: 100,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      album.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ),
                         );
                       },
                     );

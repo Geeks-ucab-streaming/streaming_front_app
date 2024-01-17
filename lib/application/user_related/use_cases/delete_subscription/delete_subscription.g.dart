@@ -7,7 +7,7 @@ part of 'delete_subscription.dart';
 // **************************************************************************
 
 String _$deleteSubscriptionHash() =>
-    r'7ad9f8ae23a1c173699980ed39b38560c2efdc87';
+    r'7123cf3a1ea04de407fe3f44b59c19ed293c2d45';
 
 /// See also [DeleteSubscription].
 @ProviderFor(DeleteSubscription)

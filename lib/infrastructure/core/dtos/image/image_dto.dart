@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 
 part 'image_dto.freezed.dart';
 
@@ -24,4 +24,9 @@ class ImageDto with _$ImageDto {
 
   factory ImageDto.fromJson(Map<String, Object?> json) =>
       _$ImageDtoFromJson(json);
+
+  @override
+  String toString() {
+    return 'image: Image';
+  }
 }

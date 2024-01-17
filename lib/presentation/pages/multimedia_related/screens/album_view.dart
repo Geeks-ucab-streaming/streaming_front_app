@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
 import '../../../../application/multimedia_related/use_cases/album_info/get_album_info.dart';
 import '../widgets/widgets.dart';
@@ -21,18 +22,6 @@ class AlbumView extends ConsumerWidget {
     enlargeFactor: 0.3,
     viewportFraction: 0.5,
   );
-
-  String durationMinutesFormatted(String duration) {
-    String formattedDuration = '';
-
-    if (duration.substring(3, 4) == '0') {
-      formattedDuration = duration.substring(4, 5);
-    } else {
-      formattedDuration = duration.substring(3, 5);
-    }
-
-    return formattedDuration;
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -135,7 +124,7 @@ class AlbumView extends ConsumerWidget {
                                           color: Colors.white,
                                         ),
                                         Text(
-                                          ' ${durationMinutesFormatted(value.album.duration)} minutos',
+                                          ' ${SongDurationFormatter.format(value.album.duration)} minutos',
                                           textAlign: TextAlign.left,
                                           style: const TextStyle(
                                             fontSize: 15,

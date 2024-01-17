@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../application/multimedia_related/use_cases/playlist_info/get_playlist_info.dart';
+import '../../../../infrastructure/core/util/util.dart';
 import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -105,7 +106,7 @@ class PlaylistView extends ConsumerWidget {
                                         color: Colors.white,
                                       ),
                                       Text(
-                                        ' ${value.playlist.duration.substring(3, 5)} minutos',
+                                        ' ${SongDurationFormatter.format(value.playlist.duration)} minutos',
                                         textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontSize: 15,

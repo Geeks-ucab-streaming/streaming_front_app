@@ -138,10 +138,10 @@ class __$$SearchDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
   const _$SearchDtoImpl(
-      {required final List<SearchSongDto> songs,
-      required final List<SearchArtistDto> artists,
-      required final List<SearchPlaylistDto> playlists,
-      required final List<SearchAlbumDto> albums})
+      {final List<SearchSongDto> songs = const [],
+      final List<SearchArtistDto> artists = const [],
+      final List<SearchPlaylistDto> playlists = const [],
+      final List<SearchAlbumDto> albums = const []})
       : _songs = songs,
         _artists = artists,
         _playlists = playlists,
@@ -152,6 +152,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
 
   final List<SearchSongDto> _songs;
   @override
+  @JsonKey()
   List<SearchSongDto> get songs {
     if (_songs is EqualUnmodifiableListView) return _songs;
     // ignore: implicit_dynamic_type
@@ -160,6 +161,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
 
   final List<SearchArtistDto> _artists;
   @override
+  @JsonKey()
   List<SearchArtistDto> get artists {
     if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
@@ -168,6 +170,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
 
   final List<SearchPlaylistDto> _playlists;
   @override
+  @JsonKey()
   List<SearchPlaylistDto> get playlists {
     if (_playlists is EqualUnmodifiableListView) return _playlists;
     // ignore: implicit_dynamic_type
@@ -176,6 +179,7 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
 
   final List<SearchAlbumDto> _albums;
   @override
+  @JsonKey()
   List<SearchAlbumDto> get albums {
     if (_albums is EqualUnmodifiableListView) return _albums;
     // ignore: implicit_dynamic_type
@@ -235,10 +239,10 @@ class _$SearchDtoImpl with DiagnosticableTreeMixin implements _SearchDto {
 
 abstract class _SearchDto implements SearchDto {
   const factory _SearchDto(
-      {required final List<SearchSongDto> songs,
-      required final List<SearchArtistDto> artists,
-      required final List<SearchPlaylistDto> playlists,
-      required final List<SearchAlbumDto> albums}) = _$SearchDtoImpl;
+      {final List<SearchSongDto> songs,
+      final List<SearchArtistDto> artists,
+      final List<SearchPlaylistDto> playlists,
+      final List<SearchAlbumDto> albums}) = _$SearchDtoImpl;
 
   factory _SearchDto.fromJson(Map<String, dynamic> json) =
       _$SearchDtoImpl.fromJson;
@@ -413,8 +417,8 @@ class _$SearchSongDtoImpl
       {required this.id,
       required this.name,
       required this.duration,
-      required final List<SearchSongArtistDto> artists,
-      required this.image})
+      final List<SearchSongArtistDto> artists = const [],
+      this.image = const ImageDto(data: [])})
       : _artists = artists;
 
   factory _$SearchSongDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -428,6 +432,7 @@ class _$SearchSongDtoImpl
   final String duration;
   final List<SearchSongArtistDto> _artists;
   @override
+  @JsonKey()
   List<SearchSongArtistDto> get artists {
     if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
@@ -435,6 +440,7 @@ class _$SearchSongDtoImpl
   }
 
   @override
+  @JsonKey()
   final ImageDto image;
 
   @override
@@ -491,8 +497,8 @@ abstract class _SearchSongDto implements SearchSongDto {
       {required final String id,
       required final String name,
       required final String duration,
-      required final List<SearchSongArtistDto> artists,
-      required final ImageDto image}) = _$SearchSongDtoImpl;
+      final List<SearchSongArtistDto> artists,
+      final ImageDto image}) = _$SearchSongDtoImpl;
 
   factory _SearchSongDto.fromJson(Map<String, dynamic> json) =
       _$SearchSongDtoImpl.fromJson;
@@ -800,7 +806,9 @@ class _$SearchArtistDtoImpl
     with DiagnosticableTreeMixin
     implements _SearchArtistDto {
   const _$SearchArtistDtoImpl(
-      {required this.id, required this.name, required this.image});
+      {required this.id,
+      required this.name,
+      this.image = const ImageDto(data: [])});
 
   factory _$SearchArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchArtistDtoImplFromJson(json);
@@ -810,6 +818,7 @@ class _$SearchArtistDtoImpl
   @override
   final String name;
   @override
+  @JsonKey()
   final ImageDto image;
 
   @override
@@ -860,7 +869,7 @@ abstract class _SearchArtistDto implements SearchArtistDto {
   const factory _SearchArtistDto(
       {required final String id,
       required final String name,
-      required final ImageDto image}) = _$SearchArtistDtoImpl;
+      final ImageDto image}) = _$SearchArtistDtoImpl;
 
   factory _SearchArtistDto.fromJson(Map<String, dynamic> json) =
       _$SearchArtistDtoImpl.fromJson;
@@ -998,7 +1007,9 @@ class _$SearchPlaylistDtoImpl
     with DiagnosticableTreeMixin
     implements _SearchPlaylistDto {
   const _$SearchPlaylistDtoImpl(
-      {required this.id, required this.image, required this.name});
+      {required this.id,
+      this.image = const ImageDto(data: []),
+      required this.name});
 
   factory _$SearchPlaylistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchPlaylistDtoImplFromJson(json);
@@ -1006,6 +1017,7 @@ class _$SearchPlaylistDtoImpl
   @override
   final String id;
   @override
+  @JsonKey()
   final ImageDto image;
   @override
   final String name;
@@ -1057,7 +1069,7 @@ class _$SearchPlaylistDtoImpl
 abstract class _SearchPlaylistDto implements SearchPlaylistDto {
   const factory _SearchPlaylistDto(
       {required final String id,
-      required final ImageDto image,
+      final ImageDto image,
       required final String name}) = _$SearchPlaylistDtoImpl;
 
   factory _SearchPlaylistDto.fromJson(Map<String, dynamic> json) =
@@ -1196,7 +1208,9 @@ class _$SearchAlbumDtoImpl
     with DiagnosticableTreeMixin
     implements _SearchAlbumDto {
   const _$SearchAlbumDtoImpl(
-      {required this.id, required this.image, required this.name});
+      {required this.id,
+      this.image = const ImageDto(data: []),
+      required this.name});
 
   factory _$SearchAlbumDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchAlbumDtoImplFromJson(json);
@@ -1204,6 +1218,7 @@ class _$SearchAlbumDtoImpl
   @override
   final String id;
   @override
+  @JsonKey()
   final ImageDto image;
   @override
   final String name;
@@ -1255,7 +1270,7 @@ class _$SearchAlbumDtoImpl
 abstract class _SearchAlbumDto implements SearchAlbumDto {
   const factory _SearchAlbumDto(
       {required final String id,
-      required final ImageDto image,
+      final ImageDto image,
       required final String name}) = _$SearchAlbumDtoImpl;
 
   factory _SearchAlbumDto.fromJson(Map<String, dynamic> json) =
