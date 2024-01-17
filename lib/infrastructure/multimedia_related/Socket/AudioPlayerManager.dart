@@ -119,4 +119,8 @@ class AudioPlayerManager {
     songsList.clear();
     currentSongid = '';
   }
+
+  bool isProcessingQueue() {
+    return socket.isProcessingQueue;
+  }
 }
