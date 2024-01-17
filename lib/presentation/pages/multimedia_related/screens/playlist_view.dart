@@ -123,6 +123,7 @@ class PlaylistView extends ConsumerWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      PlayerBar(),
                       PlaylistPlayer(
                         songsToPlayIds: value.songs.map((e) => e.id).toList(),
                       ),
