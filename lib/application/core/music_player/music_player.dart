@@ -29,11 +29,11 @@ class MusicPlayer extends _$MusicPlayer {
     } else if (state.isPlaying() && state.currentSongid != songId) {
       // song playing is different from the one of the player
       await state.stopSong();
-      await state.setPlaylist([songId], false);
+      await state.setPlaylist([songId]);
       await state.playSong();
     } else if (!state.hasSongsLoaded()) {
       // player is empty
-      await state.setPlaylist([songId], false);
+      await state.setPlaylist([songId]);
       await state.playSong();
     }
   }
@@ -47,7 +47,7 @@ class MusicPlayer extends _$MusicPlayer {
       await state.stopSong();
     }
 
-    await state.setPlaylist(songIds, false);
+    await state.setPlaylist(songIds);
     await state.playSong();
   }
 
