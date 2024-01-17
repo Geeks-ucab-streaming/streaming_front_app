@@ -123,4 +123,10 @@ class AudioPlayerManager {
   bool isProcessingQueue() {
     return socket.bufferQueue.isNotEmpty;
   }
+
+  void disposeAll() {
+    _player.dispose();
+    socket.dispose();
+    _fragmentedAudioSource.dispose();
+  } 
 }

@@ -125,4 +125,9 @@ class SocketManager {
       print("Feeding fail: $e");
     }
   }
+
+  void dispose() {
+    _streamController.close();
+    socket?.dispose();
+  }
 }
