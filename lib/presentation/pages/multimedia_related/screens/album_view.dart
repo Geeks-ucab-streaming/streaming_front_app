@@ -13,15 +13,6 @@ class AlbumView extends ConsumerWidget {
   AlbumView({super.key, required this.albumId});
 
   final String albumId;
-  final CarouselOptions myCarouselOptions = CarouselOptions(
-    height: 200.0,
-    aspectRatio: 1,
-    enableInfiniteScroll: true,
-    reverse: false,
-    enlargeCenterPage: true,
-    enlargeFactor: 0.3,
-    viewportFraction: 0.5,
-  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

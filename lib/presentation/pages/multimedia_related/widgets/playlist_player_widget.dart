@@ -40,7 +40,7 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
               icon: Icon(
                 isPlaying ? Icons.pause : Icons.play_arrow,
               ),
-              iconSize: 25,
+              iconSize: 35,
               color: Colors.white,
               onPressed: () {
                 setState(() {
@@ -55,13 +55,14 @@ class _PlaylistPlayerState extends State<PlaylistPlayer> {
               },
             ),
           ),
-          SizedBox(width: 8),
+          SizedBox(width: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Placeholder(
-                fallbackHeight: 50,
-                fallbackWidth: 250,
+              Image.asset(
+                'assets/images/audio_waveform_placeholder.png',
+                width: 260,
+                height: 60,
               ),
               Row(
                 children: [
