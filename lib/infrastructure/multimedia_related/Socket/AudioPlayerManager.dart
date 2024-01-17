@@ -8,8 +8,8 @@ class AudioPlayerManager {
   late FragmentedAudioSource _fragmentedAudioSource;
 
   // InfoProvided related
-  late List<String> songsList;
-  late String currentSongid;
+  late List<String> songsList = [];
+  late String currentSongid = '';
 
   AudioPlayerManager() {
     startPlayer();
