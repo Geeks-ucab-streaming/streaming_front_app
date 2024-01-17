@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:just_audio/just_audio.dart';
 import 'SocketManager.dart';
 import 'FragmentedAudioSource.dart';
@@ -10,9 +8,8 @@ class AudioPlayerManager {
   late FragmentedAudioSource _fragmentedAudioSource;
 
   // InfoProvided related
-  late List<String> songsList = [];
-  late String currentSongid = '';
-  late bool preview;
+  late List<String> songsList;
+  late String currentSongid;
 
   AudioPlayerManager() {
     startPlayer();
@@ -21,17 +18,8 @@ class AudioPlayerManager {
   void startPlayer() {
     _fragmentedAudioSource = FragmentedAudioSource();
     _player.setAudioSource(_fragmentedAudioSource);
-    startListening(socket.dataStream);
+    _fragmentedAudioSource.startListening(socket.dataStream);
     startListenerNextSong();
-  }
-
-  void startListening(Stream<Uint8List> stream) {
-    stream.listen(
-      (chunk) async {
-        _fragmentedAudioSource.addChunk(chunk);
-      },
-      onError: (error) => print('Error: $error'),
-    );
   }
 
   void startListenerNextSong() {
@@ -67,7 +55,7 @@ class AudioPlayerManager {
         await _player.seek(Duration.zero);
         _fragmentedAudioSource.clear();
       });
-      socket.requestSongToServer(nextSongId, preview);
+      socket.requestSongToServer(nextSongId);
       await playerOperation(_player.play);
     } catch (e) {
       print('Error al cambiar la canción: $e');
@@ -78,7 +66,7 @@ class AudioPlayerManager {
   Future<void> previousSongSaftely() async =>
       changeSong(previousElementCircular);
 
-  Future<void> setPlaylist(List<String> newSongsList, bool preview) async {
+  Future<void> setPlaylist(List<String> newSongsList) async {
     try {
       // Vaciar y resetear el player
       await _player.stop();
@@ -88,7 +76,7 @@ class AudioPlayerManager {
       songsList = newSongsList;
       currentSongid = newSongsList.isNotEmpty ? newSongsList[0] : '';
       // Solicitar la nueva canción al servidor
-      socket.requestSongToServer(currentSongid, preview);
+      socket.requestSongToServer(currentSongid);
     } catch (e) {
       print('Error al actualizar la lista: $e');
     }

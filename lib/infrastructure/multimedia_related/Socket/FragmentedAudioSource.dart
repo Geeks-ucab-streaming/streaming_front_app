@@ -9,6 +9,15 @@ class FragmentedAudioSource extends StreamAudioSource {
     _streamController.add(chunk);
   }
 
+  void startListening(Stream<Uint8List> stream) {
+    stream.listen(
+      (chunk) async {
+        addChunk(chunk);
+      },
+      onError: (error) => print('Error: $error'),
+    );
+  }
+
   @override
   Future<StreamAudioResponse> request([int? start, int? end]) async {
     return StreamAudioResponse(
