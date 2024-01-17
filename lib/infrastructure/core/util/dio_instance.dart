@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 abstract class DioInstance {
   @Named("BaseUrl")
   String get baseUrl =>
-      'https://soundspace-api-production-3d1f.up.railway.app/api';
+      'http://streaming-api.eastus.azurecontainer.io:3000/api';
 
   // url here will be injected
   @lazySingleton
