@@ -25,11 +25,14 @@ class SocketManager {
     _socketConnectedCompleter = Completer<void>();
     String? token = await getToken();
     try {
-      socket = IO.io(IO.OptionBuilder()
-          .setTransports(['websocket'])
-          .setAuth({'token': token})
-          .setPath('/socket.io')
-          .build());
+      socket = socket = IO.io(
+          'http://streaming-api.eastus.azurecontainer.io:3000',
+          <String, dynamic>{
+            'transports': ['websocket'],
+            'auth': {
+              'token': token,
+            },
+          });
       addlisteners();
     } catch (e) {
       print('Error al conectar el socket: $e');
