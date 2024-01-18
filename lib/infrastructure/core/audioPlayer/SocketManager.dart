@@ -42,6 +42,7 @@ class SocketManager {
   Future<String?> getToken() async {
     GetIt getIt = GetIt.I;
     final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
+    await localStorage.ready;
     String? token = await localStorage.getItem('token');
     String? guestToken = await localStorage.getItem('lastGuestToken');
     // donde tengas que poner el tokem
