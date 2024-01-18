@@ -1,27 +1,16 @@
-import 'dart:ui';
-
-import 'package:carousel_slider/carousel_options.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:streaming_front_app/infrastructure/core/util/util.dart';
-import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
+
 import '../../../../application/multimedia_related/use_cases/album_info/get_album_info.dart';
+import '../../../../infrastructure/core/util/util.dart';
+import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
 class AlbumView extends ConsumerWidget {
-  AlbumView({super.key, required this.albumId});
+  const AlbumView({super.key, required this.albumId});
 
   final String albumId;
-  final CarouselOptions myCarouselOptions = CarouselOptions(
-    height: 200.0,
-    aspectRatio: 1,
-    enableInfiniteScroll: true,
-    reverse: false,
-    enlargeCenterPage: true,
-    enlargeFactor: 0.3,
-    viewportFraction: 0.5,
-  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

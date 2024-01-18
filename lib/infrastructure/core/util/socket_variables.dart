@@ -1,8 +1,8 @@
 class SocketVariablesGetter {
   static const hackersSocketUrl =
-      'https://soundspace-api-production-3d1f.up.railway.app';
+      'https://soundspace-api-production-74fe.up.railway.app';
   static const geeksSocketUrl =
-      'http://streaming-api.eastus.azurecontainer.io:3000';
+      'https://streaming-api-production-48db.up.railway.app';
   static const activeTeam = 'HACKERS';
 
   static String getActiveTeam() {
