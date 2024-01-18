@@ -79,9 +79,10 @@ class _PlaylistPlayerState extends ConsumerState<PlaylistPlayer> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Placeholder(
-                fallbackHeight: 50,
-                fallbackWidth: 250,
+              Image(
+                height: MediaQuery.of(context).size.width * 0.14,
+                image: const AssetImage(
+                    'assets/images/audio_waveform_placeholder.png'),
               ),
               Row(
                 children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../infrastructure/multimedia_related/Socket/AudioPlayerManager.dart';
+import '../../../infrastructure/core/audioPlayer/AudioPlayerManager.dart';
 import 'current_song_on_player.dart';
 
 part 'music_player.g.dart';
