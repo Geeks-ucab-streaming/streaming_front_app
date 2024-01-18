@@ -63,6 +63,7 @@ class SocketManager {
   Future<void> requestSongToServer(String currentSongid) async {
     // Espera a que el socket se conecte
     await _socketConnectedCompleter.future;
+    await resetSocketState();
 
     // Verifica si el socket está conectado antes de enviar la solicitud
     if (socket?.connected ?? false) {
@@ -145,5 +146,18 @@ class SocketManager {
 
   void disconnectSocket() {
     socket?.disconnect();
+  }
+
+  Future<void> stopSocekt() async {
+    if (socket?.connected ?? false) {
+      socket?.emit('client-stopping');
+    }
+  }
+
+  Future<void> resetSocketState() async {
+    await stopSocekt();
+    isProcessingQueue = false;
+    isUpdating = false;
+    bufferQueue = [];
   }
 }
