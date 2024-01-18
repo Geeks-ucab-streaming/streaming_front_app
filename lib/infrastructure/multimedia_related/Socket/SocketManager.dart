@@ -30,7 +30,7 @@ class SocketManager {
           <String, dynamic>{
             'transports': ['websocket'],
             'auth': {
-              'token': token,
+            'token': token,
             },
           });
       addlisteners();
@@ -44,7 +44,6 @@ class SocketManager {
     final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
     String? token = await localStorage.getItem('token');
     String? guestToken = await localStorage.getItem('lastGuestToken');
-    // donde tengas que poner el tokem
     return (token != null) ? token : guestToken as String;
   }
 
@@ -129,5 +128,9 @@ class SocketManager {
   void dispose() {
     _streamController.close();
     socket?.dispose();
+  }
+
+  void disconnectSocket() {
+    socket?.disconnect();
   }
 }
