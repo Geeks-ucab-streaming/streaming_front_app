@@ -103,7 +103,7 @@ class AuthRepositoryImpl extends IAuthRepository {
         jwtToken: jwtToken,
       );
       // save the token to local storage
-      await _saveGuestTokenToLocalStorage(jwtToken: jwtToken);
+      await _saveTokenToLocalStorage(jwtToken: jwtToken);
       // return the domain element
       return Right(jwtToken);
     } on DioException catch (error) {
@@ -286,18 +286,5 @@ class AuthRepositoryImpl extends IAuthRepository {
     await localStorage.ready;
     // save the token to local storage
     await localStorage.setItem('token', jwtToken.value);
-  }
-
-  Future<void> _saveGuestTokenToLocalStorage({
-    required JwtToken jwtToken,
-  }) async {
-    // getIt instance
-    GetIt getIt = GetIt.I;
-    // get the local storage instance
-    final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
-    // await for the local storage to be ready
-    await localStorage.ready;
-    // save the token to local storage
-    await localStorage.setItem('lastGuestToken', jwtToken.value);
   }
 }

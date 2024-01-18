@@ -44,9 +44,7 @@ class SocketManager {
     final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
     await localStorage.ready;
     String? token = await localStorage.getItem('token');
-    String? guestToken = await localStorage.getItem('lastGuestToken');
-    // donde tengas que poner el tokem
-    return (token != null) ? token : guestToken as String;
+    return token as String;
   }
 
   Future<void> requestSongToServer(String currentSongid) async {
