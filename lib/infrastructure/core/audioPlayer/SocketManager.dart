@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:get_it/get_it.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:streaming_front_app/infrastructure/core/util/local_storage_instance.dart';
+import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
 class SocketManager {
   IO.Socket? socket;
@@ -24,18 +25,30 @@ class SocketManager {
   void connectSocket() async {
     _socketConnectedCompleter = Completer<void>();
     String? token = await getToken();
-    try {
-      socket = socket = IO.io(
-          'http://streaming-api.eastus.azurecontainer.io:3000',
-          <String, dynamic>{
+    if (SocketVariablesGetter.getActiveTeam() == 'GEEKS') {
+      try {
+        socket = IO.io(
+            SocketVariablesGetter.getSocketUrl(),<String, dynamic>{
+              'transports': ['websocket'],
+              'auth': {'token': token}}
+            );
+        addlisteners();
+      } catch (e) {
+        print('Error al conectar el socket de GEEKS: $e');
+      }
+    }
+    if (SocketVariablesGetter.getActiveTeam() == 'HACKERS') {
+      try {
+         socket = IO.io(
+          SocketVariablesGetter.getSocketUrl(), <String, dynamic>{
             'transports': ['websocket'],
-            'auth': {
-            'token': token,
-            },
-          });
-      addlisteners();
-    } catch (e) {
-      print('Error al conectar el socket: $e');
+            'auth': {'token': token},
+            'path': '/socket.io',}
+         );
+        addlisteners();
+      } catch (e) {
+        print('Error al conectar el socke de HACKERS: $e');
+      }
     }
   }
 
