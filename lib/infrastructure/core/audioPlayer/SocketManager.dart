@@ -27,11 +27,10 @@ class SocketManager {
     String? token = await getToken();
     if (SocketVariablesGetter.getActiveTeam() == 'GEEKS') {
       try {
-        socket = IO.io(
-            SocketVariablesGetter.getSocketUrl(),<String, dynamic>{
-              'transports': ['websocket'],
-              'auth': {'token': token}}
-            );
+        socket = IO.io(SocketVariablesGetter.getSocketUrl(), <String, dynamic>{
+          'transports': ['websocket'],
+          'auth': {'token': token}
+        });
         addlisteners();
       } catch (e) {
         print('Error al conectar el socket de GEEKS: $e');
@@ -39,12 +38,11 @@ class SocketManager {
     }
     if (SocketVariablesGetter.getActiveTeam() == 'HACKERS') {
       try {
-         socket = IO.io(
-          SocketVariablesGetter.getSocketUrl(), <String, dynamic>{
-            'transports': ['websocket'],
-            'auth': {'token': token},
-            'path': '/socket.io',}
-         );
+        socket = IO.io(SocketVariablesGetter.getSocketUrl(), <String, dynamic>{
+          'transports': ['websocket'],
+          'auth': {'token': token},
+          'path': '/socket.io',
+        });
         addlisteners();
       } catch (e) {
         print('Error al conectar el socke de HACKERS: $e');
@@ -55,6 +53,7 @@ class SocketManager {
   Future<String?> getToken() async {
     GetIt getIt = GetIt.I;
     final localStorage = getIt<LocalStorageInstance>().getLocalStorage();
+    await localStorage.ready;
     String? token = await localStorage.getItem('token');
     String? guestToken = await localStorage.getItem('lastGuestToken');
     return (token != null) ? token : guestToken as String;

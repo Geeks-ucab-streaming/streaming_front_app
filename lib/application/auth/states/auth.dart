@@ -1,6 +1,7 @@
 //import 'package:get_it/get_it.dart'; it will be needed for repositories
 import 'package:get_it/get_it.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:streaming_front_app/application/core/music_player/music_player.dart';
 import 'package:streaming_front_app/application/core/routes/app_router.dart';
 import 'package:streaming_front_app/domain/auth/data_presentation/data_presentation.dart';
 import 'package:streaming_front_app/domain/auth/mappers/mappers.dart';
@@ -48,6 +49,8 @@ class Auth extends _$Auth {
     // update router and go to landing page
     ref.read(appRouterProvider.notifier).changeRouterBasedOnLogout();
     ref.read(appRouterProvider).goNamed('landing');
+    // kill the player
+    ref.read(musicPlayerProvider.notifier).dispose();
   }
 
   UserPresentation getUserInfoToShow() {
