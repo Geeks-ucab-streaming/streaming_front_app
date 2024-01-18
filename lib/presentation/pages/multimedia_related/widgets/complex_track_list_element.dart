@@ -3,11 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:streaming_front_app/application/core/music_player/current_song_on_player.dart';
-import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
 import '../../../../application/core/music_player/current_song_on_player.dart';
 import '../../../../application/core/music_player/music_player.dart';
+import '../../../../infrastructure/core/util/util.dart';
 
 class ComplexTrackListElement extends StatefulHookConsumerWidget {
   const ComplexTrackListElement({

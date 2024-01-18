@@ -3,11 +3,12 @@ class SongDurationFormatter {
     String formattedDuration = '';
     // try to format duration
     try {
-      var reversed = songDuration.split('').reversed.join();
-      if (reversed[4] == '0') {
-        formattedDuration = reversed.substring(0, 4).split('').reversed.join();
-      } else {
-        formattedDuration = reversed.substring(0, 5).split('').reversed.join();
+      var duration = songDuration.split(':');
+
+      if (duration[0] == '00') {
+        formattedDuration = songDuration.substring(4, 8);
+      } else if (duration[0].startsWith('0')) {
+        formattedDuration = songDuration.substring(1, 5);
       }
     } catch (e) {
       formattedDuration = songDuration;

@@ -1,16 +1,14 @@
-import 'dart:ui';
-
-import 'package:carousel_slider/carousel_options.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:streaming_front_app/infrastructure/core/util/util.dart';
-import 'package:streaming_front_app/presentation/pages/core/widgets/widgets.dart';
+
 import '../../../../application/multimedia_related/use_cases/album_info/get_album_info.dart';
+import '../../../../infrastructure/core/util/util.dart';
+import '../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
 class AlbumView extends ConsumerWidget {
-  AlbumView({super.key, required this.albumId});
+  const AlbumView({super.key, required this.albumId});
 
   final String albumId;
 
@@ -132,9 +130,11 @@ class AlbumView extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    //PlaylistPlayer(
-                    //playListSongs: value.songs,
-                    //),
+                    PlaylistPlayer(
+                      currentSongId: value.songs.map((e) => e.id).toList()[0],
+                      playListSongs: value.songs.map((e) => e.id).toList(),
+                      songName: value.songs[0].name,
+                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(

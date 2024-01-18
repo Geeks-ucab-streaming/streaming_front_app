@@ -125,7 +125,9 @@ class PlaylistView extends ConsumerWidget {
                         height: 10,
                       ),
                       PlaylistPlayer(
-                        playListSongs: value.songs,
+                        currentSongId: value.songs.map((e) => e.id).toList()[0],
+                        playListSongs: value.songs.map((e) => e.id).toList(),
+                        songName: value.songs[0].name,
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
