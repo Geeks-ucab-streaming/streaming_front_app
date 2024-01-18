@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:streaming_front_app/application/core/music_player/current_song_on_player.dart';
 import 'package:streaming_front_app/infrastructure/core/util/util.dart';
 
+import '../../../../application/core/music_player/current_song_on_player.dart';
 import '../../../../application/core/music_player/music_player.dart';
 
 class ComplexTrackListElement extends StatefulHookConsumerWidget {
@@ -36,19 +37,34 @@ class _ComplexTrackListElementState
     // provider to watch
     final CurrentSong currentSongOnPlayer =
         ref.watch(currentSongOnPlayerProvider);
+    // listen to player state
+    ref.watch(musicPlayerProvider);
     // icon to show based on the player
     ValueNotifier<IconData> iconToDisplay = useState(
-      ref.read(musicPlayerProvider.notifier).getIconForSingleSong(
-            songId: widget.songId,
-          ),
+      ref
+          .read(musicPlayerProvider.notifier)
+          .getIconForSingleSongTest(songId: widget.songId),
     );
     // update the icon if the song is not the same
     if (currentSongOnPlayer.id != widget.songId) {
       iconToDisplay.value = Icons.play_arrow;
     }
 
-    print(
-        '/////////////////////// Value of the id of the song: ${currentSongOnPlayer.id}');
+    void handlePlay() async {
+      await ref
+          .read(musicPlayerProvider.notifier)
+          .playOnlySong(
+            songId: widget.songId,
+            name: widget.songName,
+            artists: widget.songComposer,
+          )
+          .then((value) {
+        iconToDisplay.value = ref
+            .read(musicPlayerProvider.notifier)
+            .getIconForSingleSong(songId: widget.songId);
+        print('////////////////////// Finalizo el play');
+      });
+    }
 
     return Container(
       decoration: const BoxDecoration(
@@ -139,14 +155,7 @@ class _ComplexTrackListElementState
                 ),
                 IconButton(
                   onPressed: () {
-                    ref.read(musicPlayerProvider.notifier).playOnlySong(
-                          songId: widget.songId,
-                        );
-                    iconToDisplay.value = ref
-                        .read(musicPlayerProvider.notifier)
-                        .getIconForSingleSong(
-                          songId: widget.songId,
-                        );
+                    handlePlay();
                   },
                   icon: Icon(
                     iconToDisplay.value,

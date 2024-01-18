@@ -17,12 +17,17 @@ class SimpleTrackListElement extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future<void> handleClick() async {
-      ref.read(musicPlayerProvider.notifier).playOnlySong(
+    void handlePlay() async {
+      await ref
+          .read(musicPlayerProvider.notifier)
+          .playOnlySong(
             songId: songId,
-          );
-      print('En Handle click');
-      //updateIcon();
+            name: songName,
+            artists: '',
+          )
+          .then((value) {
+        print('////////////////////// Finalizo el play');
+      });
     }
 
     return Container(
@@ -37,8 +42,8 @@ class SimpleTrackListElement extends ConsumerWidget {
       ),
       child: ListTile(
         leading: InkWell(
-          onTap: () async {
-            await handleClick();
+          onTap: () {
+            handlePlay();
           },
           child: const Icon(
             Icons.play_arrow,

@@ -21,7 +21,13 @@ class MusicPlayer extends _$MusicPlayer {
 
   Future<void> playOnlySong({
     required String songId,
+    required String name,
+    required String artists,
   }) async {
+    // verify if the socket is loading
+    if (state.socket.isUpdating) {
+      return;
+    }
     if (state.isPlaying() && state.currentSongid == songId) {
       // song playing is the same of the player and it is playing so pause it
       await state.pauseSong();
@@ -36,8 +42,8 @@ class MusicPlayer extends _$MusicPlayer {
       // set the state of the global current song
       _updateCurrentSongOnPlayerState(
         id: songId,
-        name: '',
-        artists: [],
+        name: name,
+        artists: artists,
       );
     } else if (!state.isPlaying() && state.currentSongid != songId) {
       // song playing is different from the one of the player
@@ -47,8 +53,8 @@ class MusicPlayer extends _$MusicPlayer {
       // set the state of the global current song
       _updateCurrentSongOnPlayerState(
         id: songId,
-        name: '',
-        artists: [],
+        name: name,
+        artists: artists,
       );
     } else if (!state.hasSongsLoaded()) {
       // player is empty
@@ -57,24 +63,69 @@ class MusicPlayer extends _$MusicPlayer {
       // set the state of the global current song
       _updateCurrentSongOnPlayerState(
         id: songId,
-        name: '',
-        artists: [],
+        name: name,
+        artists: artists,
       );
     }
+
+    // refresh widgets listening to him
+    ref.notifyListeners();
+    await Future(() {});
   }
 
   Future<void> playPlaylist({
-    required List<String> songIds,
-    required String playlistId,
+    required List<String> songsIds,
+    required String currentSongId,
+    required String name,
+    required String artists,
   }) async {
-    // TODO manage the stop method
-
-    if (state.isPlaying()) {
+    // verify if the socket is loading
+    if (state.socket.isUpdating) {
+      return;
+    }
+    if (state.isPlaying() && state.currentSongid == currentSongId) {
+      // song playing is the same of the player and it is playing so pause it
+      await state.pauseSong();
+    } else if (!state.isPlaying() && state.currentSongid == currentSongId) {
+      // song playing is the same of the player and it is not playing so play it
+      await state.playSong();
+    } else if (state.isPlaying() && state.currentSongid != currentSongId) {
+      // song playing is different from the one of the player
       await state.stopSong();
+      await state.setPlaylist(songsIds);
+      await state.playSong();
+      // set the state of the global current song
+      _updateCurrentSongOnPlayerState(
+        id: currentSongId,
+        name: name,
+        artists: artists,
+      );
+    } else if (!state.isPlaying() && state.currentSongid != currentSongId) {
+      // song playing is different from the one of the player
+      await state.stopSong();
+      await state.setPlaylist(songsIds);
+      await state.playSong();
+      // set the state of the global current song
+      _updateCurrentSongOnPlayerState(
+        id: currentSongId,
+        name: name,
+        artists: artists,
+      );
+    } else if (!state.hasSongsLoaded()) {
+      // player is empty
+      await state.setPlaylist(songsIds);
+      await state.playSong();
+      // set the state of the global current song
+      _updateCurrentSongOnPlayerState(
+        id: currentSongId,
+        name: name,
+        artists: artists,
+      );
     }
 
-    await state.setPlaylist(songIds);
-    await state.playSong();
+    // refresh widgets listening to him
+    ref.notifyListeners();
+    await Future(() {});
   }
 
   IconData getIconForSingleSong({
@@ -82,9 +133,7 @@ class MusicPlayer extends _$MusicPlayer {
   }) {
     if (state.isPlaying() && state.currentSongid == songId) {
       return Icons.pause;
-    } else if (state.isPlaying() &&
-        state.currentSongid == songId &&
-        state.socket.isProcessingQueue) {
+    } else if (state.isProcessingQueue() && state.currentSongid == songId) {
       return Icons.pause;
     } else if (!state.isPlaying() && state.currentSongid == songId) {
       return Icons.play_arrow;
@@ -93,17 +142,41 @@ class MusicPlayer extends _$MusicPlayer {
     }
   }
 
+  IconData getIconForSingleSongTest({
+    required String songId,
+  }) {
+    // icon to return
+    IconData icon = Icons.abc_outlined;
+    // listen to the state
+    state.stateStream.listen((state) {
+      switch (state) {
+        case AudioPlayerState.playing:
+          icon = Icons.pause;
+          break;
+        case AudioPlayerState.paused:
+          icon = Icons.play_arrow;
+          break;
+        default:
+      }
+    });
+    return icon;
+  }
+
+  Stream<AudioPlayerState> exposePlayerState() {
+    return state.stateStream;
+  }
+
   _updateCurrentSongOnPlayerState({
     required String id,
     required String name,
-    required List<String> artists,
+    required String artists,
   }) {
 // set the state of the global current song
     ref.read(currentSongOnPlayerProvider.notifier).clearState();
     ref.read(currentSongOnPlayerProvider.notifier).setState(
-      id: id,
-      name: '',
-      artists: [],
-    );
+          id: id,
+          name: name,
+          artists: artists,
+        );
   }
 }
