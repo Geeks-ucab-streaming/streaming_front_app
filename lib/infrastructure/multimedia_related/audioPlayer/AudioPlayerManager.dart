@@ -39,6 +39,14 @@ class AudioPlayerManager {
     });
   }
 
+  void connectSocket() {
+    socket.connectSocket();
+  }
+
+  void disconectSocket() {
+    socket.disconnectSocket();
+  }
+
   //Funciones basicas
 
   Future<void> playerOperation(
