@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:streaming_front_app/application/core/music_player/current_song_on_player.dart';
-import 'package:streaming_front_app/application/core/music_player/music_player.dart';
-import 'package:streaming_front_app/domain/multimedia_related/data_presentation/data_presentation.dart';
+
+import '../../../../application/core/music_player/music_player.dart';
 
 class PlaylistPlayer extends StatefulHookConsumerWidget {
   const PlaylistPlayer({
     Key? key,
+    required this.currentSongId,
     required this.playListSongs,
+    required this.songName,
   }) : super(key: key);
 
-  final List<PlaylistSongPresentation> playListSongs;
+  final String currentSongId;
+  final List<String> playListSongs;
+  final String songName;
 
   @override
   ConsumerState<PlaylistPlayer> createState() => _PlaylistPlayerState();
@@ -21,24 +25,26 @@ class _PlaylistPlayerState extends ConsumerState<PlaylistPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    // provider to watch
-    final CurrentSong currentSongOnPlayer =
-        ref.watch(currentSongOnPlayerProvider);
+    // listen to player state
+    final playerState = ref.watch(musicPlayerProvider);
+    // icon to show based on the player
+    ValueNotifier<IconData> iconToDisplay = useState(
+      ref
+          .read(musicPlayerProvider.notifier)
+          .getIconForSingleSong(songId: widget.currentSongId),
+    );
     // listen to player state
     ref.watch(musicPlayerProvider);
 
-    void handlePlay() async {
-      await ref
-          .read(musicPlayerProvider.notifier)
-          .playPlaylist(
-            songsIds: widget.playListSongs.map((e) => e.id).toList(),
-            currentSongId: widget.playListSongs.map((e) => e.id).toList()[0],
-            name: widget.playListSongs[0].name,
+    void handlePlay() {
+      ref.read(musicPlayerProvider.notifier).playPlaylist(
+            currentSongId: widget.currentSongId,
+            songsIds: widget.playListSongs,
+            name: widget.songName,
             artists: '',
-          )
-          .then((value) {
-        print('////////////////////// Finalizo el play');
-      });
+          );
+      iconToDisplay.value =
+          (playerState.isPlaying()) ? Icons.pause : Icons.play_arrow;
     }
 
     return Container(
@@ -60,7 +66,7 @@ class _PlaylistPlayerState extends ConsumerState<PlaylistPlayer> {
             ),
             child: IconButton(
               icon: Icon(
-                isPlaying ? Icons.pause : Icons.play_arrow,
+                iconToDisplay.value,
               ),
               iconSize: 25,
               color: Colors.white,

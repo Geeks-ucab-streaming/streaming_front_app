@@ -25,17 +25,20 @@ class _PlayerBarState extends ConsumerState<PlayerBar> {
     // is playing value
     //ValueNotifier<bool> isPlaying = useState(false);
 
-    void handlePlay() async {
-      await ref
-          .read(musicPlayerProvider.notifier)
-          .playOnlySong(
+    void handlePlay() {
+      ref.read(musicPlayerProvider.notifier).playOnlySong(
             songId: currentSongOnPlayer.getId(),
             name: currentSongOnPlayer.getName(),
             artists: currentSongOnPlayer.getArtists(),
-          )
-          .then((value) {
-        print('////////////////////// Finalizo el play');
-      });
+          );
+    }
+
+    void handleNextSong() {
+      ref.read(musicPlayerProvider.notifier).playNextSong();
+    }
+
+    void handlePreviousSong() {
+      ref.read(musicPlayerProvider.notifier).playPreviousSong();
     }
 
     return Container(
@@ -85,6 +88,7 @@ class _PlayerBarState extends ConsumerState<PlayerBar> {
             color: Colors.white,
             onPressed: () {
               // Handle previous song logic
+              handlePreviousSong();
             },
           ),
           IconButton(
@@ -92,6 +96,7 @@ class _PlayerBarState extends ConsumerState<PlayerBar> {
             color: Colors.white,
             onPressed: () {
               // Handle next song logic
+              handleNextSong();
             },
           ),
         ],
