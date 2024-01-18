@@ -17,17 +17,12 @@ class SimpleTrackListElement extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    void handlePlay() async {
-      await ref
-          .read(musicPlayerProvider.notifier)
-          .playOnlySong(
+    void handlePlay() {
+      ref.read(musicPlayerProvider.notifier).playOnlySong(
             songId: songId,
             name: songName,
             artists: '',
-          )
-          .then((value) {
-        print('////////////////////// Finalizo el play');
-      });
+          );
     }
 
     return Container(

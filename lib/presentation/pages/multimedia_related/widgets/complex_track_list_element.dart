@@ -37,32 +37,26 @@ class _ComplexTrackListElementState
     final CurrentSong currentSongOnPlayer =
         ref.watch(currentSongOnPlayerProvider);
     // listen to player state
-    ref.watch(musicPlayerProvider);
+    final playerState = ref.watch(musicPlayerProvider);
     // icon to show based on the player
     ValueNotifier<IconData> iconToDisplay = useState(
       ref
           .read(musicPlayerProvider.notifier)
-          .getIconForSingleSongTest(songId: widget.songId),
+          .getIconForSingleSong(songId: widget.songId),
     );
     // update the icon if the song is not the same
     if (currentSongOnPlayer.id != widget.songId) {
       iconToDisplay.value = Icons.play_arrow;
     }
 
-    void handlePlay() async {
-      await ref
-          .read(musicPlayerProvider.notifier)
-          .playOnlySong(
+    void handlePlay() {
+      ref.read(musicPlayerProvider.notifier).playOnlySong(
             songId: widget.songId,
             name: widget.songName,
             artists: widget.songComposer,
-          )
-          .then((value) {
-        iconToDisplay.value = ref
-            .read(musicPlayerProvider.notifier)
-            .getIconForSingleSong(songId: widget.songId);
-        print('////////////////////// Finalizo el play');
-      });
+          );
+      iconToDisplay.value =
+          (playerState.isPlaying()) ? Icons.pause : Icons.play_arrow;
     }
 
     return Container(

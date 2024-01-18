@@ -81,8 +81,8 @@ class _PlaylistPlayerState extends ConsumerState<PlaylistPlayer> {
             children: [
               Image(
                 height: MediaQuery.of(context).size.width * 0.14,
-                image:
-                    AssetImage('assets/images/audio_waveform_placeholder.png'),
+                image: const AssetImage(
+                    'assets/images/audio_waveform_placeholder.png'),
               ),
               Row(
                 children: [
