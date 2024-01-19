@@ -1,16 +1,20 @@
-# streaming_front_app
+# Streaming app
 
 Flutter project for a music streaming app, consuming the 'streaming-api'.
 
 ## Used architecture
 
-The project seeks to use the architecture established by Reso Coder (*https://resocoder.com/2020/03/09/flutter-firebase-ddd-course-1-domain-driven-design-principles/*) with some minors modifications based on some others sources as Flutter Guys (*https://www.youtube.com/watch?v=7V_P6dovixg*), AbdulMuaz Aqeel (*https://devmuaz.medium.com/flutter-clean-architecture-series-part-1-d2d4c2e75c47*) and Petros Efthymiou on his book Clean mobile Architecture.
+The project seeks to use the architecture established by [Reso Coder](https://resocoder.com/2020/03/09/flutter-firebase-ddd-course-1-domain-driven-design-principles/) with some modifications based on some others sources as [Flutter Guys](https://youtu.be/7V_P6dovixg?si=0WcKiyCWNPymxgGZ), [AbdulMuaz Aqeel](https://devmuaz.medium.com/flutter-clean-architecture-series-part-1-d2d4c2e75c47) and Petros Efthymiou on his book Clean mobile Architecture.
 
-### Architecture Diagram
+### Architecture Overview Diagram
 
-![Architecture diagram](streaming_front_app/../architecture.png)
+![Architecture overview diagram](streaming_front_app/../architecture_overview.png)
 
-Full diagram in: (https://lucid.app/lucidchart/cbad860d-7bc1-4f19-9395-d68ed5985418/edit?viewport_loc=-1626%2C-4568%2C7603%2C6212%2C0_0&invitationId=inv_d488204c-2be8-4240-83ce-38d173dea83b)
+### Architecture Overview Diagram
+
+![Architecture detail diagram](streaming_front_app/../architecture_detail.png)
+
+[Full diagram here ](https://lucid.app/lucidchart/cbad860d-7bc1-4f19-9395-d68ed5985418/edit?viewport_loc=-1626%2C-4568%2C7603%2C6212%2C0_0&invitationId=inv_d488204c-2be8-4240-83ce-38d173dea83b)
 
 ## Main dependencies
 
